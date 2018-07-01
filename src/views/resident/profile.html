@@ -13,204 +13,441 @@
 </head>
 <body>
 
+  <style>
+  .layui-upload-img{width: 150px; height: 150px; margin: 0 10px 10px 0;}
+  </style>
+
   <div class="layui-fluid">
-    <div class="layui-row layui-col-space15">
-      <div class="layui-col-md6">
-        <div class="layui-card">
-          <div class="layui-card-header">输入框</div>
-          <div class="layui-card-body layui-row layui-col-space10">
+    <div class="layui-card">
+      <div class="layui-card-header">个人基本信息 （编号001）</div>
+      <div class="layui-card-body layui-row layui-col-space10">
+        <form class="layui-form" action="" lay-filter="component-form-group">
+          <div class="layui-row layui-col-space10 layui-form-item">
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">个人照片</label>
+              <div class="layui-input-block">
+                <div class="layui-upload">
+                  <button type="button" class="layui-btn" id="xy-resident-avatar">上传图片</button>
+                  <div class="layui-upload-list">
+                    <img class="layui-upload-img" id="xy-resident-avatar-img">
+                    <p id="xy-redident-avatar-text"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">姓名</label>
+              <div class="layui-input-block">
+                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">性别</label>
+              <div class="layui-input-block">
+                <select name="sex" lay-verify="required">
+                  <option value="">请选择</option>
+                  <option value="1">男</option>
+                  <option value="0">女</option>
+                </select>
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">出生日期</label>
+              <div class="layui-input-block">
+                <input type="text" name="birthday" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-resident-date">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">婚姻状况</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">身份证号</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">民族</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">贫困户</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">贫困原因</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">建档时间</label>
+              <div class="layui-input-block">
+                <input type="text" name="create" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-resident-date">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">建档机构</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">建档人</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">医疗费用支付方式</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">管理机构</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">责任医生</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">医生电话</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">文化程度</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">职业</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">工作单位</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
             <div class="layui-col-md12">
-              <input type="text" name="title" placeholder="请输入标题" autocomplete="off" class="layui-input">
+              <label class="layui-form-label">户籍地址</label>
+              <div class="layui-input-block">
+                <div class="layui-inline">
+                  <select name="quiz1">
+                    <option value="">请选择省</option>
+                    <option value="浙江" selected="">浙江省</option>
+                    <option value="你的工号">江西省</option>
+                    <option value="你最喜欢的老师">福建省</option>
+                  </select>
+                </div>
+                <div class="layui-inline">
+                  <select name="quiz2">
+                    <option value="">请选择市</option>
+                    <option value="杭州">杭州</option>
+                    <option value="宁波">宁波</option>
+                    <option value="温州">温州</option>
+                    <option value="温州">台州</option>
+                    <option value="温州">绍兴</option>
+                  </select>
+                </div>
+                <div class="layui-inline">
+                  <select name="quiz3">
+                    <option value="">请选择县/区</option>
+                    <option value="西湖区">西湖区</option>
+                    <option value="余杭区">余杭区</option>
+                    <option value="拱墅区">临安市</option>
+                  </select>
+                </div>
+                <div class="layui-inline">
+                  <input type="text" name="address" lay-verify="address" autocomplete="off" placeholder="请输入地址" class="layui-input">
+                </div>
+              </div>
             </div>
-            <div class="layui-col-md6">
-              <input type="text" name="title" placeholder="用户名" autocomplete="off" class="layui-input">
+            <div class="layui-col-md12">
+              <label class="layui-form-label">现住址</label>
+              <div class="layui-input-block">
+                <div class="layui-inline">
+                  <select name="quiz1">
+                    <option value="">请选择省</option>
+                    <option value="浙江" selected="">浙江省</option>
+                    <option value="你的工号">江西省</option>
+                    <option value="你最喜欢的老师">福建省</option>
+                  </select>
+                </div>
+                <div class="layui-inline">
+                  <select name="quiz2">
+                    <option value="">请选择市</option>
+                    <option value="杭州">杭州</option>
+                    <option value="宁波">宁波</option>
+                    <option value="温州">温州</option>
+                    <option value="温州">台州</option>
+                    <option value="温州">绍兴</option>
+                  </select>
+                </div>
+                <div class="layui-inline">
+                  <select name="quiz3">
+                    <option value="">请选择县/区</option>
+                    <option value="西湖区">西湖区</option>
+                    <option value="余杭区">余杭区</option>
+                    <option value="拱墅区">临安市</option>
+                  </select>
+                </div>
+              </div>
             </div>
-            <div class="layui-col-md6">
-              <input type="password" name="title" placeholder="密码" autocomplete="off" class="layui-input">
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">常住类型</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">其它联系电话</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">本人手机</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">是否以短信验证</label>
+              <div class="layui-input-block">
+                <input type="radio" name="veri" value="是" title="是">
+                <input type="radio" name="veri" value="否" title="否" checked>
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">紧急联系人</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">紧急联系人电话</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md3 layui-col-sm6">
+              <label class="layui-form-label">是否已关注微信</label>
+              <div class="layui-input-block">
+                <input type="radio" name="veri" value="是" title="是">
+                <input type="radio" name="veri" value="否" title="否" checked>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="layui-card layui-form" lay-filter="component-form-element">
-          <div class="layui-card-header">下拉选择框</div>
-          <div class="layui-card-body layui-row layui-col-space10">
-            <div class="layui-col-md6">
-              <select name="city" lay-verify="">
-                <option value="">请选择一个城市</option>
-                <option value="010">北京</option>
-                <option value="021">上海</option>
-                <option value="0571">杭州</option>
-              </select>
-            </div>
-            <div class="layui-col-md6">
-              <select name="city" lay-verify="">
-                <option value="010">北京</option>
-                <option value="021" disabled>上海（禁用效果）</option>
-                <option value="0571" selected>杭州</option>
-              </select> 
-            </div>
-            <div class="layui-col-md6">
-              <select name="quiz">
-                <option value="">请选择</option>
-                <optgroup label="城市记忆">
-                  <option value="你工作的第一个城市">你工作的第一个城市？</option>
-                </optgroup>
-                <optgroup label="学生时代">
-                  <option value="你的工号">你的工号？</option>
-                  <option value="你最喜欢的老师">你最喜欢的老师？</option>
-                </optgroup>
-              </select>
-            </div>
-            <div class="layui-col-md6">
-              <select name="city" lay-verify="required" lay-search>
-                <option value="">带搜索的选择框</option>
-                <option value="1">layer</option>
-                <option value="2">form</option>
-                <option value="3">layim</option>
-                <option value="4">element</option>
-                <option value="5">laytpl</option>
-                <option value="6">upload</option>
-                <option value="7">laydate</option>
-                <option value="8">laypage</option>
-                <option value="9">flow</option>
-                <option value="10">util</option>
-                <option value="11">code</option>
-                <option value="12">tree</option>
-                <option value="13">layedit</option>
-                <option value="14">nav</option>
-                <option value="15">tab</option>
-                <option value="16">table</option>
-                <option value="17">select</option>
-                <option value="18">checkbox</option>
-                <option value="19">switch</option>
-                <option value="20">radio</option>
-              </select>
-            </div>
-            <div class="layui-col-md12">
-              <select name="city" lay-verify="">
-                <option value="">请选择一个城市</option>
-                <option value="010">北京</option>
-                <option value="021">上海</option>
-                <option value="0571">杭州</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="layui-card layui-form" lay-filter="component-form-element">
-          <div class="layui-card-header">复选框</div>
-          <div class="layui-card-body layui-row layui-col-space10">
-            <div class="layui-col-md12">
-              <input type="checkbox" name="" title="写作" checked>
-              <input type="checkbox" name="" title="发呆"> 
-              <input type="checkbox" name="" title="禁用" disabled> 
-            </div>
-            <div class="layui-col-md12">
-              <input type="checkbox" name="" title="写作" lay-skin="primary" checked>
-              <input type="checkbox" name="" title="发呆" lay-skin="primary"> 
-              <input type="checkbox" name="" title="禁用" lay-skin="primary" disabled> 
-              <input type="checkbox" name="" lay-skin="primary"> 
-            </div>
-          </div>
-        </div>
-        <div class="layui-card layui-form" lay-filter="component-form-element">
-          <div class="layui-card-header">开关</div>
-          <div class="layui-card-body layui-row layui-col-space10">
-            <div class="layui-col-md12">
-              <input type="checkbox" name="xxx" lay-skin="switch">
-              <input type="checkbox" name="yyy" lay-skin="switch" lay-text="ON|OFF" checked>
-              <input type="checkbox" name="zzz" lay-skin="switch" lay-text="开启|关闭">
-              <input type="checkbox" name="aaa" lay-skin="switch" disabled>
-            </div>
-          </div>
-        </div>
-        <div class="layui-card layui-form" lay-filter="component-form-element">
-          <div class="layui-card-header">单选框</div>
-          <div class="layui-card-body layui-row layui-col-space10">
-            <div class="layui-col-md12">
-              <input type="radio" name="sex" value="nan" title="男">
-              <input type="radio" name="sex" value="nv" title="女" checked>
-              <input type="radio" name="sex" value="" title="中性" disabled>
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
-      <div class="layui-col-md6">
-        <div class="layui-card">
-          <div class="layui-card-header">文本域</div>
-          <div class="layui-card-body layui-row layui-col-space10">
-            <div class="layui-col-md12">
-              <textarea name="" placeholder="请输入" class="layui-textarea"></textarea>
+    </div>
+
+    <div class="layui-card">
+      <div class="layui-card-header">个人基本健康信息</div>
+      <div class="layui-card-body layui-row layui-col-space10">
+        <form class="layui-form" action="" lay-filter="component-form-group">
+          <div class="layui-row layui-col-space10 layui-form-item">
+            <div class="layui-col-md4 layui-col-sm6">
+              <label class="layui-form-label">血型</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md4 layui-col-sm6">
+              <label class="layui-form-label">RH血型</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md4 layui-col-sm6">
+              <label class="layui-form-label">身高</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md4 layui-col-sm6">
+              <label class="layui-form-label">体重</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-md4 layui-col-sm6">
+              <label class="layui-form-label">BMI</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="layui-card">
-          <div class="layui-card-header">响应式组合</div>
-          <div class="layui-card-body">
-            <form class="layui-form" action="" lay-filter="component-form-element">
-              <div class="layui-row layui-col-space10 layui-form-item">
-                <div class="layui-col-lg6">
-                  <label class="layui-form-label">员工姓名：</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="fullname" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
-                  </div>
-                </div>
-                <div class="layui-col-lg6">
-                  <label class="layui-form-label">技术工种：</label>
-                  <div class="layui-input-block">
-                    <select name="type" lay-verify="required" lay-filter="aihao">
-                      <option value=""></option>
-                      <option value="0">前端工程师</option>
-                      <option value="1">Node.js工程师</option>
-                      <option value="2">PHP工程师</option>
-                      <option value="3">Java工程师</option>
-                      <option value="4">运维</option>
-                      <option value="4">视觉设计师</option>
-                    </select>
-                  </div>
-                </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="layui-card">
+      <div class="layui-card-header">生活环境</div>
+      <div class="layui-card-body layui-row layui-col-space10">
+        <form class="layui-form" action="" lay-filter="component-form-group">
+          <div class="layui-row layui-col-space10 layui-form-item">
+            <div class="layui-col-md4 layui-col-sm6">
+              <label class="layui-form-label">厨房排风设施</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
-              <div class="layui-form-item">
-                <label class="layui-form-label">兴趣爱好：</label>
-                <div class="layui-input-block">
-                  <input type="checkbox" name="interest[write]" title="写作">
-                  <input type="checkbox" name="interest[read]" title="阅读">
-                  <input type="checkbox" name="interest[code]" title="代码" checked>
-                  <input type="checkbox" name="interest[dreaming]" title="做梦">
-                </div>
+            </div>
+            <div class="layui-col-md4 layui-col-sm6">
+              <label class="layui-form-label">燃料类型</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
-              <div class="layui-form-item">
-                <label class="layui-form-label">是否婚姻：</label>
-                <div class="layui-input-block">
-                  <input type="checkbox" name="marriage" lay-skin="switch" lay-text="是|否">
-                </div>
+            </div>
+            <div class="layui-col-md4 layui-col-sm6">
+              <label class="layui-form-label">饮水</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
-              <div class="layui-form-item">
-                <label class="layui-form-label">所属职称：</label>
-                <div class="layui-input-block">
-                  <input type="radio" name="role" value="" title="经理">
-                  <input type="radio" name="role" value="" title="主管">
-                  <input type="radio" name="role" value="" title="码农" checked>
-                  <input type="radio" name="role" value="" title="端水">
-                </div>
+            </div>
+            <div class="layui-col-md4 layui-col-sm6">
+              <label class="layui-form-label">厕所</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
-              <div class="layui-form-item">
-                <label class="layui-form-label">其它信息：</label>
-                <div class="layui-input-block">
-                  <textarea name="other" placeholder="" class="layui-textarea"></textarea>
-                </div>
+            </div>
+            <div class="layui-col-md4 layui-col-sm6">
+              <label class="layui-form-label">禽畜栏</label>
+              <div class="layui-input-block">
+                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
-              <div class="layui-form-item">
-                <label class="layui-form-label"> </label>
-                <div class="layui-input-block">
-                  <input type="checkbox" name="agreement" title="同意" lay-skin="primary" checked>
-                </div>
-              </div>
-              <div class="layui-form-item">
-                <div class="layui-input-block">
-                  <button class="layui-btn" lay-submit lay-filter="component-form-element">立即提交</button>
-                  <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                </div>
-              </div>
-            </form>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="layui-card">
+      <div class="layui-card-header">既往史</div>
+      <div class="layui-card-body">
+        <div class="layui-collapse" lay-filter="component-panel">
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">个人病史</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-person" lay-filter="xy-resident-history-person"></table>
+            </div>
+          </div>
+
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">手术史</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-operation" lay-filter="xy-resident-history-operation"></table>
+            </div>
+          </div>
+
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">外伤</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-trauma" lay-filter="xy-resident-history-trauma"></table>
+            </div>
+          </div>
+
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">输血</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-blood" lay-filter="xy-resident-history-blood"></table>
+            </div>
+          </div>
+
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">住院史</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-hospital" lay-filter="xy-resident-history-hospital"></table>
+            </div>
+          </div>
+
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">家庭史</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-family" lay-filter="xy-resident-history-family"></table>
+            </div>
+          </div>
+
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">遗传病史</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-inherit" lay-filter="xy-resident-history-inherit"></table>
+            </div>
+          </div>
+
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">过敏史</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-allergy" lay-filter="xy-resident-history-allergy"></table>
+            </div>
+          </div>
+
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">残疾情况</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-derfomity" lay-filter="xy-resident-history-derfomity"></table>
+            </div>
+          </div>
+
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">就诊记录</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-visit" lay-filter="xy-resident-history-visit"></table>
+            </div>
+          </div>
+
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">会诊记录</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-consultation" lay-filter="xy-resident-history-consultation"></table>
+            </div>
+          </div>
+
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">转诊记录</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-refer" lay-filter="xy-resident-history-refer"></table>
+            </div>
+          </div>
+
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">体检记录</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-examination" lay-filter="xy-resident-history-examination"></table>
+            </div>
+          </div>
+
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">随访记录</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-followup" lay-filter="xy-resident-history-followup"></table>
+            </div>
+          </div>
+
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">问卷记录</h2>
+            <div class="layui-colla-content">
+              <table id="xy-resident-history-survey" lay-filter="xy-resident-history-survey"></table>
+            </div>
           </div>
         </div>
       </div>
@@ -224,18 +461,46 @@
     base: '../../../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'form'], function(){
+  }).use(['index', 'form', 'upload', 'laydate', 'resident'], function(){
     var $ = layui.$
     ,admin = layui.admin
     ,element = layui.element
+    ,laydate = layui.laydate
+    ,upload = layui.upload
     ,form = layui.form;
-    
-    form.render(null, 'component-form-element');
-    element.render('breadcrumb', 'breadcrumb');
-    
-    form.on('submit(component-form-element)', function(data){
-      layer.msg(JSON.stringify(data.field));
-      return false;
+
+    lay('.xy-resident-date').each(function(){
+      laydate.render({
+        elem: this
+        ,trigger: 'click'
+      });
+    });
+
+    //图片上传
+    var uploadInst = upload.render({
+      elem: '#xy-resident-avatar'
+      ,url: ''
+      ,before: function(obj){
+        //预读本地文件示例，不支持ie8
+        obj.preview(function(index, file, result){
+          $('#xy-resident-avatar-img').attr('src', result); //图片链接（base64）
+        });
+      }
+      ,done: function(res){
+        //如果上传失败
+        if(res.code > 0){
+          return layer.msg('上传失败');
+        }
+        //上传成功
+      }
+      ,error: function(){
+        //演示失败状态，并实现重传
+        var text = $('#xy-redident-avatar-text');
+        text.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+        text.find('.demo-reload').on('click', function(){
+          uploadInst.upload();
+        });
+      }
     });
   });
   </script>

@@ -1,7 +1,60 @@
-layui.define(['table', 'form'], function(exports){
+layui.define(['table', 'form', 'upload', 'laydate'], function(exports){
   var $ = layui.$
   ,table = layui.table
-  ,form = layui.form;
+  ,form = layui.form
+  ,laydate = layui.laydate
+  ,upload = layui.upload
+  ,view = layui.view;
+
+  $('#xy_resident_view').on('click', '.xy-resident-cancel', function(){
+    view('xy_resident_view').render('resident/basic', {username: '测试'});
+    $('html, body').animate({scrollTop:0}, 1);
+  });
+
+  $('#xy_resident_view').on('click', '.xy-resident-edit', function(){
+    view('xy_resident_view').render('resident/basic-form', {username: '测试'}).done(function(){
+      form.render(null, 'xy-resident-form-edit');
+      form.val("xy-resident-form-edit", {
+        'username': '测试'
+        ,'sex': '男'
+        ,'marry': '测试'
+      })
+
+      lay('.xy-resident-date').each(function(){
+        laydate.render({
+          elem: this
+          ,trigger: 'click'
+        });
+      });
+
+      //图片上传
+      var uploadInst = upload.render({
+        elem: '#xy-resident-avatar'
+        ,url: ''
+        ,before: function(obj){
+          //预读本地文件示例，不支持ie8
+          obj.preview(function(index, file, result){
+            $('#xy-resident-avatar-img').attr('src', result); //图片链接（base64）
+          });
+        }
+        ,done: function(res){
+          //如果上传失败
+          if(res.code > 0){
+            return layer.msg('上传失败');
+          }
+          //上传成功
+        }
+        ,error: function(){
+          //演示失败状态，并实现重传
+          var text = $('#xy-redident-avatar-text');
+          text.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+          text.find('.demo-reload').on('click', function(){
+            uploadInst.upload();
+          });
+        }
+      });
+    }); 
+  });
 
   //用户管理
   table.render({

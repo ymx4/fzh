@@ -20,244 +20,7 @@
   <div class="layui-fluid">
     <div class="layui-card">
       <div class="layui-card-header">个人基本信息 （编号001）</div>
-      <div class="layui-card-body layui-row layui-col-space10">
-        <form class="layui-form" action="" lay-filter="component-form-group">
-          <div class="layui-row layui-col-space10 layui-form-item">
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">个人照片</label>
-              <div class="layui-input-block">
-                <div class="layui-upload">
-                  <button type="button" class="layui-btn" id="xy-resident-avatar">上传图片</button>
-                  <div class="layui-upload-list">
-                    <img class="layui-upload-img" id="xy-resident-avatar-img">
-                    <p id="xy-redident-avatar-text"></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">姓名</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">性别</label>
-              <div class="layui-input-block">
-                <select name="sex" lay-verify="required">
-                  <option value="">请选择</option>
-                  <option value="1">男</option>
-                  <option value="0">女</option>
-                </select>
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">出生日期</label>
-              <div class="layui-input-block">
-                <input type="text" name="birthday" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-resident-date">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">婚姻状况</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">身份证号</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">民族</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">贫困户</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">贫困原因</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">建档时间</label>
-              <div class="layui-input-block">
-                <input type="text" name="create" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-resident-date">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">建档机构</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">建档人</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">医疗费用支付方式</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">管理机构</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">责任医生</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">医生电话</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">文化程度</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">职业</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">工作单位</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md12">
-              <label class="layui-form-label">户籍地址</label>
-              <div class="layui-input-block">
-                <div class="layui-inline">
-                  <select name="quiz1">
-                    <option value="">请选择省</option>
-                    <option value="浙江" selected="">浙江省</option>
-                    <option value="你的工号">江西省</option>
-                    <option value="你最喜欢的老师">福建省</option>
-                  </select>
-                </div>
-                <div class="layui-inline">
-                  <select name="quiz2">
-                    <option value="">请选择市</option>
-                    <option value="杭州">杭州</option>
-                    <option value="宁波">宁波</option>
-                    <option value="温州">温州</option>
-                    <option value="温州">台州</option>
-                    <option value="温州">绍兴</option>
-                  </select>
-                </div>
-                <div class="layui-inline">
-                  <select name="quiz3">
-                    <option value="">请选择县/区</option>
-                    <option value="西湖区">西湖区</option>
-                    <option value="余杭区">余杭区</option>
-                    <option value="拱墅区">临安市</option>
-                  </select>
-                </div>
-                <div class="layui-inline">
-                  <input type="text" name="address" lay-verify="address" autocomplete="off" placeholder="请输入地址" class="layui-input">
-                </div>
-              </div>
-            </div>
-            <div class="layui-col-md12">
-              <label class="layui-form-label">现住址</label>
-              <div class="layui-input-block">
-                <div class="layui-inline">
-                  <select name="quiz1">
-                    <option value="">请选择省</option>
-                    <option value="浙江" selected="">浙江省</option>
-                    <option value="你的工号">江西省</option>
-                    <option value="你最喜欢的老师">福建省</option>
-                  </select>
-                </div>
-                <div class="layui-inline">
-                  <select name="quiz2">
-                    <option value="">请选择市</option>
-                    <option value="杭州">杭州</option>
-                    <option value="宁波">宁波</option>
-                    <option value="温州">温州</option>
-                    <option value="温州">台州</option>
-                    <option value="温州">绍兴</option>
-                  </select>
-                </div>
-                <div class="layui-inline">
-                  <select name="quiz3">
-                    <option value="">请选择县/区</option>
-                    <option value="西湖区">西湖区</option>
-                    <option value="余杭区">余杭区</option>
-                    <option value="拱墅区">临安市</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">常住类型</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">其它联系电话</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">本人手机</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">是否以短信验证</label>
-              <div class="layui-input-block">
-                <input type="radio" name="veri" value="是" title="是">
-                <input type="radio" name="veri" value="否" title="否" checked>
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">紧急联系人</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">紧急联系人电话</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md3 layui-col-sm6">
-              <label class="layui-form-label">是否已关注微信</label>
-              <div class="layui-input-block">
-                <input type="radio" name="veri" value="是" title="是">
-                <input type="radio" name="veri" value="否" title="否" checked>
-              </div>
-            </div>
-          </div>
-        </form>
+      <div class="layui-card-body layui-row layui-col-space10" id="xy_resident_view">
       </div>
     </div>
 
@@ -407,6 +170,14 @@
               <table id="xy-resident-history-derfomity" lay-filter="xy-resident-history-derfomity"></table>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layui-card">
+      <div class="layui-card-header">健康记录</div>
+      <div class="layui-card-body">
+        <div class="layui-collapse" lay-filter="component-panel">
 
           <div class="layui-colla-item">
             <h2 class="layui-colla-title">就诊记录</h2>
@@ -453,7 +224,6 @@
       </div>
     </div>
   </div>
-
   
   <script src="../../../layuiadmin/layui/layui.js"></script>  
   <script>
@@ -461,47 +231,14 @@
     base: '../../../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'form', 'upload', 'laydate', 'resident'], function(){
-    var $ = layui.$
-    ,admin = layui.admin
-    ,element = layui.element
-    ,laydate = layui.laydate
-    ,upload = layui.upload
-    ,form = layui.form;
+  }).use(['index', 'view', 'form', 'resident'], function(){
+    var view = layui.view;
 
-    lay('.xy-resident-date').each(function(){
-      laydate.render({
-        elem: this
-        ,trigger: 'click'
-      });
-    });
-
-    //图片上传
-    var uploadInst = upload.render({
-      elem: '#xy-resident-avatar'
-      ,url: ''
-      ,before: function(obj){
-        //预读本地文件示例，不支持ie8
-        obj.preview(function(index, file, result){
-          $('#xy-resident-avatar-img').attr('src', result); //图片链接（base64）
-        });
-      }
-      ,done: function(res){
-        //如果上传失败
-        if(res.code > 0){
-          return layer.msg('上传失败');
-        }
-        //上传成功
-      }
-      ,error: function(){
-        //演示失败状态，并实现重传
-        var text = $('#xy-redident-avatar-text');
-        text.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
-        text.find('.demo-reload').on('click', function(){
-          uploadInst.upload();
-        });
-      }
-    });
+    // var view = document.getElementById('xy_resident_view');
+    // laytpl(xy_resident_detail.innerHTML).render({}, function(html){
+    //   view.innerHTML = html;
+    // });
+    view('xy_resident_view').render('resident/basic', {username: '测试'});
   });
   </script>
 </body>

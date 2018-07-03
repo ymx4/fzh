@@ -1,24 +1,52 @@
-layui.define(['table', 'form', 'upload', 'laydate'], function(exports){
+layui.define(['table', 'form', 'upload', 'laydate', 'laytpl'], function(exports){
   var $ = layui.$
   ,table = layui.table
   ,form = layui.form
   ,laydate = layui.laydate
   ,upload = layui.upload
-  ,view = layui.view;
+  ,laytpl = layui.laytpl;
+
+  var editInit = function() {
+    laytpl(xy_resident_detail.innerHTML).render({username: '测试'}, function(html){
+      document.getElementById('xy_resident_view').innerHTML = html;
+    });
+
+    laytpl(xy_resident_health_detail.innerHTML).render({username: '测试'}, function(html){
+      document.getElementById('xy_resident_health').innerHTML = html;
+    });
+
+    laytpl(xy_resident_env_detail.innerHTML).render({username: '测试'}, function(html){
+      document.getElementById('xy_resident_env').innerHTML = html;
+    });
+  }
 
   $('#xy_resident_view').on('click', '.xy-resident-cancel', function(){
-    view('xy_resident_view').render('resident/basic', {username: '测试'});
+    laytpl(xy_resident_detail.innerHTML).render({username: '测试'}, function(html){
+      document.getElementById('xy_resident_view').innerHTML = html;
+    });
     $('html, body').animate({scrollTop:0}, 1);
   });
 
+  form.on('select(xy-addr-select)', function(data){
+    // console.log(data.elem); //得到select原始DOM对象
+    // console.log(data.value); //得到被选中的值
+    // console.log(data.othis); //得到美化后的DOM对象
+    laytpl(xy_select.innerHTML).render({selname: 'city', list: [{key:'1',value:'v1'},{key:'2',value:'v2'}]}, function(html){
+      $(data.elem).closest('.layui-inline').after(html);
+      form.render('select', 'xy-resident-form');
+    });
+  });
+
   $('#xy_resident_view').on('click', '.xy-resident-edit', function(){
-    view('xy_resident_view').render('resident/basic-form', {username: '测试'}).done(function(){
-      form.render(null, 'xy-resident-form-edit');
-      form.val("xy-resident-form-edit", {
+    laytpl(xy_resident_edit.innerHTML).render({username: '测试'}, function(html){
+      document.getElementById('xy_resident_view').innerHTML = html;
+
+      // form.render(null, 'xy-resident-form');
+      form.val("xy-resident-form", {
         'username': '测试'
         ,'sex': '男'
         ,'marry': '测试'
-      })
+      });
 
       lay('.xy-resident-date').each(function(){
         laydate.render({
@@ -28,7 +56,7 @@ layui.define(['table', 'form', 'upload', 'laydate'], function(exports){
       });
 
       //图片上传
-      var uploadInst = upload.render({
+      var uploadAvatar = upload.render({
         elem: '#xy-resident-avatar'
         ,url: ''
         ,before: function(obj){
@@ -49,11 +77,62 @@ layui.define(['table', 'form', 'upload', 'laydate'], function(exports){
           var text = $('#xy-redident-avatar-text');
           text.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
           text.find('.demo-reload').on('click', function(){
-            uploadInst.upload();
+            uploadAvatar.upload();
+          });
+        }
+      });
+      var uploadIdentity = upload.render({
+        elem: '#xy-resident-identity'
+        ,url: ''
+        ,before: function(obj){
+          //预读本地文件示例，不支持ie8
+          obj.preview(function(index, file, result){
+            $('#xy-resident-identity-img').attr('src', result); //图片链接（base64）
+          });
+        }
+        ,done: function(res){
+          //如果上传失败
+          if(res.code > 0){
+            return layer.msg('上传失败');
+          }
+          //上传成功
+        }
+        ,error: function(){
+          //演示失败状态，并实现重传
+          var text = $('#xy-redident-identity-text');
+          text.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+          text.find('.demo-reload').on('click', function(){
+            uploadIdentity.upload();
           });
         }
       });
     }); 
+  });
+
+  $('#xy_resident_health').on('click', '.xy-resident-health-cancel', function(){
+    laytpl(xy_resident_health_detail.innerHTML).render({username: '测试'}, function(html){
+      document.getElementById('xy_resident_health').innerHTML = html;
+    });
+    $('html, body').animate({scrollTop:0}, 1);
+  });
+
+  $('#xy_resident_health').on('click', '.xy-resident-health-edit', function(){
+    laytpl(xy_resident_health_edit.innerHTML).render({username: '测试'}, function(html){
+      document.getElementById('xy_resident_health').innerHTML = html;
+    });
+  });
+
+  $('#xy_resident_env').on('click', '.xy-resident-env-cancel', function(){
+    laytpl(xy_resident_env_detail.innerHTML).render({username: '测试'}, function(html){
+      document.getElementById('xy_resident_env').innerHTML = html;
+    });
+    $('html, body').animate({scrollTop:0}, 1);
+  });
+
+  $('#xy_resident_env').on('click', '.xy-resident-env-edit', function(){
+    laytpl(xy_resident_env_edit.innerHTML).render({username: '测试'}, function(html){
+      document.getElementById('xy_resident_env').innerHTML = html;
+    });
   });
 
   //用户管理
@@ -290,5 +369,5 @@ layui.define(['table', 'form', 'upload', 'laydate'], function(exports){
     ,text: '对不起，加载出现异常！'
   });
 
-  exports('resident', {})
+  exports('resident', {editInit})
 });

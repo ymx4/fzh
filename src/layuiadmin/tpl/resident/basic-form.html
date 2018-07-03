@@ -1,7 +1,7 @@
 <script type="text/html" template>
-  <form class="layui-form" action="" lay-filter="xy-resident-form-edit">
+  <form class="layui-form xy-form" action="" lay-filter="xy-resident-form-edit">
     <div class="layui-row layui-col-space10 layui-form-item">
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">个人照片</label>
         <div class="layui-input-block">
           <div class="layui-upload">
@@ -13,16 +13,28 @@
           </div>
         </div>
       </div>
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+        <label class="layui-form-label">身份证</label>
+        <div class="layui-input-block">
+          <div class="layui-upload">
+            <button type="button" class="layui-btn" id="xy-resident-identity">上传图片</button>
+            <div class="layui-upload-list">
+              <img class="layui-upload-img" id="xy-resident-identity-img">
+              <p id="xy-redident-identity-text"></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="layui-row layui-col-space10 layui-form-item">
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">姓名</label>
         <div class="layui-input-block">
           <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">性别</label>
         <div class="layui-input-block">
           <select name="sex" lay-verify="required">
@@ -32,103 +44,103 @@
           </select>
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">出生日期</label>
         <div class="layui-input-block">
           <input type="text" name="birthday" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-resident-date">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">婚姻状况</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">身份证号</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">民族</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">贫困户</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">贫困原因</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">建档时间</label>
         <div class="layui-input-block">
           <input type="text" name="create" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-resident-date">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">建档机构</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">建档人</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">医疗费用支付方式</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">管理机构</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">责任医生</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">医生电话</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">文化程度</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">职业</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">工作单位</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md12">
+      <div class="layui-col-xs12">
         <label class="layui-form-label">户籍地址</label>
         <div class="layui-input-block">
           <div class="layui-inline">
@@ -162,7 +174,7 @@
           </div>
         </div>
       </div>
-      <div class="layui-col-md12">
+      <div class="layui-col-xs12">
         <label class="layui-form-label">现住址</label>
         <div class="layui-input-block">
           <div class="layui-inline">
@@ -193,44 +205,44 @@
           </div>
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">常住类型</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
-        <label class="layui-form-label">其它联系电话</label>
-        <div class="layui-input-block">
-          <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-        </div>
-      </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">本人手机</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+        <label class="layui-form-label">其它联系电话</label>
+        <div class="layui-input-block">
+          <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">是否以短信验证</label>
         <div class="layui-input-block">
           <input type="radio" name="veri" value="是" title="是">
           <input type="radio" name="veri" value="否" title="否" checked>
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">紧急联系人</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">紧急联系人电话</label>
         <div class="layui-input-block">
           <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
       </div>
-      <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
         <label class="layui-form-label">是否已关注微信</label>
         <div class="layui-input-block">
           <input type="radio" name="veri" value="是" title="是">

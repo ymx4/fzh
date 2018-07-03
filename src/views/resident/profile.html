@@ -15,7 +15,22 @@
 
   <style>
   .layui-upload-img{width: 150px; height: 150px; margin: 0 10px 10px 0;}
-
+  @media screen and (max-width: 450px) {
+    .layui-form-item .layui-form-label {
+      text-overflow: clip;
+      overflow: visible; 
+      white-space: normal;
+    }
+    .xy-form .layui-form-item .layui-form-label {
+      float: none;
+      width: auto;
+      text-align: left;
+      padding-left: 0;
+    }
+    .xy-form .layui-input-block {
+      margin-left: 0;
+    }
+  }
   </style>
 
   <div class="layui-fluid">
@@ -27,81 +42,13 @@
 
     <div class="layui-card">
       <div class="layui-card-header">个人基本健康信息</div>
-      <div class="layui-card-body layui-row layui-col-space10">
-        <form class="layui-form" action="" lay-filter="component-form-group">
-          <div class="layui-row layui-col-space10 layui-form-item">
-            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
-              <label class="layui-form-label">血型</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
-              <label class="layui-form-label">RH血型</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
-              <label class="layui-form-label">身高</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
-              <label class="layui-form-label">体重</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
-              <label class="layui-form-label">BMI</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-          </div>
-        </form>
+      <div class="layui-card-body layui-row layui-col-space10" id="xy_resident_health">
       </div>
     </div>
 
     <div class="layui-card">
       <div class="layui-card-header">生活环境</div>
-      <div class="layui-card-body layui-row layui-col-space10">
-        <form class="layui-form" action="" lay-filter="component-form-group">
-          <div class="layui-row layui-col-space10 layui-form-item">
-            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
-              <label class="layui-form-label">厨房排风设施</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
-              <label class="layui-form-label">燃料类型</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
-              <label class="layui-form-label">饮水</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
-              <label class="layui-form-label">厕所</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
-              <label class="layui-form-label">禽畜栏</label>
-              <div class="layui-input-block">
-                <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-          </div>
-        </form>
+      <div class="layui-card-body layui-row layui-col-space10" id="xy_resident_env">
       </div>
     </div>
 
@@ -225,22 +172,620 @@
       </div>
     </div>
   </div>
-  
+
+  <script type="text/html" id="xy_resident_detail">
+    <button class="layui-btn xy-resident-edit">编辑</button>
+    <form class="layui-form">
+      <div class="layui-row layui-col-space10 layui-form-item">
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">个人照片</label>
+          <div class="layui-input-block">
+            <div class="layui-upload">
+              <div class="layui-upload-list">
+                <img class="layui-upload-img" id="xy-resident-avatar-img">
+                <p id="xy-redident-avatar-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">身份证</label>
+          <div class="layui-input-block">
+            <div class="layui-upload">
+              <div class="layui-upload-list">
+                <img class="layui-upload-img" id="xy-resident-identity-img">
+                <p id="xy-redident-identity-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layui-row layui-col-space10 layui-form-item">
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">姓名</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">性别</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">出生日期</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">婚姻状况</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">身份证号</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">民族</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">贫困户</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">贫困原因</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">建档时间</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">建档机构</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">建档人</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">医疗费用支付方式</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">管理机构</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">责任医生</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">医生电话</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">文化程度</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">职业</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">工作单位</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12">
+          <label class="layui-form-label">户籍地址</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12">
+          <label class="layui-form-label">现住址</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">常住类型</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">本人手机</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}} <i class="layui-icon layui-icon-vercode" style="color: #009688;"></i></div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">其它联系电话</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">紧急联系人</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">紧急联系人电话</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">是否已关注微信</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </script>
+
+  <script type="text/html" id="xy_resident_edit">
+    <form class="layui-form xy-form" action="" lay-filter="xy-resident-form">
+      <div class="layui-row layui-col-space10 layui-form-item">
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">个人照片</label>
+          <div class="layui-input-block">
+            <div class="layui-upload">
+              <button type="button" class="layui-btn" id="xy-resident-avatar">上传图片</button>
+              <div class="layui-upload-list">
+                <img class="layui-upload-img" id="xy-resident-avatar-img">
+                <p id="xy-redident-avatar-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">身份证</label>
+          <div class="layui-input-block">
+            <div class="layui-upload">
+              <button type="button" class="layui-btn" id="xy-resident-identity">上传图片</button>
+              <div class="layui-upload-list">
+                <img class="layui-upload-img" id="xy-resident-identity-img">
+                <p id="xy-redident-identity-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layui-row layui-col-space10 layui-form-item">
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">姓名</label>
+          <div class="layui-input-block">
+            <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">性别</label>
+          <div class="layui-input-block">
+            <select name="sex" lay-verify="required">
+              <option value="">请选择</option>
+              <option value="1">男</option>
+              <option value="0">女</option>
+            </select>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">出生日期</label>
+          <div class="layui-input-block">
+            <input type="text" name="birthday" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-resident-date">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">婚姻状况</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">身份证号</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">民族</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">贫困户</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">贫困原因</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">建档时间</label>
+          <div class="layui-input-block">
+            <input type="text" name="create" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-resident-date">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">建档机构</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">建档人</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">医疗费用支付方式</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">管理机构</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">责任医生</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">医生电话</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">文化程度</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">职业</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">工作单位</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12">
+          <label class="layui-form-label">户籍地址</label>
+          <div class="layui-input-block">
+            <div class="layui-inline">
+              <select name="quiz1" lay-filter="xy-addr-select">
+                <option value="">请选择省</option>
+                <option value="浙江" selected="">浙江省</option>
+                <option value="你的工号">江西省</option>
+                <option value="你最喜欢的老师">福建省</option>
+              </select>
+            </div>
+            <div class="layui-inline">
+              <select name="quiz2">
+                <option value="">请选择市</option>
+                <option value="杭州">杭州</option>
+                <option value="宁波">宁波</option>
+                <option value="温州">温州</option>
+                <option value="温州">台州</option>
+                <option value="温州">绍兴</option>
+              </select>
+            </div>
+            <div class="layui-inline">
+              <select name="quiz3">
+                <option value="">请选择县/区</option>
+                <option value="西湖区">西湖区</option>
+                <option value="余杭区">余杭区</option>
+                <option value="拱墅区">临安市</option>
+              </select>
+            </div>
+            <div class="layui-inline">
+              <input type="text" name="address" lay-verify="address" autocomplete="off" placeholder="请输入地址" class="layui-input">
+            </div>
+          </div>
+        </div>
+        <div class="layui-col-xs12">
+          <label class="layui-form-label">现住址</label>
+          <div class="layui-input-block">
+            <div class="layui-inline">
+              <select name="quiz1">
+                <option value="">请选择省</option>
+                <option value="浙江" selected="">浙江省</option>
+                <option value="你的工号">江西省</option>
+                <option value="你最喜欢的老师">福建省</option>
+              </select>
+            </div>
+            <div class="layui-inline">
+              <select name="quiz2">
+                <option value="">请选择市</option>
+                <option value="杭州">杭州</option>
+                <option value="宁波">宁波</option>
+                <option value="温州">温州</option>
+                <option value="温州">台州</option>
+                <option value="温州">绍兴</option>
+              </select>
+            </div>
+            <div class="layui-inline">
+              <select name="quiz3">
+                <option value="">请选择县/区</option>
+                <option value="西湖区">西湖区</option>
+                <option value="余杭区">余杭区</option>
+                <option value="拱墅区">临安市</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">常住类型</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">本人手机</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">其它联系电话</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">紧急联系人</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">紧急联系人电话</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">是否已关注微信</label>
+          <div class="layui-input-block">
+            <input type="radio" name="veri" value="是" title="是">
+            <input type="radio" name="veri" value="否" title="否" checked>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button type="button" class="layui-btn">保存</button>
+          <button type="button" class="layui-btn xy-resident-cancel">取消</button>
+        </div>
+      </div>
+    </form>
+  </script>
+
+  <script type="text/html" id="xy_resident_health_detail">
+    <button class="layui-btn xy-resident-health-edit">编辑</button>
+    <form class="layui-form" action="">
+      <div class="layui-row layui-col-space10 layui-form-item">
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">血型</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">RH血型</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">身高</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">体重</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">BMI</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </script>
+
+  <script type="text/html" id="xy_resident_health_edit">
+    <form class="layui-form" action="" lay-filter="xy-resident-health-form">
+      <div class="layui-row layui-col-space10 layui-form-item">
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">血型</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">RH血型</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">身高</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">体重</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">BMI</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+      </div>
+    </form>
+  </script>
+
+  <script type="text/html" id="xy_resident_env_detail">
+    <button class="layui-btn xy-resident-env-edit">编辑</button>
+    <form class="layui-form" action="">
+      <div class="layui-row layui-col-space10 layui-form-item">
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">燃料类型</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">饮水</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">厕所</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">禽畜栏</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">厨房排风设施</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </script>
+
+  <script type="text/html" id="xy_resident_env_edit">
+    <form class="layui-form" action="">
+      <div class="layui-row layui-col-space10 layui-form-item">
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">燃料类型</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">饮水</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">厕所</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">禽畜栏</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">厨房排风设施</label>
+          <div class="layui-input-block">
+            <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+      </div>
+    </form>
+  </script>
+
+  <script type="text/html" id="xy_select">
+    <div class="layui-inline">
+      <select name="{{d.selname}}" lay-filter="xy-addr-select">
+        {{#  layui.each(d.list, function(index, item){ }}
+          <option value="{{ item.key }}">{{ item.value }}</option>
+        {{#  }); }}
+      </select>
+    </div>
+  </script>
+
   <script src="../../../layuiadmin/layui/layui.js"></script>  
   <script>
   layui.config({
     base: '../../../layuiadmin/' //静态资源所在路径
     ,version: true
+    ,debug: true
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'view', 'form', 'resident'], function(){
-    var view = layui.view;
-
-    // var view = document.getElementById('xy_resident_view');
-    // laytpl(xy_resident_detail.innerHTML).render({}, function(html){
-    //   view.innerHTML = html;
-    // });
-    view('xy_resident_view').render('resident/basic', {username: '测试'});
+  }).use(['index', 'resident'], function(){
+    layui.resident.editInit();
   });
   </script>
 </body>

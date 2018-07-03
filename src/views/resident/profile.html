@@ -15,6 +15,7 @@
 
   <style>
   .layui-upload-img{width: 150px; height: 150px; margin: 0 10px 10px 0;}
+
   </style>
 
   <div class="layui-fluid">
@@ -29,31 +30,31 @@
       <div class="layui-card-body layui-row layui-col-space10">
         <form class="layui-form" action="" lay-filter="component-form-group">
           <div class="layui-row layui-col-space10 layui-form-item">
-            <div class="layui-col-md4 layui-col-sm6">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
               <label class="layui-form-label">血型</label>
               <div class="layui-input-block">
                 <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
             </div>
-            <div class="layui-col-md4 layui-col-sm6">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
               <label class="layui-form-label">RH血型</label>
               <div class="layui-input-block">
                 <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
             </div>
-            <div class="layui-col-md4 layui-col-sm6">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
               <label class="layui-form-label">身高</label>
               <div class="layui-input-block">
                 <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
             </div>
-            <div class="layui-col-md4 layui-col-sm6">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
               <label class="layui-form-label">体重</label>
               <div class="layui-input-block">
                 <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
             </div>
-            <div class="layui-col-md4 layui-col-sm6">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
               <label class="layui-form-label">BMI</label>
               <div class="layui-input-block">
                 <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
@@ -69,31 +70,31 @@
       <div class="layui-card-body layui-row layui-col-space10">
         <form class="layui-form" action="" lay-filter="component-form-group">
           <div class="layui-row layui-col-space10 layui-form-item">
-            <div class="layui-col-md4 layui-col-sm6">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
               <label class="layui-form-label">厨房排风设施</label>
               <div class="layui-input-block">
                 <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
             </div>
-            <div class="layui-col-md4 layui-col-sm6">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
               <label class="layui-form-label">燃料类型</label>
               <div class="layui-input-block">
                 <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
             </div>
-            <div class="layui-col-md4 layui-col-sm6">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
               <label class="layui-form-label">饮水</label>
               <div class="layui-input-block">
                 <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
             </div>
-            <div class="layui-col-md4 layui-col-sm6">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
               <label class="layui-form-label">厕所</label>
               <div class="layui-input-block">
                 <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
             </div>
-            <div class="layui-col-md4 layui-col-sm6">
+            <div class="layui-col-md4 layui-col-sm6 layui-col-xs12">
               <label class="layui-form-label">禽畜栏</label>
               <div class="layui-input-block">
                 <input type="text" name="marry" lay-verify="required" autocomplete="off" class="layui-input">
@@ -229,6 +230,7 @@
   <script>
   layui.config({
     base: '../../../layuiadmin/' //静态资源所在路径
+    ,version: true
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index', 'view', 'form', 'resident'], function(){

@@ -1,10 +1,13 @@
-layui.define(['table', 'form', 'upload', 'laydate', 'laytpl'], function(exports){
+layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'admin', 'xyapi'], function(exports){
   var $ = layui.$
   ,table = layui.table
   ,form = layui.form
+  ,element = layui.element
   ,laydate = layui.laydate
   ,upload = layui.upload
-  ,laytpl = layui.laytpl;
+  ,laytpl = layui.laytpl
+  ,admin = layui.admin
+  ,xyapi = layui.xyapi;
 
   var editInit = function() {
     laytpl(xy_resident_detail.innerHTML).render({username: '测试'}, function(html){
@@ -20,32 +23,57 @@ layui.define(['table', 'form', 'upload', 'laydate', 'laytpl'], function(exports)
     });
   }
 
+  form.on('select(xy-addr-select)', function(data){
+    $(data.elem).closest('.xy-select').nextAll('.xy-select').remove();
+    if (data.value != '') {
+      xyArea(data.value, $(data.elem).closest('.xy-select'));
+    }
+  });
+
+  var xyArea = function(parentid, elem){
+    $.ajax({
+      url: xyapi.GetAreaList
+      ,type: 'post'
+      ,data: JSON.stringify({PARENT_ID: parentid})
+      ,dataType: 'json'
+      ,success: function(data){
+        if (data.status == 1) {
+          if (data.data != null && data.data.length > 0) {
+            laytpl(xy_select.innerHTML).render({selname: 'area' + data.data[0].LEVEL_NUMBER, list: data.data}, function(html){
+              if (elem instanceof Array) {
+                $.each(elem,function(i, item){
+                  item.after(html);
+                });
+              } else {
+                elem.after(html);
+              }
+              form.render('select', 'xy-resident-form');
+            });
+          }
+        } else {
+          xyapi.error(data);
+        }
+      }
+    });
+  }
+
   $('#xy_resident_view').on('click', '.xy-resident-cancel', function(){
     laytpl(xy_resident_detail.innerHTML).render({username: '测试'}, function(html){
       document.getElementById('xy_resident_view').innerHTML = html;
-    });
-    $('html, body').animate({scrollTop:0}, 1);
-  });
-
-  form.on('select(xy-addr-select)', function(data){
-    // console.log(data.elem); //得到select原始DOM对象
-    // console.log(data.value); //得到被选中的值
-    // console.log(data.othis); //得到美化后的DOM对象
-    laytpl(xy_select.innerHTML).render({selname: 'city', list: [{key:'1',value:'v1'},{key:'2',value:'v2'}]}, function(html){
-      $(data.elem).closest('.layui-inline').after(html);
-      form.render('select', 'xy-resident-form');
     });
   });
 
   $('#xy_resident_view').on('click', '.xy-resident-edit', function(){
     laytpl(xy_resident_edit.innerHTML).render({username: '测试'}, function(html){
       document.getElementById('xy_resident_view').innerHTML = html;
+      xyArea(1, [$('#xy_begin_addr1'), $('#xy_begin_addr2')]);
 
       // form.render(null, 'xy-resident-form');
       form.val("xy-resident-form", {
         'username': '测试'
-        ,'sex': '男'
-        ,'marry': '测试'
+        ,'sex': '1'
+        ,'birthday': '2018-09-09'
+        ,'create': '2018-09-09'
       });
 
       lay('.xy-resident-date').each(function(){
@@ -109,11 +137,17 @@ layui.define(['table', 'form', 'upload', 'laydate', 'laytpl'], function(exports)
     }); 
   });
 
+  form.on('submit(xy-resident-submit)', function(data){
+    console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
+    console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+    console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+    return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+  });
+
   $('#xy_resident_health').on('click', '.xy-resident-health-cancel', function(){
     laytpl(xy_resident_health_detail.innerHTML).render({username: '测试'}, function(html){
       document.getElementById('xy_resident_health').innerHTML = html;
     });
-    $('html, body').animate({scrollTop:0}, 1);
   });
 
   $('#xy_resident_health').on('click', '.xy-resident-health-edit', function(){
@@ -122,17 +156,24 @@ layui.define(['table', 'form', 'upload', 'laydate', 'laytpl'], function(exports)
     });
   });
 
+  form.on('submit(xy-resident-health-submit)', function(data){
+    return false;
+  });
+
   $('#xy_resident_env').on('click', '.xy-resident-env-cancel', function(){
     laytpl(xy_resident_env_detail.innerHTML).render({username: '测试'}, function(html){
       document.getElementById('xy_resident_env').innerHTML = html;
     });
-    $('html, body').animate({scrollTop:0}, 1);
   });
 
   $('#xy_resident_env').on('click', '.xy-resident-env-edit', function(){
     laytpl(xy_resident_env_edit.innerHTML).render({username: '测试'}, function(html){
       document.getElementById('xy_resident_env').innerHTML = html;
     });
+  });
+
+  form.on('submit(xy-resident-env-submit)', function(data){
+    return false;
   });
 
   //用户管理
@@ -160,6 +201,12 @@ layui.define(['table', 'form', 'upload', 'laydate', 'laytpl'], function(exports)
         layer.close(index);
       });
     }
+  });
+
+  element.on('collapse(filter)', function(data){
+    console.log(data.show); //得到当前面板的展开状态，true或者false
+    console.log(data.title); //得到当前点击面板的标题区域DOM对象
+    console.log(data.content); //得到当前点击面板的内容区域DOM对象
   });
 
   //个人病史

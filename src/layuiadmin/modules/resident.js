@@ -1,4 +1,4 @@
-layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'admin', 'xyapi'], function(exports){
+layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common'], function(exports){
   var $ = layui.$
   ,table = layui.table
   ,form = layui.form
@@ -6,8 +6,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'admin'
   ,laydate = layui.laydate
   ,upload = layui.upload
   ,laytpl = layui.laytpl
-  ,admin = layui.admin
-  ,xyapi = layui.xyapi;
+  ,common = layui.common;
 
   var editInit = function() {
     laytpl(xy_resident_detail.innerHTML).render({username: '测试'}, function(html){
@@ -32,7 +31,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'admin'
 
   var xyArea = function(parentid, elem){
     $.ajax({
-      url: xyapi.GetAreaList
+      url: common.api.GetAreaList
       ,type: 'post'
       ,data: JSON.stringify({PARENT_ID: parentid})
       ,dataType: 'json'
@@ -51,7 +50,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'admin'
             });
           }
         } else {
-          xyapi.error(data);
+          common.api.error(data);
         }
       }
     });
@@ -209,6 +208,22 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'admin'
     console.log(data.content); //得到当前点击面板的内容区域DOM对象
   });
 
+  table.on('tool(xy-resident-history-person)', function(obj){
+    var data = obj.data;
+    if(obj.event === 'del'){
+      layer.confirm('确定要删除吗', function(index){
+        obj.del();
+        layer.close(index);
+      });
+    } else if (obj.event === 'edit'){
+      var index = common.modal(common.base + 'history/person.html', '编辑');
+      // obj.update({
+      //   username: '123'
+      //   ,title: 'xxx'
+      // });
+    }
+  });
+
   //个人病史
   table.render({
     elem: '#xy-resident-history-person'
@@ -218,6 +233,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'admin'
       ,{field: 'username', minWidth:100, title: '疾病名称'}
       ,{field: 'jointime', minWidth:100, title: '确诊时间'}
       ,{field: 'username', minWidth:100, title: '确诊机构'}
+      ,{title: '操作', width: 150, align:'center', fixed: 'right', toolbar: '#table-history-ope'}
     ]]
     ,page: {layout:['prev', 'page', 'next', 'count']}
     ,text: '对不起，加载出现异常！'

@@ -1,0 +1,45 @@
+layui.define(['table', 'form', 'xyapi'], function(exports){
+  var $ = layui.$
+  ,table = layui.table
+  ,form = layui.form
+  ,xyapi = layui.xyapi;
+
+  form.on('submit(xy-institution-submit)', function(data){
+    console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
+    console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+    console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+    return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+  });
+
+  //机构管理
+  table.render({
+    elem: '#xy-institution-manage'
+    ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+    ,cols: [[
+      {field: 'id', title: '机构编号'}
+      ,{field: 'username', minWidth:100, title: '机构名称'}
+      ,{title: '操作', width: 150, align:'center', fixed: 'right', toolbar: '#table-institution'}
+    ]]
+    ,page: {layout:['prev', 'page', 'next', 'count']}
+    ,text: '对不起，加载出现异常！'
+  });
+  
+  //监听工具条
+  table.on('tool(xy-institution-manage)', function(obj){
+    var data = obj.data;
+    if(obj.event === 'del'){
+      layer.confirm('确定要删除吗', function(index){
+        obj.del();
+        layer.close(index);
+      });
+    }
+  });
+
+  element.on('collapse(filter)', function(data){
+    console.log(data.show); //得到当前面板的展开状态，true或者false
+    console.log(data.title); //得到当前点击面板的标题区域DOM对象
+    console.log(data.content); //得到当前点击面板的内容区域DOM对象
+  });
+
+  exports('institution', {editInit})
+});

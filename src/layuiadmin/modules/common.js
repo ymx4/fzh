@@ -37,14 +37,14 @@ layui.define(['layer', 'admin', 'view', 'table', 'form'], function(exports){
     parent.layer.close(index);
   };
 
-  admin.events.xycid = function(elem){
+  admin.events.xycid = function(elemid){
     var index = layer.open({
       type: 1,
       content: '<div id="xycid"></div>',
       title: ''
     });
     layer.full(index);
-    view('xycid').render('common/icd', {elemid: elem.attr('data-id')}).done(function(){
+    view('xycid').render('common/icd').done(function(){
       table.render({
         elem: '#xy-icd-table'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
@@ -58,8 +58,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form'], function(exports){
       });
       table.on('tool(xy-icd-table)', function(obj){
         if(obj.event === 'sel'){
-          var icdid = $('#xy_cur_icdid').attr('data-id');
-          $('#' + icdid).val(obj.data.username);
+          $('#' + elemid.attr('data-id')).val(obj.data.username);
           layer.close(layer.index);
         }
       });

@@ -1,8 +1,8 @@
-layui.define(['table', 'form', 'xyapi'], function(exports){
+layui.define(['table', 'form', 'common'], function(exports){
   var $ = layui.$
   ,table = layui.table
   ,form = layui.form
-  ,xyapi = layui.xyapi;
+  ,common = layui.common;
 
   form.on('submit(xy-institution-submit)', function(data){
     console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象

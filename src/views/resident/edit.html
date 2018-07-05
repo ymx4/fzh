@@ -8,27 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../../layuiadmin/style/xy.css" media="all">
 </head>
 <body>
 
   <style>
   .layui-upload-img{width: 150px; height: 150px; margin: 0 10px 10px 0;}
-  @media screen and (max-width: 450px) {
-    .layui-form-item .layui-form-label {
-      text-overflow: clip;
-      overflow: visible; 
-      white-space: normal;
-    }
-    .xy-form .layui-form-item .layui-form-label {
-      float: none;
-      width: auto;
-      text-align: left;
-      padding-left: 0;
-    }
-    .xy-form .layui-input-block {
-      margin-left: 0;
-    }
-  }
   </style>
 
   <div class="layui-fluid">
@@ -329,7 +314,7 @@
         <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
           <label class="layui-form-label">本人手机</label>
           <div class="layui-input-block">
-            <div class="layui-form-mid layui-word-aux">{{d.username}} <i class="layui-icon layui-icon-vercode" style="color: #009688;"></i></div>
+            <div class="layui-form-mid layui-word-aux">{{d.username}} <i class="layui-icon layui-icon-auz" style="color: #009688;"></i></div>
           </div>
         </div>
         <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
@@ -361,7 +346,7 @@
   </script>
 
   <script type="text/html" id="xy_resident_edit">
-    <form class="layui-form xy-form" action="" lay-filter="xy-resident-form">
+    <form class="layui-form" action="" lay-filter="xy-resident-form">
       <div class="layui-row layui-col-space10 layui-form-item">
         <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
           <label class="layui-form-label">个人照片</label>

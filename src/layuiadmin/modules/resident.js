@@ -50,7 +50,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             });
           }
         } else {
-          common.api.error(data);
+          common.apierror(data);
         }
       }
     });
@@ -216,7 +216,10 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         layer.close(index);
       });
     } else if (obj.event === 'edit'){
-      var index = common.modal(common.base + 'history/person.html', '编辑');
+      var index = common.modal({
+        content: common.base + 'history/person.html',
+        title: '编辑'
+      });
       // obj.update({
       //   username: '123'
       //   ,title: 'xxx'

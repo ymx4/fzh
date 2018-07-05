@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../../layuiadmin/style/xy.css" media="all">
 </head>
 <body>
 
@@ -18,29 +19,39 @@
           <div class="layui-card-header">个人病史</div>
           <div class="layui-card-body" pad15>
             
-            <div class="layui-form" lay-filter="">
-              <div class="layui-form-item">
-                <label class="layui-form-label">疾病名称</label>
-                <div class="layui-input-inline">
-                  <input type="text" name="test" lay-verify="required" lay-verType="tips" autocomplete="off" class="layui-input">
-                </div>
-              </div>
-              <div class="layui-form-item">
-                <label class="layui-form-label">确诊时间</label>
-                <div class="layui-input-inline">
-                  <input type="text" name="test" lay-verify="required" lay-verType="tips" autocomplete="off" class="layui-input">
-                </div>
-              </div>
-              <div class="layui-form-item">
-                <label class="layui-form-label">确诊机构</label>
-                <div class="layui-input-inline">
-                  <input type="text" name="test" lay-verify="required" lay-verType="tips" autocomplete="off" class="layui-input">
-                </div>
-              </div>
-              <div class="layui-form-item">
-                <div class="layui-input-block">
-                  <button class="layui-btn" lay-submit lay-filter="xysave">保存</button>
-                  <button class="layui-btn layui-btn-primary" layadmin-event="layerclose">取消</button>
+            <div class="layui-row">
+              <div class="layui-col-md8">
+                <div class="layui-form" lay-filter="">
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">疾病名称</label>
+                    <div class="layui-input-block">
+                      <div class="layui-inline xy-form-group">
+                        <input type="text" name="test" lay-verify="required" class="layui-input">
+                        <div class="layui-btn-group">
+                          <button class="layui-btn layui-btn-primary" layadmin-event="xycid">ICD</button>
+                          <button class="layui-btn layui-btn-primary"><i class="layui-icon"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">确诊时间</label>
+                    <div class="layui-input-block">
+                      <input type="text" name="test" lay-verify="required" autocomplete="off" class="layui-input">
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">确诊机构</label>
+                    <div class="layui-input-block">
+                      <input type="text" name="test" lay-verify="required" autocomplete="off" class="layui-input">
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                    <div class="layui-input-block">
+                      <button class="layui-btn" lay-submit lay-filter="xysave">保存</button>
+                      <button class="layui-btn layui-btn-primary" layadmin-event="closelayer">取消</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -57,7 +68,7 @@
     base: '../../../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'common']);
+  }).use(['index', 'form']);
   </script>
 </body>
 </html>

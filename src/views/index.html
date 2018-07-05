@@ -8,6 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../layuiadmin/style/xy.css" media="all">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 </head>
 <body class="layui-layout-body">
   
@@ -65,6 +67,17 @@
           </div>
           
           <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+            <li data-name="user" class="layui-nav-item">
+              <a href="javascript:;" lay-tips="机构管理" lay-direction="2">
+                <i class="fas fa-stroopwafel"></i>
+                <cite>机构管理</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <dd>
+                  <a lay-href="institution/list.html">机构查询</a>
+                </dd>
+              </dl>
+            </li>
             <li data-name="user" class="layui-nav-item">
               <a href="javascript:;" lay-tips="医生" lay-direction="2">
                 <i class="layui-icon layui-icon-user"></i>

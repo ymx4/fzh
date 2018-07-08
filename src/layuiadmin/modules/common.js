@@ -12,7 +12,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form'], function(exports){
   };
 
   var constant = {
-    PAGE_SIZE: 10,
+    DEFAULT_PAGE_SIZE: 10,
   }
 
 	var apierror = function(data){
@@ -38,66 +38,85 @@ layui.define(['layer', 'admin', 'view', 'table', 'form'], function(exports){
   };
 
   admin.events.xycid = function(elemid){
-    var index = layer.open({
+    var cidindex = layer.open({
       type: 1,
       content: '<div id="xycid"></div>',
-      title: ''
+      title: 'ICD查询'
     });
-    layer.full(index);
+    layer.full(cidindex);
     view('xycid').render('common/icd').done(function(){
-      table.render({
-        elem: '#xy-icd-table'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'username', minWidth:100, title: '疾病名称'}
-          ,{title: '操作', width: 150, align:'center', fixed: 'right', toolbar: '#table-icd-ope'}
-        ]]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
-      });
+      setTimeout(function(){
+        table.render({
+          elem: '#xy-icd-table'
+          ,url: api.SearchICD
+          ,limit: constant.DEFAULT_PAGE_SIZE
+          ,method: 'post'
+          ,contentType: 'application/json'
+          ,where: {
+            ICD_KEYWORD: '',
+          }
+          ,request: {
+            pageName: 'PAGE_NO'
+            ,limitName: 'PAGE_SIZE'
+          }
+          ,response: {
+            statusName: 'status'
+            ,statusCode: 1
+            ,countName: 'message'
+          }
+          ,cols: [[
+            {type: 'numbers', title: '序号'}
+            ,{field: 'DISEASE_NAME', title: '疾病名称'}
+            ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-icd-ope'}
+          ]]
+          ,page: {layout:['prev', 'page', 'next', 'count']}
+          ,text: '对不起，加载出现异常！'
+        });
+      },100);
+
       table.on('tool(xy-icd-table)', function(obj){
         if(obj.event === 'sel'){
-          $('#' + elemid.attr('data-id')).val(obj.data.username);
-          layer.close(layer.index);
+          $('#' + elemid.attr('data-id')).val(obj.data.ID);
+          $('#' + elemid.attr('data-name')).val(obj.data.DISEASE_NAME);
+          $('#' + elemid.attr('data-name')).attr('title', obj.data.DISEASE_NAME);
+          layer.close(cidindex);
         }
       });
       
       //监听搜索
       form.on('submit(xy-icd-search)', function(data){
-        var field = data.field;
-        
         //执行重载
         table.reload('xy-icd-table', {
-          where: field
+          page: {
+            curr: 1
+          }
+          ,where: {
+            ICD_KEYWORD: data.field.icdq
+          }
         });
       });
     });
-    // $.ajax({
-    //   url: api.SearchICD
-    //   ,type: 'post'
-    //   ,data: JSON.stringify({
-    //     ICD_KEYWORD: query,
-    //     PAGE_NO: page,
-    //     PAGE_SIZE: constant.PAGE_SIZE,
-    //   })
-    //   ,dataType: 'json'
-    //   ,success: function(data){console.log(data);
-    //     if (data.status == 1) {
-    //       if (data.data != null && data.data.length > 0) {
-            
-    //       }
-    //     } else {
-    //       apierror(data);
-    //     }
-    //   }
-    // });
   };
+
+  var getRequest = function () {
+     var url = location.search;
+     var theRequest = new Object();
+     if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for(var i = 0; i < strs.length; i ++) {
+           theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+        }
+     }
+     return theRequest;
+  }
 
 	exports('common', {
     api: api,
     apierror: apierror,
     modal: modal,
     base: '/views/',
+    constant: constant,
+    getRequest: getRequest,
 	});
 });

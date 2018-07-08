@@ -1,16 +1,16 @@
 @media screen and (max-width: 450px) {
 	.layui-form-item .layui-form-label {
-	  text-overflow: clip;
-	  overflow: visible; 
-	  white-space: normal;
+		text-overflow: clip;
+		overflow: visible; 
+		white-space: normal;
 
-	  float: none;
-	  width: auto;
-	  text-align: left;
-	  padding-left: 0;
+		float: none;
+		width: auto;
+		text-align: left;
+		padding-left: 0;
 	}
-	.layui-input-block {
-	  margin-left: 0;
+	.layui-form-item .layui-input-block,.layui-form-item .layui-input-inline {
+		margin-left: 0;
 	}
 }
 i.fas{
@@ -21,4 +21,13 @@ i.fas{
 .xy-form-group input {
 	display: inline-block;
 	width: auto;
+}
+.layui-table-cell {
+	height: auto;
+	text-overflow: clip;
+	overflow: visible; 
+	white-space: normal;
+}
+.xy-search {
+	min-width: 300px;
 }

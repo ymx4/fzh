@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../../layuiadmin/style/xy.css" media="all">
 </head>
 <body>
 
@@ -16,16 +17,7 @@
       <div class="layui-form layui-card-header layuiadmin-card-header-auto">
         <div class="layui-form-item">
           <div class="layui-inline">
-            <label class="layui-form-label">机构编号</label>
-            <div class="layui-input-block">
-              <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">机构名称</label>
-            <div class="layui-input-block">
-              <input type="text" name="username" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
+            <input type="text" name="searchq" placeholder="请输入搜索词" autocomplete="off" class="layui-input xy-search">
           </div>
           <div class="layui-inline">
             <button class="layui-btn layuiadmin-btn-institution" lay-submit lay-filter="xy-institution-search">
@@ -34,7 +26,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="layui-card-body">
         <div style="padding-bottom: 10px;">
           <button class="layui-btn layuiadmin-btn-institution" data-type="add">添加</button>
@@ -42,8 +34,9 @@
         
         <table id="xy-institution-manage" lay-filter="xy-institution-manage"></table>
         <script type="text/html" id="table-institution">
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="institution/edit.html?{{d.id}}" lay-text="{{d.username}}"><i class="layui-icon layui-icon-list"></i>查看</a>
-          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="institution/edit.html?{{d.id}}" lay-text="{{d.username}}">编辑</a>
+          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="addsub">添加子机构</a>
         </script>
       </div>
     </div>

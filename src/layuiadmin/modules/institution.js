@@ -16,9 +16,13 @@ layui.define(['table', 'form', 'common'], function(exports){
     elem: '#xy-institution-manage'
     ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
     ,cols: [[
-      {field: 'id', title: '机构编号'}
-      ,{field: 'username', minWidth:100, title: '机构名称'}
-      ,{title: '操作', width: 150, align:'center', fixed: 'right', toolbar: '#table-institution'}
+      {type: 'numbers', title: '序号'}
+      ,{field: 'username', title: '单位名称'}
+      ,{field: 'username', title: '所属区域'}
+      ,{field: 'username', title: '单位类型'}
+      ,{field: 'username', title: '单位级别'}
+      ,{field: 'username', title: '单位状态'}
+      ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-institution'}
     ]]
     ,page: {layout:['prev', 'page', 'next', 'count']}
     ,text: '对不起，加载出现异常！'
@@ -35,11 +39,5 @@ layui.define(['table', 'form', 'common'], function(exports){
     }
   });
 
-  element.on('collapse(filter)', function(data){
-    console.log(data.show); //得到当前面板的展开状态，true或者false
-    console.log(data.title); //得到当前点击面板的标题区域DOM对象
-    console.log(data.content); //得到当前点击面板的内容区域DOM对象
-  });
-
-  exports('institution', {editInit})
+  exports('institution', {})
 });

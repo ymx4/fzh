@@ -26,10 +26,10 @@
                     <label class="layui-form-label">疾病名称</label>
                     <div class="layui-input-block">
                       <div class="layui-inline xy-form-group">
-                        <input type="text" id="icdname" name="test" lay-verify="required" class="layui-input">
+                        <input type="hidden" id="icdid" name="test">
+                        <input type="text" id="icdname" name="test" lay-verify="required" disabled="disabled" class="layui-input">
                         <div class="layui-btn-group">
-                          <button class="layui-btn layui-btn-primary" layadmin-event="xycid" data-id="icdname">ICD</button>
-                          <button class="layui-btn layui-btn-primary"><i class="layui-icon"></i></button>
+                          <button class="layui-btn layui-btn-primary" layadmin-event="xycid" data-id="icdid" data-name="icdname">ICD选择</button>
                         </div>
                       </div>
                     </div>
@@ -66,6 +66,8 @@
   <script>
   layui.config({
     base: '../../../layuiadmin/' //静态资源所在路径
+    ,version: true
+    ,debug: true
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index', 'form']);

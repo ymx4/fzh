@@ -1,4 +1,4 @@
-layui.define(['layer', 'admin', 'view', 'table', 'form'], function(exports){
+layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(exports){
   var $ = layui.$
   ,layer = layui.layer
   ,admin = layui.admin
@@ -37,14 +37,14 @@ layui.define(['layer', 'admin', 'view', 'table', 'form'], function(exports){
     parent.layer.close(index);
   };
 
-  admin.events.xycid = function(elemid){
-    var cidindex = layer.open({
+  admin.events.xyicd = function(elemid){
+    var icdindex = layer.open({
       type: 1,
-      content: '<div id="xycid"></div>',
+      content: '<div id="xyicd"></div>',
       title: 'ICD查询'
     });
-    layer.full(cidindex);
-    view('xycid').render('common/icd').done(function(){
+    layer.full(icdindex);
+    view('xyicd').render('common/icd').done(function(){
       setTimeout(function(){
         table.render({
           elem: '#xy-icd-table'
@@ -79,7 +79,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form'], function(exports){
           $('#' + elemid.attr('data-id')).val(obj.data.ID);
           $('#' + elemid.attr('data-name')).val(obj.data.DISEASE_NAME);
           $('#' + elemid.attr('data-name')).attr('title', obj.data.DISEASE_NAME);
-          layer.close(cidindex);
+          layer.close(icdindex);
         }
       });
       
@@ -98,7 +98,48 @@ layui.define(['layer', 'admin', 'view', 'table', 'form'], function(exports){
     });
   };
 
-  var getRequest = function () {
+  admin.events.xyins = function(elemid){
+    var insindex = layer.open({
+      type: 1,
+      content: '<div id="xyins"></div>',
+      title: '机构选择'
+    });
+    layer.full(insindex);
+    view('xyins').render('common/ins').done(function(){
+      setTimeout(function(){
+        layui.tree({
+          elem: '#xy-inslist'
+          ,nodes: [{
+            id: 1
+            ,name: '父节点1'
+            ,children: [{
+              id: 11
+              ,name: '子节点11'
+            },{
+              id: 12
+              ,name: '子节点12'
+            }]
+          },{
+            id: 2
+            ,name: '父节点2（可以点左侧箭头，也可以双击标题）'
+            ,children: [{
+              id: 21
+              ,name: '子节点21'
+              ,children: [{
+                id: 211
+                ,name: '子节点211'
+              }]
+            }]
+          }]
+          ,click: function(node){
+            console.log(node)
+          }
+        });
+      },100);
+    });
+  };
+
+  var getParams = function () {
      var url = location.search;
      var theRequest = new Object();
      if (url.indexOf("?") != -1) {
@@ -117,6 +158,6 @@ layui.define(['layer', 'admin', 'view', 'table', 'form'], function(exports){
     modal: modal,
     base: '/views/',
     constant: constant,
-    getRequest: getRequest,
+    getParams: getParams,
 	});
 });

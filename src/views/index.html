@@ -74,11 +74,52 @@
                 <cite>专科医生</cite>
               </a>
               <dl class="layui-nav-child">
-                <dd><a lay-href="">就诊</a></dd>
-                <dd><a lay-href="">会诊</a></dd>
-                <dd><a lay-href="">转诊</a></dd>
-                <dd><a lay-href="">健康体检</a></dd>
-                <dd><a lay-href="resident/list.html">客户信息</a></dd>
+                <dd>
+                  <a href="javascript:;">就诊<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="visit/list.html?t=1">未完成</a></dd>
+                    <dd><a lay-href="visit/list.html?t=2">已完成</a></dd>
+                    <dd><a lay-href="visit/list.html?t=3">待复诊</a></dd>
+                  </dl>
+                </dd>
+                <dd>
+                  <a href="javascript:;">会诊（请求）<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="consultation/list.html?t=1">请求中</a></dd>
+                    <dd><a lay-href="consultation/list.html?t=2">已确认</a></dd>
+                    <dd><a lay-href="consultation/list.html?t=3">已完成</a></dd>
+                  </dl>
+                </dd>
+                <dd>
+                  <a href="javascript:;">会诊（申请）<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="">申请中</a></dd>
+                    <dd><a lay-href="">已确认</a></dd>
+                    <dd><a lay-href="">已完成</a></dd>
+                  </dl>
+                </dd>
+                <dd>
+                  <a href="javascript:;">转诊<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="">转出</a></dd>
+                    <dd><a lay-href="">转入</a></dd>
+                  </dl>
+                </dd>
+                <dd>
+                  <a href="javascript:;">回诊<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="">待处理</a></dd>
+                    <dd><a lay-href="">已处理</a></dd>
+                  </dl>
+                </dd>
+                <dd>
+                  <a href="javascript:;">健康体检<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="">体检中</a></dd>
+                    <dd><a lay-href="">待结论</a></dd>
+                    <dd><a lay-href="">已完成</a></dd>
+                  </dl>
+                </dd>
               </dl>
             </li>
             <li class="layui-nav-item">
@@ -87,13 +128,62 @@
                 <cite>家庭医生</cite>
               </a>
               <dl class="layui-nav-child">
-                <dd><a lay-href="">就诊</a></dd>
-                <dd><a lay-href="">会诊</a></dd>
-                <dd><a lay-href="">转诊</a></dd>
-                <dd><a lay-href="resident/list.html">客户信息</a></dd>
-                <dd><a lay-href="">家庭管理</a></dd>
-                <dd><a lay-href="">健康体检</a></dd>
-                <dd><a lay-href="">随访记录</a></dd>
+                <dd>
+                  <a href="javascript:;">就诊<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="">未完成</a></dd>
+                    <dd><a lay-href="">已完成</a></dd>
+                    <dd><a lay-href="">待复诊</a></dd>
+                  </dl>
+                </dd>
+                <dd>
+                  <a href="javascript:;">会诊<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="">申请中</a></dd>
+                    <dd><a lay-href="">已确认</a></dd>
+                    <dd><a lay-href="">已完成</a></dd>
+                  </dl>
+                </dd>
+                <dd>
+                  <a href="javascript:;">转诊<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="">转诊中</a></dd>
+                    <dd><a lay-href="">已转诊</a></dd>
+                  </dl>
+                </dd>
+                <dd>
+                  <a href="javascript:;">回诊<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="">待确认</a></dd>
+                    <dd><a lay-href="">已确认</a></dd>
+                  </dl>
+                </dd>
+                <dd>
+                  <a href="javascript:;">健康体检<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="">体检中</a></dd>
+                    <dd><a lay-href="">待结论</a></dd>
+                    <dd><a lay-href="">已完成</a></dd>
+                  </dl>
+                </dd>
+                <dd>
+                  <a href="javascript:;">随访记录<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="">随访计划</a></dd>
+                    <dd><a lay-href="">随访列表</a></dd>
+                  </dl>
+                </dd>
+              </dl>
+            </li>
+            <li class="layui-nav-item">
+              <a href="javascript:;" lay-tips="客户管理" lay-direction="2">
+                <i class="layui-icon layui-icon-user"></i>
+                <cite>客户管理</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <dd><a lay-href="resident/list.html">我的客户</a></dd>
+                <dd><a lay-href="">本单位客户</a></dd>
+                <dd><a lay-href="">下级单位客户</a></dd>
               </dl>
             </li>
             <li class="layui-nav-item">
@@ -114,11 +204,22 @@
               </a>
               <dl class="layui-nav-child">
                 <dd><a lay-href="institution/list.html">机构列表</a></dd>
-                <dd><a lay-href="">医生管理</a></dd>
-                <dd><a lay-href="">科室管理</a></dd>
-                <dd><a lay-href="">数据统计</a></dd>
+                <dd><a lay-href="doctor/list.html">医生管理</a></dd>
+                <dd><a lay-href="department/list.html">科室管理</a></dd>
                 <dd><a lay-href="">意见反馈</a></dd>
                 <dd><a lay-href="">内部公告</a></dd>
+              </dl>
+            </li>
+            <li class="layui-nav-item">
+              <a href="javascript:;" lay-tips="数据统计" lay-direction="2">
+                <i class="fas fa-stroopwafel"></i>
+                <cite>数据统计</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <dd><a lay-href="">贫困户统计</a></dd>
+                <dd><a lay-href="">家庭医生签约率</a></dd>
+                <dd><a lay-href="">重点人群统计</a></dd>
+                <dd><a lay-href="">体征数据统计</a></dd>
               </dl>
             </li>
             <li class="layui-nav-item">
@@ -154,7 +255,7 @@
         </div>
         <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
           <ul class="layui-tab-title" id="LAY_app_tabsheader">
-            <li lay-id="resident/list.html" lay-attr="resident/list.html" class="layui-this">用户查询</li>
+            <li lay-id="resident/list.html" lay-attr="resident/list.html" class="layui-this">我的客户</li>
           </ul>
         </div>
       </div>

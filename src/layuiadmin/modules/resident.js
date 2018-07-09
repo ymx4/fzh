@@ -8,7 +8,16 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
   ,laytpl = layui.laytpl
   ,common = layui.common;
 
-  var editInit = function() {
+  var init = function() {
+    var params = common.getParams();
+    if (params.ope && params.ope == 'edit') {
+      editInit();
+    } else {
+      detailInit();
+    }
+  }
+
+  var detailInit = function() {
     laytpl(xy_resident_detail.innerHTML).render({username: '测试'}, function(html){
       document.getElementById('xy_resident_view').innerHTML = html;
     });
@@ -18,6 +27,89 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     });
 
     laytpl(xy_resident_env_detail.innerHTML).render({username: '测试'}, function(html){
+      document.getElementById('xy_resident_env').innerHTML = html;
+    });
+  }
+
+  var editInit = function() {
+    laytpl(xy_resident_edit.innerHTML).render({username: '测试'}, function(html){
+      document.getElementById('xy_resident_view').innerHTML = html;
+      xyArea(1, [$('#xy_begin_addr1'), $('#xy_begin_addr2')]);
+
+      // form.render(null, 'xy-resident-form');
+      form.val("xy-resident-form", {
+        'username': '测试'
+        ,'sex': '1'
+        ,'birthday': '2018-09-09'
+        ,'create': '2018-09-09'
+      });
+
+      lay('.xy-resident-date').each(function(){
+        laydate.render({
+          elem: this
+          ,trigger: 'click'
+        });
+      });
+
+      //图片上传
+      var uploadAvatar = upload.render({
+        elem: '#xy-resident-avatar'
+        ,auto: false
+        ,url: ''
+        ,choose: function(obj){
+          //预读本地文件示例，不支持ie8
+          obj.preview(function(index, file, result){
+            $('#xy-resident-avatar-img').attr('src', result); //图片链接（base64）
+          });
+        }
+        ,done: function(res){
+          //如果上传失败
+          if(res.code > 0){
+            return layer.msg('上传失败');
+          }
+          //上传成功
+        }
+        ,error: function(){
+          //演示失败状态，并实现重传
+          var text = $('#xy-redident-avatar-text');
+          text.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+          text.find('.demo-reload').on('click', function(){
+            uploadAvatar.upload();
+          });
+        }
+      });
+      var uploadIdentity = upload.render({
+        elem: '#xy-resident-identity'
+        ,url: ''
+        ,before: function(obj){
+          //预读本地文件示例，不支持ie8
+          obj.preview(function(index, file, result){
+            $('#xy-resident-identity-img').attr('src', result); //图片链接（base64）
+          });
+        }
+        ,done: function(res){
+          //如果上传失败
+          if(res.code > 0){
+            return layer.msg('上传失败');
+          }
+          //上传成功
+        }
+        ,error: function(){
+          //演示失败状态，并实现重传
+          var text = $('#xy-redident-identity-text');
+          text.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+          text.find('.demo-reload').on('click', function(){
+            uploadIdentity.upload();
+          });
+        }
+      });
+    });
+
+    laytpl(xy_resident_health_edit.innerHTML).render({username: '测试'}, function(html){
+      document.getElementById('xy_resident_health').innerHTML = html;
+    });
+
+    laytpl(xy_resident_env_edit.innerHTML).render({username: '测试'}, function(html){
       document.getElementById('xy_resident_env').innerHTML = html;
     });
   }
@@ -134,7 +226,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           });
         }
       });
-    }); 
+    });
   });
 
   form.on('submit(xy-resident-submit)', function(data){
@@ -486,5 +578,5 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     }
   };
 
-  exports('resident', {editInit})
+  exports('resident', {init})
 });

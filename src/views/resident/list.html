@@ -37,8 +37,18 @@
         
         <table id="xy-resident-manage" lay-filter="xy-resident-manage"></table>
         <script type="text/html" id="table-resident">
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="resident/edit.html?{{d.id}}" lay-text="{{d.username}}"></i>查看</a>
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="resident/edit.html?{{d.id}}" lay-text="{{d.username}}"></i>编辑</a>
+          <div class="layui-dropdown">
+            <a class="layui-btn layui-btn-normal layui-btn-xs" data-toggle="dropdown">添加<i class="layui-icon layui-icon-triangle-d"></i></a>
+            <ul class="layui-dropdown-menu">
+              <li><a href="#" onclick="alert(2)">功能</a></li>
+              <li><a href="#">另一个功能</a></li>
+              <li><a href="#">其他</a></li>
+              <li class="divider"></li>
+              <li><a href="#">分离的链接</a></li>
+            </ul>
+          </div>
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="resident/detail.html" lay-text="查看-{{d.username}}">查看</a>
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="resident/edit.html" lay-text="编辑-{{d.username}}">编辑</a>
           <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
       </div>
@@ -49,13 +59,15 @@
   <script>
   layui.config({
     base: '../../layuiadmin/' //静态资源所在路径
+    ,version: true
+    ,debug: true
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'resident', 'table'], function(){
+  }).use(['index', 'resident', 'table', 'dropdown'], function(){
     var $ = layui.$
     ,form = layui.form
     ,table = layui.table;
-    
+
     //监听搜索
     form.on('submit(xy-resident-search)', function(data){
       var field = data.field;

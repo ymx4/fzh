@@ -132,8 +132,12 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
             }]
           }]
           ,click: function(node){
-            console.log(node)
+            console.log(this)
           }
+        });
+        $("#xyins").on("mousedown", ".layui-tree a cite",function(){ 
+          $(".layui-tree a cite").removeClass('layui-bg-green');
+          $(this).addClass('layui-bg-green');
         });
       },100);
     });

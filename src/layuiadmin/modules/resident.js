@@ -8,32 +8,28 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
   ,laytpl = layui.laytpl
   ,common = layui.common;
 
-  var init = function() {
-    var params = common.getParams();
-    if (params.ope && params.ope == 'edit') {
-      editInit();
-    } else {
-      detailInit();
-    }
-  }
+  var pageType = 'detail';
 
-  var detailInit = function() {
-    laytpl(xy_resident_detail.innerHTML).render({username: '测试'}, function(html){
-      document.getElementById('xy_resident_view').innerHTML = html;
-    });
+  var init = {
+    detail: function() {
+      pageType = 'detail';
 
-    laytpl(xy_resident_health_detail.innerHTML).render({username: '测试'}, function(html){
-      document.getElementById('xy_resident_health').innerHTML = html;
-    });
+      laytpl(xy_resident_detail.innerHTML).render({username: '测试'}, function(html){
+        document.getElementById('xy_resident_view').innerHTML = html;
+      });
 
-    laytpl(xy_resident_env_detail.innerHTML).render({username: '测试'}, function(html){
-      document.getElementById('xy_resident_env').innerHTML = html;
-    });
-  }
+      laytpl(xy_resident_health_detail.innerHTML).render({username: '测试'}, function(html){
+        document.getElementById('xy_resident_health').innerHTML = html;
+      });
 
-  var editInit = function() {
-    laytpl(xy_resident_edit.innerHTML).render({username: '测试'}, function(html){
-      document.getElementById('xy_resident_view').innerHTML = html;
+      laytpl(xy_resident_env_detail.innerHTML).render({username: '测试'}, function(html){
+        document.getElementById('xy_resident_env').innerHTML = html;
+      });
+    },
+
+    edit: function() {
+      pageType = 'edit';
+
       xyArea(1, [$('#xy_begin_addr1'), $('#xy_begin_addr2')]);
 
       // form.render(null, 'xy-resident-form');
@@ -103,15 +99,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           });
         }
       });
-    });
-
-    laytpl(xy_resident_health_edit.innerHTML).render({username: '测试'}, function(html){
-      document.getElementById('xy_resident_health').innerHTML = html;
-    });
-
-    laytpl(xy_resident_env_edit.innerHTML).render({username: '测试'}, function(html){
-      document.getElementById('xy_resident_env').innerHTML = html;
-    });
+    }
   }
 
   form.on('select(xy-addr-select)', function(data){
@@ -148,87 +136,6 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     });
   }
 
-  $('#xy_resident_view').on('click', '.xy-resident-cancel', function(){
-    laytpl(xy_resident_detail.innerHTML).render({username: '测试'}, function(html){
-      document.getElementById('xy_resident_view').innerHTML = html;
-    });
-  });
-
-  $('#xy_resident_view').on('click', '.xy-resident-edit', function(){
-    laytpl(xy_resident_edit.innerHTML).render({username: '测试'}, function(html){
-      document.getElementById('xy_resident_view').innerHTML = html;
-      xyArea(1, [$('#xy_begin_addr1'), $('#xy_begin_addr2')]);
-
-      // form.render(null, 'xy-resident-form');
-      form.val("xy-resident-form", {
-        'username': '测试'
-        ,'sex': '1'
-        ,'birthday': '2018-09-09'
-        ,'create': '2018-09-09'
-      });
-
-      lay('.xy-resident-date').each(function(){
-        laydate.render({
-          elem: this
-          ,trigger: 'click'
-        });
-      });
-
-      //图片上传
-      var uploadAvatar = upload.render({
-        elem: '#xy-resident-avatar'
-        ,auto: false
-        ,url: ''
-        ,choose: function(obj){
-          //预读本地文件示例，不支持ie8
-          obj.preview(function(index, file, result){
-            $('#xy-resident-avatar-img').attr('src', result); //图片链接（base64）
-          });
-        }
-        ,done: function(res){
-          //如果上传失败
-          if(res.code > 0){
-            return layer.msg('上传失败');
-          }
-          //上传成功
-        }
-        ,error: function(){
-          //演示失败状态，并实现重传
-          var text = $('#xy-redident-avatar-text');
-          text.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
-          text.find('.demo-reload').on('click', function(){
-            uploadAvatar.upload();
-          });
-        }
-      });
-      var uploadIdentity = upload.render({
-        elem: '#xy-resident-identity'
-        ,url: ''
-        ,before: function(obj){
-          //预读本地文件示例，不支持ie8
-          obj.preview(function(index, file, result){
-            $('#xy-resident-identity-img').attr('src', result); //图片链接（base64）
-          });
-        }
-        ,done: function(res){
-          //如果上传失败
-          if(res.code > 0){
-            return layer.msg('上传失败');
-          }
-          //上传成功
-        }
-        ,error: function(){
-          //演示失败状态，并实现重传
-          var text = $('#xy-redident-identity-text');
-          text.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
-          text.find('.demo-reload').on('click', function(){
-            uploadIdentity.upload();
-          });
-        }
-      });
-    });
-  });
-
   form.on('submit(xy-resident-submit)', function(data){
     console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
     console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
@@ -236,32 +143,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
   });
 
-  $('#xy_resident_health').on('click', '.xy-resident-health-cancel', function(){
-    laytpl(xy_resident_health_detail.innerHTML).render({username: '测试'}, function(html){
-      document.getElementById('xy_resident_health').innerHTML = html;
-    });
-  });
-
-  $('#xy_resident_health').on('click', '.xy-resident-health-edit', function(){
-    laytpl(xy_resident_health_edit.innerHTML).render({username: '测试'}, function(html){
-      document.getElementById('xy_resident_health').innerHTML = html;
-    });
-  });
-
   form.on('submit(xy-resident-health-submit)', function(data){
     return false;
-  });
-
-  $('#xy_resident_env').on('click', '.xy-resident-env-cancel', function(){
-    laytpl(xy_resident_env_detail.innerHTML).render({username: '测试'}, function(html){
-      document.getElementById('xy_resident_env').innerHTML = html;
-    });
-  });
-
-  $('#xy_resident_env').on('click', '.xy-resident-env-edit', function(){
-    laytpl(xy_resident_env_edit.innerHTML).render({username: '测试'}, function(html){
-      document.getElementById('xy_resident_env').innerHTML = html;
-    });
   });
 
   form.on('submit(xy-resident-env-submit)', function(data){
@@ -275,11 +158,11 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     ,limit: common.constant.DEFAULT_PAGE_SIZE
     ,cols: [[
       {field: 'id', title: '个人编号'}
-      ,{field: 'username', minWidth:100, title: '姓名'}
+      ,{field: 'username', title: '姓名'}
       ,{field: 'phone', title: '手机'}
       ,{field: 'sex', title: '性别'}
-      ,{field: 'jointime', minWidth:100, title: '加入时间'}
-      ,{title: '操作', width: 150, align:'center', fixed: 'right', toolbar: '#table-resident'}
+      ,{field: 'jointime', title: '加入时间'}
+      ,{title: '操作', align:'center', minWidth:200, toolbar: '#table-resident'}
     ]]
     ,page: {layout:['prev', 'page', 'next', 'count']}
     ,text: '对不起，加载出现异常！'
@@ -326,17 +209,20 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
   var renderHistory = {
     person: function(){
       //个人病史
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'username', title: '疾病名称'}
+        ,{field: 'jointime', title: '确诊时间'}
+        ,{field: 'username', title: '确诊机构'}
+      ];
+      if (pageType == 'edit') {
+        cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
+      }
       table.render({
         elem: '#xy-resident-history-person'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'username', minWidth:100, title: '疾病名称'}
-          ,{field: 'jointime', minWidth:100, title: '确诊时间'}
-          ,{field: 'username', minWidth:100, title: '确诊机构'}
-          ,{title: '操作', width: 150, align:'center', fixed: 'right', toolbar: '#table-history-ope'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });
@@ -344,16 +230,17 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     ,operation: function(){
       //手术史
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'username', title: '名称'}
+        ,{field: 'jointime', title: '手术时间'}
+        ,{field: 'username', title: '手术机构'}
+      ]
       table.render({
         elem: '#xy-resident-history-operation'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'username', minWidth:100, title: '名称'}
-          ,{field: 'jointime', minWidth:100, title: '手术时间'}
-          ,{field: 'username', minWidth:100, title: '手术机构'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });
@@ -361,16 +248,20 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     ,trauma: function(){
       //外伤
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'username', title: '名称'}
+        ,{field: 'jointime', title: '时间'}
+        ,{field: 'username', title: '原因'}
+      ];
+      if (pageType == 'edit') {
+        cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
+      }
       table.render({
         elem: '#xy-resident-history-trauma'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'username', minWidth:100, title: '名称'}
-          ,{field: 'jointime', minWidth:100, title: '时间'}
-          ,{field: 'username', minWidth:100, title: '原因'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });
@@ -378,15 +269,19 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     ,blood: function(){
       //输血
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'jointime', title: '时间'}
+        ,{field: 'username', title: '原因'}
+      ];
+      if (pageType == 'edit') {
+        cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
+      }
       table.render({
         elem: '#xy-resident-history-blood'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'jointime', minWidth:100, title: '时间'}
-          ,{field: 'username', minWidth:100, title: '原因'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });
@@ -394,16 +289,20 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     ,hospital: function(){
       //住院史
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'jointime', title: '住院时间'}
+        ,{field: 'username', title: '住院原因'}
+        ,{field: 'username', title: '医院名称'}
+      ];
+      if (pageType == 'edit') {
+        cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
+      }
       table.render({
         elem: '#xy-resident-history-hospital'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'jointime', minWidth:100, title: '住院时间'}
-          ,{field: 'username', minWidth:100, title: '住院原因'}
-          ,{field: 'username', minWidth:100, title: '医院名称'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });
@@ -411,15 +310,19 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     ,family: function(){
       //家庭史
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'username', title: '疾病名称'}
+        ,{field: 'username', title: '与其关系'}
+      ];
+      if (pageType == 'edit') {
+        cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
+      }
       table.render({
         elem: '#xy-resident-history-family'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'username', minWidth:100, title: '疾病名称'}
-          ,{field: 'username', minWidth:100, title: '与其关系'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });
@@ -427,14 +330,18 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     ,inherit: function(){
       //遗传病史
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'username', title: '疾病名称'}
+      ];
+      if (pageType == 'edit') {
+        cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
+      }
       table.render({
         elem: '#xy-resident-history-inherit'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'username', minWidth:100, title: '疾病名称'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });
@@ -442,15 +349,19 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     ,allergy: function(){
       //过敏史
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'username', title: '过敏源'}
+        ,{field: 'username', title: '来源'}
+      ];
+      if (pageType == 'edit') {
+        cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
+      }
       table.render({
         elem: '#xy-resident-history-allergy'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'username', minWidth:100, title: '过敏源'}
-          ,{field: 'username', minWidth:100, title: '来源'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });
@@ -458,14 +369,18 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     ,derfomity: function(){
       //残疾情况
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'username', title: '残疾名称'}
+      ];
+      if (pageType == 'edit') {
+        cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
+      }
       table.render({
         elem: '#xy-resident-history-derfomity'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'username', minWidth:100, title: '残疾名称'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });
@@ -473,17 +388,18 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     ,visit: function(){
       //就诊记录
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'jointime', title: '就诊时间'}
+        ,{field: 'username', title: '科室'}
+        ,{field: 'username', title: '就诊医生'}
+        ,{field: 'username', title: '就诊机构'}
+      ];
       table.render({
         elem: '#xy-resident-history-visit'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'jointime', minWidth:100, title: '就诊时间'}
-          ,{field: 'username', minWidth:100, title: '科室'}
-          ,{field: 'username', minWidth:100, title: '就诊医生'}
-          ,{field: 'username', minWidth:100, title: '就诊机构'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });
@@ -491,16 +407,17 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     ,consultation: function(){
       //会诊记录
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'jointime', title: '会诊时间'}
+        ,{field: 'username', title: '会诊医生'}
+        ,{field: 'username', title: '会诊机构'}
+      ];
       table.render({
         elem: '#xy-resident-history-consultation'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'jointime', minWidth:100, title: '会诊时间'}
-          ,{field: 'username', minWidth:100, title: '会诊医生'}
-          ,{field: 'username', minWidth:100, title: '会诊机构'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });
@@ -508,16 +425,17 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     ,refer: function(){
       //转诊记录
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'jointime', title: '转诊时间'}
+        ,{field: 'username', title: '转诊医生'}
+        ,{field: 'username', title: '转诊机构'}
+      ];
       table.render({
         elem: '#xy-resident-history-refer'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'jointime', minWidth:100, title: '转诊时间'}
-          ,{field: 'username', minWidth:100, title: '转诊医生'}
-          ,{field: 'username', minWidth:100, title: '转诊机构'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });
@@ -525,17 +443,18 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     ,examination: function(){
       //体检记录
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'jointime', title: '体检时间'}
+        ,{field: 'username', title: '体检类型'}
+        ,{field: 'username', title: '体检医生'}
+        ,{field: 'username', title: '医疗机构'}
+      ];
       table.render({
         elem: '#xy-resident-history-examination'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'jointime', minWidth:100, title: '体检时间'}
-          ,{field: 'username', minWidth:100, title: '体检类型'}
-          ,{field: 'username', minWidth:100, title: '体检医生'}
-          ,{field: 'username', minWidth:100, title: '医疗机构'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });
@@ -543,17 +462,18 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     ,followup: function(){
       //随访记录
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'jointime', title: '随访时间'}
+        ,{field: 'username', title: '随访类型'}
+        ,{field: 'username', title: '随访医生'}
+        ,{field: 'username', title: '医疗机构'}
+      ];
       table.render({
         elem: '#xy-resident-history-followup'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'jointime', minWidth:100, title: '随访时间'}
-          ,{field: 'username', minWidth:100, title: '随访类型'}
-          ,{field: 'username', minWidth:100, title: '随访医生'}
-          ,{field: 'username', minWidth:100, title: '医疗机构'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });
@@ -561,17 +481,18 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     ,survey: function(){
       //问卷记录
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'jointime', title: '问卷时间'}
+        ,{field: 'username', title: '问卷类型'}
+        ,{field: 'username', title: '问卷名称'}
+        ,{field: 'username', title: '调查人员'}
+      ];
       table.render({
         elem: '#xy-resident-history-survey'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {type: 'numbers', title: '序号'}
-          ,{field: 'jointime', minWidth:100, title: '问卷时间'}
-          ,{field: 'username', minWidth:100, title: '问卷类型'}
-          ,{field: 'username', minWidth:100, title: '问卷名称'}
-          ,{field: 'username', minWidth:100, title: '调查人员'}
-        ]]
+        ,cols: [cols]
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: '对不起，加载出现异常！'
       });

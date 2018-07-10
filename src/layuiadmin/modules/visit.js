@@ -5,10 +5,10 @@ layui.define(['table', 'form', 'common'], function(exports){
   ,common = layui.common;
 
   var test = 1;
-  var params = common.getParams();
-  if (params.t == 1) {
+  var router = layui.router();
+  if (router.search.t == 1) {
     test = 1;
-  } else if (params.t == 2) {
+  } else if (router.search.t == 2) {
     test = 2;
   } else {
     test = 3;

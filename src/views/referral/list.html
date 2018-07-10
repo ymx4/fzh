@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>就诊列表</title>
+  <title>转诊列表</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -43,11 +43,10 @@
       </div>
 
       <div class="layui-card-body">        
-        <table id="xy-visit-manage" lay-filter="xy-visit-manage"></table>
-        <script type="text/html" id="table-visit">
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="visit/edit.html" lay-text="{{d.username}}">查看</a>
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="visit/edit.html" lay-text="{{d.username}}">编辑</a>
-          <a class="layui-btn layui-btn-danger layui-btn-xs">会诊</a>
+        <table id="xy-referral-manage" lay-filter="xy-referral-manage"></table>
+        <script type="text/html" id="table-referral">
+          <a class="layui-btn layui-btn-normal layui-btn-xs">查看</a>
+          <a class="layui-btn layui-btn-normal layui-btn-xs">添加就诊</a>
         </script>
       </div>
     </div>
@@ -59,7 +58,7 @@
     base: '../../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'visit', 'laydate'], function() {
+  }).use(['index', 'referral', 'laydate'], function() {
     var laydate = layui.laydate;
 
     lay('.xy-date').each(function(){

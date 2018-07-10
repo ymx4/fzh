@@ -423,7 +423,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       });
     }
 
-    ,refer: function(){
+    ,referral: function(){
       //转诊记录
       var cols = [
         {type: 'numbers', title: '序号'}
@@ -432,7 +432,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,{field: 'username', title: '转诊机构', minWidth:100}
       ];
       table.render({
-        elem: '#xy-resident-history-refer'
+        elem: '#xy-resident-history-referral'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]

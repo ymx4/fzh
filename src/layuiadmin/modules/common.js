@@ -143,18 +143,18 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
     });
   };
 
-  var getParams = function () {
-     var url = location.search;
-     var theRequest = new Object();
-     if (url.indexOf("?") != -1) {
-        var str = url.substr(1);
-        strs = str.split("&");
-        for(var i = 0; i < strs.length; i ++) {
-           theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
-        }
-     }
-     return theRequest;
-  }
+  // var getParams = function () {
+  //    var url = location.search;
+  //    var theRequest = new Object();
+  //    if (url.indexOf("?") != -1) {
+  //       var str = url.substr(1);
+  //       strs = str.split("&");
+  //       for(var i = 0; i < strs.length; i ++) {
+  //          theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+  //       }
+  //    }
+  //    return theRequest;
+  // }
 
 	exports('common', {
     api: api,
@@ -162,6 +162,6 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
     modal: modal,
     base: '/views/',
     constant: constant,
-    getParams: getParams,
+    // getParams: getParams,
 	});
 });

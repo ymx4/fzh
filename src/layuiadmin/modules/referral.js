@@ -15,31 +15,31 @@ layui.define(['table', 'form', 'common'], function(exports){
   }
 
   //监听搜索
-  form.on('submit(xy-consultation-search)', function(data){
+  form.on('submit(xy-referral-search)', function(data){
     var field = data.field;
     
     //执行重载
-    table.reload('xy-consultation-manage', {
+    table.reload('xy-referral-manage', {
       // url:'',
       where: field
     });
   });
 
   table.render({
-    elem: '#xy-consultation-manage'
+    elem: '#xy-referral-manage'
     ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
     ,where: {test: test}
     ,cols: [[
-      {field: 'username', title: '编号'}
-      ,{field: 'username', title: '会诊日期'}
+      {field: 'username', title: '会诊编号'}
+      ,{field: 'username', title: '转诊日期'}
       ,{field: 'username', title: '姓名'}
-      ,{field: 'username', title: '会诊单位'}
+      ,{field: 'username', title: '转诊单位'}
       ,{field: 'username', title: '状态'}
-      ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-consultation'}
+      ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-referral'}
     ]]
     ,page: {layout:['prev', 'page', 'next', 'count']}
     ,text: '对不起，加载出现异常！'
   });
 
-  exports('consultation', {})
+  exports('referral', {})
 });

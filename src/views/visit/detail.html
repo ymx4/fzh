@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>就诊</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/xy.css" media="all">
+</head>
+<body>
+
+  <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-card-header">就诊</div>
+      <div class="layui-card-body" style="padding: 15px;" id="xy_visit_detail_container">
+      </div>
+    </div>
+  </div>
+  <script type="text/html" id="xy_visit_detail">
+    <form class="layui-form" action="" lay-filter="">
+
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">就诊编号</label>
+          <div class="layui-input-inline">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">就诊时间</label>
+          <div class="layui-input-inline">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">就诊医生</label>
+          <div class="layui-input-inline">
+            <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="layui-form-item">
+        <label class="layui-form-label">就诊内容</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+        </div>
+      </div>
+      
+      <div class="layui-form-item">
+        <label class="layui-form-label">情况描述</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+        </div>
+      </div>
+      
+      <div class="layui-form-item">
+        <label class="layui-form-label">诊断结论</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-word-aux">诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论诊断结论</div>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">ICD疾病统计</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+        </div>
+      </div>
+      
+      <div class="layui-form-item">
+        <label class="layui-form-label">处方</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-word-aux">{{d.username}}</div>
+        </div>
+      </div>
+      
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <div class="layui-inline">
+            <input type="checkbox" name="like1[write]" lay-skin="primary" title="复查时间" checked="">
+          </div>
+          <div class="layui-inline">
+            <input type="text" class="layui-input xy-date" name="test" placeholder="选择复查时间">
+          </div>
+        </div>
+      </div>
+    </form>
+  </script>
+
+    
+  <script src="../../layuiadmin/layui/layui.js"></script>  
+  <script>
+  layui.config({
+    base: '../../layuiadmin/' //静态资源所在路径
+    ,version: true
+    ,debug: true
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'laydate', 'laytpl'], function() {
+    var laydate = layui.laydate
+    ,laytpl = layui.laytpl;
+
+    lay('.xy-date').each(function(){
+      laydate.render({
+        elem: this
+        ,trigger: 'click'
+      });
+    });
+
+    laytpl(xy_visit_detail.innerHTML).render({username: '测试'}, function(html){
+      document.getElementById('xy_visit_detail_container').innerHTML = html;
+    });
+  });
+  </script>
+</body>
+</html>

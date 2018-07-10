@@ -17,10 +17,25 @@
       <div class="layui-form layui-card-header layuiadmin-card-header-auto">
         <div class="layui-form-item">
           <div class="layui-inline">
-            <input type="text" name="searchq" placeholder="请输入搜索词" autocomplete="off" class="layui-input xy-search">
+            <label class="layui-form-label">关键词</label>
+            <div class="layui-input-inline">
+              <input type="text" name="searchq" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
           </div>
           <div class="layui-inline">
-            <button class="layui-btn layuiadmin-btn-consultation" lay-submit lay-filter="xy-consultation-search">
+            <label class="layui-form-label">日期</label>
+            <div class="layui-input-inline">
+              <input type="text" class="layui-input xy-date" name="search-date-start" placeholder="开始日期">
+            </div>
+            <div class="layui-form-mid">
+              -
+            </div>
+            <div class="layui-input-inline">
+              <input type="text" class="layui-input xy-date" name="search-date-end" placeholder="结束日期">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <button class="layui-btn layuiadmin-btn-visit" lay-submit lay-filter="xy-visit-search">
               <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
             </button>
           </div>
@@ -45,7 +60,16 @@
     base: '../../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'consultation']);
+  }).use(['index', 'consultation', 'laydate'], function() {
+    var laydate = layui.laydate;
+
+    lay('.xy-date').each(function(){
+      laydate.render({
+        elem: this
+        ,trigger: 'click'
+      });
+    });
+  });
   </script>
 </body>
 </html>

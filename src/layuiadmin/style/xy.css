@@ -11,6 +11,31 @@
     margin-left: 10px;
 }
 
+.xy-dropdown {
+	display: inline-block;
+	padding: 0;
+	line-height: 22px;
+    vertical-align: middle;
+    background-color: #1E9FFF;
+    font-size: 12px;
+}
+.xy-dropdown .layui-nav-item {
+	line-height: 22px;
+}
+.xy-dropdown .layui-nav-child {
+	top: 30px;
+}
+.xy-dropdown .layui-nav-bar {
+	display: none;
+}
+.xy-dropdown .layui-nav-item > a {
+	padding-left: 5px;
+	color: #fff;
+}
+.xy-dropdown+.layui-btn {
+	margin-left: 10px;
+}
+
 @media screen and (max-width: 450px) {
 	.layui-form-item .layui-form-label {
 		text-overflow: clip;
@@ -35,12 +60,12 @@ i.fas, i.far{
 	display: inline-block;
 	width: auto;
 }
-.layui-table-cell {
+/*.layui-table-cell {
 	height: auto;
 	text-overflow: clip;
-	overflow: visible; 
+	overflow: visible;
 	white-space: normal;
-}
+}*/
 .xy-search {
 	min-width: 300px;
 }

@@ -38,13 +38,11 @@
         <table id="xy-resident-manage" lay-filter="xy-resident-manage"></table>
         <script type="text/html" id="table-resident">
           <div class="layui-dropdown">
-            <a class="layui-btn layui-btn-normal layui-btn-xs" data-toggle="dropdown">添加<i class="layui-icon layui-icon-triangle-d"></i></a>
+            <button type="button" class="layui-btn layui-btn-xs" data-toggle="dropdown">添加 <i class="layui-icon layui-icon-triangle-r"></i></button>
             <ul class="layui-dropdown-menu">
-              <li><a href="#" onclick="alert(2)">功能</a></li>
-              <li><a href="#">另一个功能</a></li>
-              <li><a href="#">其他</a></li>
-              <li class="divider"></li>
-              <li><a href="#">分离的链接</a></li>
+              <li><a lay-href="">添加就诊</a></li>
+              <li><a href="">添加体检</a></li>
+              <li><a href="">添加随访</a></li>
             </ul>
           </div>
           <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="resident/detail.html" lay-text="查看-{{d.username}}">查看</a>

@@ -157,12 +157,12 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
     ,limit: common.constant.DEFAULT_PAGE_SIZE
     ,cols: [[
-      {field: 'id', title: '个人编号'}
-      ,{field: 'username', title: '姓名'}
-      ,{field: 'phone', title: '手机'}
-      ,{field: 'sex', title: '性别'}
-      ,{field: 'jointime', title: '加入时间'}
-      ,{title: '操作', align:'center', minWidth:200, toolbar: '#table-resident'}
+      {field: 'id', title: '个人编号', minWidth:100}
+      ,{field: 'username', title: '姓名', minWidth:100}
+      ,{field: 'phone', title: '手机', minWidth:100}
+      ,{field: 'sex', title: '性别', minWidth:100}
+      ,{field: 'jointime', title: '加入时间', minWidth:100}
+      ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
     ]]
     ,page: {layout:['prev', 'page', 'next', 'count']}
     ,text: '对不起，加载出现异常！'
@@ -211,9 +211,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //个人病史
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '疾病名称'}
-        ,{field: 'jointime', title: '确诊时间'}
-        ,{field: 'username', title: '确诊机构'}
+        ,{field: 'username', title: '疾病名称', minWidth:100}
+        ,{field: 'jointime', title: '确诊时间', minWidth:100}
+        ,{field: 'username', title: '确诊机构', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -232,9 +232,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //手术史
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '名称'}
-        ,{field: 'jointime', title: '手术时间'}
-        ,{field: 'username', title: '手术机构'}
+        ,{field: 'username', title: '名称', minWidth:100}
+        ,{field: 'jointime', title: '手术时间', minWidth:100}
+        ,{field: 'username', title: '手术机构', minWidth:100}
       ]
       table.render({
         elem: '#xy-resident-history-operation'
@@ -250,9 +250,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //外伤
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '名称'}
-        ,{field: 'jointime', title: '时间'}
-        ,{field: 'username', title: '原因'}
+        ,{field: 'username', title: '名称', minWidth:100}
+        ,{field: 'jointime', title: '时间', minWidth:100}
+        ,{field: 'username', title: '原因', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -271,8 +271,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //输血
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '时间'}
-        ,{field: 'username', title: '原因'}
+        ,{field: 'jointime', title: '时间', minWidth:100}
+        ,{field: 'username', title: '原因', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -291,9 +291,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //住院史
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '住院时间'}
-        ,{field: 'username', title: '住院原因'}
-        ,{field: 'username', title: '医院名称'}
+        ,{field: 'jointime', title: '住院时间', minWidth:100}
+        ,{field: 'username', title: '住院原因', minWidth:100}
+        ,{field: 'username', title: '医院名称', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -312,8 +312,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //家庭史
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '疾病名称'}
-        ,{field: 'username', title: '与其关系'}
+        ,{field: 'username', title: '疾病名称', minWidth:100}
+        ,{field: 'username', title: '与其关系', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -332,7 +332,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //遗传病史
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '疾病名称'}
+        ,{field: 'username', title: '疾病名称', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -351,8 +351,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //过敏史
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '过敏源'}
-        ,{field: 'username', title: '来源'}
+        ,{field: 'username', title: '过敏源', minWidth:100}
+        ,{field: 'username', title: '来源', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -371,7 +371,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //残疾情况
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '残疾名称'}
+        ,{field: 'username', title: '残疾名称', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -390,10 +390,10 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //就诊记录
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '就诊时间'}
-        ,{field: 'username', title: '科室'}
-        ,{field: 'username', title: '就诊医生'}
-        ,{field: 'username', title: '就诊机构'}
+        ,{field: 'jointime', title: '就诊时间', minWidth:100}
+        ,{field: 'username', title: '科室', minWidth:100}
+        ,{field: 'username', title: '就诊医生', minWidth:100}
+        ,{field: 'username', title: '就诊机构', minWidth:100}
       ];
       table.render({
         elem: '#xy-resident-history-visit'
@@ -409,9 +409,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //会诊记录
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '会诊时间'}
-        ,{field: 'username', title: '会诊医生'}
-        ,{field: 'username', title: '会诊机构'}
+        ,{field: 'jointime', title: '会诊时间', minWidth:100}
+        ,{field: 'username', title: '会诊医生', minWidth:100}
+        ,{field: 'username', title: '会诊机构', minWidth:100}
       ];
       table.render({
         elem: '#xy-resident-history-consultation'
@@ -427,9 +427,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //转诊记录
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '转诊时间'}
-        ,{field: 'username', title: '转诊医生'}
-        ,{field: 'username', title: '转诊机构'}
+        ,{field: 'jointime', title: '转诊时间', minWidth:100}
+        ,{field: 'username', title: '转诊医生', minWidth:100}
+        ,{field: 'username', title: '转诊机构', minWidth:100}
       ];
       table.render({
         elem: '#xy-resident-history-refer'
@@ -445,10 +445,10 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //体检记录
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '体检时间'}
-        ,{field: 'username', title: '体检类型'}
-        ,{field: 'username', title: '体检医生'}
-        ,{field: 'username', title: '医疗机构'}
+        ,{field: 'jointime', title: '体检时间', minWidth:100}
+        ,{field: 'username', title: '体检类型', minWidth:100}
+        ,{field: 'username', title: '体检医生', minWidth:100}
+        ,{field: 'username', title: '医疗机构', minWidth:100}
       ];
       table.render({
         elem: '#xy-resident-history-examination'
@@ -464,10 +464,10 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //随访记录
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '随访时间'}
-        ,{field: 'username', title: '随访类型'}
-        ,{field: 'username', title: '随访医生'}
-        ,{field: 'username', title: '医疗机构'}
+        ,{field: 'jointime', title: '随访时间', minWidth:100}
+        ,{field: 'username', title: '随访类型', minWidth:100}
+        ,{field: 'username', title: '随访医生', minWidth:100}
+        ,{field: 'username', title: '医疗机构', minWidth:100}
       ];
       table.render({
         elem: '#xy-resident-history-followup'
@@ -483,10 +483,10 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //问卷记录
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '问卷时间'}
-        ,{field: 'username', title: '问卷类型'}
-        ,{field: 'username', title: '问卷名称'}
-        ,{field: 'username', title: '调查人员'}
+        ,{field: 'jointime', title: '问卷时间', minWidth:100}
+        ,{field: 'username', title: '问卷类型', minWidth:100}
+        ,{field: 'username', title: '问卷名称', minWidth:100}
+        ,{field: 'username', title: '调查人员', minWidth:100}
       ];
       table.render({
         elem: '#xy-resident-history-survey'

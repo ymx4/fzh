@@ -44,6 +44,7 @@ layui.define('jquery', function (exports) {
     if (that && that.inst && that.inst.is(':visible')) {
       // that.inst.css('display', 'none');
       that.inst.removeClass('show').addClass('hide');
+      that.currReElem.find('i:first').removeClass('layui-icon-triangle-d').addClass('layui-icon-triangle-r');
       $('body').off(event, __hideDropdown);
     }
   };
@@ -95,6 +96,7 @@ layui.define('jquery', function (exports) {
             that.hide()
           });
 
+          reElem.find('i:first').removeClass('layui-icon-triangle-r').addClass('layui-icon-triangle-d');
           that.inst = dropElem;
           that.currReElem = reElem;
           $('body').on(event, __hideDropdown);

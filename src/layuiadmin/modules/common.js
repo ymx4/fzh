@@ -37,6 +37,10 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
     parent.layer.close(index);
   };
 
+  admin.events.closeself = function(){
+    parent.layui.admin.closeThisTabs();
+  }
+
   admin.events.xyicd = function(elemid){
     var icdindex = layer.open({
       type: 1,

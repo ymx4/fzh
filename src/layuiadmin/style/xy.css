@@ -72,6 +72,27 @@ i.fas, i.far{
 .layui-tree .layui-tree-branch, .layui-tree .layui-tree-leaf{
 	display: none;
 }
-.layui-tree .layui-tree-leaf{
+.layui-tree .layui-tree-leaf {
 	margin-left: 5px;
+}
+.xy-form-unit {
+	width: 70%;
+	display: inline;
+}
+.xy-form-unit+.layui-form-mid {
+	float: none;
+	display: inline;
+	margin: 0 5px;
+}
+.xy-form-extra .layui-form-radio,.xy-form-extra .layui-form-checkbox {
+	margin-top: 0 !important;
+}
+.xy-form-extra-control {
+	display: inline-block;
+}
+.layui-col-space10>hr {
+	padding: 0;
+}
+.xy-form .layui-elem-field {
+	padding-bottom: 10px;
 }

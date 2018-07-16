@@ -33,6 +33,7 @@
       <div class="layui-card-body">
         <div style="padding-bottom: 10px;">
           <button type="button" class="layui-btn layuiadmin-btn-resident" data-type="add">添加</button>
+          <button type="button" class="layui-btn layui-btn-danger layuiadmin-btn-resident" data-type="del">删除</button>
         </div>
         
         <table id="xy-resident-manage" lay-filter="xy-resident-manage"></table>
@@ -45,9 +46,7 @@
               <li><a href="">添加随访</a></li>
             </ul>
           </div>
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="resident/detail.html" lay-text="查看-{{d.username}}">查看</a>
           <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="resident/edit.html" lay-text="编辑-{{d.username}}">编辑</a>
-          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
       </div>
     </div>
@@ -105,6 +104,15 @@
             submit.trigger('click');
           }
         }); 
+      },
+      del: function(){
+        var checkStatus = table.checkStatus('xy-resident-manage');
+        layer.confirm('确定要删除所有选中项吗', function(index){
+          $.each(checkStatus.data, function(index, item) {
+            console.log(item);
+          });
+          layer.close(index);
+        });
       }
     };
     

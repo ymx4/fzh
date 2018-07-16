@@ -8,6 +8,36 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
   ,laytpl = layui.laytpl
   ,common = layui.common;
 
+  // --- list
+
+  //用户管理
+  table.render({
+    elem: '#xy-resident-manage'
+    ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+    ,limit: common.constant.DEFAULT_PAGE_SIZE
+    ,cols: [[
+      {type: 'checkbox'}
+      ,{field: 'id', title: '个人编号', minWidth:100, event:'detail', style:'cursor: pointer;'}
+      ,{field: 'username', title: '姓名', minWidth:100, event:'detail', style:'cursor: pointer;'}
+      ,{field: 'phone', title: '手机', minWidth:100}
+      ,{field: 'sex', title: '性别', minWidth:100}
+      ,{field: 'jointime', title: '加入时间', minWidth:100}
+      ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
+    ]]
+    ,page: {layout:['prev', 'page', 'next', 'count']}
+    ,text: '对不起，加载出现异常！'
+  });
+  
+  //监听工具条
+  table.on('tool(xy-resident-manage)', function(obj){
+    var data = obj.data;
+    if(obj.event === 'detail'){
+      parent.layui.index.openTabsPage('resident/detail.html', data.username);
+    }
+  });
+
+  // --- edit
+
   var pageType = 'detail';
 
   var init = {
@@ -141,42 +171,6 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
     console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
     return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-  });
-
-  form.on('submit(xy-resident-health-submit)', function(data){
-    return false;
-  });
-
-  form.on('submit(xy-resident-env-submit)', function(data){
-    return false;
-  });
-
-  //用户管理
-  table.render({
-    elem: '#xy-resident-manage'
-    ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-    ,limit: common.constant.DEFAULT_PAGE_SIZE
-    ,cols: [[
-      {field: 'id', title: '个人编号', minWidth:100}
-      ,{field: 'username', title: '姓名', minWidth:100}
-      ,{field: 'phone', title: '手机', minWidth:100}
-      ,{field: 'sex', title: '性别', minWidth:100}
-      ,{field: 'jointime', title: '加入时间', minWidth:100}
-      ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
-    ]]
-    ,page: {layout:['prev', 'page', 'next', 'count']}
-    ,text: '对不起，加载出现异常！'
-  });
-  
-  //监听工具条
-  table.on('tool(xy-resident-manage)', function(obj){
-    var data = obj.data;
-    if(obj.event === 'del'){
-      layer.confirm('确定要删除吗', function(index){
-        obj.del();
-        layer.close(index);
-      });
-    }
   });
 
   table.on('tool(xy-resident-history-person)', function(obj){

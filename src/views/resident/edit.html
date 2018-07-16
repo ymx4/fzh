@@ -17,10 +17,10 @@
   </style>
 
   <div class="layui-fluid">
-    <div class="layui-card">
-      <div class="layui-card-header">个人基本信息 （编号001）</div>
-      <div class="layui-card-body layui-row layui-col-space10" id="xy_resident_view">
-        <form class="layui-form" action="" lay-filter="xy-resident-form">
+    <div class="layui-form" action="" lay-filter="xy-resident-form" style="margin-bottom: 15px;">
+      <div class="layui-card">
+        <div class="layui-card-header">个人基本信息 （编号001）</div>
+        <div class="layui-card-body layui-row layui-col-space10" id="xy_resident_view">
           <div class="layui-row layui-col-space10 layui-form-item">
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">个人照片</label>
@@ -214,19 +214,12 @@
               </div>
             </div>
           </div>
-          <div class="layui-form-item">
-            <div class="layui-input-block">
-              <button type="button" class="layui-btn" lay-submit lay-filter="xy-resident-submit">保存</button>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
-    </div>
 
-    <div class="layui-card">
-      <div class="layui-card-header">个人基本健康信息</div>
-      <div class="layui-card-body layui-row layui-col-space10" id="xy_resident_health">
-        <form class="layui-form" action="" lay-filter="xy-resident-health-form">
+      <div class="layui-card">
+        <div class="layui-card-header">个人基本健康信息</div>
+        <div class="layui-card-body layui-row layui-col-space10" id="xy_resident_health">
           <div class="layui-row layui-col-space10 layui-form-item">
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">血型</label>
@@ -259,19 +252,12 @@
               </div>
             </div>
           </div>
-          <div class="layui-form-item">
-            <div class="layui-input-block">
-              <button type="button" class="layui-btn" lay-submit lay-filter="xy-resident-health-submit">保存</button>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
-    </div>
 
-    <div class="layui-card">
-      <div class="layui-card-header">生活环境</div>
-      <div class="layui-card-body layui-row layui-col-space10" id="xy_resident_env">
-        <form class="layui-form" action="">
+      <div class="layui-card">
+        <div class="layui-card-header">生活环境</div>
+        <div class="layui-card-body layui-row layui-col-space10" id="xy_resident_env">
           <div class="layui-row layui-col-space10 layui-form-item">
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">燃料类型</label>
@@ -304,12 +290,18 @@
               </div>
             </div>
           </div>
-          <div class="layui-form-item">
-            <div class="layui-input-block">
-              <button type="button" class="layui-btn" lay-submit lay-filter="xy-resident-env-submit">保存</button>
+        </div>
+      </div>
+
+      <div class="layui-card" id="xysavetopp">
+        <div class="layui-card-body layui-row layui-col-space10">
+          <div class="layui-form-item layui-layout-admin" style="text-align: center;margin-bottom: 0;">
+            <div class="layui-footer" style="left: 0;z-index: 1;" id="xysavetop">
+              <button class="layui-btn" lay-submit>保存</button>
+              <button type="button" layadmin-event="closeself" class="layui-btn layui-btn-primary">关闭</button>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
 
@@ -459,7 +451,18 @@
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index', 'resident'], function(){
+    var $ = layui.$;
     layui.resident.init.edit();
+    var parentTop = $('#xysavetopp').offset().top;
+    var windowHeight = $(window).height();
+    $(window).scroll(function(){
+      var scrollTop = $(this).scrollTop();  
+      if (scrollTop + windowHeight > parentTop && $("#xysavetop").hasClass('layui-footer')) {
+        $("#xysavetop").removeClass('layui-footer');
+      } else if (scrollTop + windowHeight < parentTop && !$("#xysavetop").hasClass('layui-footer')) {
+        $("#xysavetop").addClass('layui-footer');
+      }
+    });
   });
   </script>
 </body>

@@ -116,7 +116,7 @@
               <div class="layui-form-mid layui-word-aux" id="health-bmi">体重 / 身高的平方</div>
             </div>
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label" style="width:200px;">老年人健康状态自我评估*</label>
+              <label class="layui-form-label" style="width:220px;z-index:1;">老年人健康状态自我评估*</label>
               <div class="layui-input-block">
                 <input type="radio" name="radiox" value="满意" title="满意">
                 <input type="radio" name="radiox" value="基本满意" title="基本满意">
@@ -126,7 +126,7 @@
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label" style="width:200px;">老年人生活处理能力自我评估*</label>
+              <label class="layui-form-label" style="width:220px;z-index:1;"><i class="layui-icon layui-icon-tips" lay-tips="65 岁及以上老年人需填写此项"></i> 老年人生活处理能力自我评估*</label>
               <div class="layui-input-block">
                 <input type="radio" name="radiox" value="可自理（0~3分）" title="可自理（0~3分）">
                 <input type="radio" name="radiox" value="轻度依赖（4~8分）" title="轻度依赖（4~8分）">
@@ -135,7 +135,7 @@
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label" style="width:200px;">老年人认识功能*</label>
+              <label class="layui-form-label" style="width:220px;z-index:1;"><i class="layui-icon layui-icon-tips" lay-tips="告诉被检查者“我将要说三件物品的名称（如铅笔、卡车、书），请您立刻重复”。过 1 分钟后请其再次重复。如被检查者无法立即重复或 1 分钟后无法完整回忆三件物品名称为粗筛阳性，需进一步行“简易智力状态检查量表”检查"></i> 老年人认识功能*</label>
               <div class="layui-input-block">
                 <input type="radio" name="radiox" value="粗筛阴性" title="粗筛阴性" lay-filter="xy-from-extra-input">
                 <input type="radio" name="radiox" value="粗筛阳性" title="粗筛阳性" data-show="1" lay-filter="xy-from-extra-input">
@@ -146,7 +146,7 @@
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label" style="width:200px;">老年人情感状态*</label>
+              <label class="layui-form-label" style="width:220px;z-index:1;">老年人情感状态*</label>
               <div class="layui-input-block">
                 <input type="radio" name="radiox" value="粗筛阴性" title="粗筛阴性" lay-filter="xy-from-extra-input">
                 <input type="radio" name="radiox" value="粗筛阳性" title="粗筛阳性" data-show="1" lay-filter="xy-from-extra-input">
@@ -801,6 +801,9 @@
             <fieldset class="layui-elem-field">
               <legend>尿常规*</legend>
               <div class="layui-field-box layui-col-space10">
+                <div>
+                  <button type="button" class="layui-btn layui-btn-sm">从设备获取</button>
+                </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">尿蛋白</label>
                   <div class="layui-input-block">
@@ -838,6 +841,9 @@
             <fieldset class="layui-elem-field">
               <legend>空腹血糖*</legend>
               <div class="layui-field-box layui-col-space10">
+                <div>
+                  <button type="button" class="layui-btn layui-btn-sm">从设备获取</button>
+                </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
                   <label class="layui-form-label">空腹血糖*</label>
                   <div class="layui-input-block">
@@ -1181,8 +1187,11 @@
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
               <label class="layui-form-label">健康评价</label>
               <div class="layui-input-block">
-                <input type="radio" name="radiox" value="体检无异常" title="体检无异常">
-                <input type="radio" name="radiox" value="有异常" title="有异常">
+                <input type="radio" name="radiox" value="体检无异常" title="体检无异常" lay-filter="xy-from-extra-input">
+                <input type="radio" name="radiox" value="有异常" title="有异常" data-show="1" lay-filter="xy-from-extra-input">
+                <div class="xy-form-extra-control layui-hide">
+                  <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                </div>
               </div>
             </div>
           </div>
@@ -1218,11 +1227,7 @@
                 <input type="checkbox" name="symptom[]" lay-skin="primary" title="建议接种疫苗">
                 <input type="checkbox" name="symptom[]" lay-skin="primary" title="其它" lay-filter="xy-from-extra-input">
                 <div class="xy-form-extra-control layui-hide">
-                  （
-                  <div class="layui-form-mid">目标</div>
-                  <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit" style="width: 100px;">
-                  <div class="layui-form-mid">kg</div>
-                  ）
+                  <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
                 </div>
               </div>
             </div>

@@ -168,7 +168,7 @@
               <legend><i class="layui-icon layui-icon-tips" lay-tips="指主动锻炼，即有意识地为强体健身而进行的活动。不包括因工作或其他需要而必需进行的活动，如为上班骑自行车、做强体力工作等。锻炼方式填写最常采用的具体锻炼方式"></i> 体育锻炼</legend>
               <div class="layui-field-box layui-col-space10">
                 <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">锻炼频率</label>
+                  <label class="layui-form-label"><i id="testhis" class="layui-icon layui-icon-log" lay-tips="点击查看锻炼历史"></i> 锻炼频率</label>
                   <div class="layui-input-block">
                     <input type="radio" name="radiox" value="每天" title="每天">
                     <input type="radio" name="radiox" value="每周一次以上" title="每周一次以上">
@@ -1245,6 +1245,7 @@
       </div>
     </form>
   </div>
+  <div id="testhis-container" style="display:none;"><table id="testhis-table" lay-filter="testhis-table"></table></div>
 
   <script src="../../layuiadmin/layui/layui.js"></script>  
   <script>

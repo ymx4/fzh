@@ -35,6 +35,7 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
 
   // --- edit
   var pageType = 'detail';
+  var testhisFlag = false;
 
   var init = {
     detail: function() {
@@ -164,6 +165,42 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
       ,page: {layout:['prev', 'page', 'next', 'count']}
       ,text: '对不起，加载出现异常！'
     });
+  }
+
+  $('#testhis').on('click', function(){
+    var othis = $(this);
+    var testhisTxt = $('#testhis-container').html();
+    if (!testhisFlag) {
+      testhisFlag = true;
+      table.render({
+        elem: '#testhis-table'
+        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+        ,limit: common.constant.DEFAULT_PAGE_SIZE
+        ,cols: [[
+          {field: 'username', title: '名称', minWidth:100}
+          ,{field: 'jointime', title: '接种日期', minWidth:100}
+          ,{field: 'username', title: '接种机构', minWidth:100}
+        ]]
+        ,page: {layout:['prev', 'page', 'next', 'count']}
+        ,text: '对不起，加载出现异常！'
+        ,done: function() {
+          openHis('testhis-container');
+        }
+      });
+    } else {
+      openHis('testhis-container');
+    }
+  });
+
+  var openHis = function(id){
+    var index = layer.open({
+      type:1,//类型
+      // area:['400px','300px'],//定义宽和高
+      title:'历史情况',//题目
+      shadeClose:false,//点击遮罩层关闭
+      content: $('#' + id)//打开的内容
+    });
+    layer.full(index);
   }
 
   exports('health', {init})

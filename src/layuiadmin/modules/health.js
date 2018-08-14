@@ -172,35 +172,37 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
     var testhisTxt = $('#testhis-container').html();
     if (!testhisFlag) {
       testhisFlag = true;
-      table.render({
-        elem: '#testhis-table'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
-        ,cols: [[
-          {field: 'username', title: '名称', minWidth:100}
-          ,{field: 'jointime', title: '接种日期', minWidth:100}
-          ,{field: 'username', title: '接种机构', minWidth:100}
-        ]]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
-        ,done: function() {
-          openHis('testhis-container');
-        }
+      openHis('testhis-container', function() {
+        table.render({
+          elem: '#testhis-table'
+          ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+          ,limit: common.constant.DEFAULT_PAGE_SIZE
+          ,cols: [[
+            {field: 'username', title: '名称', minWidth:100}
+            ,{field: 'jointime', title: '接种日期', minWidth:100}
+            ,{field: 'username', title: '接种机构', minWidth:100}
+          ]]
+          ,page: {layout:['prev', 'page', 'next', 'count']}
+          ,text: '对不起，加载出现异常！'
+        });
       });
     } else {
       openHis('testhis-container');
     }
   });
 
-  var openHis = function(id){
-    var index = layer.open({
+  var openHis = function(id, callback){
+    layer.open({
       type:1,//类型
-      // area:['400px','300px'],//定义宽和高
-      title:'历史情况',//题目
-      shadeClose:false,//点击遮罩层关闭
-      content: $('#' + id)//打开的内容
+      area:['80%', '80%'],//定义宽和高
+      title:'历史记录',//题目
+      content: $('#' + id),//打开的内容
+      success: function(){
+        if (callback) {
+          callback();
+        }
+      }
     });
-    layer.full(index);
   }
 
   exports('health', {init})

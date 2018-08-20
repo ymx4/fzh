@@ -107,5 +107,11 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       //如果本地已经有主题色记录，则以本地记录为优先，除非请求本地数据（localStorage）
       ,initColorIndex: 0
     }
+
+    ,api: {
+      GetAreaList: 'http://holtest.fres.cn/PublicMethods/AreaCode/GetAreaList.ashx',
+      SearchICD: 'http://holtest.fres.cn/PublicMethods/ICD10/SearchICD.ashx',
+      UserLogin: 'http://holtest.fres.cn/User/UserLogin.ashx',
+    }
   });
 });

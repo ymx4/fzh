@@ -6,10 +6,8 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
   ,table = layui.table
   ,form = layui.form;
 
-  var api = {
-    GetAreaList: 'http://holtest.fres.cn/PublicMethods/AreaCode/GetAreaList.ashx',
-    SearchICD: 'http://holtest.fres.cn/PublicMethods/ICD10/SearchICD.ashx',
-  };
+  if (location.href.indexOf('login') != -1) {
+  }
 
   var constant = {
     DEFAULT_PAGE_SIZE: 10,
@@ -52,7 +50,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
       setTimeout(function(){
         table.render({
           elem: '#xy-icd-table'
-          ,url: api.SearchICD
+          ,url: layui.setter.api.SearchICD
           ,limit: constant.DEFAULT_PAGE_SIZE
           ,method: 'post'
           ,contentType: 'application/json'
@@ -161,7 +159,6 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
   // }
 
 	exports('common', {
-    api: api,
     apierror: apierror,
     modal: modal,
     base: '/views/',

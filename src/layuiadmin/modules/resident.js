@@ -141,7 +141,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
   var xyArea = function(parentid, elem){
     $.ajax({
-      url: common.api.GetAreaList
+      url: layui.setter.api.GetAreaList
       ,type: 'post'
       ,data: JSON.stringify({PARENT_ID: parentid})
       ,dataType: 'json'

@@ -58,28 +58,28 @@
         ,data: JSON.stringify(obj.field)
         ,type: 'post'
         ,dataType: 'json'
-        ,success: function(res){
-          
-          console.log(res);return;
-          //请求成功后，写入 access_token
-          layui.data(setter.tableName, {
-            key: setter.request.tokenName
-            ,value: res.data.access_token
-          });
-          
-          //登入成功的提示与跳转
-          layer.msg('登入成功', {
-            offset: '15px'
-            ,icon: 1
-            ,time: 1000
-          }, function(){
-            location.href = '../'; //后台主页
-          });
+        ,success: function(data){
+          if (data.status == 1) {
+            //请求成功后，写入 access_token
+            layui.sessionData(layui.setter.tableName, {
+              key: 'user'
+              ,value: data.data
+            });
+            
+            //登入成功的提示与跳转
+            layer.msg('登录成功', {
+              offset: '15px'
+              ,icon: 1
+              ,time: 1000
+            }, function(){
+              location.href = '../index.html';
+            });
+          } else {
+            layui.common.apierror(data, 'show');
+          }
         }
       });
     });
-    
-    
   });
   </script>
 </body>

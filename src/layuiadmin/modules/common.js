@@ -6,15 +6,26 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
   ,table = layui.table
   ,form = layui.form;
 
-  if (location.href.indexOf('login') != -1) {
+  var user = {};
+
+  if (location.href.indexOf('login') == -1) {
+    var sess = layui.sessionData(layui.setter.tableName);
+    if (!sess.user) {
+      location.href = layui.setter.baseUrl + '/passport/login.html';
+    } else {
+      user = sess.user;
+    }
   }
 
   var constant = {
     DEFAULT_PAGE_SIZE: 10,
   }
 
-	var apierror = function(data){
-		console.log(data);
+	var apierror = function(data, type){
+		// console.log(data);
+    if (type == 'show') {
+      layer.msg(data.message);
+    }
 	};
 
   var modal = function(options) {
@@ -159,6 +170,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
   // }
 
 	exports('common', {
+    user: user,
     apierror: apierror,
     modal: modal,
     base: '/views/',

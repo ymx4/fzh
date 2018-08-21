@@ -13,7 +13,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
   //用户管理
   table.render({
     elem: '#xy-resident-manage'
-    ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+    ,url: layui.setter.api.GetUserList
     ,limit: common.constant.DEFAULT_PAGE_SIZE
     ,cols: [[
       {type: 'checkbox'}

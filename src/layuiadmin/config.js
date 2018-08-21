@@ -112,6 +112,9 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       GetAreaList: 'http://holtest.fres.cn/PublicMethods/AreaCode/GetAreaList.ashx',
       SearchICD: 'http://holtest.fres.cn/PublicMethods/ICD10/SearchICD.ashx',
       UserLogin: 'http://holtest.fres.cn/User/UserLogin.ashx',
+      UserLogOut: 'http://holtest.fres.cn/User/UserLogOut.ashx',
+      GetUserList: 'http://holtest.fres.cn/User/GetUserList.ashx',
     }
+    ,baseUrl: '/views'
   });
 });

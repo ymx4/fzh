@@ -54,7 +54,7 @@
               <dd><a lay-href="">状态设定</a></dd>
               <dd><a lay-href="set/password.html">密码修改</a></dd>
               <hr>
-              <dd style="text-align: center;"><a href="passport/login.html">退出</a></dd>
+              <dd style="text-align: center;"><a href="javascript:;" class="xy-logout">退出</a></dd>
             </dl>
           </li>
         </ul>
@@ -288,7 +288,32 @@
     base: '../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use('index');
+  }).use(['index'], function(){
+    var $ = layui.$;
+    $('.xy-logout').click(function() {
+      $.ajax({
+        url: layui.setter.api.UserLogOut
+        ,dataType: 'json'
+        ,success: function(data){
+          if (data.status == 1) {
+            //请求成功后，写入 access_token
+            layui.sessionData(layui.setter.tableName, null);
+            
+            //登入成功的提示与跳转
+            layer.msg('登出成功', {
+              offset: '15px'
+              ,icon: 1
+              ,time: 1000
+            }, function(){
+              location.href = layui.setter.baseUrl + '/passport/login.html';
+            });
+          } else {
+            layui.common.apierror(data);
+          }
+        }
+      });
+    });
+  });
   </script>
 </body>
 </html>

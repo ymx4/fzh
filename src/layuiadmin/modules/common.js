@@ -7,11 +7,10 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
   ,form = layui.form;
 
   var user = {};
-
   if (location.href.indexOf('login') == -1) {
     var sess = layui.sessionData(layui.setter.tableName);
     if (!sess.user) {
-      location.href = layui.setter.baseUrl + '/passport/login.html';
+      // location.href = layui.setter.baseUrl + '/passport/login.html';
     } else {
       user = sess.user;
     }

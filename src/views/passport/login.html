@@ -65,14 +65,13 @@
               key: 'user'
               ,value: data.data
             });
-            
             //登入成功的提示与跳转
             layer.msg('登录成功', {
               offset: '15px'
               ,icon: 1
               ,time: 1000
             }, function(){
-              location.href = '../index.html';
+              // location.href = '../index.html';
             });
           } else {
             layui.common.apierror(data, 'show');

@@ -15,13 +15,31 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     elem: '#xy-resident-manage'
     ,url: layui.setter.api.GetUserList
     ,limit: common.constant.DEFAULT_PAGE_SIZE
+    ,method: 'post'
+    ,contentType: 'application/json'
+    ,where: {
+      "KEY_WORD" : "",
+      "UNIT_ID": common.user.UNIT_ID,
+      "GROUP_ID": 0,
+      "FAMILY_DOCTOR": 0,
+      "SPECIALIST": 0
+    }
+    ,request: {
+      pageName: 'PAGE_NO'
+      ,limitName: 'PAGE_SIZE'
+    }
+    ,response: {
+      statusName: 'status'
+      ,statusCode: 1
+      ,countName: 'message'
+    }
     ,cols: [[
       {type: 'checkbox'}
-      ,{field: 'id', title: '个人编号', minWidth:100, event:'detail', style:'cursor: pointer;'}
-      ,{field: 'username', title: '姓名', minWidth:100, event:'detail', style:'cursor: pointer;'}
-      ,{field: 'phone', title: '手机', minWidth:100}
-      ,{field: 'sex', title: '性别', minWidth:100}
-      ,{field: 'jointime', title: '加入时间', minWidth:100}
+      ,{field: 'ID', title: '个人编号', minWidth:100, event:'detail', style:'cursor: pointer;'}
+      ,{field: 'REAL_NAME', title: '姓名', minWidth:100, event:'detail', style:'cursor: pointer;'}
+      ,{field: 'MOBILE', title: '手机', minWidth:100}
+      ,{field: 'USER_SEX', title: '性别', minWidth:100}
+      ,{field: 'CREATE_TIME', title: '加入时间', minWidth:100}
       ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
     ]]
     ,page: {layout:['prev', 'page', 'next', 'count']}

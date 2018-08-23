@@ -21,14 +21,14 @@
           <div class="layui-form-item">
             <label class="layui-form-label">机构编号</label>
             <div class="layui-input-block">
-              <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+              <input type="text" name="UNIT_NUMBER" lay-verify="required" autocomplete="off" class="layui-input">
             </div>
           </div>
           
           <div class="layui-form-item">
             <label class="layui-form-label">机构类型</label>
             <div class="layui-input-block">
-              <select name="quiz">
+              <select name="UNIT_TYPE">
                 <option value="">请选择</option>
               </select>
             </div>
@@ -37,7 +37,7 @@
           <div class="layui-form-item">
             <label class="layui-form-label">机构等级</label>
             <div class="layui-input-block">
-              <select name="quiz">
+              <select name="UNIT_LEVEL">
                 <option value="">请选择</option>
               </select>
             </div>
@@ -46,14 +46,14 @@
           <div class="layui-form-item">
             <label class="layui-form-label">机构名称</label>
             <div class="layui-input-block">
-              <input type="text" name="identity" lay-verify="identity" placeholder="" autocomplete="off" class="layui-input">
+              <input type="text" name="UNIT_NAME" placeholder="" autocomplete="off" class="layui-input">
             </div>
           </div>
 
           <div class="layui-form-item">
             <label class="layui-form-label">行政区域</label>
             <div class="layui-input-block">
-              <select name="quiz">
+              <select name="AREA_CODE">
                 <option value="">请选择</option>
               </select>
             </div>
@@ -78,21 +78,21 @@
           <div class="layui-form-item">
             <label class="layui-form-label">联系电话</label>
             <div class="layui-input-block">
-              <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+              <input type="tel" name="PHONE" lay-verify="required|phone" autocomplete="off" class="layui-input">
             </div>
           </div>
 
           <div class="layui-form-item">
             <label class="layui-form-label">网站地址</label>
             <div class="layui-input-block">
-              <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+              <input type="text" name="WEBSITE" autocomplete="off" class="layui-input">
             </div>
           </div>
 
           <div class="layui-form-item">
             <label class="layui-form-label">机构状态</label>
             <div class="layui-input-block">
-              <select name="quiz">
+              <select name="UNIT_STATUS">
                 <option value="">请选择</option>
               </select>
             </div>
@@ -116,7 +116,6 @@
     </div>
   </div>
 
-    
   <script src="../../layuiadmin/layui/layui.js"></script>  
   <script>
   layui.config({

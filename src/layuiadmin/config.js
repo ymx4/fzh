@@ -114,6 +114,12 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       UserLogin: 'http://holtest.fres.cn/User/UserLogin.ashx',
       UserLogOut: 'http://holtest.fres.cn/User/UserLogOut.ashx',
       GetUserList: 'http://holtest.fres.cn/User/GetUserList.ashx',
+      ChangeUserPassword: 'http://holtest.fres.cn/User/ChangeUserPassword.ashx',
+      GetConfigDetail: 'http://holtest.fres.cn/Config/GetConfigDetail.ashx',
+      GetConfigInfo: 'http://holtest.fres.cn/Config/GetConfigInfo.ashx',
+      GetHospitalUnit: 'http://holtest.fres.cn/Hospital/GetHospitalUnit.ashx',
+      ModificationHospitalUnit: 'http://holtest.fres.cn/Hospital/ModificationHospitalUnit.ashx',
+      DeleteHospitalUnit: 'http://holtest.fres.cn/Hospital/DeleteHospitalUnit.ashx',
     }
     ,baseUrl: '/views'
   });

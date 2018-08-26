@@ -25,7 +25,7 @@ layui.define(['table', 'form', 'common'], function(exports){
     });
   });
 
-  table.render({
+  common.tRender({
     elem: '#xy-consultation-manage'
     ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
     ,where: {test: test}

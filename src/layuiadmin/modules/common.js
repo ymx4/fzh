@@ -4,41 +4,145 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
   ,admin = layui.admin
   ,view = layui.view
   ,table = layui.table
-  ,form = layui.form;
+  ,form = layui.form
 
-  var user = {};
+  ,common = {
+    user: {}
+    ,modal: function(options) {
+      options = $.extend({
+        type: 2
+      }, options);
+      var index = layer.open({
+        type: options.type,
+        content: options.content,
+        title: options.title
+      });
+      layer.full(index);
+      return index;
+    }
+    ,base: '/views/'
+    ,constant: {
+      DEFAULT_PAGE_SIZE: 10,
+    }
+    ,req: function(options){
+      var success = options.success;
+      
+      var formerror = options.formerror || false;
+      options.data = options.data || {};
+      options.data = JSON.stringify(options.data);
+      
+      if(this.user && this.user.token){
+        //自动给参数传入默认 token
+        options.url = options.url + '?token=' + this.user.token;
+      }
+
+      delete options.success;
+
+      return $.ajax($.extend({
+        type: 'post'
+        ,dataType: 'json'
+        ,success: function(res){
+          if (res.status == 1 && typeof success === 'function') {
+            success(res);
+          } else {
+            if (formerror) {
+              res.message = res.message.replace(/(^\|)|(\|$)/g, '');
+              res.message = res.message.split('|').join('<br>');
+            }
+            layer.msg(res.message);
+          }
+        }
+      }, options));
+    }
+    ,tRender: function(options){
+      if(this.user && this.user.token){
+        //自动给参数传入默认 token
+        options.url = options.url + '?token=' + this.user.token;
+      }
+      return table.render(options);
+    }
+    ,initConfig: function(){
+      var that = this;
+      var configlen = $('.xy-config').length;
+      $('.xy-config').each(function(index){
+        that.req({
+          url: layui.setter.api.GetConfigDetail
+          ,data: {
+            "CONFIG_ID": $(this).attr('data-cf') ? $(this).attr('data-cf') : 9 //TODO
+          }
+          ,success: $.proxy(function(data){
+            if (data.data.length > 0) {
+              var html = '<option value="">请选择</option>';
+              for (i = 0; i < data.data.length; i++) {
+                html += '<option value="' + data.data[i].CONFIG_ID + '">' + data.data[i].CONFIG_VALUE + '</option>';
+              }
+              $(this).html(html);
+            }
+            form.render('select');
+          }, this)
+        });
+      });
+    }
+    ,initArea: function(hiddenElem){
+      var that = this;
+      form.on('select(xy-addr-select)', function(data){
+        $(data.elem).closest('.xy-select').nextAll('.xy-select').remove();
+        if (data.value != '') {
+          that.area(data.value, $(data.elem).closest('.xy-select'));
+          $(hiddenElem).val($(data.elem).children('option:selected').attr('data-code'));
+        }
+      });
+      var arealist = [];
+      $('.xy-area').each(function(){
+        arealist.push($(this));
+      });
+      if (arealist.length > 0) {
+        this.area(1, arealist);
+      }
+    }
+    ,area: function(parentid, elem){
+      var that = this;
+
+      that.req({
+        url: layui.setter.api.GetAreaList
+        ,data: {PARENT_ID: parentid}
+        ,success: function(data){
+          if (data.data != null && data.data.length > 0) {
+            layui.laytpl('<div class="layui-inline xy-select">\
+                  <select name="{{d.selname}}" lay-filter="xy-addr-select">\
+                    <option value="">请选择</option>\
+                    {{#  layui.each(d.list, function(index, item){ }}\
+                      <option value="{{ item.ID }}" data-code="{{item.AREA_CODE}}">{{ item.AREA_NAME }}</option>\
+                    {{#  }); }}\
+                  </select>\
+                </div>\
+            ').render({selname: 'area' + data.data[0].LEVEL_NUMBER, list: data.data}, function(html){
+              if (elem instanceof Array) {
+                $.each(elem,function(i, item){
+                  item.after(html);
+                });
+              } else {
+                elem.after(html);
+              }
+              form.render('select');
+            });
+          } else {
+
+          }
+        }
+      });
+    }
+  };
+
   if (location.href.indexOf('login') == -1) {
-    var sess = layui.sessionData(layui.setter.tableName);
+    var sess = layui.data(layui.setter.tableName);
     if (!sess.user) {
-      // location.href = layui.setter.baseUrl + '/passport/login.html';
+      location.href = layui.setter.baseUrl + '/passport/login.html';
     } else {
-      user = sess.user;
+      common.user = sess.user;
     }
   }
-
-  var constant = {
-    DEFAULT_PAGE_SIZE: 10,
-  }
-
-	var apierror = function(data, type){
-		// console.log(data);
-    if (type == 'show') {
-      layer.msg(data.message);
-    }
-	};
-
-  var modal = function(options) {
-    options = $.extend({
-      type: 2
-    }, options);
-    var index = layer.open({
-      type: options.type,
-      content: options.content,
-      title: options.title
-    });
-    layer.full(index);
-    return index;
-  }
+  console.log(common.user);
 
   admin.events.closelayer = function(){
     var index = parent.layer.getFrameIndex(window.name);
@@ -58,7 +162,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
     layer.full(icdindex);
     view('xyicd').render('common/icd').done(function(){
       setTimeout(function(){
-        table.render({
+        tRender({
           elem: '#xy-icd-table'
           ,url: layui.setter.api.SearchICD
           ,limit: constant.DEFAULT_PAGE_SIZE
@@ -110,48 +214,59 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
     });
   };
 
+  var formatTree = function(data) {
+    if (data.HOSPITAL_UNIT_INFO) {
+      var node = {name: data.HOSPITAL_UNIT_INFO.UNIT_NAME, id: data.HOSPITAL_UNIT_INFO.ID, spread: true};
+      if (data.CHILDREN_HOSPITAL_UNIT_INFO && data.CHILDREN_HOSPITAL_UNIT_INFO.length > 0) {
+        node.children = [];
+        for (i = 0; i < data.CHILDREN_HOSPITAL_UNIT_INFO.length; i++) {
+          node.children.push(formatTree(data.CHILDREN_HOSPITAL_UNIT_INFO[i]));
+        }
+      }
+      data = node;
+    }
+    return data;
+  }
+
   admin.events.xyins = function(elemid){
     var insindex = layer.open({
       type: 1,
+      area:['80%', '80%'],
       content: '<div id="xyins"></div>',
       title: '机构选择'
     });
-    layer.full(insindex);
     view('xyins').render('common/ins').done(function(){
-      setTimeout(function(){
-        layui.tree({
-          elem: '#xy-inslist'
-          ,nodes: [{
-            id: 1
-            ,name: '父节点1'
-            ,children: [{
-              id: 11
-              ,name: '子节点11'
-            },{
-              id: 12
-              ,name: '子节点12'
-            }]
-          },{
-            id: 2
-            ,name: '父节点2（可以点左侧箭头，也可以双击标题）'
-            ,children: [{
-              id: 21
-              ,name: '子节点21'
-              ,children: [{
-                id: 211
-                ,name: '子节点211'
-              }]
-            }]
-          }]
-          ,click: function(node){
-            console.log(this)
-          }
-        });
-        $("#xyins").on("mousedown", ".layui-tree a cite",function(){ 
-          $(".layui-tree a cite").removeClass('layui-bg-green');
-          $(this).addClass('layui-bg-green');
-        });
-      },100);
+      common.req({
+        url: layui.setter.api.GetHospitalUnit
+        ,data: {
+          "HOSPITAL_ID": common.user.UNIT_ID,
+          "GET_TYPE": 2
+        }
+        ,success: function(data){
+          var nodes = formatTree(data.data);
+          nodes = [nodes];
+          layui.tree({
+            elem: '#xy-inslist'
+            ,nodes: nodes
+            ,click: function(node){
+              $('#ins-confirm').attr('data-id', node.id);
+              $('#ins-confirm').attr('data-name', node.name);
+            }
+          });
+        }
+      });
+      $("#xyins").on("mousedown", ".layui-tree a cite",function(){ 
+        $(".layui-tree a cite").removeClass('layui-bg-green');
+        $(this).addClass('layui-bg-green');
+      });
+      $('#ins-confirm').on('click', function(){
+        if ($(this).attr('data-id')) {
+          $('#' + elemid.attr('data-id')).val($(this).attr('data-id'));
+          $('#' + elemid.attr('data-name')).val($(this).attr('data-name'));
+          $('#' + elemid.attr('data-name')).attr('title', $(this).attr('data-name'));
+        }
+        layer.close(insindex);
+      });
     });
   };
 
@@ -168,12 +283,5 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
   //    return theRequest;
   // }
 
-	exports('common', {
-    user: user,
-    apierror: apierror,
-    modal: modal,
-    base: '/views/',
-    constant: constant,
-    // getParams: getParams,
-	});
+	exports('common', common);
 });

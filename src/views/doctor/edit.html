@@ -19,23 +19,16 @@
         <form class="layui-form" action="" lay-filter="">
           
           <div class="layui-form-item">
-            <label class="layui-form-label">医生编号</label>
+            <label class="layui-form-label">用户名</label>
             <div class="layui-input-block">
-              <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+              <input type="text" name="USER_NAME" lay-verify="required" autocomplete="off" class="layui-input">
             </div>
           </div>
 
           <div class="layui-form-item">
             <label class="layui-form-label">医生姓名</label>
             <div class="layui-input-block">
-              <input type="text" name="identity" lay-verify="identity" placeholder="" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-
-          <div class="layui-form-item">
-            <label class="layui-form-label">出生日期</label>
-            <div class="layui-input-block">
-              <input type="text" id="birthday" name="birthday" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-doctor-date">
+              <input type="text" name="REAL_NAME" placeholder="" autocomplete="off" class="layui-input">
             </div>
           </div>
 
@@ -49,15 +42,31 @@
           </div>
 
           <div class="layui-form-item">
-            <label class="layui-form-label">职称</label>
+            <label class="layui-form-label">身份证号</label>
             <div class="layui-input-block">
-              <input type="text" name="identity" lay-verify="identity" placeholder="" autocomplete="off" class="layui-input">
+              <input type="text" name="ID_NUMBER" placeholder="" autocomplete="off" class="layui-input">
             </div>
           </div>
+
+          <div class="layui-form-item">
+            <label class="layui-form-label">出生日期</label>
+            <div class="layui-input-block">
+              <input type="text" id="BIRTHDAY" name="BIRTHDAY" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-doctor-date">
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <label class="layui-form-label">医生角色</label>
+            <div class="layui-input-block">
+              <input type="checkbox" name="FAMILY_DOCTOR" title="专科医生">
+              <input type="checkbox" name="SPECIALIST" title="家庭医生">
+            </div>
+          </div>
+
           <div class="layui-form-item">
             <label class="layui-form-label">通讯手机</label>
             <div class="layui-input-block">
-              <input type="text" name="identity" lay-verify="identity" placeholder="" autocomplete="off" class="layui-input">
+              <input type="text" name="MOBILE" placeholder="" autocomplete="off" class="layui-input">
             </div>
           </div>
         
@@ -65,14 +74,6 @@
             <label class="layui-form-label">密码</label>
             <div class="layui-input-block">
               <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-
-          <div class="layui-form-item">
-            <label class="layui-form-label">医生角色</label>
-            <div class="layui-input-block">
-              <input type="checkbox" name="role[special]" title="专科医生">
-              <input type="checkbox" name="role[family]" title="家庭医生">
             </div>
           </div>
 
@@ -91,14 +92,6 @@
               <select name="quiz">
                 <option value="">请选择</option>
               </select>
-            </div>
-          </div>
-
-          <div class="layui-form-item">
-            <label class="layui-form-label">医生角色</label>
-            <div class="layui-input-block">
-              <input type="checkbox" name="role[special]" title="专科医生">
-              <input type="checkbox" name="role[family]" title="家庭医生">
             </div>
           </div>
 
@@ -124,7 +117,7 @@
     ,laydate = layui.laydate;
     
     laydate.render({
-      elem: '#birthday'
+      elem: '#BIRTHDAY'
     });
 
   });

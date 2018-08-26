@@ -11,7 +11,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
   // --- list
 
   //用户管理
-  table.render({
+  common.tRender({
     elem: '#xy-resident-manage'
     ,url: layui.setter.api.GetUserList
     ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -77,8 +77,6 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
     edit: function() {
       pageType = 'edit';
-
-      xyArea(1, [$('#xy_begin_addr1'), $('#xy_begin_addr2')]);
 
       // form.render(null, 'xy-resident-form');
       form.val("xy-resident-form", {
@@ -150,40 +148,6 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     }
   }
 
-  form.on('select(xy-addr-select)', function(data){
-    $(data.elem).closest('.xy-select').nextAll('.xy-select').remove();
-    if (data.value != '') {
-      xyArea(data.value, $(data.elem).closest('.xy-select'));
-    }
-  });
-
-  var xyArea = function(parentid, elem){
-    $.ajax({
-      url: layui.setter.api.GetAreaList
-      ,type: 'post'
-      ,data: JSON.stringify({PARENT_ID: parentid})
-      ,dataType: 'json'
-      ,success: function(data){
-        if (data.status == 1) {
-          if (data.data != null && data.data.length > 0) {
-            laytpl(xy_select.innerHTML).render({selname: 'area' + data.data[0].LEVEL_NUMBER, list: data.data}, function(html){
-              if (elem instanceof Array) {
-                $.each(elem,function(i, item){
-                  item.after(html);
-                });
-              } else {
-                elem.after(html);
-              }
-              form.render('select', 'xy-resident-form');
-            });
-          }
-        } else {
-          common.apierror(data);
-        }
-      }
-    });
-  }
-
   form.on('submit(xy-resident-submit)', function(data){
     console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
     console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
@@ -230,7 +194,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
       }
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-person'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -248,7 +212,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,{field: 'jointime', title: '手术时间', minWidth:100}
         ,{field: 'username', title: '手术机构', minWidth:100}
       ]
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-operation'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -269,7 +233,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
       }
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-trauma'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -289,7 +253,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
       }
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-blood'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -310,7 +274,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
       }
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-hospital'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -330,7 +294,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
       }
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-family'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -349,7 +313,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
       }
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-inherit'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -369,7 +333,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
       }
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-allergy'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -388,7 +352,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
       }
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-derfomity'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -407,7 +371,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,{field: 'username', title: '就诊医生', minWidth:100}
         ,{field: 'username', title: '就诊机构', minWidth:100}
       ];
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-visit'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -425,7 +389,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,{field: 'username', title: '会诊医生', minWidth:100}
         ,{field: 'username', title: '会诊机构', minWidth:100}
       ];
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-consultation'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -443,7 +407,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,{field: 'username', title: '转诊医生', minWidth:100}
         ,{field: 'username', title: '转诊机构', minWidth:100}
       ];
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-referral'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -462,7 +426,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,{field: 'username', title: '体检医生', minWidth:100}
         ,{field: 'username', title: '医疗机构', minWidth:100}
       ];
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-examination'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -481,7 +445,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,{field: 'username', title: '随访医生', minWidth:100}
         ,{field: 'username', title: '医疗机构', minWidth:100}
       ];
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-followup'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -500,7 +464,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,{field: 'username', title: '问卷名称', minWidth:100}
         ,{field: 'username', title: '调查人员', minWidth:100}
       ];
-      table.render({
+      common.tRender({
         elem: '#xy-resident-history-survey'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
         ,limit: common.constant.DEFAULT_PAGE_SIZE

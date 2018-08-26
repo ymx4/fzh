@@ -15,7 +15,7 @@ layui.define(['table', 'form', 'common'], function(exports){
     });
   });
 
-  table.render({
+  common.tRender({
     elem: '#xy-department-manage'
     ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
     ,cols: [[

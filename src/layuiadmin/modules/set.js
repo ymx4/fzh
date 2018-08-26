@@ -1,12 +1,7 @@
-layui.define(['form', 'upload'], function(exports){
+layui.define(['form'], function(exports){
   var $ = layui.$
   ,layer = layui.layer
-  ,laytpl = layui.laytpl
-  ,setter = layui.setter
-  ,view = layui.view
-  ,admin = layui.admin
-  ,form = layui.form
-  ,upload = layui.upload;
+  ,form = layui.form;
 
   var $body = $('body');
   
@@ -27,18 +22,12 @@ layui.define(['form', 'upload'], function(exports){
   
   //设置密码
   form.on('submit(setmypass)', function(obj){
-    $.ajax({
+    layui.common.req({
       url: layui.setter.api.ChangeUserPassword
-      ,data: JSON.stringify(obj.field)
-      ,type: 'post'
-      ,dataType: 'json'
+      ,data: obj.field
       ,success: function(data){
-        if (data.status == 1) {
-          //登入成功的提示与跳转
-          layer.msg('修改密码成功');
-        } else {
-          layui.common.apierror(data, 'show');
-        }
+        //登入成功的提示与跳转
+        layer.msg('修改密码成功');
       }
     });
     return false;

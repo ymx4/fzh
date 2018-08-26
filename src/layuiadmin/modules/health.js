@@ -8,7 +8,7 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
   // --- list
 
   //用户管理
-  table.render({
+  common.tRender({
     elem: '#xy-health-manage'
     ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
     ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -103,7 +103,7 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
     if (pageType == 'edit') {
       cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
     }
-    table.render({
+    common.tRender({
       elem: '#xy-health-history-person'
       ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
       ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -121,7 +121,7 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
     if (pageType == 'edit') {
       cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
     }
-    table.render({
+    common.tRender({
       elem: '#xy-health-history-family'
       ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
       ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -140,7 +140,7 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
     if (pageType == 'edit') {
       cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
     }
-    table.render({
+    common.tRender({
       elem: '#xy-health-history-medical'
       ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
       ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -157,7 +157,7 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
     if (pageType == 'edit') {
       cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
     }
-    table.render({
+    common.tRender({
       elem: '#xy-health-history-inoculation'
       ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
       ,limit: common.constant.DEFAULT_PAGE_SIZE
@@ -173,7 +173,7 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
     if (!testhisFlag) {
       testhisFlag = true;
       openHis('testhis-container', function() {
-        table.render({
+        common.tRender({
           elem: '#testhis-table'
           ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
           ,limit: common.constant.DEFAULT_PAGE_SIZE

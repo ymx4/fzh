@@ -201,7 +201,7 @@
                 <cite>设备管理</cite>
               </a>
               <dl class="layui-nav-child">
-                <dd><a lay-href="">设备列表</a></dd>
+                <dd><a lay-href="equipment/list.html">设备列表</a></dd>
                 <dd><a lay-href="">设备报修</a></dd>
                 <dd><a lay-href="">耗材</a></dd>
               </dl>
@@ -291,25 +291,20 @@
   }).use(['index'], function(){
     var $ = layui.$;
     $('.xy-logout').click(function() {
-      $.ajax({
+      layui.common.req({
         url: layui.setter.api.UserLogOut
-        ,dataType: 'json'
         ,success: function(data){
-          if (data.status == 1) {
-            //请求成功后，写入 access_token
-            layui.sessionData(layui.setter.tableName, null);
-            
-            //登入成功的提示与跳转
-            layer.msg('登出成功', {
-              offset: '15px'
-              ,icon: 1
-              ,time: 1000
-            }, function(){
-              location.href = layui.setter.baseUrl + '/passport/login.html';
-            });
-          } else {
-            layui.common.apierror(data);
-          }
+          //请求成功后，写入 access_token
+          layui.sessionData(layui.setter.tableName, null);
+          
+          //登入成功的提示与跳转
+          layer.msg('登出成功', {
+            offset: '15px'
+            ,icon: 1
+            ,time: 1000
+          }, function(){
+            location.href = layui.setter.baseUrl + '/passport/login.html';
+          });
         }
       });
     });

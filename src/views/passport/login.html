@@ -53,29 +53,24 @@
     //提交
     form.on('submit(xy-login-submit)', function(obj){
       //请求登入接口
-      $.ajax({
+      layui.common.req({
         url: layui.setter.api.UserLogin
-        ,data: JSON.stringify(obj.field)
-        ,type: 'post'
-        ,dataType: 'json'
+        ,data: obj.field
         ,success: function(data){
-          if (data.status == 1) {
-            //请求成功后，写入 access_token
-            layui.sessionData(layui.setter.tableName, {
-              key: 'user'
-              ,value: data.data
-            });
-            //登入成功的提示与跳转
-            layer.msg('登录成功', {
-              offset: '15px'
-              ,icon: 1
-              ,time: 1000
-            }, function(){
-              // location.href = '../index.html';
-            });
-          } else {
-            layui.common.apierror(data, 'show');
-          }
+          //请求成功后，写入 access_token
+          data.data.token = data.message;
+          layui.data(layui.setter.tableName, {
+            key: 'user'
+            ,value: data.data
+          });
+          //登入成功的提示与跳转
+          layer.msg('登录成功', {
+            offset: '15px'
+            ,icon: 1
+            ,time: 1000
+          }, function(){
+            location.href = layui.setter.baseUrl + '/index.html';
+          });
         }
       });
     });

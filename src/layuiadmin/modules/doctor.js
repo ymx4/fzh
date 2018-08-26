@@ -15,7 +15,7 @@ layui.define(['table', 'form', 'common'], function(exports){
     });
   });
 
-  table.render({
+  common.tRender({
     elem: '#xy-doctor-manage'
     ,url: layui.setter.api.GetUserList
     ,limit: common.constant.DEFAULT_PAGE_SIZE

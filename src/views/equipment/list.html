@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>科室列表</title>
+  <title>设备列表</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -14,23 +14,16 @@
 
   <div class="layui-fluid">
     <div class="layui-card">
-      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-        <div class="layui-form-item">
-          <div class="layui-inline">
-            <input type="text" name="searchq" placeholder="请输入搜索词" autocomplete="off" class="layui-input xy-search">
-          </div>
-          <div class="layui-inline">
-            <button class="layui-btn layuiadmin-btn-equipment" lay-submit lay-filter="xy-equipment-search">
-              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-            </button>
-          </div>
-        </div>
-      </div>
 
-      <div class="layui-card-body">        
+      <div class="layui-card-body">
+        <div style="padding-bottom: 10px;">
+          <a class="layui-btn" lay-href="equipment/edit.html" lay-text="添加设备">添加</a>
+        </div>
+
         <table id="xy-equipment-manage" lay-filter="xy-equipment-manage"></table>
         <script type="text/html" id="table-equipment">
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="equipment/edit.html" lay-text="{{d.username}}">编辑</a>
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="equipment/data.html#/id={{d.EQUIPMENT_ID}}&EQUIPMENT_NO={{d.EQUIPMENT_NO}}" lay-text="data-{{d.EQUIPMENT_NO}}">数据</a>
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="equipment/edit.html#/id={{d.EQUIPMENT_ID}}&EQUIPMENT_NO={{d.EQUIPMENT_NO}}" lay-text="{{d.EQUIPMENT_NO}}">编辑</a>
           <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
       </div>

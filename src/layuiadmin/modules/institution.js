@@ -7,32 +7,26 @@ layui.define(['table', 'form', 'common'], function(exports){
 
   var init = {
     edit: function() {
-      common.req({
-        url: layui.setter.api.GetHospitalUnit
-        ,data: {
-          HOSPITAL_ID: router.search.id
-          ,GET_TYPE: 0
-        }
-        ,success: $.proxy(function(data){
-          form.val('xy-institution-form', data.data);
-          common.initConfig();
-          common.initArea('#ins_area_code');
-          common.req({
-            url: layui.setter.api.GetEquipmentType
-            ,data: {}
-            ,success: $.proxy(function(data){
-              if (data.data.length > 0) {
-                var html = '<option value="">请选择</option>';
-                for (i = 0; i < data.data.length; i++) {
-                  html += '<option value="' + data.data[i].CONFIG_ID + '">' + data.data[i].CONFIG_VALUE + '</option>';
-                }
-                $(this).html(html);
-              }
-              form.render('select');
-            }, this)
-          });
-        }, this)
-      });
+      if (router.search.id) {
+        common.req({
+          url: layui.setter.api.GetHospitalUnit
+          ,data: {
+            HOSPITAL_ID: router.search.id
+            ,GET_TYPE: 0
+          }
+          ,success: $.proxy(function(data){
+            form.val('xy-institution-form', data.data);
+            $('select[name="UNIT_LEVEL"]').attr('data-val', data.data.UNIT_LEVEL);
+            $('select[name="UNIT_TYPE"]').attr('data-val', data.data.UNIT_TYPE);
+            $('select[name="UNIT_STATUS"]').attr('data-val', data.data.UNIT_STATUS);
+            common.initConfig();
+            common.initArea('#ins_area_code');
+          }, this)
+        });
+      } else {
+        common.initConfig();
+        common.initArea('#ins_area_code');
+      }
     }
   }
 

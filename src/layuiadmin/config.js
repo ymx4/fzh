@@ -115,6 +115,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       UserLogOut: 'http://holtest.fres.cn/User/UserLogOut.ashx',
       GetUserList: 'http://holtest.fres.cn/User/GetUserList.ashx',
       GetLoginUser: 'http://holtest.fres.cn/User/GetLoginUser.ashx',
+      DeleteUser: 'http://holtest.fres.cn/User/DeleteUser.ashx',
       ChangeUserPassword: 'http://holtest.fres.cn/User/ChangeUserPassword.ashx',
       GetConfigDetail: 'http://holtest.fres.cn/Config/GetConfigDetail.ashx',
       GetConfigInfo: 'http://holtest.fres.cn/Config/GetConfigInfo.ashx',
@@ -126,6 +127,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       GetEquipmentInfo: 'http://holtest.fres.cn/Equipment/GetEquipmentInfo.ashx',
       ModifyEquipment: 'http://holtest.fres.cn/Equipment/ModifyEquipment.ashx',
       DeleteEquipment: 'http://holtest.fres.cn/Equipment/DeleteEquipment.ashx',
+      GetEquipmentData: 'http://holtest.fres.cn/Equipment/GetEquipmentData.ashx',
     }
     ,baseUrl: '/views'
   });

@@ -16,12 +16,19 @@
     <div class="layui-card">
       <div class="layui-card-header">医生</div>
       <div class="layui-card-body" style="padding: 15px;">
-        <form class="layui-form" action="" lay-filter="">
+        <form class="layui-form" action="" lay-filter="xy-doctor-form">
           
           <div class="layui-form-item">
             <label class="layui-form-label">用户名</label>
             <div class="layui-input-block">
               <input type="text" name="USER_NAME" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+        
+          <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+              <input type="password" name="PASSWORD" lay-verify="required" autocomplete="off" class="layui-input">
             </div>
           </div>
 
@@ -35,8 +42,7 @@
           <div class="layui-form-item">
             <label class="layui-form-label">性别</label>
             <div class="layui-input-block">
-              <select name="quiz">
-                <option value="">请选择</option>
+              <select name="SEX" class="xy-config" data-cf="22">
               </select>
             </div>
           </div>
@@ -51,15 +57,44 @@
           <div class="layui-form-item">
             <label class="layui-form-label">出生日期</label>
             <div class="layui-input-block">
-              <input type="text" id="BIRTHDAY" name="BIRTHDAY" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-doctor-date">
+              <input type="text" id="BIRTHDAY" name="BIRTHDAY" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-doctor-date">
+            </div>
+          </div>
+          
+          <div class="layui-form-item">
+            <label class="layui-form-label">账号状态</label>
+            <div class="layui-input-block">
+              <select name="STATUS" class="xy-config" data-cf="8">
+              </select>
+            </div>
+          </div>
+          
+          <div class="layui-form-item">
+            <label class="layui-form-label">用户组</label>
+            <div class="layui-input-block">
+              <select name="GROUP_ID" class="xy-config" data-cf="9">
+              </select>
             </div>
           </div>
 
           <div class="layui-form-item">
             <label class="layui-form-label">医生角色</label>
             <div class="layui-input-block">
-              <input type="checkbox" name="FAMILY_DOCTOR" title="专科医生">
-              <input type="checkbox" name="SPECIALIST" title="家庭医生">
+              <input type="checkbox" name="FAMILY_DOCTOR" title="专科医生" value="1">
+              <input type="checkbox" name="SPECIALIST" title="家庭医生" value="1">
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <label class="layui-form-label">所属科室</label>
+            <div class="layui-input-block">
+              <div class="layui-inline xy-form-group">
+                <input type="hidden" id="UNIT_ID" name="UNIT_ID">
+                <input type="text" id="UNIT_NAME" name="UNIT_NAME" disabled class="layui-input">
+                <div class="layui-btn-group">
+                  <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyins" data-id="UNIT_ID" data-name="UNIT_NAME">选择</button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -67,31 +102,6 @@
             <label class="layui-form-label">通讯手机</label>
             <div class="layui-input-block">
               <input type="text" name="MOBILE" placeholder="" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-        
-          <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-block">
-              <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-
-          <div class="layui-form-item">
-            <label class="layui-form-label">所属科室</label>
-            <div class="layui-input-block">
-              <select name="quiz">
-                <option value="">请选择</option>
-              </select>
-            </div>
-          </div>
-          
-          <div class="layui-form-item">
-            <label class="layui-form-label">账号状态</label>
-            <div class="layui-input-block">
-              <select name="quiz">
-                <option value="">请选择</option>
-              </select>
             </div>
           </div>
 
@@ -112,14 +122,8 @@
     base: '../../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'form', 'laydate'], function(){
-    var $ = layui.$
-    ,laydate = layui.laydate;
-    
-    laydate.render({
-      elem: '#BIRTHDAY'
-    });
-
+  }).use(['index', 'doctor'], function(){
+    layui.doctor.init.edit();
   });
   </script>
 </body>

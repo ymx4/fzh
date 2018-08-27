@@ -65,6 +65,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
       var that = this;
       var configlen = $('.xy-config').length;
       $('.xy-config').each(function(index){
+        var dataVal = $(this).attr('data-val');
         that.req({
           url: layui.setter.api.GetConfigDetail
           ,data: {
@@ -74,7 +75,11 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
             if (data.data.length > 0) {
               var html = '<option value="">请选择</option>';
               for (i = 0; i < data.data.length; i++) {
-                html += '<option value="' + data.data[i].CONFIG_ID + '">' + data.data[i].CONFIG_VALUE + '</option>';
+                var selected = '';
+                if (dataVal == data.data[i].ID) {
+                  selected = ' selected';
+                }
+                html += '<option value="' + data.data[i].ID + '"' + selected + '>' + data.data[i].CONFIG_VALUE + '</option>';
               }
               $(this).html(html);
             }

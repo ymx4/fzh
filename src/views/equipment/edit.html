@@ -16,7 +16,7 @@
     <div class="layui-card">
       <div class="layui-card-header">设备</div>
       <div class="layui-card-body" style="padding: 15px;">
-        <form class="layui-form" action="" lay-filter="">
+        <form class="layui-form" action="" lay-filter="xy-equipment-form">
 
           <div class="layui-form-item">
             <label class="layui-form-label">设备编号</label>
@@ -38,7 +38,7 @@
             <div class="layui-input-block">
               <div class="layui-inline xy-form-group">
                 <input type="hidden" id="UNIT_ID" name="UNIT_ID">
-                <input type="text" id="UNIT_NAME" name="UNIT_NAME" lay-verify="required" disabled="disabled" class="layui-input">
+                <input type="text" id="UNIT_NAME" name="UNIT_NAME" disabled class="layui-input">
                 <div class="layui-btn-group">
                   <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyins" data-id="UNIT_ID" data-name="UNIT_NAME">选择</button>
                 </div>
@@ -48,7 +48,7 @@
 
           <div class="layui-form-item">
             <div class="layui-input-block">
-              <button type="button" class="layui-btn" lay-submit lay-filter="xy-doctor-submit">保存</button>
+              <button type="button" class="layui-btn" lay-submit lay-filter="xy-equipment-submit">保存</button>
             </div>
           </div>
         </form>
@@ -62,8 +62,8 @@
     base: '../../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index'], function(){
-    var $ = layui.$;
+  }).use(['index', 'equipment'], function(){
+    layui.equipment.init.edit();
   });
   </script>
 </body>

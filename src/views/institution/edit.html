@@ -53,7 +53,6 @@
             <label class="layui-form-label">机构状态</label>
             <div class="layui-input-block">
               <select name="UNIT_STATUS" class="xy-config" data-cf="6">
-                <option value="">请选择</option>
               </select>
             </div>
           </div>
@@ -85,11 +84,13 @@
 
           <div class="layui-form-item">
             <label class="layui-form-label">上级单位</label>
-            <div class="layui-inline xy-form-group">
-              <input type="hidden" id="PARENT_ID" name="PARENT_ID">
-              <input type="text" id="p_unit_name" name="p_unit_name" disabled="disabled" class="layui-input">
-              <div class="layui-btn-group">
-                <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyins" data-id="PARENT_ID" data-name="p_unit_name">选择</button>
+            <div class="layui-input-block">
+              <div class="layui-inline xy-form-group">
+                <input type="hidden" id="PARENT_ID" name="PARENT_ID">
+                <input type="text" id="p_unit_name" name="p_unit_name" disabled class="layui-input">
+                <div class="layui-btn-group">
+                  <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyins" data-id="PARENT_ID" data-name="p_unit_name">选择</button>
+                </div>
               </div>
             </div>
           </div>

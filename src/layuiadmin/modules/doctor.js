@@ -1,8 +1,38 @@
-layui.define(['table', 'form', 'common'], function(exports){
+layui.define(['table', 'form', 'common', 'laydate'], function(exports){
   var $ = layui.$
   ,table = layui.table
   ,form = layui.form
-  ,common = layui.common;
+  ,common = layui.common
+  ,laydate = layui.laydate
+  ,router = layui.router();
+
+  var init = {
+    edit: function() {
+      if (router.search.id) {
+        laydate.render({
+          elem: '#BIRTHDAY'
+          ,value: '2018-08-18'
+        });
+      } else {
+        laydate.render({
+          elem: '#BIRTHDAY'
+        });
+        common.initConfig();
+      }
+    }
+  }
+
+  form.on('submit(xy-doctor-submit)', function(data){
+    common.req({
+      url: layui.setter.api.GetLoginUser
+      ,formerror: true
+      ,data: data.field
+      ,success: function(data){
+        
+      }
+    });
+    return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+  });
 
   //监听搜索
   form.on('submit(xy-doctor-search)', function(data){
@@ -63,11 +93,17 @@ layui.define(['table', 'form', 'common'], function(exports){
     var data = obj.data;
     if(obj.event === 'del'){
       layer.confirm('确定要删除吗', function(index){
-        obj.del();
-        layer.close(index);
+        common.req({
+          url: layui.setter.api.DeleteUser
+          ,data: {ID: obj.data.ID}
+          ,success: function(data){
+            obj.del();
+            layer.close(index);
+          }
+        });
       });
     }
   });
 
-  exports('doctor', {})
+  exports('doctor', {init: init})
 });

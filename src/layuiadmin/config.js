@@ -114,6 +114,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       UserLogin: 'http://holtest.fres.cn/User/UserLogin.ashx',
       UserLogOut: 'http://holtest.fres.cn/User/UserLogOut.ashx',
       GetUserList: 'http://holtest.fres.cn/User/GetUserList.ashx',
+      ModifyUserInfo: 'http://holtest.fres.cn/User/ModifyUserInfo.ashx',
       GetLoginUser: 'http://holtest.fres.cn/User/GetLoginUser.ashx',
       DeleteUser: 'http://holtest.fres.cn/User/DeleteUser.ashx',
       ChangeUserPassword: 'http://holtest.fres.cn/User/ChangeUserPassword.ashx',

@@ -29,7 +29,7 @@
           <div class="layui-form-item">
             <label class="layui-form-label">机构名称</label>
             <div class="layui-input-block">
-              <input type="text" name="UNIT_NAME" placeholder="" autocomplete="off" class="layui-input">
+              <input type="text" name="UNIT_NAME" lay-verify="required" autocomplete="off" class="layui-input">
             </div>
           </div>
 
@@ -60,10 +60,10 @@
           <div class="layui-form-item">
             <label class="layui-form-label">机构地址</label>
             <div class="layui-input-block">
-              <input type="hidden" id="ins_area_code" name="AREA_CODE">
+              <input type="hidden" id="ins_area_id" name="AREA_ID">
               <span class="xy-area"></span>
               <div class="layui-inline">
-                <input type="text" name="address" autocomplete="off" placeholder="请输入详细地址" class="layui-input">
+                <input type="text" name="ADDRESS" autocomplete="off" placeholder="请输入详细地址" class="layui-input">
               </div>
             </div>
           </div>
@@ -87,18 +87,11 @@
             <div class="layui-input-block">
               <div class="layui-inline xy-form-group">
                 <input type="hidden" id="PARENT_ID" name="PARENT_ID">
-                <input type="text" id="p_unit_name" name="p_unit_name" disabled class="layui-input">
+                <input type="text" id="PARENT_UNIT_NAME" name="PARENT_UNIT_NAME" disabled class="layui-input">
                 <div class="layui-btn-group">
-                  <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyins" data-id="PARENT_ID" data-name="p_unit_name">选择</button>
+                  <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyins" data-id="PARENT_ID" data-name="PARENT_UNIT_NAME">选择</button>
                 </div>
               </div>
-            </div>
-          </div>
-        
-          <div class="layui-form-item">
-            <label class="layui-form-label">管理员</label>
-            <div class="layui-input-block">
-              <input type="text" name="ADMIN_USER_ID" autocomplete="off" class="layui-input">
             </div>
           </div>
 

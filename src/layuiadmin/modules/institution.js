@@ -20,12 +20,12 @@ layui.define(['table', 'form', 'common'], function(exports){
             $('select[name="UNIT_TYPE"]').attr('data-val', data.data.UNIT_TYPE);
             $('select[name="UNIT_STATUS"]').attr('data-val', data.data.UNIT_STATUS);
             common.initConfig();
-            common.initArea('#ins_area_code');
+            common.initArea('#ins_area_id');
           }, this)
         });
       } else {
         common.initConfig();
-        common.initArea('#ins_area_code');
+        common.initArea('#ins_area_id');
       }
     }
   }
@@ -46,21 +46,9 @@ layui.define(['table', 'form', 'common'], function(exports){
   common.tRender({
     elem: '#xy-institution-manage'
     ,url: layui.setter.api.GetHospitalUnit
-    ,limit: common.constant.DEFAULT_PAGE_SIZE
-    ,method: 'post'
-    ,contentType: 'application/json'
     ,where: {
       "HOSPITAL_ID": common.user.UNIT_ID,
       "GET_TYPE": 1
-    }
-    ,request: {
-      pageName: 'PAGE_NO'
-      ,limitName: 'PAGE_SIZE'
-    }
-    ,response: {
-      statusName: 'status'
-      ,statusCode: 1
-      ,countName: 'message'
     }
     ,cols: [[
       {type: 'numbers', title: '序号'}
@@ -69,14 +57,12 @@ layui.define(['table', 'form', 'common'], function(exports){
         var n = d.LEVEL_NUMBER;
         return '<span style="margin-left:' + (indent * n) + 'px;">' + d.UNIT_NAME + '</span>';
       }}
-      ,{field: 'aa', title: '所属区域'}
+      ,{field: 'AREA_FULL_NAME', title: '所属区域'}
       ,{field: 'UNIT_TYPE_NAME', title: '单位类型'}
       ,{field: 'UNIT_LEVEL_NAME', title: '单位级别'}
       ,{field: 'UNIT_STATUS_NAME', title: '单位状态'}
       ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-institution'}
     ]]
-    ,page: {layout:['prev', 'page', 'next', 'count']}
-    ,text: '对不起，加载出现异常！'
   });
   
   //监听工具条

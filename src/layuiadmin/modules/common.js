@@ -20,16 +20,25 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
       layer.full(index);
       return index;
     }
-    ,base: '/views/'
-    ,constant: {
-      DEFAULT_PAGE_SIZE: 10,
-    }
     ,req: function(options){
       var success = options.success;
       
       var formerror = options.formerror || false;
       options.data = options.data || {};
-      options.data = JSON.stringify(options.data);
+      var params = JSON.stringify(options.data);
+      if (params != '{}') {
+        var flag = false;
+        for (var ii in options.data) {
+          if (/[a-z]/.test(ii.charAt(0))) {
+            flag = true;
+            delete options.data[ii];
+          }
+        }
+        if (flag) {
+          params = JSON.stringify(options.data);
+        }
+      }
+      options.data = params;
       
       if(this.user && this.user.token){
         //自动给参数传入默认 token
@@ -44,6 +53,10 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
         ,success: function(res){
           if (res.status == 1 && typeof success === 'function') {
             success(res);
+          } else if (res.status == 0 && res.errorCode == 4006) {
+            layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
+              parent.location.href = layui.setter.baseUrl + '/passport/login.html';
+            });
           } else {
             if (formerror) {
               res.message = res.message.replace(/(^\|)|(\|$)/g, '');
@@ -59,7 +72,38 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
         //自动给参数传入默认 token
         options.url = options.url + '?token=' + this.user.token;
       }
-      return table.render(options);
+      var that = this;
+      var done = options.done;
+
+      delete options.done;
+
+      return table.render($.extend({
+        limit: 10
+        ,method: 'post'
+        ,contentType: 'application/json'
+        ,request: {
+          pageName: 'PAGE_NO'
+          ,limitName: 'PAGE_SIZE'
+        }
+        ,response: {
+          statusName: 'status'
+          ,statusCode: 1
+          ,countName: 'message'
+        }
+        ,page: {layout:['prev', 'page', 'next', 'count']}
+        ,text: '对不起，加载出现异常！'
+        ,done: function(res, curr, count){
+          if (res.status == 0 && res.errorCode == 4006) {
+            layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
+              parent.location.href = layui.setter.baseUrl + '/passport/login.html';
+            });
+          } else {
+            if (typeof done === 'function') {
+              done(res, curr, count);
+            }
+          }
+        }
+      }, options));
     }
     ,initConfig: function(){
       var that = this;
@@ -94,7 +138,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
         $(data.elem).closest('.xy-select').nextAll('.xy-select').remove();
         if (data.value != '') {
           that.area(data.value, $(data.elem).closest('.xy-select'));
-          $(hiddenElem).val($(data.elem).children('option:selected').attr('data-code'));
+          $(hiddenElem).val($(data.elem).val());
         }
       });
       var arealist = [];
@@ -117,7 +161,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
                   <select name="{{d.selname}}" lay-filter="xy-addr-select">\
                     <option value="">请选择</option>\
                     {{#  layui.each(d.list, function(index, item){ }}\
-                      <option value="{{ item.ID }}" data-code="{{item.AREA_CODE}}">{{ item.AREA_NAME }}</option>\
+                      <option value="{{ item.ID }}">{{ item.AREA_NAME }}</option>\
                     {{#  }); }}\
                   </select>\
                 </div>\
@@ -147,7 +191,6 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
       common.user = sess.user;
     }
   }
-  console.log(common.user);
 
   admin.events.closelayer = function(){
     var index = parent.layer.getFrameIndex(window.name);
@@ -167,31 +210,17 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
     layer.full(icdindex);
     view('xyicd').render('common/icd').done(function(){
       setTimeout(function(){
-        tRender({
+        common.tRender({
           elem: '#xy-icd-table'
           ,url: layui.setter.api.SearchICD
-          ,limit: constant.DEFAULT_PAGE_SIZE
-          ,method: 'post'
-          ,contentType: 'application/json'
           ,where: {
             ICD_KEYWORD: '',
-          }
-          ,request: {
-            pageName: 'PAGE_NO'
-            ,limitName: 'PAGE_SIZE'
-          }
-          ,response: {
-            statusName: 'status'
-            ,statusCode: 1
-            ,countName: 'message'
           }
           ,cols: [[
             {type: 'numbers', title: '序号'}
             ,{field: 'DISEASE_NAME', title: '疾病名称'}
             ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-icd-ope'}
           ]]
-          ,page: {layout:['prev', 'page', 'next', 'count']}
-          ,text: '对不起，加载出现异常！'
         });
       },100);
 

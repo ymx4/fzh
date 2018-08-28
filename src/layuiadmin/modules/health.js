@@ -11,7 +11,6 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
   common.tRender({
     elem: '#xy-health-manage'
     ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-    ,limit: common.constant.DEFAULT_PAGE_SIZE
     ,cols: [[
       {type: 'checkbox'}
       ,{field: 'id', title: '档案编号', minWidth:100, event:'detail', style:'cursor: pointer;'}
@@ -21,8 +20,6 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
       ,{field: 'jointime', title: '时间', minWidth:100}
       ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-health', minWidth:70}
     ]]
-    ,page: {layout:['prev', 'page', 'next', 'count']}
-    ,text: '对不起，加载出现异常！'
   });
   
   //监听工具条
@@ -106,10 +103,7 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
     common.tRender({
       elem: '#xy-health-history-person'
       ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-      ,limit: common.constant.DEFAULT_PAGE_SIZE
       ,cols: [cols]
-      ,page: {layout:['prev', 'page', 'next', 'count']}
-      ,text: '对不起，加载出现异常！'
     });
 
     var cols = [
@@ -124,10 +118,7 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
     common.tRender({
       elem: '#xy-health-history-family'
       ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-      ,limit: common.constant.DEFAULT_PAGE_SIZE
       ,cols: [cols]
-      ,page: {layout:['prev', 'page', 'next', 'count']}
-      ,text: '对不起，加载出现异常！'
     });
 
     var cols = [
@@ -143,10 +134,7 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
     common.tRender({
       elem: '#xy-health-history-medical'
       ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-      ,limit: common.constant.DEFAULT_PAGE_SIZE
       ,cols: [cols]
-      ,page: {layout:['prev', 'page', 'next', 'count']}
-      ,text: '对不起，加载出现异常！'
     });
 
     var cols = [
@@ -160,10 +148,7 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
     common.tRender({
       elem: '#xy-health-history-inoculation'
       ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-      ,limit: common.constant.DEFAULT_PAGE_SIZE
       ,cols: [cols]
-      ,page: {layout:['prev', 'page', 'next', 'count']}
-      ,text: '对不起，加载出现异常！'
     });
   }
 
@@ -176,14 +161,11 @@ layui.define(['table', 'form', 'laytpl', 'common'], function(exports){
         common.tRender({
           elem: '#testhis-table'
           ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-          ,limit: common.constant.DEFAULT_PAGE_SIZE
           ,cols: [[
             {field: 'username', title: '名称', minWidth:100}
             ,{field: 'jointime', title: '接种日期', minWidth:100}
             ,{field: 'username', title: '接种机构', minWidth:100}
           ]]
-          ,page: {layout:['prev', 'page', 'next', 'count']}
-          ,text: '对不起，加载出现异常！'
         });
       });
     } else {

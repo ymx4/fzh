@@ -14,24 +14,12 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
   common.tRender({
     elem: '#xy-resident-manage'
     ,url: layui.setter.api.GetUserList
-    ,limit: common.constant.DEFAULT_PAGE_SIZE
-    ,method: 'post'
-    ,contentType: 'application/json'
     ,where: {
       "KEY_WORD" : "",
       "UNIT_ID": common.user.UNIT_ID,
       "GROUP_ID": 0,
       "FAMILY_DOCTOR": 0,
       "SPECIALIST": 0
-    }
-    ,request: {
-      pageName: 'PAGE_NO'
-      ,limitName: 'PAGE_SIZE'
-    }
-    ,response: {
-      statusName: 'status'
-      ,statusCode: 1
-      ,countName: 'message'
     }
     ,cols: [[
       {type: 'checkbox'}
@@ -42,8 +30,6 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       ,{field: 'CREATE_TIME', title: '加入时间', minWidth:100}
       ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
     ]]
-    ,page: {layout:['prev', 'page', 'next', 'count']}
-    ,text: '对不起，加载出现异常！'
   });
   
   //监听工具条
@@ -164,7 +150,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       });
     } else if (obj.event === 'edit'){
       var index = common.modal({
-        content: common.base + 'history/person.html',
+        content: layui.setter.baseUrl + '/history/person.html',
         title: '编辑'
       });
       // obj.update({
@@ -197,10 +183,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-person'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
 
@@ -215,10 +198,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-operation'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
 
@@ -236,10 +216,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-trauma'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
 
@@ -256,10 +233,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-blood'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
 
@@ -277,10 +251,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-hospital'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
 
@@ -297,10 +268,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-family'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
 
@@ -316,10 +284,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-inherit'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
 
@@ -336,10 +301,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-allergy'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
 
@@ -355,10 +317,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-derfomity'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
 
@@ -374,10 +333,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-visit'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
 
@@ -392,10 +348,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-consultation'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
 
@@ -410,10 +363,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-referral'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
 
@@ -429,10 +379,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-examination'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
 
@@ -448,10 +395,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-followup'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
 
@@ -467,10 +411,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.tRender({
         elem: '#xy-resident-history-survey'
         ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,limit: common.constant.DEFAULT_PAGE_SIZE
         ,cols: [cols]
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
       });
     }
   };

@@ -48,24 +48,12 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
   common.tRender({
     elem: '#xy-doctor-manage'
     ,url: layui.setter.api.GetUserList
-    ,limit: common.constant.DEFAULT_PAGE_SIZE
-    ,method: 'post'
-    ,contentType: 'application/json'
     ,where: {
       "KEY_WORD" : "",
       "UNIT_ID": common.user.UNIT_ID,
       "GROUP_ID": 0,
       "FAMILY_DOCTOR": 0,
       "SPECIALIST": 0
-    }
-    ,request: {
-      pageName: 'PAGE_NO'
-      ,limitName: 'PAGE_SIZE'
-    }
-    ,response: {
-      statusName: 'status'
-      ,statusCode: 1
-      ,countName: 'message'
     }
     ,cols: [[
       {field: 'ID', title: '医生编号'}
@@ -84,8 +72,6 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
       }}
       ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-doctor'}
     ]]
-    ,page: {layout:['prev', 'page', 'next', 'count']}
-    ,text: '对不起，加载出现异常！'
   });
   
   //监听工具条

@@ -22,8 +22,6 @@ layui.define(['table', 'form', 'common'], function(exports){
       {field: 'username', title: '科室名称'}
       ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-department'}
     ]]
-    ,page: {layout:['prev', 'page', 'next', 'count']}
-    ,text: '对不起，加载出现异常！'
   });
   
   //监听工具条

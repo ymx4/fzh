@@ -61,21 +61,9 @@ layui.define(['table', 'form', 'common'], function(exports){
   common.tRender({
     elem: '#xy-equipment-data'
     ,url: layui.setter.api.GetEquipmentData
-    ,limit: common.constant.DEFAULT_PAGE_SIZE
-    ,method: 'post'
-    ,contentType: 'application/json'
     ,where: {
       "EQUIPMENT_NO": router.search.EQUIPMENT_NO
       ,USED: 2
-    }
-    ,request: {
-      pageName: 'PAGE_NO'
-      ,limitName: 'PAGE_SIZE'
-    }
-    ,response: {
-      statusName: 'status'
-      ,statusCode: 1
-      ,countName: 'message'
     }
     ,cols: [[
       {field: 'EQUIPMENT_NO', title: '设备编号'}
@@ -83,27 +71,13 @@ layui.define(['table', 'form', 'common'], function(exports){
       ,{field: 'UNIT_NAME', title: '所属机构'}
       ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-equipment'}
     ]]
-    ,page: {layout:['prev', 'page', 'next', 'count']}
-    ,text: '对不起，加载出现异常！'
   });
 
   common.tRender({
     elem: '#xy-equipment-manage'
     ,url: layui.setter.api.GetEquipmentList
-    ,limit: common.constant.DEFAULT_PAGE_SIZE
-    ,method: 'post'
-    ,contentType: 'application/json'
     ,where: {
       "UNIT_ID": common.user.UNIT_ID
-    }
-    ,request: {
-      pageName: 'PAGE_NUMBER'
-      ,limitName: 'PAGE_SIZE'
-    }
-    ,response: {
-      statusName: 'status'
-      ,statusCode: 1
-      ,countName: 'message'
     }
     ,cols: [[
       {field: 'EQUIPMENT_NO', title: '设备编号'}
@@ -111,8 +85,6 @@ layui.define(['table', 'form', 'common'], function(exports){
       ,{field: 'UNIT_NAME', title: '所属机构'}
       ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-equipment'}
     ]]
-    ,page: {layout:['prev', 'page', 'next', 'count']}
-    ,text: '对不起，加载出现异常！'
   });
   
   //监听工具条

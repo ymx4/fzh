@@ -37,8 +37,6 @@ layui.define(['table', 'form', 'common'], function(exports){
       ,{field: 'username', title: '状态'}
       ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-referral'}
     ]]
-    ,page: {layout:['prev', 'page', 'next', 'count']}
-    ,text: '对不起，加载出现异常！'
   });
 
   exports('referral', {})

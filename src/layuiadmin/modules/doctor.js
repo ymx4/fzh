@@ -24,14 +24,16 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
 
   form.on('submit(xy-doctor-submit)', function(data){
     common.req({
-      url: layui.setter.api.GetLoginUser
+      url: layui.setter.api.ModifyUserInfo
       ,formerror: true
       ,data: data.field
       ,success: function(data){
-        
+        layer.msg('操作成功', function() {
+          common.saveSuccess('doctor/list.html', '医生管理');
+        });
       }
     });
-    return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    return false;
   });
 
   //监听搜索

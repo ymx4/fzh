@@ -1,7 +1,8 @@
-layui.define(['table', 'form', 'common'], function(exports){
+layui.define(['table', 'form', 'common', 'admin'], function(exports){
   var $ = layui.$
   ,table = layui.table
   ,form = layui.form
+  ,admin = layui.admin
   ,common = layui.common
   ,router = layui.router();
 
@@ -36,7 +37,9 @@ layui.define(['table', 'form', 'common'], function(exports){
       ,formerror: true
       ,data: data.field
       ,success: function(data){
-        
+        layer.msg('操作成功', function() {
+          common.saveSuccess('institution/list.html', '机构列表');
+        });
       }
     });
     return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。

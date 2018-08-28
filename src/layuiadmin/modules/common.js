@@ -8,6 +8,16 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
 
   ,common = {
     user: {}
+    ,saveSuccess: function(href, text) {
+      var index = top.layui.admin.tabsPage.index;
+      var topLayui = top.layui;
+      topLayui.index.openTabsPage(href, text);
+      topLayui.admin.events.refresh();
+      topLayui.common.closeTab(index);
+    }
+    ,closeTab: function(index) {
+      $('#LAY_app_tabsheader>li').eq(index).find('.layui-tab-close').trigger('click');
+    }
     ,modal: function(options) {
       options = $.extend({
         type: 2

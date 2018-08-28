@@ -14,9 +14,38 @@
 
   <div class="layui-fluid">
     <div class="layui-card">
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">搜索词</label>
+            <div class="layui-input-block">
+              <input type="text" name="KEY_WORD" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">用户组</label>
+            <div class="layui-input-block">
+              <select name="GROUP_ID" class="xy-config" data-cf="9">
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">医生角色</label>
+            <div class="layui-input-block">
+              <input type="checkbox" name="FAMILY_DOCTOR" title="专科医生" value="1">
+              <input type="checkbox" name="SPECIALIST" title="家庭医生" value="1">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="xy-institution-search">
+              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+            </button>
+          </div>
+        </div>
+      </div>
       <div class="layui-card-body">
         <div style="padding-bottom: 10px;">
-          <a class="layui-btn" lay-href="doctor/edit.html" lay-text="添加医生">添加</a>
+              <a class="layui-btn" lay-href="doctor/edit.html" lay-text="添加医生">添加</a>
         </div>
 
         <table id="xy-doctor-manage" lay-filter="xy-doctor-manage"></table>
@@ -35,7 +64,9 @@
     base: '../../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'doctor']);
+  }).use(['index', 'doctor'], function() {
+    layui.common.initConfig();
+  });
   </script>
 </body>
 </html>

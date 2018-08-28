@@ -32,6 +32,7 @@ layui.define(['table', 'form', 'common', 'admin'], function(exports){
   }
 
   form.on('submit(xy-institution-submit)', function(data){
+    delete data.field.PARENT_UNIT_NAME;
     common.req({
       url: layui.setter.api.ModificationHospitalUnit
       ,formerror: true

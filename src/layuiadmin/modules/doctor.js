@@ -9,9 +9,23 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
   var init = {
     edit: function() {
       if (router.search.id) {
+        common.req({
+          url: layui.setter.api.GetUserInfo
+          ,data: {
+            ID: router.search.id
+          }
+          ,success: $.proxy(function(data){console.log(data);return;
+            form.val('xy-institution-form', data.data);
         laydate.render({
           elem: '#BIRTHDAY'
           ,value: '2018-08-18'
+        });
+            $('select[name="UNIT_LEVEL"]').attr('data-val', data.data.UNIT_LEVEL);
+            $('select[name="UNIT_TYPE"]').attr('data-val', data.data.UNIT_TYPE);
+            $('select[name="UNIT_STATUS"]').attr('data-val', data.data.UNIT_STATUS);
+            common.initConfig();
+            common.initArea('#ins_area_id');
+          }, this)
         });
       } else {
         laydate.render({

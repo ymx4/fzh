@@ -66,6 +66,12 @@ i.fas, i.far{
 	overflow: visible;
 	white-space: normal;
 }*/
+.pull-left {
+	float:left;
+}
+.pull-right {
+	float:right;
+}
 .xy-search {
 	min-width: 300px;
 }

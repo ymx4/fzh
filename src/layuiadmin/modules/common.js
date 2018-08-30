@@ -63,9 +63,9 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
         ,success: function(res){
           if (res.status == 1 && typeof success === 'function') {
             success(res);
-          } else if (res.status == 0 && res.errorCode == 4006) {
+          } else if (res.errorCode == 4006) {
             layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
-              parent.location.href = layui.setter.baseUrl + '/passport/login.html';
+              top.location.href = layui.setter.baseUrl + '/passport/login.html';
             });
           } else {
             if (formerror) {
@@ -101,11 +101,11 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
           ,countName: 'message'
         }
         ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: '对不起，加载出现异常！'
+        ,text: {none: '暂无相关数据'}
         ,done: function(res, curr, count){
-          if (res.status == 0 && res.errorCode == 4006) {
+          if (res.errorCode == 4006) {
             layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
-              parent.location.href = layui.setter.baseUrl + '/passport/login.html';
+              top.location.href = layui.setter.baseUrl + '/passport/login.html';
             });
           } else {
             if (typeof done === 'function') {
@@ -142,7 +142,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
         });
       });
     }
-    ,initArea: function(hiddenElem){
+    ,initArea: function(hiddenElem, editElem){
       var that = this;
       form.on('select(xy-addr-select)', function(data){
         $(data.elem).closest('.xy-select').nextAll('.xy-select').remove();
@@ -151,12 +151,53 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
           $(hiddenElem).val($(data.elem).val());
         }
       });
-      var arealist = [];
-      $('.xy-area').each(function(){
-        arealist.push($(this));
-      });
-      if (arealist.length > 0) {
-        this.area(1, arealist);
+      if (editElem) {
+        that.req({
+          url: layui.setter.api.GetAreaText
+          ,data: {AREA_ID: editElem.default}
+          ,success: function(areadata){
+            var parentid = 1;
+            var tmp = $(editElem.elem);
+            for (ii = 0; ii < areadata.data.length; ii++) {
+              tmp.after('<div class="layui-inline xy-select">\
+                  <select lay-filter="xy-addr-select" data-pid="' + parentid + '" data-id="' + areadata.data[ii].ID + '">\
+                    <option value="">请选择</option>\
+                  </select>\
+                </div>'
+              );
+
+              tmp = tmp.next();
+              parentid = areadata.data[ii].ID;
+            }
+
+            $(editElem.elem).siblings('.xy-select').children('select').each(function(){
+              var othis = $(this);
+              that.req({
+                url: layui.setter.api.GetAreaList
+                ,data: {PARENT_ID: $(this).attr('data-pid')}
+                ,success: function(data){
+                  if (data.data != null && data.data.length > 0) {
+                    layui.laytpl('{{#  layui.each(d.list, function(index, item){ }}\
+                        <option value="{{ item.ID }}"{{#  if(d.defaultId == item.ID){ }} selected{{#  } }} >{{ item.AREA_NAME }}</option>\
+                      {{#  }); }}'
+                    ).render({list: data.data, defaultId: othis.attr('data-id')}, function(html){
+                      othis.append(html);
+                      form.render('select');
+                    });
+                  }
+                }
+              });
+            });
+          }
+        });
+      } else {
+        var arealist = [];
+        $('.xy-area').each(function(){
+          arealist.push($(this));
+        });
+        if (arealist.length > 0) {
+          this.area(1, arealist);
+        }
       }
     }
     ,area: function(parentid, elem){
@@ -168,14 +209,14 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
         ,success: function(data){
           if (data.data != null && data.data.length > 0) {
             layui.laytpl('<div class="layui-inline xy-select">\
-                  <select name="{{d.selname}}" lay-filter="xy-addr-select">\
-                    <option value="">请选择</option>\
-                    {{#  layui.each(d.list, function(index, item){ }}\
-                      <option value="{{ item.ID }}">{{ item.AREA_NAME }}</option>\
-                    {{#  }); }}\
-                  </select>\
-                </div>\
-            ').render({selname: 'area' + data.data[0].LEVEL_NUMBER, list: data.data}, function(html){
+                <select lay-filter="xy-addr-select">\
+                  <option value="">请选择</option>\
+                  {{#  layui.each(d.list, function(index, item){ }}\
+                    <option value="{{ item.ID }}">{{ item.AREA_NAME }}</option>\
+                  {{#  }); }}\
+                </select>\
+              </div>'
+            ).render({list: data.data}, function(html){
               if (elem instanceof Array) {
                 $.each(elem,function(i, item){
                   item.after(html);
@@ -185,8 +226,6 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
               }
               form.render('select');
             });
-          } else {
-
           }
         }
       });

@@ -110,6 +110,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
 
     ,api: {
       GetAreaList: 'http://holtest.fres.cn/PublicMethods/AreaCode/GetAreaList.ashx',
+      GetAreaText: 'http://holtest.fres.cn/PublicMethods/AreaCode/GetAreaText.ashx',
       SearchICD: 'http://holtest.fres.cn/PublicMethods/ICD10/SearchICD.ashx',
       UserLogin: 'http://holtest.fres.cn/User/UserLogin.ashx',
       UserLogOut: 'http://holtest.fres.cn/User/UserLogOut.ashx',

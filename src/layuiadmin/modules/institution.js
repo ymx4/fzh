@@ -21,7 +21,7 @@ layui.define(['table', 'form', 'common', 'admin'], function(exports){
             $('select[name="UNIT_TYPE"]').attr('data-val', data.data.UNIT_TYPE);
             $('select[name="UNIT_STATUS"]').attr('data-val', data.data.UNIT_STATUS);
             common.initConfig();
-            common.initArea('#ins_area_id');
+            common.initArea('#ins_area_id', {default: data.data.AREA_ID, elem: '#ins_ares_container'});
           }, this)
         });
       } else {

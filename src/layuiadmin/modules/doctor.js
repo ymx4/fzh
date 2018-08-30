@@ -14,7 +14,7 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
           ,data: {
             ID: router.search.id
           }
-          ,success: $.proxy(function(data){console.log(data);return;
+          ,success: $.proxy(function(data){
             form.val('xy-institution-form', data.data);
         laydate.render({
           elem: '#BIRTHDAY'
@@ -53,6 +53,9 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
   //监听搜索
   form.on('submit(xy-doctor-search)', function(data){
     var field = data.field;
+    if (data.field.GROUP_ID == '') {
+      data.field.GROUP_ID = 0;
+    }
     
     //执行重载
     table.reload('xy-doctor-manage', {

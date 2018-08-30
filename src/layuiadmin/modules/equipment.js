@@ -7,14 +7,14 @@ layui.define(['table', 'form', 'common'], function(exports){
 
   var init = {
     edit: function() {
-      if (router.search.id) {
+      if (router.search.EQUIPMENT_NO) {
         common.req({
           url: layui.setter.api.GetEquipmentInfo
           ,data: {
             EQUIPMENT_NO: router.search.EQUIPMENT_NO
           }
-          ,success: $.proxy(function(data){
-            form.val('xy-equipment-form', data.data);
+          ,success: $.proxy(function(equipmentData){
+            form.val('xy-equipment-form', equipmentData.data);
             common.req({
               url: layui.setter.api.GetEquipmentType
               ,data: {}
@@ -22,9 +22,13 @@ layui.define(['table', 'form', 'common'], function(exports){
                 if (data.data.length > 0) {
                   var html = '<option value="">请选择</option>';
                   for (i = 0; i < data.data.length; i++) {
-                    html += '<option value="' + data.data[i].CONFIG_ID + '">' + data.data[i].CONFIG_VALUE + '</option>';
+                    var selected = '';
+                    if (equipmentData.data.EQUIPMENT_TYPE_ID == data.data[i].ID) {
+                      selected = ' selected';
+                    }
+                    html += '<option value="' + data.data[i].ID + '"' + selected + '>' + data.data[i].EQUIPMENT_TYPE_NAME + '</option>';
                   }
-                  $(this).html(html);
+                  $('#EQUIPMENT_TYPE_ID').html(html);
                 }
                 form.render('select');
               }, this)
@@ -36,15 +40,18 @@ layui.define(['table', 'form', 'common'], function(exports){
   }
 
   form.on('submit(xy-equipment-submit)', function(data){
+    delete data.field.UNIT_NAME;
     common.req({
       url: layui.setter.api.ModifyEquipment
       ,formerror: true
       ,data: data.field
       ,success: function(data){
-        
+        layer.msg('操作成功', function() {
+          common.saveSuccess('equipment/list.html', '设备列表');
+        });
       }
     });
-    return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    return false;
   });
 
   //监听搜索
@@ -66,11 +73,25 @@ layui.define(['table', 'form', 'common'], function(exports){
       ,USED: 2
     }
     ,cols: [[
-      {field: 'EQUIPMENT_NO', title: '设备编号'}
-      ,{field: 'EQUIPMENT_TYPE_NAME', title: '设备类型'}
-      ,{field: 'UNIT_NAME', title: '所属机构'}
-      ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-equipment'}
+      {field: 'RECEIVE_TIME', title: '接收时间'}
+      ,{field: 'CHINESE_NAME', title: '项目名称'}
+      ,{field: 'RECEIVE_DATA', title: '接收数据'}
+      ,{field: 'UNIT_NAME', title: '单位'}
+      ,{field: 'ABNORMAL', title: '异常'}
+      ,{field: 'STANDARD_RANGE', title: '参考范围',templet: function(d){
+        if (d.STANDARD_MAX_VALUE) {
+          return d.STANDARD_MIX_VALUE + ' - ' + d.STANDARD_MAX_VALUE;
+        } else {
+          return d.STANDARD_MIX_VALUE;
+        }
+      }}
+      ,{field: 'USED', title: '是否使用',templet: function(d){
+        return d.USED == 1 ? '已使用' : '未使用';
+      }}
     ]]
+    ,done: function(){
+      common.rowspan('RECEIVE_TIME', 1);
+    }
   });
 
   common.tRender({

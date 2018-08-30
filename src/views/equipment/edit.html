@@ -17,6 +17,7 @@
       <div class="layui-card-header">设备</div>
       <div class="layui-card-body" style="padding: 15px;">
         <form class="layui-form" action="" lay-filter="xy-equipment-form">
+          <input type="hidden" name="ID" value="0">
 
           <div class="layui-form-item">
             <label class="layui-form-label">设备编号</label>
@@ -28,7 +29,7 @@
           <div class="layui-form-item">
             <label class="layui-form-label">设备类型</label>
             <div class="layui-input-block">
-              <select name="EQUIPMENT_TYPE_ID" class="xy-config" data-cf="">
+              <select name="EQUIPMENT_TYPE_ID" id="EQUIPMENT_TYPE_ID">
               </select>
             </div>
           </div>

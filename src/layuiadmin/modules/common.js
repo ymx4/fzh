@@ -191,6 +191,69 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
         }
       });
     }
+    ,rowspan: function(fieldName,index,flag){
+      /**
+        *跨行合并单元格
+        *@param 
+        *fieldName 列名
+        *index 用来区分固定左表，非固定表，固定右表,待用
+        *flag 是否根据td内的html判断内容是否一致，true是
+        */
+      // 1为不冻结的情况，左侧列为冻结的情况
+      var fixedNode = index=="1"?$(".layui-table-body")[index - 1]:(index=="3"?$(".layui-table-fixed-r"):$(".layui-table-fixed-l"));
+      // 左侧导航栏不冻结的情况
+      var child = $(fixedNode).find("td");
+      var childFilterArr = [];
+      // 获取data-field属性为fieldName的td
+      for(var i = 0; i < child.length; i++){
+        if(child[i].getAttribute("data-field") == fieldName){
+          childFilterArr.push(child[i]);
+        }
+      }
+      // 获取td的个数和种类
+      var childFilterTextObj = {};
+      for(var i = 0; i < childFilterArr.length; i++){
+        var childText = flag?childFilterArr[i].innerHTML:childFilterArr[i].textContent;
+        if(childFilterTextObj[childText] == undefined){
+          childFilterTextObj[childText] = 1;
+        }else{
+          var num = childFilterTextObj[childText];
+          childFilterTextObj[childText] = num*1 + 1;
+        }
+      }
+      var canRowspan = true;
+      var maxNum = 9999;
+      for(var i = 0; i < childFilterArr.length; i++){
+        maxNum = $(childFilterArr[i]).prev().attr("rowspan")&&fieldName!="8"?$(childFilterArr[i]).prev().attr("rowspan"):maxNum;
+        var key = flag?childFilterArr[i].innerHTML:childFilterArr[i].textContent;
+        var tdNum = childFilterTextObj[key];
+        var curNum = maxNum<tdNum?maxNum:tdNum;
+     
+        for(var j =1;j<curNum&&(i+j<childFilterArr.length);j++){
+          var nextKey = flag?childFilterArr[i+j].innerHTML:childFilterArr[i+j].textContent;
+          if(key!=nextKey&&curNum>1){
+            canRowspan = true;
+            curNum = j;
+          }
+        }
+        if(canRowspan){
+          childFilterArr[i].setAttribute("rowspan",curNum);
+          if($(childFilterArr[i]).find("div.rowspan").length>0){//设置td内的div.rowspan高度适应合并后的高度
+            $(childFilterArr[i]).find("div.rowspan").parent("div.layui-table-cell").addClass("rowspanParent");
+            $(childFilterArr[i]).find("div.layui-table-cell")[0].style.height= curNum*39-10 +"px";
+          }
+          canRowspan = false;
+        }else{
+          childFilterArr[i].style.display = "none";
+        }
+        if(maxNum){
+          maxNum--;
+        }
+        if(--childFilterTextObj[key]==0||maxNum==0||(nextKey!=undefined&&key!=nextKey)){
+          canRowspan = true;
+        }
+      }
+    }
   };
 
   if (location.href.indexOf('login') == -1) {

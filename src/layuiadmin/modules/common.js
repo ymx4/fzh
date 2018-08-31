@@ -77,7 +77,11 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
         }
       }, options));
     }
-    ,tRender: function(options){
+    ,xyReload: function(filter, options){
+      layer.load(0, {time: 10*1000});
+      table.reload(filter, options);
+    }
+    ,xyRender: function(options){
       if(this.user && this.user.token){
         //自动给参数传入默认 token
         options.url = options.url + '?token=' + this.user.token;
@@ -86,6 +90,8 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
       var done = options.done;
 
       delete options.done;
+
+      layer.load(0, {time: 10*1000});
 
       return table.render($.extend({
         limit: 10
@@ -103,6 +109,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
         ,page: {layout:['prev', 'page', 'next', 'count']}
         ,text: {none: '暂无相关数据'}
         ,done: function(res, curr, count){
+          layer.closeAll('loading');
           if (res.errorCode == 4006) {
             layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
               top.location.href = layui.setter.baseUrl + '/passport/login.html';
@@ -151,7 +158,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
           $(hiddenElem).val($(data.elem).val());
         }
       });
-      if (editElem) {
+      if (editElem && editElem.default) {
         that.req({
           url: layui.setter.api.GetAreaText
           ,data: {AREA_ID: editElem.default}
@@ -322,7 +329,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
     layer.full(icdindex);
     view('xyicd').render('common/icd').done(function(){
       setTimeout(function(){
-        common.tRender({
+        common.xyRender({
           elem: '#xy-icd-table'
           ,url: layui.setter.api.SearchICD
           ,where: {
@@ -348,7 +355,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
       //监听搜索
       form.on('submit(xy-icd-search)', function(data){
         //执行重载
-        table.reload('xy-icd-table', {
+        common.xyReload('xy-icd-table', {
           page: {
             curr: 1
           }

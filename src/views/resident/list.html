@@ -55,9 +55,7 @@
   <script src="../../layuiadmin/layui/layui.js"></script>  
   <script>
   layui.config({
-    base: '../../layuiadmin/' //静态资源所在路径
-    ,version: true
-    ,debug: true
+    base: '../../layuiadmin/'
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index', 'resident', 'table', 'dropdown'], function(){
@@ -70,7 +68,7 @@
       var field = data.field;
       
       //执行重载
-      table.reload('xy-resident-manage', {
+      common.xyReload('xy-resident-manage', {
         // url:'',
         where: field
       });
@@ -97,7 +95,7 @@
               
               //提交 Ajax 成功后，静态更新表格中的数据
               //$.ajax({});
-              table.reload('LAY-user-front-submit'); //数据刷新
+              common.xyReload('LAY-user-front-submit'); //数据刷新
               layer.close(index); //关闭弹层
             });  
             

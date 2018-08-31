@@ -47,7 +47,7 @@ layui.define(['table', 'form', 'common', 'admin'], function(exports){
   });
 
   //机构管理
-  common.tRender({
+  common.xyRender({
     elem: '#xy-institution-manage'
     ,url: layui.setter.api.GetHospitalUnit
     ,where: {

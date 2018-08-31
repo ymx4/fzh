@@ -29,7 +29,7 @@
           <div class="layui-form-item">
             <label class="layui-form-label">密码</label>
             <div class="layui-input-block">
-              <input type="password" name="PASSWORD" lay-verify="required" autocomplete="off" class="layui-input">
+              <input type="password" name="PASSWORD" autocomplete="off" class="layui-input">
             </div>
           </div>
 
@@ -58,7 +58,7 @@
           <div class="layui-form-item">
             <label class="layui-form-label">出生日期</label>
             <div class="layui-input-block">
-              <input type="text" id="BIRTHDAY" name="BIRTHDAY" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-doctor-date">
+              <input type="text" id="BIRTHDAY" name="BIRTHDAY" placeholder="yyyy/MM/dd" autocomplete="off" class="layui-input xy-doctor-date">
             </div>
           </div>
           
@@ -120,7 +120,7 @@
   <script src="../../layuiadmin/layui/layui.js"></script>  
   <script>
   layui.config({
-    base: '../../layuiadmin/' //静态资源所在路径
+    base: '../../layuiadmin/'
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index', 'doctor'], function(){

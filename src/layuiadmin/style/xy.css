@@ -102,3 +102,11 @@ i.fas, i.far{
 .xy-form .layui-elem-field {
 	padding-bottom: 10px;
 }
+.layui-card-header .layui-form-checkbox {
+	margin-top: -7px;
+}
+.layui-card-header .layui-icon {
+	right: 0;
+	top: 0;
+	margin-top: 0;
+}

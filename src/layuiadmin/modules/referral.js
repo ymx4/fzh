@@ -19,13 +19,13 @@ layui.define(['table', 'form', 'common'], function(exports){
     var field = data.field;
     
     //执行重载
-    table.reload('xy-referral-manage', {
+    common.xyReload('xy-referral-manage', {
       // url:'',
       where: field
     });
   });
 
-  common.tRender({
+  common.xyRender({
     elem: '#xy-referral-manage'
     ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
     ,where: {test: test}

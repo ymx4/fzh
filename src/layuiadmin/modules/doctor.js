@@ -15,21 +15,22 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
             ID: router.search.id
           }
           ,success: $.proxy(function(data){
-            form.val('xy-institution-form', data.data);
-        laydate.render({
-          elem: '#BIRTHDAY'
-          ,value: '2018-08-18'
-        });
-            $('select[name="UNIT_LEVEL"]').attr('data-val', data.data.UNIT_LEVEL);
-            $('select[name="UNIT_TYPE"]').attr('data-val', data.data.UNIT_TYPE);
-            $('select[name="UNIT_STATUS"]').attr('data-val', data.data.UNIT_STATUS);
+            form.val('xy-doctor-form', data.data);
+            laydate.render({
+              elem: '#BIRTHDAY'
+              ,format: 'yyyy/MM/dd'
+              ,value: data.data.BIRTHDAY ? data.data.BIRTHDAY.substring(0, 10) : ''
+            });
+            $('select[name="SEX"]').attr('data-val', data.data.SEX);
+            $('select[name="STATUS"]').attr('data-val', data.data.STATUS);
+            $('select[name="GROUP_ID"]').attr('data-val', data.data.GROUP_ID);
             common.initConfig();
-            common.initArea('#ins_area_id');
           }, this)
         });
       } else {
         laydate.render({
           elem: '#BIRTHDAY'
+          ,format: 'yyyy/MM/dd'
         });
         common.initConfig();
       }
@@ -37,6 +38,8 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
   }
 
   form.on('submit(xy-doctor-submit)', function(data){
+    data.field.SPECIALIST = data.field.SPECIALIST || 0;
+    data.field.FAMILY_DOCTOR = data.field.FAMILY_DOCTOR || 0;
     common.req({
       url: layui.setter.api.ModifyUserInfo
       ,formerror: true
@@ -54,17 +57,17 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
   form.on('submit(xy-doctor-search)', function(data){
     var field = data.field;
     if (data.field.GROUP_ID == '') {
-      data.field.GROUP_ID = 0;
+      field.GROUP_ID = 0;
     }
-    
+    field.SPECIALIST = field.SPECIALIST || 0;
+    field.FAMILY_DOCTOR = field.FAMILY_DOCTOR || 0;
     //执行重载
-    table.reload('xy-doctor-manage', {
-      // url:'',
+    common.xyReload('xy-doctor-manage', {
       where: field
     });
   });
 
-  common.tRender({
+  common.xyRender({
     elem: '#xy-doctor-manage'
     ,url: layui.setter.api.GetUserList
     ,where: {

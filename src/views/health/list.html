@@ -47,9 +47,7 @@
   <script src="../../layuiadmin/layui/layui.js"></script>  
   <script>
   layui.config({
-    base: '../../layuiadmin/' //静态资源所在路径
-    ,version: true
-    ,debug: true
+    base: '../../layuiadmin/'
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index', 'health', 'table'], function(){
@@ -62,7 +60,7 @@
       var field = data.field;
       
       //执行重载
-      table.reload('xy-health-manage', {
+      common.xyReload('xy-health-manage', {
         // url:'',
         where: field
       });

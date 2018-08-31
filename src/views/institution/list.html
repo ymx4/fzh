@@ -44,7 +44,7 @@
   <script src="../../layuiadmin/layui/layui.js"></script>  
   <script>
   layui.config({
-    base: '../../layuiadmin/' //静态资源所在路径
+    base: '../../layuiadmin/'
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index', 'institution', 'table'], function(){
@@ -57,7 +57,7 @@
       var field = data.field;
       
       //执行重载
-      table.reload('xy-institution-manage', {
+      common.xyReload('xy-institution-manage', {
         // url:'',
         where: field
       });

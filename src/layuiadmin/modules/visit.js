@@ -19,13 +19,13 @@ layui.define(['table', 'form', 'common'], function(exports){
     var field = data.field;
     
     //执行重载
-    table.reload('xy-visit-manage', {
+    common.xyReload('xy-visit-manage', {
       // url:'',
       where: field
     });
   });
 
-  common.tRender({
+  common.xyRender({
     elem: '#xy-visit-manage'
     ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
     ,where: {test: test}

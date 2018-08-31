@@ -59,13 +59,13 @@ layui.define(['table', 'form', 'common'], function(exports){
     var field = data.field;
     
     //执行重载
-    table.reload('xy-equipment-manage', {
+    common.xyReload('xy-equipment-manage', {
       // url:'',
       where: field
     });
   });
 
-  common.tRender({
+  common.xyRender({
     elem: '#xy-equipment-data'
     ,url: layui.setter.api.GetEquipmentData
     ,where: {
@@ -94,7 +94,7 @@ layui.define(['table', 'form', 'common'], function(exports){
     }
   });
 
-  common.tRender({
+  common.xyRender({
     elem: '#xy-equipment-manage'
     ,url: layui.setter.api.GetEquipmentList
     ,where: {

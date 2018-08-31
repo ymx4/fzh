@@ -9,13 +9,13 @@ layui.define(['table', 'form', 'common'], function(exports){
     var field = data.field;
     
     //执行重载
-    table.reload('xy-department-manage', {
+    common.xyReload('xy-department-manage', {
       // url:'',
       where: field
     });
   });
 
-  common.tRender({
+  common.xyRender({
     elem: '#xy-department-manage'
     ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
     ,cols: [[

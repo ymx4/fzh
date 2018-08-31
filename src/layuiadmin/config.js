@@ -6,7 +6,10 @@
  @License：LPPL（layui付费产品协议）
     
  */
- 
+layui.config({
+  version: true
+  ,debug: true
+});
 layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
   exports('setter', {
     container: 'LAY_app' //容器ID
@@ -43,7 +46,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       'echarts', //echarts 核心包
       'echartsTheme' //echarts 主题
     ]
-    
+
     //主题配置
     ,theme: {
       //内置主题配色方案

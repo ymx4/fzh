@@ -40,6 +40,7 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
   form.on('submit(xy-doctor-submit)', function(data){
     data.field.SPECIALIST = data.field.SPECIALIST || 0;
     data.field.FAMILY_DOCTOR = data.field.FAMILY_DOCTOR || 0;
+
     common.req({
       url: layui.setter.api.ModifyUserInfo
       ,formerror: true
@@ -87,7 +88,7 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
         if (d.FAMILY_DOCTOR == 1) {
           r += ' 家庭医生';
         }
-        if (d.FAMILY_DOCTOR == 1) {
+        if (d.SPECIALIST == 1) {
           r += ' 专科医生';
         }
         return $.trim(r);

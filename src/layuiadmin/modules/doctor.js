@@ -15,21 +15,22 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
             ID: router.search.id
           }
           ,success: $.proxy(function(data){
-            form.val('xy-institution-form', data.data);
-        laydate.render({
-          elem: '#BIRTHDAY'
-          ,value: '2018-08-18'
-        });
-            $('select[name="UNIT_LEVEL"]').attr('data-val', data.data.UNIT_LEVEL);
-            $('select[name="UNIT_TYPE"]').attr('data-val', data.data.UNIT_TYPE);
-            $('select[name="UNIT_STATUS"]').attr('data-val', data.data.UNIT_STATUS);
+            form.val('xy-doctor-form', data.data);
+            laydate.render({
+              elem: '#BIRTHDAY'
+              ,format: 'yyyy/MM/dd'
+              ,value: data.data.BIRTHDAY ? data.data.BIRTHDAY.substring(0, 10) : ''
+            });
+            $('select[name="SEX"]').attr('data-val', data.data.SEX);
+            $('select[name="STATUS"]').attr('data-val', data.data.STATUS);
+            $('select[name="GROUP_ID"]').attr('data-val', data.data.GROUP_ID);
             common.initConfig();
-            common.initArea('#ins_area_id');
           }, this)
         });
       } else {
         laydate.render({
           elem: '#BIRTHDAY'
+          ,format: 'yyyy/MM/dd'
         });
         common.initConfig();
       }
@@ -37,6 +38,12 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
   }
 
   form.on('submit(xy-doctor-submit)', function(data){
+    if (data.field.FAMILY_DOCTOR != 1) {
+      data.field.FAMILY_DOCTOR = 0;
+    }
+    if (data.field.SPECIALIST != 1) {
+      data.field.SPECIALIST = 0;
+    }
     common.req({
       url: layui.setter.api.ModifyUserInfo
       ,formerror: true
@@ -84,7 +91,7 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
         if (d.FAMILY_DOCTOR == 1) {
           r += ' 家庭医生';
         }
-        if (d.FAMILY_DOCTOR == 1) {
+        if (d.SPECIALIST == 1) {
           r += ' 专科医生';
         }
         return $.trim(r);

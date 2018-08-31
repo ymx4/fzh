@@ -389,6 +389,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
       title: '机构选择'
     });
     view('xyins').render('common/ins').done(function(){
+      layer.load(0, {time: 10*1000});
       common.req({
         url: layui.setter.api.GetHospitalUnit
         ,data: {
@@ -396,6 +397,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
           "GET_TYPE": 2
         }
         ,success: function(data){
+          layer.closeAll('loading');
           var nodes = formatTree(data.data);
           nodes = [nodes];
           layui.tree({

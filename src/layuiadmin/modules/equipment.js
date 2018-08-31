@@ -6,7 +6,69 @@ layui.define(['table', 'form', 'common'], function(exports){
   ,router = layui.router();
 
   var init = {
-    edit: function() {
+    list: function() {
+      common.xyRender({
+        elem: '#xy-equipment-manage'
+        ,url: layui.setter.api.GetEquipmentList
+        ,where: {
+          "UNIT_ID": common.user.UNIT_ID
+        }
+        ,cols: [[
+          {field: 'EQUIPMENT_NO', title: '设备编号'}
+          ,{field: 'EQUIPMENT_TYPE_NAME', title: '设备类型'}
+          ,{field: 'UNIT_NAME', title: '所属机构'}
+          ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-equipment'}
+        ]]
+      });
+      
+      //监听工具条
+      table.on('tool(xy-equipment-manage)', function(obj){
+        var data = obj.data;
+        if(obj.event === 'del'){
+          layer.confirm('确定要删除吗', function(index){
+            common.req({
+              url: layui.setter.api.DeleteEquipment
+              ,data: {EQUIPMENT_NO: obj.data.EQUIPMENT_NO}
+              ,success: function(data){
+                obj.del();
+                layer.close(index);
+              }
+            });
+          });
+        }
+      });
+    }
+    ,data: function() {
+      common.xyRender({
+        elem: '#xy-equipment-data'
+        ,url: layui.setter.api.GetEquipmentData
+        ,where: {
+          "EQUIPMENT_NO": router.search.EQUIPMENT_NO
+          ,USED: 2
+        }
+        ,cols: [[
+          {field: 'RECEIVE_TIME', title: '接收时间'}
+          ,{field: 'CHINESE_NAME', title: '项目名称'}
+          ,{field: 'RECEIVE_DATA', title: '接收数据'}
+          ,{field: 'UNIT_NAME', title: '单位'}
+          ,{field: 'ABNORMAL', title: '异常'}
+          ,{field: 'STANDARD_RANGE', title: '参考范围',templet: function(d){
+            if (d.STANDARD_MAX_VALUE) {
+              return d.STANDARD_MIX_VALUE + ' - ' + d.STANDARD_MAX_VALUE;
+            } else {
+              return d.STANDARD_MIX_VALUE;
+            }
+          }}
+          ,{field: 'USED', title: '是否使用',templet: function(d){
+            return d.USED == 1 ? '已使用' : '未使用';
+          }}
+        ]]
+        ,done: function(){
+          common.rowspan('RECEIVE_TIME', 1);
+        }
+      });
+    }
+    ,edit: function() {
       if (router.search.EQUIPMENT_NO) {
         common.req({
           url: layui.setter.api.GetEquipmentInfo
@@ -63,66 +125,6 @@ layui.define(['table', 'form', 'common'], function(exports){
       // url:'',
       where: field
     });
-  });
-
-  common.xyRender({
-    elem: '#xy-equipment-data'
-    ,url: layui.setter.api.GetEquipmentData
-    ,where: {
-      "EQUIPMENT_NO": router.search.EQUIPMENT_NO
-      ,USED: 2
-    }
-    ,cols: [[
-      {field: 'RECEIVE_TIME', title: '接收时间'}
-      ,{field: 'CHINESE_NAME', title: '项目名称'}
-      ,{field: 'RECEIVE_DATA', title: '接收数据'}
-      ,{field: 'UNIT_NAME', title: '单位'}
-      ,{field: 'ABNORMAL', title: '异常'}
-      ,{field: 'STANDARD_RANGE', title: '参考范围',templet: function(d){
-        if (d.STANDARD_MAX_VALUE) {
-          return d.STANDARD_MIX_VALUE + ' - ' + d.STANDARD_MAX_VALUE;
-        } else {
-          return d.STANDARD_MIX_VALUE;
-        }
-      }}
-      ,{field: 'USED', title: '是否使用',templet: function(d){
-        return d.USED == 1 ? '已使用' : '未使用';
-      }}
-    ]]
-    ,done: function(){
-      common.rowspan('RECEIVE_TIME', 1);
-    }
-  });
-
-  common.xyRender({
-    elem: '#xy-equipment-manage'
-    ,url: layui.setter.api.GetEquipmentList
-    ,where: {
-      "UNIT_ID": common.user.UNIT_ID
-    }
-    ,cols: [[
-      {field: 'EQUIPMENT_NO', title: '设备编号'}
-      ,{field: 'EQUIPMENT_TYPE_NAME', title: '设备类型'}
-      ,{field: 'UNIT_NAME', title: '所属机构'}
-      ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-equipment'}
-    ]]
-  });
-  
-  //监听工具条
-  table.on('tool(xy-equipment-manage)', function(obj){
-    var data = obj.data;
-    if(obj.event === 'del'){
-      layer.confirm('确定要删除吗', function(index){
-        common.req({
-          url: layui.setter.api.DeleteEquipment
-          ,data: {EQUIPMENT_NO: obj.data.EQUIPMENT_NO}
-          ,success: function(data){
-            obj.del();
-            layer.close(index);
-          }
-        });
-      });
-    }
   });
 
   exports('equipment', {init: init})

@@ -65,6 +65,7 @@
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index', 'doctor'], function() {
+    layui.doctor.init.list();
     layui.common.initConfig();
   });
   </script>

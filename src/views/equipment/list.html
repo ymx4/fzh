@@ -36,7 +36,9 @@
     base: '../../layuiadmin/'
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'equipment']);
+  }).use(['index', 'equipment'], function(){
+    layui.equipment.init.list();
+  });
   </script>
 </body>
 </html>

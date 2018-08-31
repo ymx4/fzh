@@ -7,7 +7,48 @@ layui.define(['table', 'form', 'common', 'admin'], function(exports){
   ,router = layui.router();
 
   var init = {
-    edit: function() {
+    list: function() {
+      //机构管理
+      common.xyRender({
+        elem: '#xy-institution-manage'
+        ,url: layui.setter.api.GetHospitalUnit
+        ,where: {
+          "HOSPITAL_ID": common.user.UNIT_ID,
+          "GET_TYPE": 1
+        }
+        ,cols: [[
+          {type: 'numbers', title: '序号'}
+          ,{field: 'UNIT_NAME', title: '单位名称',templet: function(d){
+            var indent = 10;
+            var n = d.LEVEL_NUMBER;
+            return '<span style="margin-left:' + (indent * n) + 'px;">' + d.UNIT_NAME + '</span>';
+          }}
+          ,{field: 'AREA_FULL_NAME', title: '所属区域'}
+          ,{field: 'UNIT_TYPE_NAME', title: '单位类型'}
+          ,{field: 'UNIT_LEVEL_NAME', title: '单位级别'}
+          ,{field: 'UNIT_STATUS_NAME', title: '单位状态'}
+          ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-institution'}
+        ]]
+      });
+      
+      //监听工具条
+      table.on('tool(xy-institution-manage)', function(obj){
+        var data = obj.data;
+        if(obj.event === 'del'){
+          layer.confirm('确定要删除吗', function(index){
+            common.req({
+              url: layui.setter.api.DeleteHospitalUnit
+              ,data: {HOSPITAL_ID: obj.data.ID}
+              ,success: function(data){
+                obj.del();
+                layer.close(index);
+              }
+            });
+          });
+        }
+      });
+    }
+    ,edit: function() {
       if (router.search.id) {
         common.req({
           url: layui.setter.api.GetHospitalUnit
@@ -44,46 +85,6 @@ layui.define(['table', 'form', 'common', 'admin'], function(exports){
       }
     });
     return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-  });
-
-  //机构管理
-  common.xyRender({
-    elem: '#xy-institution-manage'
-    ,url: layui.setter.api.GetHospitalUnit
-    ,where: {
-      "HOSPITAL_ID": common.user.UNIT_ID,
-      "GET_TYPE": 1
-    }
-    ,cols: [[
-      {type: 'numbers', title: '序号'}
-      ,{field: 'UNIT_NAME', title: '单位名称',templet: function(d){
-        var indent = 10;
-        var n = d.LEVEL_NUMBER;
-        return '<span style="margin-left:' + (indent * n) + 'px;">' + d.UNIT_NAME + '</span>';
-      }}
-      ,{field: 'AREA_FULL_NAME', title: '所属区域'}
-      ,{field: 'UNIT_TYPE_NAME', title: '单位类型'}
-      ,{field: 'UNIT_LEVEL_NAME', title: '单位级别'}
-      ,{field: 'UNIT_STATUS_NAME', title: '单位状态'}
-      ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-institution'}
-    ]]
-  });
-  
-  //监听工具条
-  table.on('tool(xy-institution-manage)', function(obj){
-    var data = obj.data;
-    if(obj.event === 'del'){
-      layer.confirm('确定要删除吗', function(index){
-        common.req({
-          url: layui.setter.api.DeleteHospitalUnit
-          ,data: {HOSPITAL_ID: obj.data.ID}
-          ,success: function(data){
-            obj.del();
-            layer.close(index);
-          }
-        });
-      });
-    }
   });
 
   exports('institution', {init: init})

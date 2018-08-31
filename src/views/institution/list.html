@@ -48,20 +48,7 @@
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index', 'institution', 'table'], function(){
-    var $ = layui.$
-    ,form = layui.form
-    ,table = layui.table;
-    
-    //监听搜索
-    form.on('submit(xy-institution-search)', function(data){
-      var field = data.field;
-      
-      //执行重载
-      common.xyReload('xy-institution-manage', {
-        // url:'',
-        where: field
-      });
-    });
+    layui.institution.init.list();
   });
   </script>
 </body>

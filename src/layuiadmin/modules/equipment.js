@@ -1,8 +1,9 @@
-layui.define(['table', 'form', 'common'], function(exports){
+layui.define(['table', 'form', 'common', 'laytpl'], function(exports){
   var $ = layui.$
   ,table = layui.table
   ,form = layui.form
   ,common = layui.common
+  ,laytpl = layui.laytpl
   ,router = layui.router();
 
   var init = {
@@ -25,7 +26,7 @@ layui.define(['table', 'form', 'common'], function(exports){
       table.on('tool(xy-equipment-manage)', function(obj){
         var data = obj.data;
         if(obj.event === 'del'){
-          layer.confirm('确定要删除吗', function(index){
+          layer.confirm('确定要注销吗', function(index){
             common.req({
               url: layui.setter.api.DeleteEquipment
               ,data: {EQUIPMENT_NO: obj.data.EQUIPMENT_NO}
@@ -77,24 +78,46 @@ layui.define(['table', 'form', 'common'], function(exports){
           }
           ,success: $.proxy(function(equipmentData){
             form.val('xy-equipment-form', equipmentData.data);
-            common.req({
-              url: layui.setter.api.GetEquipmentType
-              ,data: {}
-              ,success: $.proxy(function(data){
-                if (data.data.length > 0) {
-                  var html = '<option value="">请选择</option>';
-                  for (i = 0; i < data.data.length; i++) {
-                    var selected = '';
-                    if (equipmentData.data.EQUIPMENT_TYPE_ID == data.data[i].ID) {
-                      selected = ' selected';
-                    }
-                    html += '<option value="' + data.data[i].ID + '"' + selected + '>' + data.data[i].EQUIPMENT_TYPE_NAME + '</option>';
-                  }
-                  $('#EQUIPMENT_TYPE_ID').html(html);
-                }
-                form.render('select');
-              }, this)
+            equipmentData.data.edit = 1;
+            laytpl(equipmentEditTpl.innerHTML).render(equipmentData.data, function(html){
+              $('#equipmentId').after(html);
             });
+            // common.req({
+            //   url: layui.setter.api.GetEquipmentType
+            //   ,data: {}
+            //   ,success: $.proxy(function(data){
+            //     if (data.data.length > 0) {
+            //       var html = '<option value="">请选择</option>';
+            //       for (i = 0; i < data.data.length; i++) {
+            //         var selected = '';
+            //         if (equipmentData.data.EQUIPMENT_TYPE_ID == data.data[i].ID) {
+            //           selected = ' selected';
+            //         }
+            //         html += '<option value="' + data.data[i].ID + '"' + selected + '>' + data.data[i].EQUIPMENT_TYPE_NAME + '</option>';
+            //       }
+            //       $('#EQUIPMENT_TYPE_ID').html(html);
+            //     }
+            //     form.render('select');
+            //   }, this)
+            // });
+          }, this)
+        });
+      } else {
+        laytpl(equipmentEditTpl.innerHTML).render({edit:0}, function(html){
+          $('#equipmentId').after(html);
+        });
+        common.req({
+          url: layui.setter.api.GetEquipmentType
+          ,data: {}
+          ,success: $.proxy(function(data){
+            if (data.data.length > 0) {
+              var html = '<option value="">请选择</option>';
+              for (i = 0; i < data.data.length; i++) {
+                html += '<option value="' + data.data[i].ID + '">' + data.data[i].EQUIPMENT_TYPE_NAME + '</option>';
+              }
+              $('#EQUIPMENT_TYPE_ID').html(html);
+            }
+            form.render('select');
           }, this)
         });
       }
@@ -103,16 +126,29 @@ layui.define(['table', 'form', 'common'], function(exports){
 
   form.on('submit(xy-equipment-submit)', function(data){
     delete data.field.UNIT_NAME;
-    common.req({
-      url: layui.setter.api.ModifyEquipment
-      ,formerror: true
-      ,data: data.field
-      ,success: function(data){
-        layer.msg('操作成功', function() {
-          common.saveSuccess('equipment/list.html', '设备列表');
-        });
-      }
-    });
+    if (data.field.ID == 0) {
+      common.req({
+        url: layui.setter.api.RegisterEquipment
+        ,formerror: true
+        ,data: data.field
+        ,success: function(data){
+          layer.msg('操作成功', function() {
+            common.saveSuccess('equipment/list.html', '设备列表');
+          });
+        }
+      });
+    } else {
+      common.req({
+        url: layui.setter.api.ModifyEquipment
+        ,formerror: true
+        ,data: data.field
+        ,success: function(data){
+          layer.msg('操作成功', function() {
+            common.saveSuccess('equipment/list.html', '设备列表');
+          });
+        }
+      });
+    }
     return false;
   });
 

@@ -1,19 +1,22 @@
-layui.define(['table', 'form', 'common', 'laydate'], function(exports){
+layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports){
   var $ = layui.$
   ,table = layui.table
   ,form = layui.form
   ,common = layui.common
   ,laydate = layui.laydate
+  ,laytpl = layui.laytpl
   ,router = layui.router();
 
   var init = {
     list: function() {
+      form.val('xy-doctor-search-form', {UNIT_ID: common.user.UNIT_ID, UNIT_NAME: common.user.UNIT_NAME});
       common.xyRender({
         elem: '#xy-doctor-manage'
         ,url: layui.setter.api.GetUserList
         ,where: {
           "KEY_WORD" : "",
           "UNIT_ID": common.user.UNIT_ID,
+          "ALL_UNIT": 0,
           "GROUP_ID": 0,
           "FAMILY_DOCTOR": 0,
           "SPECIALIST": 0
@@ -36,6 +39,22 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
           ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-doctor'}
         ]]
       });
+
+      //监听搜索
+      form.on('submit(xy-doctor-search)', function(data){
+        var field = data.field;
+        delete field.UNIT_NAME;
+        if (data.field.GROUP_ID == '') {
+          field.GROUP_ID = 0;
+        }
+        field.ALL_UNIT = field.ALL_UNIT || 0;
+        field.SPECIALIST = field.SPECIALIST || 0;
+        field.FAMILY_DOCTOR = field.FAMILY_DOCTOR || 0;
+        //执行重载
+        common.xyReload('xy-doctor-manage', {
+          where: field
+        });
+      });
       
       //监听工具条
       table.on('tool(xy-doctor-manage)', function(obj){
@@ -56,6 +75,9 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
     }
     ,edit: function() {
       if (router.search.id) {
+        laytpl(doctorPwd.innerHTML).render({edit:1}, function(html){
+          $('#doctor-pwd-container').html(html);
+        });
         common.req({
           url: layui.setter.api.GetUserInfo
           ,data: {
@@ -75,6 +97,9 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
           }, this)
         });
       } else {
+        laytpl(doctorPwd.innerHTML).render({edit:0}, function(html){
+          $('#doctor-pwd-container').html(html);
+        });
         laydate.render({
           elem: '#BIRTHDAY'
           ,format: 'yyyy/MM/dd'
@@ -99,20 +124,6 @@ layui.define(['table', 'form', 'common', 'laydate'], function(exports){
       }
     });
     return false;
-  });
-
-  //监听搜索
-  form.on('submit(xy-doctor-search)', function(data){
-    var field = data.field;
-    if (data.field.GROUP_ID == '') {
-      field.GROUP_ID = 0;
-    }
-    field.SPECIALIST = field.SPECIALIST || 0;
-    field.FAMILY_DOCTOR = field.FAMILY_DOCTOR || 0;
-    //执行重载
-    common.xyReload('xy-doctor-manage', {
-      where: field
-    });
   });
 
   exports('doctor', {init: init})

@@ -103,7 +103,7 @@ i.fas, i.far{
 	padding-bottom: 10px;
 }
 .layui-card-header .layui-form-checkbox {
-	margin-top: -7px;
+	margin-top: 0;
 }
 .layui-card-header .layui-icon {
 	right: 0;

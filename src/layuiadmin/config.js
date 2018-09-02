@@ -131,6 +131,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       GetEquipmentType: 'http://holtest.fres.cn/Equipment/GetEquipmentType.ashx',
       GetEquipmentList: 'http://holtest.fres.cn/Equipment/GetEquipmentList.ashx',
       GetEquipmentInfo: 'http://holtest.fres.cn/Equipment/GetEquipmentInfo.ashx',
+      RegisterEquipment: 'http://holtest.fres.cn/Equipment/RegisterEquipment.ashx',
       ModifyEquipment: 'http://holtest.fres.cn/Equipment/ModifyEquipment.ashx',
       DeleteEquipment: 'http://holtest.fres.cn/Equipment/DeleteEquipment.ashx',
       GetEquipmentData: 'http://holtest.fres.cn/Equipment/GetEquipmentData.ashx',

@@ -12,6 +12,15 @@
 </head>
 <body>
 
+  <script id="doctorPwd" type="text/html">
+    {{#  if(d.edit == 1){ }}
+      <input type="password" name="PASSWORD" autocomplete="off" class="layui-input">
+      <div class="layui-form-mid layui-word-aux">留空时则保持原密码不变</div>
+    {{#  } else { }}
+      <input type="password" name="PASSWORD" lay-verify="required" autocomplete="off" class="layui-input">
+    {{#  } }}
+  </script>
+
   <div class="layui-fluid">
     <div class="layui-card">
       <div class="layui-card-header">医生</div>
@@ -28,8 +37,7 @@
         
           <div class="layui-form-item">
             <label class="layui-form-label">密码</label>
-            <div class="layui-input-block">
-              <input type="password" name="PASSWORD" autocomplete="off" class="layui-input">
+            <div class="layui-input-block" id="doctor-pwd-container">
             </div>
           </div>
 
@@ -87,7 +95,7 @@
           </div>
 
           <div class="layui-form-item">
-            <label class="layui-form-label">所属科室</label>
+            <label class="layui-form-label">所属机构</label>
             <div class="layui-input-block">
               <div class="layui-inline xy-form-group">
                 <input type="hidden" id="UNIT_ID" name="UNIT_ID">

@@ -12,27 +12,52 @@
 </head>
 <body>
 
+  <script id="equipmentEditTpl" type="text/html">
+    {{#  if(d.edit == 1){ }}
+      <div class="layui-form-item">
+        <label class="layui-form-label">设备编号</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-word-aux">{{d.EQUIPMENT_NO}}</div>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">设备类型</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-word-aux">{{d.EQUIPMENT_TYPE_NAME}}</div>
+        </div>
+      </div>
+    {{#  } else { }}
+      <div class="layui-form-item">
+        <label class="layui-form-label">设备编号</label>
+        <div class="layui-input-block">
+          <input type="text" name="EQUIPMENT_NO" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">设备密码</label>
+        <div class="layui-input-block">
+          <input type="text" name="EQUIPMENT_PASSWORD" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">设备类型</label>
+        <div class="layui-input-block">
+          <select name="EQUIPMENT_TYPE_ID" id="EQUIPMENT_TYPE_ID">
+          </select>
+        </div>
+      </div>
+    {{#  } }}
+  </script>
+
   <div class="layui-fluid">
     <div class="layui-card">
       <div class="layui-card-header">设备</div>
       <div class="layui-card-body" style="padding: 15px;">
         <form class="layui-form" action="" lay-filter="xy-equipment-form">
-          <input type="hidden" name="ID" value="0">
-
-          <div class="layui-form-item">
-            <label class="layui-form-label">设备编号</label>
-            <div class="layui-input-block">
-              <input type="text" name="EQUIPMENT_NO" lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-
-          <div class="layui-form-item">
-            <label class="layui-form-label">设备类型</label>
-            <div class="layui-input-block">
-              <select name="EQUIPMENT_TYPE_ID" id="EQUIPMENT_TYPE_ID">
-              </select>
-            </div>
-          </div>
+          <input type="hidden" id="equipmentId" name="ID" value="0">
 
           <div class="layui-form-item">
             <label class="layui-form-label">所属机构</label>

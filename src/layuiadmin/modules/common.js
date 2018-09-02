@@ -381,6 +381,12 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
     return data;
   }
 
+  admin.events.xyinscancel = function(elemid){
+    $('#' + elemid.attr('data-id')).val(common.user.UNIT_ID);
+    $('#' + elemid.attr('data-name')).val(common.user.UNIT_NAME);
+    $('#' + elemid.attr('data-name')).attr('title', common.user.UNIT_NAME);
+  }
+
   admin.events.xyins = function(elemid){
     var insindex = layer.open({
       type: 1,

@@ -135,6 +135,10 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       ModifyEquipment: 'http://holtest.fres.cn/Equipment/ModifyEquipment.ashx',
       DeleteEquipment: 'http://holtest.fres.cn/Equipment/DeleteEquipment.ashx',
       GetEquipmentData: 'http://holtest.fres.cn/Equipment/GetEquipmentData.ashx',
+      ModifyClientInfo: 'http://holtest.fres.cn/Client/ModifyClientInfo.ashx',
+      GetClientInfo: 'http://holtest.fres.cn/Client/GetClientInfo.ashx',
+      SearchClient: 'http://holtest.fres.cn/Client/SearchClient.ashx',
+      DeleteClient: 'http://holtest.fres.cn/Client/DeleteClient.ashx',
     }
     ,baseUrl: '/views'
   });

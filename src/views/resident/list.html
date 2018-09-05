@@ -14,26 +14,44 @@
 
   <div class="layui-fluid">
     <div class="layui-card">
-      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-filter="xy-resident-search-form">
         <div class="layui-form-item">
           <div class="layui-inline">
-            <input type="text" name="searchq" placeholder="请输入搜索词" autocomplete="off" class="layui-input xy-search">
+            <label class="layui-form-label">搜索词</label>
+            <div class="layui-input-block">
+              <input type="text" name="KEY_WORD" autocomplete="off" class="layui-input">
+            </div>
           </div>
           <div class="layui-inline">
-            <button class="layui-btn layuiadmin-btn-resident" lay-submit lay-filter="xy-resident-search">
+            <label class="layui-form-label">所属机构</label>
+            <div class="layui-input-block">
+              <div class="layui-inline xy-form-group">
+                <input type="hidden" id="UNIT_ID" name="UNIT_ID">
+                <input type="text" id="UNIT_NAME" name="UNIT_NAME" disabled class="layui-input">
+                <div class="layui-btn-group">
+                  <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyins" data-id="UNIT_ID" data-name="UNIT_NAME">选择</button>
+                  <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyinscancel" data-id="UNIT_ID" data-name="UNIT_NAME">本机构</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">子机构</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="CHILDREN_UNIT" title="包含子机构" value="1">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="xy-resident-search">
               <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
             </button>
-          </div>
-          <div class="layui-inline">
-            <div class="layui-form-mid layui-word-aux">可按照姓名，姓名拼音首字母，身份证号进行查询</div>
           </div>
         </div>
       </div>
       
       <div class="layui-card-body">
         <div style="padding-bottom: 10px;">
-          <button type="button" class="layui-btn layuiadmin-btn-resident" data-type="add">添加</button>
-          <button type="button" class="layui-btn layui-btn-danger layuiadmin-btn-resident" data-type="del">删除</button>
+          <a class="layui-btn" lay-href="resident/edit.html" lay-text="添加客户">添加</a>
         </div>
         
         <table id="xy-resident-manage" lay-filter="xy-resident-manage"></table>
@@ -58,66 +76,8 @@
     base: '../../layuiadmin/'
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'resident', 'table', 'dropdown'], function(){
-    var $ = layui.$
-    ,form = layui.form
-    ,table = layui.table;
-
-    //监听搜索
-    form.on('submit(xy-resident-search)', function(data){
-      var field = data.field;
-      
-      //执行重载
-      common.xyReload('xy-resident-manage', {
-        // url:'',
-        where: field
-      });
-    });
-  
-    //事件
-    var active = {
-      add: function(){
-        layer.open({
-          type: 2
-          ,title: '添加居民'
-          ,content: 'userform.html'
-          ,maxmin: true
-          ,area: ['500px', '450px']
-          ,btn: ['确定', '取消']
-          ,yes: function(index, layero){
-            var iframeWindow = window['layui-layer-iframe'+ index]
-            ,submitID = 'LAY-user-front-submit'
-            ,submit = layero.find('iframe').contents().find('#'+ submitID);
-
-            //监听提交
-            iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
-              var field = data.field; //获取提交的字段
-              
-              //提交 Ajax 成功后，静态更新表格中的数据
-              //$.ajax({});
-              common.xyReload('LAY-user-front-submit'); //数据刷新
-              layer.close(index); //关闭弹层
-            });  
-            
-            submit.trigger('click');
-          }
-        }); 
-      },
-      del: function(){
-        var checkStatus = table.checkStatus('xy-resident-manage');
-        layer.confirm('确定要删除所有选中项吗', function(index){
-          $.each(checkStatus.data, function(index, item) {
-            console.log(item);
-          });
-          layer.close(index);
-        });
-      }
-    };
-    
-    $('.layui-btn.layuiadmin-btn-resident').on('click', function(){
-      var type = $(this).data('type');
-      active[type] ? active[type].call(this) : '';
-    });
+  }).use(['index', 'resident', 'dropdown'], function(){
+    layui.resident.init.list();
   });
   </script>
 </body>

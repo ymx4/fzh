@@ -1,0 +1,27 @@
+<script type="text/html" template>
+  <div class="layui-card">
+    <div class="layui-card-body">
+
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-filter="xy-seldoctor-search-form">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">搜索词</label>
+            <div class="layui-input-block">
+              <input type="text" name="KEY_WORD" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="xy-seldoctor-search">
+              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <table id="xy-seldoctor-table" lay-filter="xy-seldoctor-table"></table>
+    </div>
+  </div>
+</script>
+<script type="text/html" id="table-seldoctor-ope">
+  <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="sel"><i class="layui-icon layui-icon-ok"></i>选择</a>
+</script>

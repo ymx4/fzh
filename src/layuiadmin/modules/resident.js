@@ -19,7 +19,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,where: {
           "KEY_WORD" : "",
           "UNIT_ID": common.user.UNIT_ID,
-          "CHILDREN_UNIT": 0
+          "CHILDREN_UNIT": 0,
+          "USER_ID": common.user.ID
         }
         ,cols: [[
           {field: 'ID', title: '个人编号', minWidth:100, event:'detail', style:'cursor: pointer;'}

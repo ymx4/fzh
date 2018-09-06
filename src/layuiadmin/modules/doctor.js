@@ -22,8 +22,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
           "SPECIALIST": 0
         }
         ,cols: [[
-          {field: 'ID', title: '医生编号'}
-          ,{field: 'REAL_NAME', title: '医生姓名'}
+          {field: 'REAL_NAME', title: '医生姓名'}
           ,{field: 'USER_NAME', title: '登录名'}
           ,{field: 'USER_STATUS', title: '账号状态'}
           ,{field: 'ROLE', title: '医生角色',templet: function(d){

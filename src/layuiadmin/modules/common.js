@@ -323,10 +323,10 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
   admin.events.xyicd = function(elemid){
     var icdindex = layer.open({
       type: 1,
+      area:['80%', '80%'],
       content: '<div id="xyicd"></div>',
       title: 'ICD查询'
     });
-    layer.full(icdindex);
     view('xyicd').render('common/icd').done(function(){
       setTimeout(function(){
         common.xyRender({
@@ -362,6 +362,53 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
           ,where: {
             ICD_KEYWORD: data.field.icdq
           }
+        });
+      });
+    });
+  };
+
+  admin.events.xyseldoctor = function(elemid){
+    var seldoctorindex = layer.open({
+      type: 1,
+      area:['80%', '80%'],
+      content: '<div id="xyseldoctor"></div>',
+      title: '选择医生'
+    });
+    view('xyseldoctor').render('common/doctor').done(function(){
+      setTimeout(function(){
+        common.xyRender({
+          elem: '#xy-seldoctor-table'
+          ,url: layui.setter.api.GetUserList
+          ,where: {
+            "KEY_WORD" : "",
+            "UNIT_ID": common.user.UNIT_ID,
+            "ALL_UNIT": 0,
+            "GROUP_ID": 0,
+            "FAMILY_DOCTOR": 0,
+            "SPECIALIST": 0
+          }
+          ,cols: [[
+            {type: 'numbers', title: '序号'}
+            ,{field: 'REAL_NAME', title: '医生姓名'}
+            ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-seldoctor-ope'}
+          ]]
+        });
+      },100);
+
+      table.on('tool(xy-seldoctor-table)', function(obj){
+        if(obj.event === 'sel'){
+          $('#' + elemid.attr('data-id')).val(obj.data.ID);
+          $('#' + elemid.attr('data-name')).val(obj.data.REAL_NAME);
+          $('#' + elemid.attr('data-name')).attr('title', obj.data.REAL_NAME);
+          layer.close(seldoctorindex);
+        }
+      });
+      
+      //监听搜索
+      form.on('submit(xy-seldoctor-search)', function(data){
+        //执行重载
+        common.xyReload('xy-seldoctor-table', {
+          where: {"KEY_WORD" : data.field.KEY_WORD}
         });
       });
     });

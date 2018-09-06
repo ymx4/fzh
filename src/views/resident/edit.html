@@ -26,6 +26,7 @@
               <label class="layui-form-label">个人照片</label>
               <div class="layui-input-block">
                 <div class="layui-upload">
+                  <input type="hidden" name="FACE_PICTURE_ID">
                   <button type="button" class="layui-btn" id="xy-resident-avatar">上传图片</button>
                   <div class="layui-upload-list">
                     <img class="layui-upload-img" id="xy-resident-avatar-img">
@@ -38,6 +39,7 @@
               <label class="layui-form-label">身份证</label>
               <div class="layui-input-block">
                 <div class="layui-upload">
+                  <input type="hidden" name="ID_NUMBER_FILE_ID">
                   <button type="button" class="layui-btn" id="xy-resident-identity">上传图片</button>
                   <div class="layui-upload-list">
                     <img class="layui-upload-img" id="xy-resident-identity-img">
@@ -50,43 +52,144 @@
 
           <div class="layui-row layui-col-space10 layui-form-item">
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">客户编号</label>
+              <div class="layui-input-block">
+                <input type="text" name="CLIENT_NUMBER" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">姓名</label>
               <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="REAL_NAME" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">身份证号</label>
+              <div class="layui-input-block">
+                <input type="text" name="ID_NUMBER" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">性别</label>
               <div class="layui-input-block">
-                <select name="sex" lay-verify="required">
-                  <option value="">请选择</option>
-                  <option value="1">男</option>
-                  <option value="2">女</option>
+                <select name="SEX" class="xy-config" data-cf="22">
+                </select>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">婚姻状态</label>
+              <div class="layui-input-block">
+                <select name="SEX" class="xy-config" data-cf="12">
                 </select>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">出生日期</label>
               <div class="layui-input-block">
-                <input type="text" name="birthday" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-resident-date">
+                <input type="text" name="BIRTHDAY" lay-verify="date" placeholder="yyyy/MM/dd" autocomplete="off" class="layui-input xy-resident-date">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">婚姻状况</label>
+              <label class="layui-form-label">工作单位</label>
               <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="WORK_UNIT" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">身份证号</label>
+              <label class="layui-form-label">移动电话</label>
               <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="MOBILE" lay-verify="required" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">常住类型</label>
+              <div class="layui-input-block">
+                <select name="DWELL_TYPE" class="xy-config" data-cf="10">
+                </select>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">民族</label>
               <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                <select name="NATION" class="xy-config" data-cf="11">
+                </select>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">文化程度</label>
+              <div class="layui-input-block">
+                <select name="EDUCATION" class="xy-config" data-cf="1">
+                </select>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">职业</label>
+              <div class="layui-input-block">
+                <select name="OCCUPATION" class="xy-config" data-cf="2">
+                </select>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">所属机构</label>
+              <div class="layui-input-block">
+                <div class="layui-inline xy-form-group">
+                  <input type="hidden" id="UNIT_ID" name="UNIT_ID">
+                  <input type="text" id="UNIT_NAME" name="UNIT_NAME" disabled class="layui-input">
+                  <div class="layui-btn-group">
+                    <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyins" data-id="UNIT_ID" data-name="UNIT_NAME">选择</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">建档时间</label>
+              <div class="layui-input-block">
+                <input type="text" name="CREATE_TIME" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-resident-date">
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">医疗费用支付方式</label>
+              <div class="layui-input-block">
+                <select name="PAYMENT" class="xy-config" data-cf="13">
+                </select>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">建档人</label>
+              <div class="layui-input-block">
+                <div class="layui-inline xy-form-group">
+                  <input type="hidden" id="CREATE_USER_ID" name="CREATE_USER_ID">
+                  <input type="text" id="REAL_NAME" name="REAL_NAME" disabled class="layui-input">
+                  <div class="layui-btn-group">
+                    <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyseldoctor" data-id="CREATE_USER_ID" data-name="REAL_NAME">选择</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="layui-col-xs12">
+              <label class="layui-form-label">户籍地址</label>
+              <div class="layui-input-block">
+                <input type="hidden" id="home_address_area_id" name="HOME_ADDRESS_AREA_ID">
+                <span class="xy-area" id="home_address_area_container"></span>
+                <div class="layui-inline">
+                  <input type="text" name="HOME_ADDRESS_NAME" autocomplete="off" placeholder="请输入详细地址" class="layui-input">
+                </div>
+              </div>
+            </div>
+            <div class="layui-col-xs12">
+              <label class="layui-form-label">现住址</label>
+              <div class="layui-input-block">
+                <input type="hidden" id="address_area_id" name="ADDRESS_AREA_ID">
+                <span class="xy-area" id="address_area_container"></span>
+                <div class="layui-inline">
+                  <input type="text" name="ADDRESS_NAME" autocomplete="off" placeholder="请输入详细地址" class="layui-input">
+                </div>
+              </div>
+            </div>
+            <div class="layui-col-xs12">
+              <label class="layui-form-label">备注</label>
+              <div class="layui-input-block">
+                <textarea name="REMARK" class="layui-textarea"></textarea>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
@@ -102,25 +205,7 @@
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">建档时间</label>
-              <div class="layui-input-block">
-                <input type="text" name="create" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-resident-date">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">建档机构</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">建档人</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">医疗费用支付方式</label>
               <div class="layui-input-block">
                 <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
@@ -144,51 +229,6 @@
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">文化程度</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">职业</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">工作单位</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12">
-              <label class="layui-form-label">户籍地址</label>
-              <div class="layui-input-block">
-                <span class="xy-area"></span>
-                <div class="layui-inline">
-                  <input type="text" name="address" lay-verify="required" autocomplete="off" placeholder="请输入详细地址" class="layui-input">
-                </div>
-              </div>
-            </div>
-            <div class="layui-col-xs12">
-              <label class="layui-form-label">现住址</label>
-              <div class="layui-input-block">
-                <span class="xy-area"></span>
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">常住类型</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">本人手机</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">其它联系电话</label>
               <div class="layui-input-block">
                 <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
@@ -206,13 +246,6 @@
                 <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
             </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">是否已关注微信</label>
-              <div class="layui-input-block">
-                <input type="radio" name="veri" value="是" title="是">
-                <input type="radio" name="veri" value="否" title="否" checked>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -224,13 +257,15 @@
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">血型</label>
               <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                <select name="BLOOD_TYPE" class="xy-config" data-cf="3">
+                </select>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">RH血型</label>
               <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                <select name="BLOOD_RH_TYPE" class="xy-config" data-cf="4">
+                </select>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
@@ -439,7 +474,6 @@
     index: 'lib/index' //主入口模块
   }).use(['index', 'resident'], function(){
     var $ = layui.$;
-    layui.common.initArea();
     layui.resident.init.edit();
     var parentTop = $('#xysavetopp').offset().top;
     var windowHeight = $(window).height();

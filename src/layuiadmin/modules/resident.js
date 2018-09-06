@@ -77,6 +77,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     }
     ,edit: function() {
       pageType = 'edit';
+      layui.common.initArea();
 
       form.on('submit(xy-resident-submit)', function(data){
         console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
@@ -97,10 +98,6 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             content: layui.setter.baseUrl + '/history/person.html',
             title: '编辑'
           });
-          // obj.update({
-          //   username: '123'
-          //   ,title: 'xxx'
-          // });
         }
       });
 
@@ -130,8 +127,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //图片上传
       var uploadAvatar = upload.render({
         elem: '#xy-resident-avatar'
-        ,auto: false
-        ,url: ''
+        // ,auto: false
+        ,url: 'http://holtest.fres.cn/PublicMethods/UpLoad/UpFile.ashx'
         ,choose: function(obj){
           //预读本地文件示例，不支持ie8
           obj.preview(function(index, file, result){
@@ -139,11 +136,12 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           });
         }
         ,done: function(res){
-          //如果上传失败
-          if(res.code > 0){
-            return layer.msg('上传失败');
+          if (res.status == 1) {
+            $('#FACE_PICTURE_ID').val(res.message);
+          } else {
+            return layer.msg(res.message);
           }
-          //上传成功
+          $('#xy-resident-avatar').text('重新上传');
         }
         ,error: function(){
           //演示失败状态，并实现重传
@@ -156,7 +154,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       });
       var uploadIdentity = upload.render({
         elem: '#xy-resident-identity'
-        ,url: ''
+        ,url: 'http://holtest.fres.cn/PublicMethods/UpLoad/UpFile.ashx'
         ,before: function(obj){
           //预读本地文件示例，不支持ie8
           obj.preview(function(index, file, result){
@@ -164,11 +162,12 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           });
         }
         ,done: function(res){
-          //如果上传失败
-          if(res.code > 0){
-            return layer.msg('上传失败');
+          if (res.status == 1) {
+            $('#ID_NUMBER_FILE_ID').val(res.message);
+          } else {
+            return layer.msg(res.message);
           }
-          //上传成功
+          $('#xy-resident-avatar').text('重新上传');
         }
         ,error: function(){
           //演示失败状态，并实现重传

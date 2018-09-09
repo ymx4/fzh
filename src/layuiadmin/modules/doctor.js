@@ -86,7 +86,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
             form.val('xy-doctor-form', data.data);
             laydate.render({
               elem: '#BIRTHDAY'
-              ,format: 'yyyy/MM/dd'
+              ,format: layui.setter.dateFormat.day
               ,value: data.data.BIRTHDAY ? data.data.BIRTHDAY.substring(0, 10) : ''
             });
             $('select[name="SEX"]').attr('data-val', data.data.SEX);
@@ -101,7 +101,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
         });
         laydate.render({
           elem: '#BIRTHDAY'
-          ,format: 'yyyy/MM/dd'
+          ,format: layui.setter.dateFormat.day
         });
         common.initConfig();
       }

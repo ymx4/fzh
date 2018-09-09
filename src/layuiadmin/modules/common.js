@@ -8,11 +8,45 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
 
   ,common = {
     user: {}
+    ,getUploadUrl: function () {
+      if(this.user && this.user.token){
+        return layui.setter.api.UpFile + '?token=' + this.user.token;
+      } else {
+        return layui.setter.api.UpFile;
+      }
+    }
+    ,getImageUrl: function (fn) {
+      if(this.user && this.user.token){
+        return layui.setter.api.ReadFile + '?FN=' + encodeURIComponent(fn) + '&token=' + this.user.token;
+      } else {
+        return layui.setter.api.ReadFile + '?FN=' + encodeURIComponent(fn);
+      }
+    }
     ,saveSuccess: function(href, text) {
       var index = top.layui.admin.tabsPage.index;
       var topLayui = top.layui;
-      topLayui.index.openTabsPage(href, text);
-      topLayui.admin.events.refresh();
+      if (href) {
+        //遍历页签选项卡
+        var matchTo
+        ,tabs = $('#LAY_app_tabsheader>li', top.document)
+        ,curIndex;
+        
+        tabs.each(function(index){
+          var li = $(this)
+          ,layid = li.attr('lay-id');
+
+          if(layid === href){
+            curIndex = index;
+            matchTo = true;
+            return false;
+          }
+        });
+        if (matchTo) {
+          var iframe = topLayui.admin.tabsBody(curIndex).find('.layadmin-iframe');
+          $('.layui-icon-search', iframe[0].contentWindow.document).trigger('click');
+          topLayui.index.openTabsPage(href, text);
+        }
+      }
       topLayui.common.closeTab(index);
     }
     ,closeTab: function(index) {
@@ -149,15 +183,19 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
         });
       });
     }
-    ,initArea: function(hiddenElem, editElem){
+    ,areaFirst: true
+    ,initArea: function(editElem){
       var that = this;
-      form.on('select(xy-addr-select)', function(data){
-        $(data.elem).closest('.xy-select').nextAll('.xy-select').remove();
-        if (data.value != '') {
-          that.area(data.value, $(data.elem).closest('.xy-select'));
-          $(hiddenElem).val($(data.elem).val());
-        }
-      });
+      if (this.areaFirst) {
+        form.on('select(xy-addr-select)', function(data){
+          $(data.elem).closest('.xy-select').nextAll('.xy-select').remove();
+          if (data.value != '') {
+            var selElem = $(data.elem).closest('.xy-select');
+            that.area(data.value, selElem);
+            selElem.siblings('.xy-select-val').val($(data.elem).val());
+          }
+        });
+      }
       if (editElem && editElem.default) {
         that.req({
           url: layui.setter.api.GetAreaText
@@ -198,14 +236,19 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
           }
         });
       } else {
-        var arealist = [];
-        $('.xy-area').each(function(){
-          arealist.push($(this));
-        });
+        if (editElem) {
+          var arealist = $(editElem.elem);
+        } else {
+          var arealist = [];
+          $('.xy-area').each(function(){
+            arealist.push($(this));
+          });
+        }
         if (arealist.length > 0) {
           this.area(1, arealist);
         }
       }
+      this.areaFirst = false;
     }
     ,area: function(parentid, elem){
       var that = this;
@@ -345,7 +388,9 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
 
       table.on('tool(xy-icd-table)', function(obj){
         if(obj.event === 'sel'){
-          $('#' + elemid.attr('data-id')).val(obj.data.ID);
+          if (elemid.attr('data-id')) {
+            $('#' + elemid.attr('data-id')).val(obj.data.ID);
+          }
           $('#' + elemid.attr('data-name')).val(obj.data.DISEASE_NAME);
           $('#' + elemid.attr('data-name')).attr('title', obj.data.DISEASE_NAME);
           layer.close(icdindex);
@@ -397,7 +442,9 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
 
       table.on('tool(xy-seldoctor-table)', function(obj){
         if(obj.event === 'sel'){
-          $('#' + elemid.attr('data-id')).val(obj.data.ID);
+          if (elemid.attr('data-id')) {
+            $('#' + elemid.attr('data-id')).val(obj.data.ID);
+          }
           $('#' + elemid.attr('data-name')).val(obj.data.REAL_NAME);
           $('#' + elemid.attr('data-name')).attr('title', obj.data.REAL_NAME);
           layer.close(seldoctorindex);
@@ -429,7 +476,9 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
   }
 
   admin.events.xyinscancel = function(elemid){
-    $('#' + elemid.attr('data-id')).val(common.user.UNIT_ID);
+    if (elemid.attr('data-id')) {
+      $('#' + elemid.attr('data-id')).val(common.user.UNIT_ID);
+    }
     $('#' + elemid.attr('data-name')).val(common.user.UNIT_NAME);
     $('#' + elemid.attr('data-name')).attr('title', common.user.UNIT_NAME);
   }
@@ -457,7 +506,9 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
             elem: '#xy-inslist'
             ,nodes: nodes
             ,click: function(node){
-              $('#ins-confirm').attr('data-id', node.id);
+              if ($('#ins-confirm').attr('data-id')) {
+                $('#ins-confirm').attr('data-id', node.id);
+              }
               $('#ins-confirm').attr('data-name', node.name);
             }
           });
@@ -470,9 +521,9 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
       $('#ins-confirm').on('click', function(){
         if ($(this).attr('data-id')) {
           $('#' + elemid.attr('data-id')).val($(this).attr('data-id'));
-          $('#' + elemid.attr('data-name')).val($(this).attr('data-name'));
-          $('#' + elemid.attr('data-name')).attr('title', $(this).attr('data-name'));
         }
+        $('#' + elemid.attr('data-name')).val($(this).attr('data-name'));
+        $('#' + elemid.attr('data-name')).attr('title', $(this).attr('data-name'));
         layer.close(insindex);
       });
     });

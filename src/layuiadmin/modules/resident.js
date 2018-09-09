@@ -6,27 +6,33 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
   ,laydate = layui.laydate
   ,upload = layui.upload
   ,laytpl = layui.laytpl
-  ,common = layui.common;
+  ,common = layui.common
+  ,router = layui.router();
 
   var pageType = 'detail';
 
   var init = {
     list: function() {
-      form.val('xy-resident-search-form', {UNIT_ID: common.user.UNIT_ID, UNIT_NAME: common.user.UNIT_NAME});
+      form.val('xy-resident-search-form', {
+        UNIT_ID: common.user.UNIT_ID
+        ,UNIT_NAME: common.user.UNIT_NAME
+        ,USER_ID: common.user.ID
+        ,REAL_NAME: common.user.REAL_NAME
+      });
       common.xyRender({
         elem: '#xy-resident-manage'
         ,url: layui.setter.api.SearchClient
         ,where: {
           "KEY_WORD" : "",
           "UNIT_ID": common.user.UNIT_ID,
-          "CHILDREN_UNIT": 0,
+          "CHILDREN_UNIT": 1,
           "USER_ID": common.user.ID
         }
         ,cols: [[
-          {field: 'ID', title: '个人编号', minWidth:100, event:'detail', style:'cursor: pointer;'}
+          {field: 'CLIENT_NUMBER', title: '客户编号', minWidth:100, event:'detail', style:'cursor: pointer;'}
           ,{field: 'REAL_NAME', title: '姓名', minWidth:100, event:'detail', style:'cursor: pointer;'}
           ,{field: 'MOBILE', title: '手机', minWidth:100}
-          ,{field: 'USER_SEX', title: '性别', minWidth:100}
+          ,{field: 'SEX_VALUE', title: '性别', minWidth:100}
           ,{field: 'CREATE_TIME', title: '加入时间', minWidth:100}
           ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
         ]]
@@ -36,6 +42,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       form.on('submit(xy-resident-search)', function(data){
         var field = data.field;
         delete field.UNIT_NAME;
+        delete field.REAL_NAME;
         field.CHILDREN_UNIT = field.CHILDREN_UNIT || 0;
         //执行重载
         common.xyReload('xy-resident-manage', {
@@ -77,58 +84,115 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     }
     ,edit: function() {
       pageType = 'edit';
-      layui.common.initArea();
+      if (router.search.id) {
+        common.req({
+          url: layui.setter.api.GetClientInfo
+          ,data: {
+            CLIENT_ID: router.search.id
+          }
+          ,success: $.proxy(function(data){
+            form.val('xy-resident-form', data.data);
+            laydate.render({
+              elem: '#BIRTHDAY'
+              ,format: layui.setter.dateFormat.day
+              ,value: data.data.BIRTHDAY ? data.data.BIRTHDAY.substring(0, 10) : ''
+            });
+            laydate.render({
+              elem: '#CREATE_TIME'
+              ,format: layui.setter.dateFormat.day
+              ,value: data.data.CREATE_TIME ? data.data.CREATE_TIME.substring(0, 10) : ''
+            });
+            if (data.data.FACE_FILE_NAME) {
+              $('#xy-resident-avatar-img').attr('src', common.getImageUrl(data.data.FACE_FILE_NAME));
+            }
+            if (data.data.ID_NUMBER_FILE_NAME) {
+              $('#xy-resident-identity-img').attr('src', common.getImageUrl(data.data.ID_NUMBER_FILE_NAME));
+            }
+            $('select[name="SEX"]').attr('data-val', data.data.SEX);
+            $('select[name="MARRIAGE"]').attr('data-val', data.data.MARRIAGE);
+            $('select[name="DWELL_TYPE"]').attr('data-val', data.data.DWELL_TYPE);
+            $('select[name="NATION"]').attr('data-val', data.data.NATION);
+            $('select[name="EDUCATION"]').attr('data-val', data.data.EDUCATION);
+            $('select[name="OCCUPATION"]').attr('data-val', data.data.OCCUPATION);
+            $('select[name="PAYMENT"]').attr('data-val', data.data.PAYMENT);
+            $('select[name="CENSUS_TYPE_ID"]').attr('data-val', data.data.CENSUS_TYPE_ID);
+            $('select[name="BLOOD_TYPE"]').attr('data-val', data.data.BLOOD_TYPE);
+            $('select[name="BLOOD_RH_TYPE"]').attr('data-val', data.data.BLOOD_RH_TYPE);
+            common.initConfig();
+            common.initArea({default: data.data.HOME_ADDRESS_AREA_ID, elem: '#home_address_area_container'});
+            common.initArea({default: data.data.ADDRESS_AREA_ID, elem: '#address_area_container'});
+          }, this)
+        });
+
+        element.on('collapse(collapse-history)', function(data){
+          if (data.show && !data.title.attr('data-init')) {
+            data.title.attr('data-init', 1);
+            var type = data.title.attr('data-type');
+            renderHistory[type].call(this, {
+              "CLIENT_ID" : common.user.ID,
+              "HISTORY_SORT_ID": historySort[type].id
+            });
+          }
+        });
+        // history
+        laytpl(historyContainer.innerHTML).render({edit:1, historySort: historySort, CLIENT_ID: common.user.ID}, function(html){
+          $('.resident-form').after(html);
+          element.render('collapse');
+        });
+
+        Object.keys(historySort).forEach(function(key){
+          table.on('tool(xy-resident-history-' + key + ')', function(obj){
+            var data = obj.data;
+              if(obj.event === 'del'){
+                layer.confirm('确定要删除吗', function(index){
+                  common.req({
+                    url: layui.setter.api.DeleteClientHistory
+                    ,data: {ID: obj.data.ID}
+                    ,success: function(data){
+                      obj.del();
+                      layer.close(index);
+                    }
+                  });
+                });
+              }
+          });
+        });
+      } else {
+        common.initArea();
+        common.initConfig();
+
+        lay('#BIRTHDAY,#CREATE_TIME').each(function(){
+          laydate.render({
+            elem: this
+            ,format: layui.setter.dateFormat.day
+          });
+        });
+      }
 
       form.on('submit(xy-resident-submit)', function(data){
-        console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
-        console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
-        console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+        delete data.field.UNIT_NAME;
+        delete data.field.DOCTOR_REAL_NAME;
+        delete data.field.MANAGE_UNIT_NAME;
+        delete data.field.MANAGE_REAL_NAME;
+        common.req({
+          url: layui.setter.api.ModifyClientInfo
+          ,formerror: true
+          ,data: data.field
+          ,success: function(data){
+            layer.msg('操作成功', function() {
+              common.saveSuccess('resident/list.html', '我的客户');
+            });
+          }
+        });
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
       });
 
-      table.on('tool(xy-resident-history-person)', function(obj){
-        var data = obj.data;
-        if(obj.event === 'del'){
-          layer.confirm('确定要删除吗', function(index){
-            obj.del();
-            layer.close(index);
-          });
-        } else if (obj.event === 'edit'){
-          var index = common.modal({
-            content: layui.setter.baseUrl + '/history/person.html',
-            title: '编辑'
-          });
-        }
-      });
-
-      element.on('collapse(collapse-history)', function(data){
-        if (data.show && !data.title.attr('data-init')) {
-          data.title.attr('data-init', 1);
-          var type = data.title.attr('data-type');
-          renderHistory[type].call(this);
-        }
-      });
-
-      // form.render(null, 'xy-resident-form');
-      form.val("xy-resident-form", {
-        'username': '测试'
-        ,'sex': '1'
-        ,'birthday': '2018-09-09'
-        ,'create': '2018-09-09'
-      });
-
-      lay('.xy-resident-date').each(function(){
-        laydate.render({
-          elem: this
-          ,trigger: 'click'
-        });
-      });
-
       //图片上传
+      var uploadUrl = common.getUploadUrl();
       var uploadAvatar = upload.render({
         elem: '#xy-resident-avatar'
         // ,auto: false
-        ,url: 'http://holtest.fres.cn/PublicMethods/UpLoad/UpFile.ashx'
+        ,url: uploadUrl
         ,choose: function(obj){
           //预读本地文件示例，不支持ie8
           obj.preview(function(index, file, result){
@@ -154,7 +218,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       });
       var uploadIdentity = upload.render({
         elem: '#xy-resident-identity'
-        ,url: 'http://holtest.fres.cn/PublicMethods/UpLoad/UpFile.ashx'
+        ,url: uploadUrl
         ,before: function(obj){
           //预读本地文件示例，不支持ie8
           obj.preview(function(index, file, result){
@@ -179,28 +243,67 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         }
       });
     }
+    ,history: function() {
+      laytpl(hiddenContainer.innerHTML).render({CLIENT_ID:router.search.CLIENT_ID, historyKey:router.search.historyKey, historySort:historySort}, function(html){
+        $('#historyForm').prepend(html);
+      });
+
+      laydate.render({
+        elem: '#TIME_VALUE_1'
+        ,format: layui.setter.dateFormat.sec
+      });
+
+      form.on('submit(xy-history-submit)', function(data){
+        delete data.field.UNIT_NAME;
+        common.req({
+          url: layui.setter.api.ModifyClientHistory
+          ,formerror: true
+          ,data: data.field
+          ,success: function(data){
+            layer.msg('操作成功');
+          }
+        });
+        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+      });
+    }
+  }
+
+  var historySort = {
+    medical: {id:1,name:'个人病史'}
+    ,surgery: {id:2,name:'手术史'}
+    ,traumatic: {id:3,name:'外伤史'}
+    ,transfusion: {id:4,name:'输血'}
+    ,hospital: {id:5,name:'住院史'}
+    ,medicine: {id:6,name:'用药情况'}
+    ,familyHospital: {id:7,name:'家庭病床史'}
+    ,familyMedical: {id:8,name:'家庭病史'}
+    ,geneticDisorders: {id:9,name:'遗传病史'}
+    ,allergy: {id:10,name:'过敏史'}
+    ,disability: {id:11,name:'残疾情况'}
+    ,inoculate: {id:12,name:'预防接种史'}
   }
 
   var renderHistory = {
-    person: function(){
+    medical: function(where){
       //个人病史
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '疾病名称', minWidth:100}
-        ,{field: 'jointime', title: '确诊时间', minWidth:100}
-        ,{field: 'username', title: '确诊机构', minWidth:100}
+        ,{field: 'DISEASE_NAME', title: '疾病名称', minWidth:100}
+        ,{field: 'CONFIRMED_TIME', title: '确诊时间', minWidth:100}
+        ,{field: 'HOSPITAL_NAME', title: '确诊机构', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
       }
       common.xyRender({
-        elem: '#xy-resident-history-person'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+        elem: '#xy-resident-history-medical'
+        ,url: layui.setter.api.GetClientHistory
+        ,where: where
         ,cols: [cols]
       });
     }
 
-    ,operation: function(){
+    ,surgery: function(where){
       //手术史
       var cols = [
         {type: 'numbers', title: '序号'}
@@ -209,13 +312,14 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,{field: 'username', title: '手术机构', minWidth:100}
       ]
       common.xyRender({
-        elem: '#xy-resident-history-operation'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+        elem: '#xy-resident-history-surgery'
+        ,url: layui.setter.api.GetClientHistory
+        ,where: where
         ,cols: [cols]
       });
     }
 
-    ,trauma: function(){
+    ,traumatic: function(where){
       //外伤
       var cols = [
         {type: 'numbers', title: '序号'}
@@ -227,13 +331,14 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
       }
       common.xyRender({
-        elem: '#xy-resident-history-trauma'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+        elem: '#xy-resident-history-traumatic'
+        ,url: layui.setter.api.GetClientHistory
+        ,where: where
         ,cols: [cols]
       });
     }
 
-    ,blood: function(){
+    ,transfusion: function(where){
       //输血
       var cols = [
         {type: 'numbers', title: '序号'}
@@ -244,13 +349,14 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
       }
       common.xyRender({
-        elem: '#xy-resident-history-blood'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+        elem: '#xy-resident-history-transfusion'
+        ,url: layui.setter.api.GetClientHistory
+        ,where: where
         ,cols: [cols]
       });
     }
 
-    ,hospital: function(){
+    ,hospital: function(where){
       //住院史
       var cols = [
         {type: 'numbers', title: '序号'}
@@ -263,13 +369,14 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       }
       common.xyRender({
         elem: '#xy-resident-history-hospital'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+        ,url: layui.setter.api.GetClientHistory
+        ,where: where
         ,cols: [cols]
       });
     }
 
-    ,family: function(){
-      //家庭史
+    ,medicine: function(where){
+      //用药情况
       var cols = [
         {type: 'numbers', title: '序号'}
         ,{field: 'username', title: '疾病名称', minWidth:100}
@@ -279,14 +386,15 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
       }
       common.xyRender({
-        elem: '#xy-resident-history-family'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+        elem: '#xy-resident-history-medicine'
+        ,url: layui.setter.api.GetClientHistory
+        ,where: where
         ,cols: [cols]
       });
     }
 
-    ,inherit: function(){
-      //遗传病史
+    ,familyHospital: function(where){
+      //家庭病床史
       var cols = [
         {type: 'numbers', title: '序号'}
         ,{field: 'username', title: '疾病名称', minWidth:100}
@@ -295,13 +403,49 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
       }
       common.xyRender({
-        elem: '#xy-resident-history-inherit'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+        elem: '#xy-resident-history-familyHospital'
+        ,url: layui.setter.api.GetClientHistory
+        ,where: where
         ,cols: [cols]
       });
     }
 
-    ,allergy: function(){
+    ,familyMedical: function(where){
+      //家庭病史
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'username', title: '残疾名称', minWidth:100}
+      ];
+      if (pageType == 'edit') {
+        cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
+      }
+      common.xyRender({
+        elem: '#xy-resident-history-familyMedical'
+        ,url: layui.setter.api.GetClientHistory
+        ,where: where
+        ,cols: [cols]
+      });
+    }
+
+    ,geneticDisorders: function(where){
+      //遗传病史
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'username', title: '过敏源', minWidth:100}
+        ,{field: 'username', title: '来源', minWidth:100}
+      ];
+      if (pageType == 'edit') {
+        cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
+      }
+      common.xyRender({
+        elem: '#xy-resident-history-geneticDisorders'
+        ,url: layui.setter.api.GetClientHistory
+        ,where: where
+        ,cols: [cols]
+      });
+    }
+
+    ,allergy: function(where){
       //过敏史
       var cols = [
         {type: 'numbers', title: '序号'}
@@ -313,13 +457,32 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       }
       common.xyRender({
         elem: '#xy-resident-history-allergy'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+        ,url: layui.setter.api.GetClientHistory
+        ,where: where
         ,cols: [cols]
       });
     }
 
-    ,derfomity: function(){
+    ,disability: function(where){
       //残疾情况
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'username', title: '过敏源', minWidth:100}
+        ,{field: 'username', title: '来源', minWidth:100}
+      ];
+      if (pageType == 'edit') {
+        cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
+      }
+      common.xyRender({
+        elem: '#xy-resident-history-disability'
+        ,url: layui.setter.api.GetClientHistory
+        ,where: where
+        ,cols: [cols]
+      });
+    }
+
+    ,inoculate: function(where){
+      //预防接种史
       var cols = [
         {type: 'numbers', title: '序号'}
         ,{field: 'username', title: '残疾名称', minWidth:100}
@@ -328,8 +491,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
       }
       common.xyRender({
-        elem: '#xy-resident-history-derfomity'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+        elem: '#xy-resident-history-inoculate'
+        ,url: layui.setter.api.GetClientHistory
+        ,where: where
         ,cols: [cols]
       });
     }

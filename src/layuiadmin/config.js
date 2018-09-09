@@ -141,6 +141,13 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       DeleteClient: 'http://holtest.fres.cn/Client/DeleteClient.ashx',
       UpFile: 'http://holtest.fres.cn/PublicMethods/UpLoad/UpFile.ashx',
       ReadFile: 'http://holtest.fres.cn/PublicMethods/UpLoad/ReadFile.ashx',
+      ModifyClientHistory: 'http://holtest.fres.cn/Client/History/ModifyClientHistory.ashx',
+      DeleteClientHistory: 'http://holtest.fres.cn/Client/History/DeleteClientHistory.ashx',
+      GetClientHistory: 'http://holtest.fres.cn/Client/History/GetClientHistory.ashx',
+    }
+    ,dateFormat: {
+      day: 'yyyy/MM/dd'
+      ,sec: 'yyyy/MM/dd HH:mm:ss'
     }
     ,baseUrl: '/views'
   });

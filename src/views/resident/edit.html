@@ -17,16 +17,17 @@
   </style>
 
   <div class="layui-fluid">
-    <div class="layui-form" action="" lay-filter="xy-resident-form" style="margin-bottom: 15px;">
+    <div class="layui-form resident-form" action="" lay-filter="xy-resident-form" style="margin-bottom: 15px;">
       <div class="layui-card">
         <div class="layui-card-header">个人基本信息 （编号001）</div>
         <div class="layui-card-body layui-row layui-col-space10" id="xy_resident_view">
+          <input type="hidden" name="ID" value="0">
           <div class="layui-row layui-col-space10 layui-form-item">
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">个人照片</label>
               <div class="layui-input-block">
                 <div class="layui-upload">
-                  <input type="hidden" name="FACE_PICTURE_ID">
+                  <input type="hidden" id="FACE_PICTURE_ID" name="FACE_PICTURE_ID">
                   <button type="button" class="layui-btn" id="xy-resident-avatar">上传图片</button>
                   <div class="layui-upload-list">
                     <img class="layui-upload-img" id="xy-resident-avatar-img">
@@ -39,7 +40,7 @@
               <label class="layui-form-label">身份证</label>
               <div class="layui-input-block">
                 <div class="layui-upload">
-                  <input type="hidden" name="ID_NUMBER_FILE_ID">
+                  <input type="hidden" id="ID_NUMBER_FILE_ID" name="ID_NUMBER_FILE_ID">
                   <button type="button" class="layui-btn" id="xy-resident-identity">上传图片</button>
                   <div class="layui-upload-list">
                     <img class="layui-upload-img" id="xy-resident-identity-img">
@@ -79,26 +80,32 @@
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">婚姻状态</label>
               <div class="layui-input-block">
-                <select name="SEX" class="xy-config" data-cf="12">
+                <select name="MARRIAGE" class="xy-config" data-cf="12">
                 </select>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">出生日期</label>
               <div class="layui-input-block">
-                <input type="text" name="BIRTHDAY" lay-verify="date" placeholder="yyyy/MM/dd" autocomplete="off" class="layui-input xy-resident-date">
+                <input type="text" id="BIRTHDAY" name="BIRTHDAY" placeholder="yyyy/MM/dd" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">工作单位</label>
               <div class="layui-input-block">
-                <input type="text" name="WORK_UNIT" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="WORK_UNIT" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">移动电话</label>
               <div class="layui-input-block">
-                <input type="text" name="MOBILE" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="MOBILE" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">其它联系电话</label>
+              <div class="layui-input-block">
+                <input type="text" name="OTHER_PHONE" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
@@ -142,12 +149,6 @@
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">建档时间</label>
-              <div class="layui-input-block">
-                <input type="text" name="CREATE_TIME" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input xy-resident-date">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">医疗费用支付方式</label>
               <div class="layui-input-block">
                 <select name="PAYMENT" class="xy-config" data-cf="13">
@@ -155,21 +156,70 @@
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">建档时间</label>
+              <div class="layui-input-block">
+                <input type="text" id="CREATE_TIME" name="CREATE_TIME" placeholder="yyyy/MM/dd" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">建档人</label>
               <div class="layui-input-block">
                 <div class="layui-inline xy-form-group">
                   <input type="hidden" id="CREATE_USER_ID" name="CREATE_USER_ID">
-                  <input type="text" id="REAL_NAME" name="REAL_NAME" disabled class="layui-input">
+                  <input type="text" id="DOCTOR_REAL_NAME" name="DOCTOR_REAL_NAME" disabled class="layui-input">
                   <div class="layui-btn-group">
-                    <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyseldoctor" data-id="CREATE_USER_ID" data-name="REAL_NAME">选择</button>
+                    <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyseldoctor" data-id="CREATE_USER_ID" data-name="DOCTOR_REAL_NAME">选择</button>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">管理机构</label>
+              <div class="layui-input-block">
+                <div class="layui-inline xy-form-group">
+                  <input type="hidden" id="MANAGE_UNIT_ID" name="MANAGE_UNIT_ID">
+                  <input type="text" id="MANAGE_UNIT_NAME" name="MANAGE_UNIT_NAME" disabled class="layui-input">
+                  <div class="layui-btn-group">
+                    <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyins" data-id="MANAGE_UNIT_ID" data-name="MANAGE_UNIT_NAME">选择</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">责任医生</label>
+              <div class="layui-input-block">
+                <div class="layui-inline xy-form-group">
+                  <input type="hidden" id="MANAGE_USER_ID" name="MANAGE_USER_ID">
+                  <input type="text" id="MANAGE_REAL_NAME" name="MANAGE_REAL_NAME" disabled class="layui-input">
+                  <div class="layui-btn-group">
+                    <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyseldoctor" data-id="MANAGE_USER_ID" data-name="MANAGE_REAL_NAME">选择</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">紧急联系人</label>
+              <div class="layui-input-block">
+                <input type="text" name="LINKMAN_NAME" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">紧急联系人电话</label>
+              <div class="layui-input-block">
+                <input type="text" name="LINKMAN_PHONE" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">户籍类型</label>
+              <div class="layui-input-block">
+                <select name="CENSUS_TYPE_ID" class="xy-config" data-cf="10">
+                </select>
               </div>
             </div>
             <div class="layui-col-xs12">
               <label class="layui-form-label">户籍地址</label>
               <div class="layui-input-block">
-                <input type="hidden" id="home_address_area_id" name="HOME_ADDRESS_AREA_ID">
+                <input type="hidden" class="xy-select-val" name="HOME_ADDRESS_AREA_ID">
                 <span class="xy-area" id="home_address_area_container"></span>
                 <div class="layui-inline">
                   <input type="text" name="HOME_ADDRESS_NAME" autocomplete="off" placeholder="请输入详细地址" class="layui-input">
@@ -179,7 +229,7 @@
             <div class="layui-col-xs12">
               <label class="layui-form-label">现住址</label>
               <div class="layui-input-block">
-                <input type="hidden" id="address_area_id" name="ADDRESS_AREA_ID">
+                <input type="hidden" class="xy-select-val" name="ADDRESS_AREA_ID">
                 <span class="xy-area" id="address_area_container"></span>
                 <div class="layui-inline">
                   <input type="text" name="ADDRESS_NAME" autocomplete="off" placeholder="请输入详细地址" class="layui-input">
@@ -190,60 +240,6 @@
               <label class="layui-form-label">备注</label>
               <div class="layui-input-block">
                 <textarea name="REMARK" class="layui-textarea"></textarea>
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">贫困户</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">贫困原因</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">建档机构</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">管理机构</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">责任医生</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">医生电话</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">其它联系电话</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">紧急联系人</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">紧急联系人电话</label>
-              <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
               </div>
             </div>
           </div>
@@ -271,19 +267,19 @@
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">身高</label>
               <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="username" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">体重</label>
               <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="username" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">BMI</label>
               <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="username" autocomplete="off" class="layui-input">
               </div>
             </div>
           </div>
@@ -297,31 +293,31 @@
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">燃料类型</label>
               <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="username" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">饮水</label>
               <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="username" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">厕所</label>
               <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="username" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">禽畜栏</label>
               <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="username" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">厨房排风设施</label>
               <div class="layui-input-block">
-                <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="username" autocomplete="off" class="layui-input">
               </div>
             </div>
           </div>
@@ -332,7 +328,7 @@
         <div class="layui-card-body layui-row layui-col-space10">
           <div class="layui-form-item layui-layout-admin" style="text-align: center;margin-bottom: 0;">
             <div class="layui-footer" style="left: 0;z-index: 1;" id="xysavetop">
-              <button class="layui-btn" lay-submit>保存</button>
+              <button class="layui-btn" lay-submit lay-filter="xy-resident-submit">保存</button>
               <button type="button" layadmin-event="closeself" class="layui-btn layui-btn-primary">关闭</button>
             </div>
           </div>
@@ -340,125 +336,79 @@
       </div>
     </div>
 
-    <div class="layui-card">
-      <div class="layui-card-header">既往史</div>
-      <div class="layui-card-body">
-        <div class="layui-collapse" lay-filter="collapse-history">
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="person">个人病史</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-person" lay-filter="xy-resident-history-person"></table>
-            </div>
-          </div>
 
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="operation">手术史</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-operation" lay-filter="xy-resident-history-operation"></table>
-            </div>
-          </div>
-
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="trauma">外伤</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-trauma" lay-filter="xy-resident-history-trauma"></table>
-            </div>
-          </div>
-
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="blood">输血</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-blood" lay-filter="xy-resident-history-blood"></table>
-            </div>
-          </div>
-
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="hospital">住院史</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-hospital" lay-filter="xy-resident-history-hospital"></table>
-            </div>
-          </div>
-
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="family">家庭史</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-family" lay-filter="xy-resident-history-family"></table>
-            </div>
-          </div>
-
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="inherit">遗传病史</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-inherit" lay-filter="xy-resident-history-inherit"></table>
-            </div>
-          </div>
-
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="allergy">过敏史</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-allergy" lay-filter="xy-resident-history-allergy"></table>
-            </div>
-          </div>
-
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="derfomity">残疾情况</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-derfomity" lay-filter="xy-resident-history-derfomity"></table>
+    <script id="historyContainer" type="text/html">
+      {{#  if(d.edit == 1){ }}
+        <div class="layui-card">
+          <div class="layui-card-header">既往史</div>
+          <div class="layui-card-body">
+            <div class="layui-collapse" lay-filter="collapse-history">
+              {{#  layui.each(d.historySort, function(index, item){ }}
+                <div class="layui-colla-item">
+                  <h2 class="layui-colla-title" data-type="{{index}}">{{item.name}}</h2>
+                  <div class="layui-colla-content">
+                    <div style="padding-bottom: 10px;">
+                      <a class="layui-btn" lay-href="resident/history.html#/CLIENT_ID={{d.CLIENT_ID}}/historyKey={{index}}" lay-text="添加{{item.name}}">添加</a>
+                    </div>
+                    <table id="xy-resident-history-{{index}}" lay-filter="xy-resident-history-{{index}}"></table>
+                  </div>
+                </div>
+              {{#  }); }}
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="layui-card">
-      <div class="layui-card-header">健康记录</div>
-      <div class="layui-card-body">
-        <div class="layui-collapse" lay-filter="collapse-history">
+        <div class="layui-card">
+          <div class="layui-card-header">健康记录</div>
+          <div class="layui-card-body">
+            <div class="layui-collapse" lay-filter="collapse-history">
 
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="visit">就诊记录</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-visit" lay-filter="xy-resident-history-visit"></table>
-            </div>
-          </div>
+              <div class="layui-colla-item">
+                <h2 class="layui-colla-title" data-type="visit">就诊记录</h2>
+                <div class="layui-colla-content">
+                  <table id="xy-resident-history-visit" lay-filter="xy-resident-history-visit"></table>
+                </div>
+              </div>
 
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="consultation">会诊记录</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-consultation" lay-filter="xy-resident-history-consultation"></table>
-            </div>
-          </div>
+              <div class="layui-colla-item">
+                <h2 class="layui-colla-title" data-type="consultation">会诊记录</h2>
+                <div class="layui-colla-content">
+                  <table id="xy-resident-history-consultation" lay-filter="xy-resident-history-consultation"></table>
+                </div>
+              </div>
 
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="referral">转诊记录</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-referral" lay-filter="xy-resident-history-referral"></table>
-            </div>
-          </div>
+              <div class="layui-colla-item">
+                <h2 class="layui-colla-title" data-type="referral">转诊记录</h2>
+                <div class="layui-colla-content">
+                  <table id="xy-resident-history-referral" lay-filter="xy-resident-history-referral"></table>
+                </div>
+              </div>
 
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="examination">体检记录</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-examination" lay-filter="xy-resident-history-examination"></table>
-            </div>
-          </div>
+              <div class="layui-colla-item">
+                <h2 class="layui-colla-title" data-type="examination">体检记录</h2>
+                <div class="layui-colla-content">
+                  <table id="xy-resident-history-examination" lay-filter="xy-resident-history-examination"></table>
+                </div>
+              </div>
 
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="followup">随访记录</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-followup" lay-filter="xy-resident-history-followup"></table>
-            </div>
-          </div>
+              <div class="layui-colla-item">
+                <h2 class="layui-colla-title" data-type="followup">随访记录</h2>
+                <div class="layui-colla-content">
+                  <table id="xy-resident-history-followup" lay-filter="xy-resident-history-followup"></table>
+                </div>
+              </div>
 
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="survey">问卷记录</h2>
-            <div class="layui-colla-content">
-              <table id="xy-resident-history-survey" lay-filter="xy-resident-history-survey"></table>
+              <div class="layui-colla-item">
+                <h2 class="layui-colla-title" data-type="survey">问卷记录</h2>
+                <div class="layui-colla-content">
+                  <table id="xy-resident-history-survey" lay-filter="xy-resident-history-survey"></table>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      {{#  } }}
+    </script>
   </div>
 
   <script type="text/html" id="table-history-ope">

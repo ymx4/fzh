@@ -50,7 +50,7 @@
           <div class="layui-inline">
             <label class="layui-form-label">子机构</label>
             <div class="layui-input-block">
-                <input type="checkbox" name="CHILDREN_UNIT" title="包含子机构" value="1">
+                <input type="checkbox" name="CHILDREN_UNIT" title="包含子机构" value="1" checked>
             </div>
           </div>
           <div class="layui-inline">
@@ -76,7 +76,8 @@
               <li><a href="">添加随访</a></li>
             </ul>
           </div>
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="resident/edit.html" lay-text="编辑-{{d.username}}">编辑</a>
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="resident/edit.html#/id={{d.ID}}" lay-text="编辑-{{d.REAL_NAME}}">编辑</a>
+          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
       </div>
     </div>

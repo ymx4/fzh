@@ -62,30 +62,30 @@ layui.define(['table', 'form', 'common', 'admin'], function(exports){
             $('select[name="UNIT_TYPE"]').attr('data-val', data.data.UNIT_TYPE);
             $('select[name="UNIT_STATUS"]').attr('data-val', data.data.UNIT_STATUS);
             common.initConfig();
-            common.initArea('#ins_area_id', {default: data.data.AREA_ID, elem: '#ins_ares_container'});
+            common.initArea({default: data.data.AREA_ID, elem: '#ins_ares_container'});
           }, this)
         });
       } else {
         common.initConfig();
-        common.initArea('#ins_area_id');
+        common.initArea();
       }
+
+      form.on('submit(xy-institution-submit)', function(data){
+        delete data.field.PARENT_UNIT_NAME;
+        common.req({
+          url: layui.setter.api.ModificationHospitalUnit
+          ,formerror: true
+          ,data: data.field
+          ,success: function(data){
+            layer.msg('操作成功', function() {
+              common.saveSuccess('institution/list.html', '机构列表');
+            });
+          }
+        });
+        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+      });
     }
   }
-
-  form.on('submit(xy-institution-submit)', function(data){
-    delete data.field.PARENT_UNIT_NAME;
-    common.req({
-      url: layui.setter.api.ModificationHospitalUnit
-      ,formerror: true
-      ,data: data.field
-      ,success: function(data){
-        layer.msg('操作成功', function() {
-          common.saveSuccess('institution/list.html', '机构列表');
-        });
-      }
-    });
-    return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-  });
 
   exports('institution', {init: init})
 });

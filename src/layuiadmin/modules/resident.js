@@ -121,41 +121,48 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             common.initConfig();
             common.initArea({default: data.data.HOME_ADDRESS_AREA_ID, elem: '#home_address_area_container'});
             common.initArea({default: data.data.ADDRESS_AREA_ID, elem: '#address_area_container'});
-          }, this)
-        });
 
-        element.on('collapse(collapse-history)', function(data){
-          if (data.show && !data.title.attr('data-init')) {
-            data.title.attr('data-init', 1);
-            var type = data.title.attr('data-type');
-            renderHistory[type].call(this, {
-              "CLIENT_ID" : common.user.ID,
-              "HISTORY_SORT_ID": historySort[type].id
-            });
-          }
-        });
-        // history
-        laytpl(historyContainer.innerHTML).render({edit:1, historySort: historySort, CLIENT_ID: common.user.ID}, function(html){
-          $('.resident-form').after(html);
-          element.render('collapse');
-        });
-
-        Object.keys(historySort).forEach(function(key){
-          table.on('tool(xy-resident-history-' + key + ')', function(obj){
-            var data = obj.data;
-              if(obj.event === 'del'){
-                layer.confirm('确定要删除吗', function(index){
-                  common.req({
-                    url: layui.setter.api.DeleteClientHistory
-                    ,data: {ID: obj.data.ID}
-                    ,success: function(data){
-                      obj.del();
-                      layer.close(index);
-                    }
-                  });
+            element.on('collapse(collapse-history)', function(collData){
+              if (collData.show && !collData.title.attr('data-init')) {
+                collData.title.attr('data-init', 1);
+                var type = collData.title.attr('data-type');
+                renderHistory[type].call(this, {
+                  "CLIENT_ID" : data.data.ID,
+                  "HISTORY_SORT_ID": historySort[type].id
                 });
               }
-          });
+            });
+            // history
+            laytpl(historyContainer.innerHTML).render({edit:1, historySort: historySort, client: data.data}, function(html){
+              $('.resident-form').after(html);
+              element.render('collapse');
+              $('.history-refresh').click(function(){
+                var type = $(this).closest('.layui-colla-content').siblings('.layui-colla-title').attr('data-type');
+                renderHistory[type].call(this, {
+                  "CLIENT_ID" : data.data.ID,
+                  "HISTORY_SORT_ID": historySort[type].id
+                });
+              });
+            });
+
+            Object.keys(historySort).forEach(function(key){
+              table.on('tool(xy-resident-history-' + key + ')', function(obj){
+                var data = obj.data;
+                  if(obj.event === 'del'){
+                    layer.confirm('确定要删除吗', function(index){
+                      common.req({
+                        url: layui.setter.api.DeleteClientHistory
+                        ,data: {ID: obj.data.ID}
+                        ,success: function(data){
+                          obj.del();
+                          layer.close(index);
+                        }
+                      });
+                    });
+                  }
+              });
+            });
+          }, this)
         });
       } else {
         common.initArea();
@@ -180,7 +187,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           ,data: data.field
           ,success: function(data){
             layer.msg('操作成功', function() {
-              common.saveSuccess('resident/list.html', '我的客户');
+              common.saveSuccess('resident/list.html');
             });
           }
         });
@@ -250,8 +257,26 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
       laydate.render({
         elem: '#TIME_VALUE_1'
+        ,type: 'datetime'
         ,format: layui.setter.dateFormat.sec
       });
+
+      laydate.render({
+        elem: '#TIME_VALUE_2'
+        ,type: 'datetime'
+        ,format: layui.setter.dateFormat.sec
+      });
+
+      switch(router.search.historyKey) {
+        case 'medicine':
+          form.render('select');
+          break;
+        case 'familyMedical':
+          common.initConfig();
+          break;
+        default:
+          break;
+      }
 
       form.on('submit(xy-history-submit)', function(data){
         delete data.field.UNIT_NAME;
@@ -260,7 +285,12 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           ,formerror: true
           ,data: data.field
           ,success: function(data){
-            layer.msg('操作成功');
+            layer.msg('操作成功', function() {
+              common.saveSuccess({
+                href: 'resident/edit.html#/id=' + router.search.CLIENT_ID
+                ,refresh: '.history-refresh-' + router.search.historyKey
+              });
+            });
           }
         });
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
@@ -307,9 +337,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //手术史
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '名称', minWidth:100}
-        ,{field: 'jointime', title: '手术时间', minWidth:100}
-        ,{field: 'username', title: '手术机构', minWidth:100}
+        ,{field: 'SURGERY_NAME', title: '手术名称', minWidth:100}
+        ,{field: 'SURGERY_TIME', title: '手术时间', minWidth:100}
+        ,{field: 'SURGERY_COMPANY', title: '手术机构', minWidth:100}
       ]
       common.xyRender({
         elem: '#xy-resident-history-surgery'
@@ -323,9 +353,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //外伤
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '名称', minWidth:100}
-        ,{field: 'jointime', title: '时间', minWidth:100}
-        ,{field: 'username', title: '原因', minWidth:100}
+        ,{field: 'TRAUMATIC_NAME', title: '名称', minWidth:100}
+        ,{field: 'TRAUMATIC_TIME', title: '时间', minWidth:100}
+        ,{field: 'TRAUMATIC_UAUSES', title: '原因', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -342,8 +372,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //输血
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '时间', minWidth:100}
-        ,{field: 'username', title: '原因', minWidth:100}
+        ,{field: 'TRANSFUSION_TIME', title: '时间', minWidth:100}
+        ,{field: 'TRANSFUSION_CAUSE', title: '原因', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -397,7 +427,11 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //家庭病床史
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '疾病名称', minWidth:100}
+        ,{field: 'IN_HOSPITAL', title: '建床日期', minWidth:100}
+        ,{field: 'OUT_HOSPITAL', title: '撤床日期', minWidth:100}
+        ,{field: 'HOSPITAL_CAUSE', title: '原因', minWidth:100}
+        ,{field: 'COMPANY_NAME', title: '医疗机构', minWidth:100}
+        ,{field: 'RECORD_NUMBER', title: '病案号', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -449,8 +483,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //过敏史
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '过敏源', minWidth:100}
-        ,{field: 'username', title: '来源', minWidth:100}
+        ,{field: 'ALLERGY_SOURCE', title: '过敏源', minWidth:100}
+        ,{field: 'SOURCE', title: '来源', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -485,7 +519,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //预防接种史
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '残疾名称', minWidth:100}
+        ,{field: 'INOCULATE_NAME', title: '名称', minWidth:100}
+        ,{field: 'INOCULATE_TIME', title: '接种日期', minWidth:100}
+        ,{field: 'INOCULATE_COMPANY', title: '接种机构', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});

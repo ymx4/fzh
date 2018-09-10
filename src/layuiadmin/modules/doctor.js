@@ -118,7 +118,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
       ,data: data.field
       ,success: function(data){
         layer.msg('操作成功', function() {
-          common.saveSuccess('doctor/list.html', '医生管理');
+          common.saveSuccess('doctor/list.html');
         });
       }
     });

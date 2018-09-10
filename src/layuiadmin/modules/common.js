@@ -22,7 +22,14 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
         return layui.setter.api.ReadFile + '?FN=' + encodeURIComponent(fn);
       }
     }
-    ,saveSuccess: function(href, text) {
+    ,saveSuccess: function(options) {
+      if (typeof options == 'string') {
+        var href = options;
+        var refreshElem = '.layui-icon-search';
+      } else {
+        var href = options.href;
+        var refreshElem = options.refresh;
+      }
       var index = top.layui.admin.tabsPage.index;
       var topLayui = top.layui;
       if (href) {
@@ -41,10 +48,17 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
             return false;
           }
         });
+
         if (matchTo) {
+          topLayui.index.openTabsPage(href);
           var iframe = topLayui.admin.tabsBody(curIndex).find('.layadmin-iframe');
-          $('.layui-icon-search', iframe[0].contentWindow.document).trigger('click');
-          topLayui.index.openTabsPage(href, text);
+          var searchBtn = $(refreshElem, iframe[0].contentWindow.document);
+          if (searchBtn.length > 0) {
+            console.log(refreshElem)
+            searchBtn.trigger('click');
+          } else {
+            topLayui.admin.events.refresh();
+          }
         }
       }
       topLayui.common.closeTab(index);

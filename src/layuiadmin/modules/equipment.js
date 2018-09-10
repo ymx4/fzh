@@ -133,7 +133,7 @@ layui.define(['table', 'form', 'common', 'laytpl'], function(exports){
         ,data: data.field
         ,success: function(data){
           layer.msg('操作成功', function() {
-            common.saveSuccess('equipment/list.html', '设备列表');
+            common.saveSuccess('equipment/list.html');
           });
         }
       });
@@ -144,7 +144,7 @@ layui.define(['table', 'form', 'common', 'laytpl'], function(exports){
         ,data: data.field
         ,success: function(data){
           layer.msg('操作成功', function() {
-            common.saveSuccess('equipment/list.html', '设备列表');
+            common.saveSuccess('equipment/list.html');
           });
         }
       });

@@ -60,6 +60,9 @@ i.fas, i.far{
 	display: inline-block;
 	width: auto;
 }
+td[lay-event=detail] {
+	cursor: pointer!important;
+}
 /*.layui-table-cell {
 	height: auto;
 	text-overflow: clip;

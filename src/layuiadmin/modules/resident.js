@@ -29,11 +29,11 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           "USER_ID": common.user.ID
         }
         ,cols: [[
-          {field: 'CLIENT_NUMBER', title: '客户编号', minWidth:100, event:'detail', style:'cursor: pointer;'}
-          ,{field: 'REAL_NAME', title: '姓名', minWidth:100, event:'detail', style:'cursor: pointer;'}
-          ,{field: 'MOBILE', title: '手机', minWidth:100}
-          ,{field: 'SEX_VALUE', title: '性别', minWidth:100}
-          ,{field: 'CREATE_TIME', title: '加入时间', minWidth:100}
+          {field: 'CLIENT_NUMBER', title: '客户编号', minWidth:100, event:'detail'}
+          ,{field: 'REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
+          ,{field: 'MOBILE', title: '手机', minWidth:100, event:'detail'}
+          ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
+          ,{field: 'CREATE_TIME', title: '加入时间', minWidth:100, event:'detail'}
           ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
         ]]
       });
@@ -64,6 +64,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
               }
             });
           });
+        } else if (obj.event === 'detail') {
+          parent.layui.index.openTabsPage('resident/detail.html', '查看-' + data.REAL_NAME);
         }
       });
     }
@@ -321,6 +323,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,{field: 'DISEASE_NAME', title: '疾病名称', minWidth:100}
         ,{field: 'CONFIRMED_TIME', title: '确诊时间', minWidth:100}
         ,{field: 'HOSPITAL_NAME', title: '确诊机构', minWidth:100}
+        ,{field: 'REMARK', title: '备注', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -330,6 +333,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,url: layui.setter.api.GetClientHistory
         ,where: where
         ,cols: [cols]
+        ,page: false
       });
     }
 
@@ -340,12 +344,17 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,{field: 'SURGERY_NAME', title: '手术名称', minWidth:100}
         ,{field: 'SURGERY_TIME', title: '手术时间', minWidth:100}
         ,{field: 'SURGERY_COMPANY', title: '手术机构', minWidth:100}
-      ]
+        ,{field: 'REMARK', title: '备注', minWidth:100}
+      ];
+      if (pageType == 'edit') {
+        cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
+      }
       common.xyRender({
         elem: '#xy-resident-history-surgery'
         ,url: layui.setter.api.GetClientHistory
         ,where: where
         ,cols: [cols]
+        ,page: false
       });
     }
 
@@ -356,6 +365,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,{field: 'TRAUMATIC_NAME', title: '名称', minWidth:100}
         ,{field: 'TRAUMATIC_TIME', title: '时间', minWidth:100}
         ,{field: 'TRAUMATIC_UAUSES', title: '原因', minWidth:100}
+        ,{field: 'REMARK', title: '备注', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -365,6 +375,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,url: layui.setter.api.GetClientHistory
         ,where: where
         ,cols: [cols]
+        ,page: false
       });
     }
 
@@ -374,6 +385,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         {type: 'numbers', title: '序号'}
         ,{field: 'TRANSFUSION_TIME', title: '时间', minWidth:100}
         ,{field: 'TRANSFUSION_CAUSE', title: '原因', minWidth:100}
+        ,{field: 'REMARK', title: '备注', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -383,6 +395,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,url: layui.setter.api.GetClientHistory
         ,where: where
         ,cols: [cols]
+        ,page: false
       });
     }
 
@@ -390,9 +403,12 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //住院史
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '住院时间', minWidth:100}
-        ,{field: 'username', title: '住院原因', minWidth:100}
-        ,{field: 'username', title: '医院名称', minWidth:100}
+        ,{field: 'IN_HOSIPITAL_TIME', title: '入院时间', minWidth:100}
+        ,{field: 'OUT_HOSIPITAL_TIME', title: '出院时间', minWidth:100}
+        ,{field: 'HOSPITAL_CAUSE', title: '住院原因', minWidth:100}
+        ,{field: 'COMPANY_NAME', title: '医院名称', minWidth:100}
+        ,{field: 'RECORD_NUMBER', title: '病案号', minWidth:100}
+        ,{field: 'REMARK', title: '备注', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -402,6 +418,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,url: layui.setter.api.GetClientHistory
         ,where: where
         ,cols: [cols]
+        ,page: false
       });
     }
 
@@ -409,8 +426,11 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //用药情况
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '疾病名称', minWidth:100}
-        ,{field: 'username', title: '与其关系', minWidth:100}
+        ,{field: 'MEDICINE_NAME', title: '药物名称', minWidth:100}
+        ,{field: 'MEDICINE_TIME', title: '用药时间', minWidth:100}
+        ,{field: 'MEDICINE_DOSE', title: '用量', minWidth:100}
+        ,{field: 'MEDICINE_PLAN', title: '服药依从性', minWidth:100}
+        ,{field: 'REMARK', title: '备注', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -420,6 +440,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,url: layui.setter.api.GetClientHistory
         ,where: where
         ,cols: [cols]
+        ,page: false
       });
     }
 
@@ -432,6 +453,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,{field: 'HOSPITAL_CAUSE', title: '原因', minWidth:100}
         ,{field: 'COMPANY_NAME', title: '医疗机构', minWidth:100}
         ,{field: 'RECORD_NUMBER', title: '病案号', minWidth:100}
+        ,{field: 'REMARK', title: '备注', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -441,6 +463,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,url: layui.setter.api.GetClientHistory
         ,where: where
         ,cols: [cols]
+        ,page: false
       });
     }
 
@@ -448,7 +471,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //家庭病史
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '残疾名称', minWidth:100}
+        ,{field: 'MEDICAL_NAME', title: '残疾名称', minWidth:100}
+        ,{field: 'RELATION_NAME', title: '与其关系', minWidth:100}
+        ,{field: 'REMARK', title: '备注', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -458,6 +483,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,url: layui.setter.api.GetClientHistory
         ,where: where
         ,cols: [cols]
+        ,page: false
       });
     }
 
@@ -465,8 +491,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //遗传病史
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '过敏源', minWidth:100}
-        ,{field: 'username', title: '来源', minWidth:100}
+        ,{field: 'MEDICAL_NAME', title: '疾病名称', minWidth:100}
+        ,{field: 'REMARK', title: '备注', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -476,6 +502,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,url: layui.setter.api.GetClientHistory
         ,where: where
         ,cols: [cols]
+        ,page: false
       });
     }
 
@@ -485,6 +512,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         {type: 'numbers', title: '序号'}
         ,{field: 'ALLERGY_SOURCE', title: '过敏源', minWidth:100}
         ,{field: 'SOURCE', title: '来源', minWidth:100}
+        ,{field: 'REMARK', title: '备注', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -494,6 +522,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,url: layui.setter.api.GetClientHistory
         ,where: where
         ,cols: [cols]
+        ,page: false
       });
     }
 
@@ -501,8 +530,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       //残疾情况
       var cols = [
         {type: 'numbers', title: '序号'}
-        ,{field: 'username', title: '过敏源', minWidth:100}
-        ,{field: 'username', title: '来源', minWidth:100}
+        ,{field: 'DISABILITY_NAME', title: '残疾名称', minWidth:100}
+        ,{field: 'REMARK', title: '备注', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -512,6 +541,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,url: layui.setter.api.GetClientHistory
         ,where: where
         ,cols: [cols]
+        ,page: false
       });
     }
 
@@ -522,6 +552,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,{field: 'INOCULATE_NAME', title: '名称', minWidth:100}
         ,{field: 'INOCULATE_TIME', title: '接种日期', minWidth:100}
         ,{field: 'INOCULATE_COMPANY', title: '接种机构', minWidth:100}
+        ,{field: 'REMARK', title: '备注', minWidth:100}
       ];
       if (pageType == 'edit') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-history-ope'});
@@ -531,6 +562,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         ,url: layui.setter.api.GetClientHistory
         ,where: where
         ,cols: [cols]
+        ,page: false
       });
     }
 

@@ -267,19 +267,22 @@
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">身高</label>
               <div class="layui-input-block">
-                <input type="text" name="username" autocomplete="off" class="layui-input">
+                <input type="text" name="HEIGHT" autocomplete="off" class="layui-input xy-form-unit">
+                <div class="layui-form-mid">cm</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">体重</label>
               <div class="layui-input-block">
-                <input type="text" name="username" autocomplete="off" class="layui-input">
+                <input type="text" name="WEIGHT" autocomplete="off" class="layui-input xy-form-unit">
+                <div class="layui-form-mid">kg</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">BMI</label>
               <div class="layui-input-block">
-                <input type="text" name="username" autocomplete="off" class="layui-input">
+                <input type="hidden" name="BMI" id="bmiHidden">
+                <div class="layui-form-mid layui-word-aux" id="bmiDiv"></div>
               </div>
             </div>
           </div>
@@ -293,31 +296,36 @@
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">燃料类型</label>
               <div class="layui-input-block">
-                <input type="text" name="username" autocomplete="off" class="layui-input">
+                <select name="SHHJ_RLLX_ID" class="xy-config" data-cf="15">
+                </select>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">饮水</label>
               <div class="layui-input-block">
-                <input type="text" name="username" autocomplete="off" class="layui-input">
+                <select name="SHHJ_YS_ID" class="xy-config" data-cf="16">
+                </select>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">厕所</label>
               <div class="layui-input-block">
-                <input type="text" name="username" autocomplete="off" class="layui-input">
+                <select name="SHHJ_CS_ID" class="xy-config" data-cf="17">
+                </select>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">禽畜栏</label>
               <div class="layui-input-block">
-                <input type="text" name="username" autocomplete="off" class="layui-input">
+                <select name="SHHJ_QXL_ID" class="xy-config" data-cf="18">
+                </select>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">厨房排风设施</label>
               <div class="layui-input-block">
-                <input type="text" name="username" autocomplete="off" class="layui-input">
+                <select name="SHHJ_CFPFSS_ID" class="xy-config" data-cf="14">
+                </select>
               </div>
             </div>
           </div>

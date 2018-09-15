@@ -65,23 +65,49 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             });
           });
         } else if (obj.event === 'detail') {
-          parent.layui.index.openTabsPage('resident/detail.html', '查看-' + data.REAL_NAME);
+          parent.layui.index.openTabsPage('resident/detail.html#/id=' + obj.data.ID, '查看-' + data.REAL_NAME);
         }
       });
     }
     ,detail: function() {
       pageType = 'detail';
 
-      laytpl(xy_resident_detail.innerHTML).render({username: '测试'}, function(html){
-        document.getElementById('xy_resident_view').innerHTML = html;
-      });
-
-      laytpl(xy_resident_health_detail.innerHTML).render({username: '测试'}, function(html){
-        document.getElementById('xy_resident_health').innerHTML = html;
-      });
-
-      laytpl(xy_resident_env_detail.innerHTML).render({username: '测试'}, function(html){
-        document.getElementById('xy_resident_env').innerHTML = html;
+      common.req({
+        url: layui.setter.api.GetClientInfo
+        ,data: {
+          CLIENT_ID: router.search.id
+        }
+        ,success: $.proxy(function(data){
+          Object.keys(data.data).forEach(function(key){
+            if (data.data[key] == null) {
+              data.data[key] = '';
+            }
+          });
+          laytpl(xy_resident_detail.innerHTML).render(data.data, function(html){
+            document.getElementById('xy_resident_view').innerHTML = html;
+            if (data.data.FACE_FILE_NAME) {
+              $('#xy-resident-avatar-img').attr('src', common.getImageUrl(data.data.FACE_FILE_NAME));
+            }
+            if (data.data.ID_NUMBER_FILE_NAME) {
+              $('#xy-resident-identity-img').attr('src', common.getImageUrl(data.data.ID_NUMBER_FILE_NAME));
+            }
+          });
+          element.on('collapse(collapse-history)', function(collData){
+            if (collData.show && !collData.title.attr('data-init')) {
+              collData.title.attr('data-init', 1);
+              var type = collData.title.attr('data-type');
+              renderHistory[type].call(this, {
+                "CLIENT_ID" : data.data.ID,
+                "HISTORY_SORT_ID": historySort[type].id
+              });
+            }
+          });
+          // history
+          laytpl(historyContainer.innerHTML).render({edit:1, historySort: historySort}, function(html){
+            $('.resident-form').after(html);
+            element.render('collapse');
+          });
+        }, this)
       });
     }
     ,edit: function() {
@@ -120,9 +146,21 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             $('select[name="CENSUS_TYPE_ID"]').attr('data-val', data.data.CENSUS_TYPE_ID);
             $('select[name="BLOOD_TYPE"]').attr('data-val', data.data.BLOOD_TYPE);
             $('select[name="BLOOD_RH_TYPE"]').attr('data-val', data.data.BLOOD_RH_TYPE);
+            $('select[name="SHHJ_RLLX_ID"]').attr('data-val', data.data.SHHJ_RLLX_ID);
+            $('select[name="SHHJ_YS_ID"]').attr('data-val', data.data.SHHJ_YS_ID);
+            $('select[name="SHHJ_CS_ID"]').attr('data-val', data.data.SHHJ_CS_ID);
+            $('select[name="SHHJ_QXL_ID"]').attr('data-val', data.data.SHHJ_QXL_ID);
+            $('select[name="SHHJ_CFPFSS_ID"]').attr('data-val', data.data.SHHJ_CFPFSS_ID);
             common.initConfig();
             common.initArea({default: data.data.HOME_ADDRESS_AREA_ID, elem: '#home_address_area_container'});
             common.initArea({default: data.data.ADDRESS_AREA_ID, elem: '#address_area_container'});
+
+            if (data.data.WEIGHT && data.data.HEIGHT) {
+              var bmi = data.data.WEIGHT / data.data.HEIGHT / data.data.HEIGHT * 10000;
+              bmi = bmi.toFixed(1);
+              $('#bmiDiv').text(bmi);
+              $('input[name="BMI"]').val(bmi);
+            }
 
             element.on('collapse(collapse-history)', function(collData){
               if (collData.show && !collData.title.attr('data-init')) {
@@ -177,6 +215,17 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           });
         });
       }
+
+      $('input[name="WEIGHT"],input[name="HEIGHT"]').on('input', function(){
+        var weight = parseInt($('input[name="WEIGHT"]').val());
+        var height = parseInt($('input[name="HEIGHT"]').val());
+        if (weight > 0 && height > 0) {
+          var bmi = weight / height / height * 10000;
+          bmi = bmi.toFixed(1);
+          $('#bmiDiv').text(bmi);
+          $('input[name="BMI"]').val(bmi);
+        }
+      });
 
       form.on('submit(xy-resident-submit)', function(data){
         delete data.field.UNIT_NAME;
@@ -255,18 +304,18 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     ,history: function() {
       laytpl(hiddenContainer.innerHTML).render({CLIENT_ID:router.search.CLIENT_ID, historyKey:router.search.historyKey, historySort:historySort}, function(html){
         $('#historyForm').prepend(html);
+        $('title').text(historySort[router.search.historyKey].name);
+        $('.layui-card-header').text(historySort[router.search.historyKey].name);
       });
 
       laydate.render({
         elem: '#TIME_VALUE_1'
-        ,type: 'datetime'
-        ,format: layui.setter.dateFormat.sec
+        ,format: layui.setter.dateFormat.day
       });
 
       laydate.render({
         elem: '#TIME_VALUE_2'
-        ,type: 'datetime'
-        ,format: layui.setter.dateFormat.sec
+        ,format: layui.setter.dateFormat.day
       });
 
       switch(router.search.historyKey) {

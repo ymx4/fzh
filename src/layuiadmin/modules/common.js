@@ -8,6 +8,10 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
 
   ,common = {
     user: {}
+    ,closeParent: function() {
+      var index = parent.layer.getFrameIndex(window.name);
+      parent.layer.close(index);
+    }
     ,getUploadUrl: function () {
       if(this.user && this.user.token){
         return layui.setter.api.UpFile + '?token=' + this.user.token;
@@ -26,9 +30,17 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
       if (typeof options == 'string') {
         var href = options;
         var refreshElem = '.layui-icon-search';
+        var type = 0;
       } else {
         var href = options.href;
         var refreshElem = options.refresh;
+        var type = options.type;
+      }
+      if (type == 1) {
+        var searchBtn = $(refreshElem, parent.document);
+        searchBtn.trigger('click');
+        this.closeParent();
+        return;
       }
       var index = top.layui.admin.tabsPage.index;
       var topLayui = top.layui;
@@ -54,7 +66,6 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
           var iframe = topLayui.admin.tabsBody(curIndex).find('.layadmin-iframe');
           var searchBtn = $(refreshElem, iframe[0].contentWindow.document);
           if (searchBtn.length > 0) {
-            console.log(refreshElem)
             searchBtn.trigger('click');
           } else {
             topLayui.admin.events.refresh();
@@ -113,7 +124,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
             success(res);
           } else if (res.errorCode == 4006) {
             layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
-              top.location.href = layui.setter.baseUrl + '/passport/login.html';
+              top.location.href = layui.setter.baseUrl + 'passport/login.html';
             });
           } else {
             if (formerror) {
@@ -160,7 +171,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
           layer.closeAll('loading');
           if (res.errorCode == 4006) {
             layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
-              top.location.href = layui.setter.baseUrl + '/passport/login.html';
+              top.location.href = layui.setter.baseUrl + 'passport/login.html';
             });
           } else {
             if (typeof done === 'function') {
@@ -362,15 +373,14 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
   if (location.href.indexOf('login') == -1) {
     var sess = layui.data(layui.setter.tableName);
     if (!sess.user) {
-      location.href = layui.setter.baseUrl + '/passport/login.html';
+      location.href = layui.setter.baseUrl + 'passport/login.html';
     } else {
       common.user = sess.user;
     }
   }
 
   admin.events.closelayer = function(){
-    var index = parent.layer.getFrameIndex(window.name);
-    parent.layer.close(index);
+    common.closeParent();
   };
 
   admin.events.closeself = function(){

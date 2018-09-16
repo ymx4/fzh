@@ -242,6 +242,17 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
                 });
               });
             });
+            $('.add-history').on('click', function(){
+              layer.open({
+                type:2
+                ,area:['80%', '80%']
+                ,title:$(this).attr('data-text')
+                ,content: layui.setter.baseUrl + $(this).attr('data-href')
+                ,success: function(){
+                  //
+                }
+              });
+            });
 
             Object.keys(historySort).forEach(function(key){
               table.on('tool(xy-resident-history-' + key + ')', function(obj){
@@ -399,7 +410,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           ,success: function(data){
             layer.msg('操作成功', function() {
               common.saveSuccess({
-                href: 'resident/edit.html#/id=' + router.search.CLIENT_ID
+                type: 1
                 ,refresh: '.history-refresh-' + router.search.historyKey
               });
             });

@@ -356,7 +356,7 @@
                   <h2 class="layui-colla-title" data-type="{{index}}">{{item.name}}</h2>
                   <div class="layui-colla-content">
                     <div style="padding-bottom: 10px;">
-                      <a class="layui-btn" lay-href="resident/history.html#/CLIENT_ID={{d.client.ID}}/historyKey={{index}}" lay-text="添加{{item.name}}">添加</a>
+                      <button class="layui-btn add-history" data-href="resident/history.html#/CLIENT_ID={{d.client.ID}}/historyKey={{index}}" data-text="添加{{item.name}}">添加</button>
                       <buttom class="layui-btn history-refresh history-refresh-{{index}}">刷新</buttom>
                     </div>
                     <table id="xy-resident-history-{{index}}" lay-filter="xy-resident-history-{{index}}"></table>

@@ -74,14 +74,7 @@
         
         <table id="xy-resident-manage" lay-filter="xy-resident-manage"></table>
         <script type="text/html" id="table-resident">
-          <div class="layui-dropdown">
-            <button type="button" class="layui-btn layui-btn-xs" data-toggle="dropdown">添加 <i class="layui-icon layui-icon-triangle-r"></i></button>
-            <ul class="layui-dropdown-menu">
-              <li><a lay-href="">添加就诊</a></li>
-              <li><a href="">添加体检</a></li>
-              <li><a href="">添加随访</a></li>
-            </ul>
-          </div>
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="health/edit.html#/id={{d.ID}}/REAL_NAME={{d.REAL_NAME}}" lay-text="档案-{{d.REAL_NAME}}">添加档案</a>
           <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="resident/edit.html#/id={{d.ID}}" lay-text="编辑-{{d.REAL_NAME}}">编辑</a>
           <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
@@ -95,7 +88,7 @@
     base: '../../layuiadmin/'
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'resident', 'dropdown'], function(){
+  }).use(['index', 'resident'], function(){
     layui.resident.init.list();
   });
   </script>

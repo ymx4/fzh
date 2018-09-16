@@ -13,30 +13,88 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
   var init = {
     list: function() {
-      form.val('xy-resident-search-form', {
-        UNIT_ID: common.user.UNIT_ID
-        ,UNIT_NAME: common.user.UNIT_NAME
-        ,USER_ID: common.user.ID
-        ,REAL_NAME: common.user.REAL_NAME
-      });
-      common.xyRender({
-        elem: '#xy-resident-manage'
-        ,url: layui.setter.api.SearchClient
-        ,where: {
-          "KEY_WORD" : "",
-          "UNIT_ID": common.user.UNIT_ID,
-          "CHILDREN_UNIT": 1,
-          "USER_ID": common.user.ID
-        }
-        ,cols: [[
-          {field: 'CLIENT_NUMBER', title: '客户编号', minWidth:100, event:'detail'}
-          ,{field: 'REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
-          ,{field: 'MOBILE', title: '手机', minWidth:100, event:'detail'}
-          ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
-          ,{field: 'CREATE_TIME', title: '加入时间', minWidth:100, event:'detail'}
-          ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
-        ]]
-      });
+      if (router.search.t == 's') {
+        //本单位
+        laytpl(searchTpl.innerHTML).render({t: router.search.t}, function(html){
+          $('#searchContainer').after(html);
+          form.val('xy-resident-search-form', {
+            USER_ID: common.user.ID
+            ,REAL_NAME: common.user.REAL_NAME
+          });
+          common.xyRender({
+            elem: '#xy-resident-manage'
+            ,url: layui.setter.api.SearchClient
+            ,where: {
+              "KEY_WORD" : "",
+              "UNIT_ID": common.user.UNIT_ID,
+              "CHILDREN_UNIT": 0,
+              "USER_ID": common.user.ID
+            }
+            ,cols: [[
+              {field: 'REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
+              ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
+              ,{field: 'BIRTHDAY', title: '出生日期', minWidth:100, event:'detail'}
+              ,{field: 'ID_NUMBER', title: '身份证号', minWidth:100, event:'detail'}
+              ,{field: 'CREATE_TIME', title: '建档时间', minWidth:100, event:'detail'}
+              ,{field: 'MANAGE_REAL_NAME', title: '签约医生', minWidth:100, event:'detail'}
+              ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
+            ]]
+          });
+        });
+      } else if (router.search.t == 'l') {
+        //下级
+        laytpl(searchTpl.innerHTML).render({t: router.search.t}, function(html){
+          $('#searchContainer').after(html);
+          form.val('xy-resident-search-form', {
+            UNIT_ID: common.user.UNIT_ID
+            ,UNIT_NAME: common.user.UNIT_NAME
+            ,USER_ID: common.user.ID
+            ,REAL_NAME: common.user.REAL_NAME
+          });
+          common.xyRender({
+            elem: '#xy-resident-manage'
+            ,url: layui.setter.api.SearchClient
+            ,where: {
+              "KEY_WORD" : "",
+              "UNIT_ID": common.user.UNIT_ID,
+              "CHILDREN_UNIT": 1,
+              "USER_ID": common.user.ID
+            }
+            ,cols: [[
+              {field: 'REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
+              ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
+              ,{field: 'BIRTHDAY', title: '出生日期', minWidth:100, event:'detail'}
+              ,{field: 'ID_NUMBER', title: '身份证号', minWidth:100, event:'detail'}
+              ,{field: 'CREATE_TIME', title: '建档时间', minWidth:100, event:'detail'}
+              ,{field: 'UNIT_NAME', title: '所属单位', minWidth:100, event:'detail'}
+              ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
+            ]]
+          });
+        });
+      } else {
+        //我的客户
+        laytpl(searchTpl.innerHTML).render({t: router.search.t}, function(html){
+          $('#searchContainer').after(html);
+          common.xyRender({
+            elem: '#xy-resident-manage'
+            ,url: layui.setter.api.SearchClient
+            ,where: {
+              "KEY_WORD" : "",
+              "UNIT_ID": common.user.UNIT_ID,
+              "CHILDREN_UNIT": 0,
+              "USER_ID": common.user.ID
+            }
+            ,cols: [[
+              {field: 'REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
+              ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
+              ,{field: 'BIRTHDAY', title: '出生日期', minWidth:100, event:'detail'}
+              ,{field: 'ID_NUMBER', title: '身份证号', minWidth:100, event:'detail'}
+              ,{field: 'CREATE_TIME', title: '建档时间', minWidth:100, event:'detail'}
+              ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
+            ]]
+          });
+        });
+      }
 
       //监听搜索
       form.on('submit(xy-resident-search)', function(data){
@@ -306,6 +364,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         $('#historyForm').prepend(html);
         $('title').text(historySort[router.search.historyKey].name);
         $('.layui-card-header').text(historySort[router.search.historyKey].name);
+        $('#icdname').on('input', function() {
+          $('#icdid').val('');
+        });
       });
 
       laydate.render({

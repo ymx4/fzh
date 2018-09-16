@@ -11,46 +11,52 @@
   <link rel="stylesheet" href="../../layuiadmin/style/xy.css" media="all">
 </head>
 <body>
+  <script id="searchTpl" type="text/html">
+    {{#  if(d.t == 's'){ }}
+      <div class="layui-inline">
+        <label class="layui-form-label">所属医生</label>
+        <div class="layui-input-block">
+          <div class="layui-inline xy-form-group">
+            <input type="hidden" id="USER_ID" name="USER_ID">
+            <input type="text" id="REAL_NAME" name="REAL_NAME" disabled class="layui-input">
+            <div class="layui-btn-group">
+              <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyseldoctor" data-id="USER_ID" data-name="REAL_NAME">选择</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{#  } else if (d.t == 'l') { }}
+      <div class="layui-inline">
+        <label class="layui-form-label">所属机构</label>
+        <div class="layui-input-block">
+          <div class="layui-inline xy-form-group">
+            <input type="hidden" id="UNIT_ID" name="UNIT_ID">
+            <input type="text" id="UNIT_NAME" name="UNIT_NAME" disabled class="layui-input">
+            <div class="layui-btn-group">
+              <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyins" data-id="UNIT_ID" data-name="UNIT_NAME">选择</button>
+              <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyinscancel" data-id="UNIT_ID" data-name="UNIT_NAME">本机构</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-inline">
+        <label class="layui-form-label">子机构</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="CHILDREN_UNIT" title="包含子机构" value="1" checked>
+        </div>
+      </div>
+    {{#  } else { }}
+    {{#  } }}
+  </script>
 
   <div class="layui-fluid">
     <div class="layui-card">
       <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-filter="xy-resident-search-form">
         <div class="layui-form-item">
-          <div class="layui-inline">
+          <div class="layui-inline" id="searchContainer">
             <label class="layui-form-label">搜索词</label>
             <div class="layui-input-block">
               <input type="text" name="KEY_WORD" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">所属机构</label>
-            <div class="layui-input-block">
-              <div class="layui-inline xy-form-group">
-                <input type="hidden" id="UNIT_ID" name="UNIT_ID">
-                <input type="text" id="UNIT_NAME" name="UNIT_NAME" disabled class="layui-input">
-                <div class="layui-btn-group">
-                  <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyins" data-id="UNIT_ID" data-name="UNIT_NAME">选择</button>
-                  <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyinscancel" data-id="UNIT_ID" data-name="UNIT_NAME">本机构</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">所属医生</label>
-            <div class="layui-input-block">
-              <div class="layui-inline xy-form-group">
-                <input type="hidden" id="USER_ID" name="USER_ID">
-                <input type="text" id="REAL_NAME" name="REAL_NAME" disabled class="layui-input">
-                <div class="layui-btn-group">
-                  <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyseldoctor" data-id="USER_ID" data-name="REAL_NAME">选择</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">子机构</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="CHILDREN_UNIT" title="包含子机构" value="1" checked>
             </div>
           </div>
           <div class="layui-inline">

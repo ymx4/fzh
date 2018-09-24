@@ -376,6 +376,9 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
       location.href = layui.setter.baseUrl + 'passport/login.html';
     } else {
       common.user = sess.user;
+      if (location.href.indexOf('views/index.html') != -1) {
+        $('#myRealname').text(common.user.REAL_NAME);
+      }
     }
   }
 

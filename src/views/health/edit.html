@@ -12,41 +12,41 @@
 </head>
 <body>
 
-  <div class="layui-fluid">
-    <form class="layui-form xy-form" action="" lay-filter="xy-health-form">
+  <script id="clientContainer" type="text/html">
+    <div class="layui-card">
+      <div class="layui-card-header">客户信息</div>
+      <div class="layui-card-body layui-row">
+        <div class="layui-form-item layui-col-space10">
+          <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block">
+              <div class="layui-form-mid layui-word-aux">{{d.clientData.REAL_NAME}}</div>
+            </div>
+          </div>
+          <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+            <label class="layui-form-label">身份证号</label>
+            <div class="layui-input-block">
+              <div class="layui-form-mid layui-word-aux">{{d.clientData.ID_NUMBER}}</div>
+            </div>
+          </div>
+          <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+              <div class="layui-form-mid layui-word-aux">{{d.clientData.SEX_VALUE}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script id="formContainer" type="text/html">
+    <form class="layui-form xy-form" id="healthForm" action="" lay-filter="xy-health-form">
       <div class="layui-card">
         <div class="layui-card-header">症状</div>
         <div class="layui-card-body layui-row">
           <div class="layui-form-item layui-col-space10">
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label">症状</label>
-              <div class="layui-input-block">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="无症状">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="头痛">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="头晕">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="心悸">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="胸闷">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="胸痛">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="慢性咳嗽">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="咳痰">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="呼吸困难">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="多饮">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="多尿">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="体重下降">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="乏力">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="关节肿痛">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="视力模糊">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="手脚麻木">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="尿急">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="尿痛">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="便秘">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="腹泻">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="恶心呕吐">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="眼花">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="耳鸣">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="乳房胀痛">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="其他">
-              </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_17">
             </div>
           </div>
         </div>
@@ -58,103 +58,73 @@
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">体温</label>
               <div class="layui-input-block">
-                <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                <input type="text" name="hproject_18" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">°C</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">脉率</label>
               <div class="layui-input-block">
-                <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                <input type="text" name="hproject_19" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">次/分钟</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">呼吸频率</label>
               <div class="layui-input-block">
-                <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                <input type="text" name="hproject_20" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">次/分钟</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">血压（左）</label>
               <div class="layui-input-block">
-                <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                <input type="text" name="hproject_21" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">mmHg</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">血压（右）</label>
               <div class="layui-input-block">
-                <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                <input type="text" name="hproject_22" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">mmHg</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">身高</label>
               <div class="layui-input-block">
-                <input type="text" id="health-height" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                <input type="text" id="health-height" name="hproject_23" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">cm</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">体重</label>
               <div class="layui-input-block">
-                <input type="text" id="health-weight" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                <input type="text" id="health-weight" name="hproject_24" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">kg</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">腰围</label>
               <div class="layui-input-block">
-                <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                <input type="text" name="hproject_26" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">cm</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">体质指数</label>
-              <div class="layui-form-mid layui-word-aux" id="health-bmi">体重 / 身高的平方</div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label" style="width:220px;z-index:1;">老年人健康状态自我评估*</label>
               <div class="layui-input-block">
-                <input type="radio" name="radiox" value="满意" title="满意">
-                <input type="radio" name="radiox" value="基本满意" title="基本满意">
-                <input type="radio" name="radiox" value="说不清楚" title="说不清楚">
-                <input type="radio" name="radiox" value="不太满意" title="不太满意">
-                <input type="radio" name="radiox" value="不满意" title="不满意">
+                <input type="hidden" name="hproject_25" id="hproject_25">
+                <div class="layui-form-mid layui-word-aux" id="bmiDiv"></div>
               </div>
             </div>
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label" style="width:220px;z-index:1;"><i class="layui-icon layui-icon-tips" lay-tips="65 岁及以上老年人需填写此项"></i> 老年人生活处理能力自我评估*</label>
-              <div class="layui-input-block">
-                <input type="radio" name="radiox" value="可自理（0~3分）" title="可自理（0~3分）">
-                <input type="radio" name="radiox" value="轻度依赖（4~8分）" title="轻度依赖（4~8分）">
-                <input type="radio" name="radiox" value="中度依赖（9~18分）" title="中度依赖（9~18分）">
-                <input type="radio" name="radiox" value="不能处理（≥19）" title="不能处理（≥19）">
-              </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_27">
             </div>
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label" style="width:220px;z-index:1;"><i class="layui-icon layui-icon-tips" lay-tips="告诉被检查者“我将要说三件物品的名称（如铅笔、卡车、书），请您立刻重复”。过 1 分钟后请其再次重复。如被检查者无法立即重复或 1 分钟后无法完整回忆三件物品名称为粗筛阳性，需进一步行“简易智力状态检查量表”检查"></i> 老年人认识功能*</label>
-              <div class="layui-input-block">
-                <input type="radio" name="radiox" value="粗筛阴性" title="粗筛阴性" lay-filter="xy-from-extra-input">
-                <input type="radio" name="radiox" value="粗筛阳性" title="粗筛阳性" data-show="1" lay-filter="xy-from-extra-input">
-                <div class="xy-form-extra-control layui-hide">
-                  <div class="layui-form-mid">简易智力状态检查，总分：</div>
-                  <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit" style="width: 100px;">
-                </div>
-              </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_28">
             </div>
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label" style="width:220px;z-index:1;"><i class="layui-icon layui-icon-tips" lay-tips="询问被检查者“你经常感到伤心或抑郁吗”或“你的情绪怎么样”。如回答“是”或“我想不是十分好”，为粗筛阳性，需进一步行“老年抑郁量表”检查"></i> 老年人情感状态*</label>
-              <div class="layui-input-block">
-                <input type="radio" name="radiox" value="粗筛阴性" title="粗筛阴性" lay-filter="xy-from-extra-input">
-                <input type="radio" name="radiox" value="粗筛阳性" title="粗筛阳性" data-show="1" lay-filter="xy-from-extra-input">
-                <div class="xy-form-extra-control layui-hide">
-                  <div class="layui-form-mid">老年人抑郁评分检查，总分：</div>
-                  <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit" style="width: 100px;">
-                </div>
-              </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_29">
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_30">
             </div>
           </div>
 
@@ -167,33 +137,26 @@
             <fieldset class="layui-elem-field">
               <legend><i class="layui-icon layui-icon-tips" lay-tips="指主动锻炼，即有意识地为强体健身而进行的活动。不包括因工作或其他需要而必需进行的活动，如为上班骑自行车、做强体力工作等。锻炼方式填写最常采用的具体锻炼方式"></i> 体育锻炼</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label"><i id="testhis" class="layui-icon layui-icon-log" lay-tips="点击查看锻炼历史"></i> 锻炼频率</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="每天" title="每天">
-                    <input type="radio" name="radiox" value="每周一次以上" title="每周一次以上">
-                    <input type="radio" name="radiox" value="偶尔" title="偶尔">
-                    <input type="radio" name="radiox" value="不锻炼" title="不锻炼">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_31">
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">每次锻炼时间</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_32" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">分钟</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">坚持锻炼时间</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_33" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">年</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">锻炼方式</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input">
+                    <input type="text" name="hproject_34" autocomplete="off" class="layui-input">
                   </div>
                 </div>
               </div>
@@ -203,16 +166,7 @@
             <fieldset class="layui-elem-field">
               <legend>饮食习惯</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">饮食习惯</label>
-                  <div class="layui-input-block">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="荤素均衡">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="荤食为主">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="素食为主">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="嗜盐">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="嗜油">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="嗜糖">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_35">
                 </div>
               </div>
             </fieldset>
@@ -221,32 +175,26 @@
             <fieldset class="layui-elem-field">
               <legend><i class="layui-icon layui-icon-tips" lay-tips="“从不吸烟者”不必填写“日吸烟量”、“开始吸烟年龄”、“戒烟年龄”等，已戒烟者填写戒烟前相关情况"></i> 吸烟状况</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">吸烟状况</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="从不吸烟" title="从不吸烟">
-                    <input type="radio" name="radiox" value="已戒烟" title="已戒烟">
-                    <input type="radio" name="radiox" value="吸烟" title="吸烟">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_36">
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">日吸烟量</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_37" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">支</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">开始吸烟年龄</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_38" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">岁</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">戒烟年龄</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_39" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">岁</div>
                   </div>
                 </div>
@@ -257,59 +205,27 @@
             <fieldset class="layui-elem-field">
               <legend><i class="layui-icon layui-icon-tips" lay-tips="“从不饮酒者”不必填写其他有关饮酒情况项目，已戒酒者填写戒酒前相关情况，“日饮酒量”折合成白酒量。（啤酒/10=白酒量，红酒/4=白酒量，黄酒/5=白酒量）"></i> 饮酒情况</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">饮酒频率</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="从不" title="从不">
-                    <input type="radio" name="radiox" value="偶尔" title="偶尔">
-                    <input type="radio" name="radiox" value="经常" title="经常">
-                    <input type="radio" name="radiox" value="每天" title="每天">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_40">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">是否戒酒</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="未戒酒" title="未戒酒" lay-filter="xy-from-extra-input">
-                    <input type="radio" name="radiox" value="已戒酒" title="已戒酒" data-show="1" lay-filter="xy-from-extra-input">
-                    <div class="xy-form-extra-control layui-hide">
-                      <div class="layui-form-mid">戒酒年龄</div>
-                      <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
-                    </div>
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_41">
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">日饮酒量</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_42" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">两</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">开始饮酒年龄</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_43" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">岁</div>
                   </div>
                 </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">近一年是否曾醉酒</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="是" title="是">
-                    <input type="radio" name="radiox" value="否" title="否">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_44">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">饮酒种类</label>
-                  <div class="layui-input-block">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="啤酒">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="白酒">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="红酒">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="黄酒">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="其它" lay-filter="xy-from-extra-input">
-                    <div class="xy-form-extra-control layui-hide">
-                      <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
-                    </div>
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_45">
                 </div>
               </div>
             </fieldset>
@@ -318,54 +234,17 @@
             <fieldset class="layui-elem-field">
               <legend><i class="layui-icon layui-icon-tips" lay-tips="指因患者职业原因造成的粉尘、放射物质、物理因素、化学物质的接触情况。如有，需填写具体粉尘、放射物质、物理因素、化学物质的名称或填不详"></i> 职业病危害因素接触史</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">接触史</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无" title="无" lay-filter="xy-from-extra-input">
-                    <input type="radio" name="radiox" value="有" title="有" data-show="1" lay-filter="xy-from-extra-input">
-                    <div class="xy-form-extra-control layui-hide">
-                      <div class="layui-form-mid">工种</div>
-                      <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit" style="width: 100px;">
-                      <div class="layui-form-mid">从业时间</div>
-                      <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit" style="width: 100px;">
-                      <div class="layui-form-mid">年</div>
-                    </div>
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_46">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">粉尘防护措施</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无" title="无">
-                    <input type="radio" name="radiox" value="有" title="有">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_47">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">放射物质防护措施</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无" title="无">
-                    <input type="radio" name="radiox" value="有" title="有">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_48">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">物理因素防护措施</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无" title="无">
-                    <input type="radio" name="radiox" value="有" title="有">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_49">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">化学物质防护措施</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无" title="无">
-                    <input type="radio" name="radiox" value="有" title="有">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_50">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">其它防护措施</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无" title="无">
-                    <input type="radio" name="radiox" value="有" title="有">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_51">
                 </div>
               </div>
             </fieldset>
@@ -379,36 +258,15 @@
             <fieldset class="layui-elem-field">
               <legend>口腔</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">口唇</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="红润" title="红润">
-                    <input type="radio" name="radiox" value="苍白" title="苍白">
-                    <input type="radio" name="radiox" value="发绀" title="发绀">
-                    <input type="radio" name="radiox" value="皲裂" title="皲裂">
-                    <input type="radio" name="radiox" value="疱疹" title="疱疹">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_52">
                 </div>
               </div>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">齿列</label>
-                  <div class="layui-input-block">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="正常">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="缺齿">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="龋齿">
-                    <input type="checkbox" name="symptom[]" lay-skin="primary" title="义齿（假牙）">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_53">
                 </div>
               </div>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">咽部</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无充血" title="无充血">
-                    <input type="radio" name="radiox" value="充血" title="充血">
-                    <input type="radio" name="radiox" value="淋巴滤泡增生" title="淋巴滤泡增生">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_54">
                 </div>
               </div>
             </fieldset>
@@ -420,25 +278,25 @@
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
                   <label class="layui-form-label">左眼</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input">
+                    <input type="text" name="hproject_55" autocomplete="off" class="layui-input">
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
                   <label class="layui-form-label">右眼</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input">
+                    <input type="text" name="hproject_56" autocomplete="off" class="layui-input">
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
                   <label class="layui-form-label">左眼（矫正）</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input">
+                    <input type="text" name="hproject_57" autocomplete="off" class="layui-input">
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
                   <label class="layui-form-label">右眼（矫正）</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input">
+                    <input type="text" name="hproject_58" autocomplete="off" class="layui-input">
                   </div>
                 </div>
               </div>
@@ -448,12 +306,7 @@
             <fieldset class="layui-elem-field">
               <legend><i class="layui-icon layui-icon-tips" lay-tips="在被检查者耳旁轻声耳语“你叫什么名字”（注意检查时检查者的脸应在被检查者视线之外），判断被检查者听力状况"></i> 听力</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">听力</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="听见" title="听见">
-                    <input type="radio" name="radiox" value="听不清或无法听见" title="听不清或无法听见">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_59">
                 </div>
               </div>
             </fieldset>
@@ -462,12 +315,7 @@
             <fieldset class="layui-elem-field">
               <legend><i class="layui-icon layui-icon-tips" lay-tips="请被检查者完成以下动作：“两手摸后脑勺”、“捡起这支笔”、“从椅子上站起，走几步，转身，坐下。”判断被检查者运动功能"></i> 运动功能</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">运动功能</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="可顺利完成" title="可顺利完成">
-                    <input type="radio" name="radiox" value="无法独立完成任务一个动作" title="无法独立完成任务一个动作">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_60">
                 </div>
               </div>
             </fieldset>
@@ -481,12 +329,7 @@
             <fieldset class="layui-elem-field">
               <legend><i class="layui-icon layui-icon-tips" lay-tips="如果有异常，具体描述异常结果"></i> 眼底*</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">眼底*</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="正常" title="正常">
-                    <input type="radio" name="radiox" value="异常" title="异常">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_61">
                 </div>
               </div>
             </fieldset>
@@ -495,17 +338,7 @@
             <fieldset class="layui-elem-field">
               <legend>皮肤</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">皮肤</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="正常" title="正常">
-                    <input type="radio" name="radiox" value="潮红" title="潮红">
-                    <input type="radio" name="radiox" value="苍白" title="苍白">
-                    <input type="radio" name="radiox" value="发绀" title="发绀">
-                    <input type="radio" name="radiox" value="黄染" title="黄染">
-                    <input type="radio" name="radiox" value="色素沉着" title="色素沉着">
-                    <input type="radio" name="radiox" value="其它" title="其它">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_62">
                 </div>
               </div>
             </fieldset>
@@ -514,14 +347,7 @@
             <fieldset class="layui-elem-field">
               <legend>巩膜</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">巩膜</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="正常" title="正常">
-                    <input type="radio" name="radiox" value="黄染" title="黄染">
-                    <input type="radio" name="radiox" value="充血" title="充血">
-                    <input type="radio" name="radiox" value="其它" title="其它">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_64">
                 </div>
               </div>
             </fieldset>
@@ -530,14 +356,7 @@
             <fieldset class="layui-elem-field">
               <legend>淋巴结</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">淋巴结</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="未触及" title="未触及">
-                    <input type="radio" name="radiox" value="锁骨上" title="锁骨上">
-                    <input type="radio" name="radiox" value="腋窝" title="腋窝">
-                    <input type="radio" name="radiox" value="其它" title="其它">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_67">
                 </div>
               </div>
             </fieldset>
@@ -546,28 +365,11 @@
             <fieldset class="layui-elem-field">
               <legend>肺</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">桶状胸</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="否" title="否">
-                    <input type="radio" name="radiox" value="是" title="是">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_68">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">呼吸间</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="正常" title="正常">
-                    <input type="radio" name="radiox" value="异常" title="异常">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_69">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">罗音</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无" title="无">
-                    <input type="radio" name="radiox" value="干罗音" title="干罗音">
-                    <input type="radio" name="radiox" value="湿罗音" title="湿罗音">
-                    <input type="radio" name="radiox" value="其它" title="其它">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_70">
                 </div>
               </div>
             </fieldset>
@@ -579,24 +381,13 @@
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">心率</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_71" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">次/分钟</div>
                   </div>
                 </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">心律</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="齐" title="齐">
-                    <input type="radio" name="radiox" value="不齐" title="不齐">
-                    <input type="radio" name="radiox" value="绝对不齐" title="绝对不齐">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_72">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">杂音</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无" title="无">
-                    <input type="radio" name="radiox" value="有" title="有">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_73">
                 </div>
               </div>
             </fieldset>
@@ -605,40 +396,15 @@
             <fieldset class="layui-elem-field">
               <legend>腹部</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">压痛</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无" title="无">
-                    <input type="radio" name="radiox" value="有" title="有">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_74">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">包块</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无" title="无">
-                    <input type="radio" name="radiox" value="有" title="有">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_75">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">肝大</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无" title="无">
-                    <input type="radio" name="radiox" value="有" title="有">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_76">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">脾大</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无" title="无">
-                    <input type="radio" name="radiox" value="有" title="有">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_77">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">移动性浊音</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无" title="无">
-                    <input type="radio" name="radiox" value="有" title="有">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_78">
                 </div>
               </div>
             </fieldset>
@@ -647,14 +413,7 @@
             <fieldset class="layui-elem-field">
               <legend>下肢水肿</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">下肢水肿</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="无" title="无">
-                    <input type="radio" name="radiox" value="单侧" title="单侧">
-                    <input type="radio" name="radiox" value="双侧不对称" title="双侧不对称">
-                    <input type="radio" name="radiox" value="双侧对称" title="双侧对称">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_79">
                 </div>
             </fieldset>
           </div>
@@ -662,14 +421,7 @@
             <fieldset class="layui-elem-field">
               <legend><i class="layui-icon layui-icon-tips" lay-tips="糖尿病患者必须进行此项检查"></i> 足背动脉搏动</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">足背动脉搏动</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="未触及" title="未触及">
-                    <input type="radio" name="radiox" value="触及双侧对称" title="触及双侧对称">
-                    <input type="radio" name="radiox" value="触及左侧弱或消失" title="触及左侧弱或消失">
-                    <input type="radio" name="radiox" value="触及右侧弱或消失" title="触及右侧弱或消失">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_80">
                 </div>
             </fieldset>
           </div>
@@ -677,15 +429,7 @@
             <fieldset class="layui-elem-field">
               <legend>肛门指诊*</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">肛门指诊*</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="未及异常" title="未及异常">
-                    <input type="radio" name="radiox" value="触痛" title="触痛">
-                    <input type="radio" name="radiox" value="包块" title="包块">
-                    <input type="radio" name="radiox" value="前列腺异常" title="前列腺异常">
-                    <input type="radio" name="radiox" value="其它" title="其它">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_81">
                 </div>
             </fieldset>
           </div>
@@ -693,15 +437,7 @@
             <fieldset class="layui-elem-field">
               <legend><i class="layui-icon layui-icon-tips" lay-tips="检查外观有无异常，有无异常泌乳及包块"></i> 乳腺*</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">乳腺*</label>
-                  <div class="layui-input-block">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="未见异常">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="乳房切除">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="异常泌乳">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="乳腺包块">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="其它">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_83">
                 </div>
             </fieldset>
           </div>
@@ -709,39 +445,20 @@
             <fieldset class="layui-elem-field">
               <legend>妇科*</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label"><i class="layui-icon layui-icon-tips" lay-tips="记录发育情况及婚产式（未婚、已婚未产或经产式），如有异常情况请具体描述"></i> 外阴</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="未见异常" title="未见异常">
-                    <input type="radio" name="radiox" value="异常" title="异常">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_85">
+                </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_86">
+                </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_87">
+                </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_88">
+                </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_89">
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label"><i class="layui-icon layui-icon-tips" lay-tips="记录是否通畅，黏膜情况，分泌物量、色、性状以及有无异味等"></i> 阴道</label>
+                  <label class="layui-form-label">妇科其它</label>
                   <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="未见异常" title="未见异常">
-                    <input type="radio" name="radiox" value="异常" title="异常">
-                  </div>
-                </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label"><i class="layui-icon layui-icon-tips" lay-tips="记录大小、质地、有无糜烂、撕裂、息肉、腺囊肿；有无接触性出血、举痛等"></i> 宫颈</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="未见异常" title="未见异常">
-                    <input type="radio" name="radiox" value="异常" title="异常">
-                  </div>
-                </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label"><i class="layui-icon layui-icon-tips" lay-tips="记录位置、大小、质地、活动度；有无压痛等"></i> 宫体</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="未见异常" title="未见异常">
-                    <input type="radio" name="radiox" value="异常" title="异常">
-                  </div>
-                </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label"><i class="layui-icon layui-icon-tips" lay-tips="记录有无块物、增厚或压痛；若扪及肿块，记录其位置、大小、质地；表面光滑与否、活动度、有无压痛以及与子宫及盆壁关系。左右两侧分别记录"></i> 附件</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="未见异常" title="未见异常">
-                    <input type="radio" name="radiox" value="异常" title="异常">
+                    <input type="text" name="hproject_90" autocomplete="off" class="layui-input">
                   </div>
                 </div>
             </fieldset>
@@ -751,9 +468,9 @@
               <legend>其它*</legend>
               <div class="layui-field-box layui-col-space10">
                 <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">其它*</label>
+                  <label class="layui-form-label">查体其他</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input">
+                    <input type="text" name="hproject_124" autocomplete="off" class="layui-input">
                   </div>
                 </div>
             </fieldset>
@@ -770,92 +487,28 @@
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">血红蛋白</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_91" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">g/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">白细胞</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_92" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">X 10/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">血小板</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_93" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">X 10/L</div>
                   </div>
                 </div>
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">其它</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input">
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-          </div>
-          <div class="layui-form-item">
-            <fieldset class="layui-elem-field">
-              <legend>尿常规*</legend>
-              <div class="layui-field-box layui-col-space10">
-                <div>
-                  <button type="button" class="layui-btn layui-btn-sm">从设备获取</button>
-                </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">尿蛋白</label>
+                  <label class="layui-form-label">血常规其他</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input">
-                  </div>
-                </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">尿糖</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input">
-                  </div>
-                </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">尿酮体</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input">
-                  </div>
-                </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">尿潜血</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input">
-                  </div>
-                </div>
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">其它</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input">
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-          </div>
-          <div class="layui-form-item">
-            <fieldset class="layui-elem-field">
-              <legend>空腹血糖*</legend>
-              <div class="layui-field-box layui-col-space10">
-                <div>
-                  <button type="button" class="layui-btn layui-btn-sm">从设备获取</button>
-                </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-                  <label class="layui-form-label">空腹血糖*</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
-                    <div class="layui-form-mid">mmol/L</div>
-                  </div>
-                </div>
-                <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-                  <label class="layui-form-label">或</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
-                    <div class="layui-form-mid">mg/dL</div>
+                    <input type="text" name="hproject_125" autocomplete="off" class="layui-input">
                   </div>
                 </div>
               </div>
@@ -865,12 +518,7 @@
             <fieldset class="layui-elem-field">
               <legend>心电图*</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">心电图*</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="正常" title="正常">
-                    <input type="radio" name="radiox" value="异常" title="异常">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_94">
                 </div>
               </div>
             </fieldset>
@@ -882,7 +530,7 @@
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">尿微量蛋白*</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_96" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">mg/dL</div>
                   </div>
                 </div>
@@ -893,12 +541,7 @@
             <fieldset class="layui-elem-field">
               <legend>大便潜血*</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">大便潜血*</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="阴性" title="阴性">
-                    <input type="radio" name="radiox" value="阳性" title="阳性">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_97">
                 </div>
               </div>
             </fieldset>
@@ -910,7 +553,7 @@
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">糖化血红蛋白*</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_98" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">%</div>
                   </div>
                 </div>
@@ -921,12 +564,7 @@
             <fieldset class="layui-elem-field">
               <legend>乙型肝炎表面抗原*</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">乙型肝炎表面抗原*</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="阴性" title="阴性">
-                    <input type="radio" name="radiox" value="阳性" title="阳性">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_99">
                 </div>
               </div>
             </fieldset>
@@ -938,35 +576,35 @@
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">血清谷丙转氨酶</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_100" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">U/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">血清谷草转氨酶</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_101" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">U/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">白蛋白</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_102" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">g/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">总胆红素</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_103" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">μmol/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">结合胆红素</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_104" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">μmol/L</div>
                   </div>
                 </div>
@@ -980,28 +618,28 @@
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">血清肌酐</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_105" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">μmol/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">血尿素</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_106" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">mmol/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">血钾浓度</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_107" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">mmol/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
                   <label class="layui-form-label">血钠浓度</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
+                    <input type="text" name="hproject_108" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">mmol/L</div>
                   </div>
                 </div>
@@ -1012,12 +650,7 @@
             <fieldset class="layui-elem-field">
               <legend>胸部X线片*</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">胸部X线片*</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="正常" title="正常">
-                    <input type="radio" name="radiox" value="异常" title="异常">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_109">
                 </div>
               </div>
             </fieldset>
@@ -1026,19 +659,9 @@
             <fieldset class="layui-elem-field">
               <legend>B超*</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">腹部B超</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="正常" title="正常">
-                    <input type="radio" name="radiox" value="异常" title="异常">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_111">
                 </div>
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">其它</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="正常" title="正常">
-                    <input type="radio" name="radiox" value="异常" title="异常">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_133">
                 </div>
               </div>
             </fieldset>
@@ -1047,12 +670,7 @@
             <fieldset class="layui-elem-field">
               <legend>宫颈涂片*</legend>
               <div class="layui-field-box layui-col-space10">
-                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">宫颈涂片*</label>
-                  <div class="layui-input-block">
-                    <input type="radio" name="radiox" value="正常" title="正常">
-                    <input type="radio" name="radiox" value="异常" title="异常">
-                  </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_113">
                 </div>
               </div>
             </fieldset>
@@ -1062,9 +680,9 @@
               <legend>其它*</legend>
               <div class="layui-field-box layui-col-space10">
                 <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">其它*</label>
+                  <label class="layui-form-label">其他辅助检查</label>
                   <div class="layui-input-block">
-                    <input type="text" name="username" autocomplete="off" class="layui-input">
+                    <input type="text" name="hproject_126" autocomplete="off" class="layui-input">
                   </div>
                 </div>
             </fieldset>
@@ -1075,74 +693,29 @@
         <div class="layui-card-header"><i class="layui-icon layui-icon-tips" style="position: static;" lay-tips="指曾经出现或一直存在，并影响目前身体健康状况的疾病。可以多选。若有高血压、糖尿病等现患疾病或者新增的疾病需同时填写在个人基本信息表既往史一栏"></i> 现存主要健康问题</div>
         <div class="layui-card-body layui-row">
           <div class="layui-form-item layui-col-space10">
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label">脑血管疾病</label>
-              <div class="layui-input-block">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="未发现">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="缺血性卒中">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="脑出血">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="蛛网膜下腔出血">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="短暂性脑缺血发作">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="其它">
-              </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_114">
             </div>
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label">肾脏疾病</label>
-              <div class="layui-input-block">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="未发现">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="糖尿病肾病">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="肾功能衰竭">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="急性肾炎">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="慢性肾炎">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="其它">
-              </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_115">
             </div>
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label">心脏疾病</label>
-              <div class="layui-input-block">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="未发现">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="心肌梗死">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="心绞痛">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="冠状动脉血运重建">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="充血性心力衰竭">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="心前区疼痛">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="其它">
-              </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_116">
             </div>
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label">血管疾病</label>
-              <div class="layui-input-block">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="未发现">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="夹层动脉瘤">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="动脉闭塞性疾病">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="其它">
-              </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_117">
             </div>
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label">眼部疾病</label>
-              <div class="layui-input-block">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="未发现">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="视网膜出血或渗出">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="视乳头水肿">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="白内障">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="其它">
-              </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_118">
             </div>
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label">神经系统疾病</label>
-              <div class="layui-input-block">
-                <input type="radio" name="radiox" value="未发现" title="未发现">
-                <input type="radio" name="radiox" value="有" title="有">
-              </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_119">
             </div>
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label">其他系统疾病</label>
-              <div class="layui-input-block">
-                <input type="radio" name="radiox" value="未发现" title="未发现">
-                <input type="radio" name="radiox" value="有" title="有">
-              </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_120">
             </div>
           </div>
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header">设备数据</div>
+        <div class="layui-card-body layui-row">
+            <div class="layui-field-box layui-col-space10">
+              <table id="xy-equipment" lay-filter="xy-equipment"></table>
+            </div>
         </div>
       </div>
       <div class="layui-card">
@@ -1151,32 +724,27 @@
           <fieldset class="layui-elem-field">
             <legend>住院史</legend>
             <div class="layui-field-box layui-col-space10">
-              <table id="xy-health-history-person" lay-filter="xy-health-history-person"></table>
+              <table id="xy-history-hospital" lay-filter="xy-history-hospital"></table>
             </div>
           </fieldset>
           <fieldset class="layui-elem-field">
             <legend>家庭病床史</legend>
             <div class="layui-field-box layui-col-space10">
-              <table id="xy-health-history-family" lay-filter="xy-health-history-family"></table>
+              <table id="xy-history-familyHospital" lay-filter="xy-history-familyHospital"></table>
             </div>
           </fieldset>
         </div>
       </div>
-
-      <script type="text/html" id="table-history-ope">
-        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
-      </script>
       <div class="layui-card">
-        <div class="layui-card-header"><i class="layui-icon layui-icon-tips" style="position: static;" lay-tips="对长期服药的慢性病患者了解其最近 1 年内的主要用药情况，西药填写化学名及商品名，中药填写药品名称或中药汤剂，用法、用量按医生医嘱填写，用法指给药途径，如：口服、皮下注射等。用量指用药频次和剂量，如：每日三次，每次 5mg 等。用药时间指在此时间段内一共服用此药的时间，单位为年、月或天。服药依从性是指对此药的依从情况，“规律”为按医嘱服药，“间断”为未按医嘱服药，频次或数量不足，“不服药”即为医生开了处方，但患者未使用此药"></i> 主要用药情况</div>
+        <div class="layui-card-header"><i class="layui-icon layui-icon-tips" style="position: static;" lay-tips="对长期服药的慢性病患者了解其最近 1 年内的主要用药情况，西药填写化学名及商品名，中药填写药品名称或中药汤剂，用法、用量按医生医嘱填写，用法指给药途径，如：口服、皮下注射等。用量指用药频次和剂量，如：每日三次，每次 5mg 等。用药时间指在此时间段内一共服用此药的时间，单位为年、月或天。服药依从性是指对此药的依从情况，“规律”为按医嘱服药，“间断”为未按医嘱服药，频次或数量不足，“不服药”即为医生开了处方，但患者未使用此药"></i> 用药情况</div>
         <div class="layui-card-body layui-row">
-          <table id="xy-health-history-medical" lay-filter="xy-health-history-medical"></table>
+          <table id="xy-history-medicine" lay-filter="xy-history-medicine"></table>
         </div>
       </div>
       <div class="layui-card">
-        <div class="layui-card-header"><i class="layui-icon layui-icon-tips" style="position: static;" lay-tips="填写最近 1 年内接种的疫苗的名称、接种日期和接种机构"></i> 非免疫规划预防接种史</div>
+        <div class="layui-card-header"><i class="layui-icon layui-icon-tips" style="position: static;" lay-tips="填写最近 1 年内接种的疫苗的名称、接种日期和接种机构"></i> 预防接种史</div>
         <div class="layui-card-body layui-row">
-          <table id="xy-health-history-inoculation" lay-filter="xy-health-history-inoculation"></table>
+          <table id="xy-history-inoculate" lay-filter="xy-history-inoculate"></table>
         </div>
       </div>
 
@@ -1184,15 +752,7 @@
         <div class="layui-card-header"><i class="layui-icon layui-icon-tips" style="position: static;" lay-tips="无异常是指无新发疾病原有疾病控制良好无加重或进展，否则为有异常，填写具体异常情况，包括高血压、糖尿病、生活能力，情感筛查等身体和心理的异常情况"></i> 健康评价</div>
         <div class="layui-card-body layui-row">
           <div class="layui-form-item layui-col-space10">
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label">健康评价</label>
-              <div class="layui-input-block">
-                <input type="radio" name="radiox" value="体检无异常" title="体检无异常" lay-filter="xy-from-extra-input">
-                <input type="radio" name="radiox" value="有异常" title="有异常" data-show="1" lay-filter="xy-from-extra-input">
-                <div class="xy-form-extra-control layui-hide">
-                  <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
-                </div>
-              </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_121">
             </div>
           </div>
         </div>
@@ -1201,35 +761,9 @@
         <div class="layui-card-header"><i class="layui-icon layui-icon-tips" style="position: static;" lay-tips="纳入慢性病患者健康管理是指高血压、糖尿病、严重精神障碍患者等重点人群定期随访和健康体检。减体重的目标是指根据居民或患者的具体情况，制定下次体检之前需要减重的目标值"></i> 健康指导</div>
         <div class="layui-card-body layui-row">
           <div class="layui-form-item layui-col-space10">
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label">健康指导</label>
-              <div class="layui-input-block">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="纳入慢性病患者健康管理">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="建议复查">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="建议转诊">
-              </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_122">
             </div>
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-              <label class="layui-form-label">危险因素控制</label>
-              <div class="layui-input-block">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="戒烟">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="健康饮酒">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="饮食">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="煅烧">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="减体重" lay-filter="xy-from-extra-input">
-                <div class="xy-form-extra-control layui-hide">
-                  （
-                  <div class="layui-form-mid">目标</div>
-                  <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit" style="width: 100px;">
-                  <div class="layui-form-mid">kg</div>
-                  ）
-                </div>
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="建议接种疫苗">
-                <input type="checkbox" name="symptom[]" lay-skin="primary" title="其它" lay-filter="xy-from-extra-input">
-                <div class="xy-form-extra-control layui-hide">
-                  <input type="text" name="username" autocomplete="off" class="layui-input xy-form-unit">
-                </div>
-              </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_123">
             </div>
           </div>
         </div>
@@ -1238,12 +772,15 @@
       <div class="layui-form-item layui-layout-admin">
         <div class="layui-input-block">
           <div class="layui-footer" style="left: 0;">
-            <button class="layui-btn" lay-submit>保存</button>
+            <button class="layui-btn" lay-submit lay-filter="xy-health-submit">保存</button>
             <button type="button" layadmin-event="closeself" class="layui-btn layui-btn-primary">关闭</button>
           </div>
         </div>
       </div>
     </form>
+  </script>
+
+  <div class="layui-fluid">
   </div>
   <div id="testhis-container" style="display:none;"><table id="testhis-table" lay-filter="testhis-table"></table></div>
 

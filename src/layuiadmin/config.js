@@ -128,6 +128,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       GetHospitalUnit: 'http://holtest.fres.cn/Hospital/GetHospitalUnit.ashx',
       ModificationHospitalUnit: 'http://holtest.fres.cn/Hospital/ModificationHospitalUnit.ashx',
       DeleteHospitalUnit: 'http://holtest.fres.cn/Hospital/DeleteHospitalUnit.ashx',
+      GetDataFormClientID: 'http://holtest.fres.cn/Equipment/GetDataFormClientID.ashx',
       GetEquipmentType: 'http://holtest.fres.cn/Equipment/GetEquipmentType.ashx',
       GetEquipmentList: 'http://holtest.fres.cn/Equipment/GetEquipmentList.ashx',
       GetEquipmentInfo: 'http://holtest.fres.cn/Equipment/GetEquipmentInfo.ashx',
@@ -144,6 +145,11 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       ModifyClientHistory: 'http://holtest.fres.cn/Client/History/ModifyClientHistory.ashx',
       DeleteClientHistory: 'http://holtest.fres.cn/Client/History/DeleteClientHistory.ashx',
       GetClientHistory: 'http://holtest.fres.cn/Client/History/GetClientHistory.ashx',
+      GetPhysicalExaminationList: 'http://holtest.fres.cn/PhysicalExamination/GetPhysicalExaminationList.ashx',
+      GetPhysicalExaminationInfo: 'http://holtest.fres.cn/PhysicalExamination/GetPhysicalExaminationInfo.ashx',
+      NewPhysicalExamination: 'http://holtest.fres.cn/PhysicalExamination/NewPhysicalExamination.ashx',
+      DeletePhysicalExamination: 'http://holtest.fres.cn/PhysicalExamination/DeletePhysicalExamination.ashx',
+      SavePhysicalExaminationData: 'http://holtest.fres.cn/PhysicalExamination/SavePhysicalExaminationData.ashx',
     }
     ,dateFormat: {
       day: 'yyyy/MM/dd'

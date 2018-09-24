@@ -93,11 +93,17 @@ td[lay-event=detail] {
 	display: inline;
 	margin: 0 5px;
 }
-.xy-form-extra .layui-form-radio,.xy-form-extra .layui-form-checkbox {
-	margin-top: 0 !important;
-}
 .xy-form-extra-control {
 	display: inline-block;
+	margin-top: 6px;
+    vertical-align: middle;
+}
+.xy-form-extra-control input {
+	height: 28px;
+}
+.xy-form-extra-control .layui-form-mid {
+	padding: 0!important;
+    line-height: 28px;
 }
 .layui-col-space10>hr {
 	padding: 0;

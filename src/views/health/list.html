@@ -14,31 +14,57 @@
 
   <div class="layui-fluid">
     <div class="layui-card">
-      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-filter="xy-health-search-form">
         <div class="layui-form-item">
           <div class="layui-inline">
-            <input type="text" name="searchq" placeholder="请输入搜索词" autocomplete="off" class="layui-input xy-search">
+            <label class="layui-form-label">搜索词</label>
+            <div class="layui-input-block">
+              <input type="text" name="KEY_WORD" autocomplete="off" class="layui-input">
+            </div>
           </div>
           <div class="layui-inline">
-            <button class="layui-btn layuiadmin-btn-health" lay-submit lay-filter="xy-health-search">
+            <label class="layui-form-label">创建医生</label>
+            <div class="layui-input-block">
+              <div class="layui-inline xy-form-group">
+                <input type="hidden" id="CREATE_USER_ID" name="CREATE_USER_ID">
+                <input type="text" id="REAL_NAME" name="REAL_NAME" disabled class="layui-input">
+                <div class="layui-btn-group">
+                  <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyseldoctor" data-id="CREATE_USER_ID" data-name="REAL_NAME">选择</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">创建机构</label>
+            <div class="layui-input-block">
+              <div class="layui-inline xy-form-group">
+                <input type="hidden" id="CREATE_UNIT_ID" name="CREATE_UNIT_ID">
+                <input type="text" id="UNIT_NAME" name="UNIT_NAME" disabled class="layui-input">
+                <div class="layui-btn-group">
+                  <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyins" data-id="CREATE_UNIT_ID" data-name="UNIT_NAME">选择</button>
+                  <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyinscancel" data-id="CREATE_UNIT_ID" data-name="UNIT_NAME">本机构</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">子机构</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="ALL_UNIT" title="显示子机构" value="1" checked>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="xy-health-search">
               <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
             </button>
           </div>
-          <div class="layui-inline">
-            <div class="layui-form-mid layui-word-aux">可按照姓名，姓名拼音首字母，身份证号进行查询</div>
-          </div>
         </div>
       </div>
-      
       <div class="layui-card-body">
-        <div style="padding-bottom: 10px;">
-          <button type="button" class="layui-btn layuiadmin-btn-health" data-type="add">添加</button>
-          <button type="button" class="layui-btn layui-btn-danger layuiadmin-btn-health" data-type="del">删除</button>
-        </div>
-        
         <table id="xy-health-manage" lay-filter="xy-health-manage"></table>
         <script type="text/html" id="table-health">
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="health/edit.html" lay-text="编辑-{{d.username}}">编辑</a>
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="health/edit.html#/id={{d.ID}}/clientId={{d.CLIENT_ID}}" lay-text="公共卫生-{{d.CLIENT_REAL_NAME}}">编辑</a>
+          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
       </div>
     </div>
@@ -47,45 +73,11 @@
   <script src="../../layuiadmin/layui/layui.js"></script>  
   <script>
   layui.config({
-    base: '../../layuiadmin/'
+    base: '../../layuiadmin/' //静态资源所在路径
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'health', 'table'], function(){
-    var $ = layui.$
-    ,form = layui.form
-    ,table = layui.table;
-
-    //监听搜索
-    form.on('submit(xy-health-search)', function(data){
-      var field = data.field;
-      
-      //执行重载
-      common.xyReload('xy-health-manage', {
-        // url:'',
-        where: field
-      });
-    });
-  
-    //事件
-    var active = {
-      add: function(){
-        parent.layui.index.openTabsPage('health/edit.html', '添加');
-      },
-      del: function(){
-        var checkStatus = table.checkStatus('xy-health-manage');
-        layer.confirm('确定要删除所有选中项吗', function(index){
-          $.each(checkStatus.data, function(index, item) {
-            console.log(item);
-          });
-          layer.close(index);
-        });
-      }
-    };
-    
-    $('.layui-btn.layuiadmin-btn-health').on('click', function(){
-      var type = $(this).data('type');
-      active[type] ? active[type].call(this) : '';
-    });
+  }).use(['index', 'health'], function() {
+    layui.health.init.list();
   });
   </script>
 </body>

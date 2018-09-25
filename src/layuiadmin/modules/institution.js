@@ -78,7 +78,7 @@ layui.define(['table', 'form', 'common', 'admin'], function(exports){
           ,data: data.field
           ,success: function(data){
             layer.msg('操作成功', function() {
-              common.saveSuccess('institution/list.html');
+              // common.saveSuccess('institution/list.html');
             });
           }
         });

@@ -78,11 +78,8 @@ td[lay-event=detail] {
 .xy-search {
 	min-width: 300px;
 }
-.layui-tree .layui-tree-branch, .layui-tree .layui-tree-leaf{
+.layui-tree .layui-tree-branch{
 	display: none;
-}
-.layui-tree .layui-tree-leaf {
-	margin-left: 5px;
 }
 .xy-form-unit {
 	width: 70%;

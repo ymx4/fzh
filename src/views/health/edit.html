@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>客户信息</title>
+  <title>编辑档案</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -43,7 +43,7 @@
   <script id="formContainer" type="text/html">
     <form class="layui-form xy-form" id="healthForm" action="" lay-filter="xy-health-form">
       <div class="layui-card">
-        <div class="layui-card-header">症状</div>
+        <div class="layui-card-header">{{d.formData['hproject_17'].Physical_Detail.CHINESE_NAME}}</div>
         <div class="layui-card-body layui-row">
           <div class="layui-form-item layui-col-space10">
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_17">
@@ -56,63 +56,63 @@
         <div class="layui-card-body layui-row">
           <div class="layui-form-item layui-col-space10">
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">体温</label>
+              <label class="layui-form-label">{{d.formData['hproject_18'].Physical_Detail.CHINESE_NAME}}</label>
               <div class="layui-input-block">
                 <input type="text" name="hproject_18" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">°C</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">脉率</label>
+              <label class="layui-form-label">{{d.formData['hproject_19'].Physical_Detail.CHINESE_NAME}}</label>
               <div class="layui-input-block">
                 <input type="text" name="hproject_19" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">次/分钟</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">呼吸频率</label>
+              <label class="layui-form-label">{{d.formData['hproject_20'].Physical_Detail.CHINESE_NAME}}</label>
               <div class="layui-input-block">
                 <input type="text" name="hproject_20" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">次/分钟</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">血压（左）</label>
+              <label class="layui-form-label">{{d.formData['hproject_21'].Physical_Detail.CHINESE_NAME}}</label>
               <div class="layui-input-block">
                 <input type="text" name="hproject_21" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">mmHg</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">血压（右）</label>
+              <label class="layui-form-label">{{d.formData['hproject_22'].Physical_Detail.CHINESE_NAME}}</label>
               <div class="layui-input-block">
                 <input type="text" name="hproject_22" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">mmHg</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">身高</label>
+              <label class="layui-form-label">{{d.formData['hproject_23'].Physical_Detail.CHINESE_NAME}}</label>
               <div class="layui-input-block">
                 <input type="text" id="health-height" name="hproject_23" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">cm</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">体重</label>
+              <label class="layui-form-label">{{d.formData['hproject_24'].Physical_Detail.CHINESE_NAME}}</label>
               <div class="layui-input-block">
                 <input type="text" id="health-weight" name="hproject_24" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">kg</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">腰围</label>
+              <label class="layui-form-label">{{d.formData['hproject_26'].Physical_Detail.CHINESE_NAME}}</label>
               <div class="layui-input-block">
                 <input type="text" name="hproject_26" autocomplete="off" class="layui-input xy-form-unit">
                 <div class="layui-form-mid">cm</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">体质指数</label>
+              <label class="layui-form-label">{{d.formData['hproject_25'].Physical_Detail.CHINESE_NAME}}</label>
               <div class="layui-input-block">
                 <input type="hidden" name="hproject_25" id="hproject_25">
                 <div class="layui-form-mid layui-word-aux" id="bmiDiv"></div>
@@ -140,21 +140,21 @@
                 <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_31">
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">每次锻炼时间</label>
+                  <label class="layui-form-label">{{d.formData['hproject_32'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_32" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">分钟</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">坚持锻炼时间</label>
+                  <label class="layui-form-label">{{d.formData['hproject_33'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_33" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">年</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">锻炼方式</label>
+                  <label class="layui-form-label">{{d.formData['hproject_34'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_34" autocomplete="off" class="layui-input">
                   </div>
@@ -178,21 +178,21 @@
                 <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_36">
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">日吸烟量</label>
+                  <label class="layui-form-label">{{d.formData['hproject_37'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_37" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">支</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">开始吸烟年龄</label>
+                  <label class="layui-form-label">{{d.formData['hproject_38'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_38" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">岁</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">戒烟年龄</label>
+                  <label class="layui-form-label">{{d.formData['hproject_39'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_39" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">岁</div>
@@ -210,14 +210,14 @@
                 <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_41">
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">日饮酒量</label>
+                  <label class="layui-form-label">{{d.formData['hproject_42'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_42" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">两</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">开始饮酒年龄</label>
+                  <label class="layui-form-label">{{d.formData['hproject_43'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_43" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">岁</div>
@@ -276,25 +276,25 @@
               <legend><i class="layui-icon layui-icon-tips" lay-tips="填写采用对数视力表测量后的具体数值（五分记录），对佩戴眼镜者，可戴其平时所用眼镜测量矫正视力"></i> 视力</legend>
               <div class="layui-field-box layui-col-space10">
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-                  <label class="layui-form-label">左眼</label>
+                  <label class="layui-form-label">{{d.formData['hproject_55'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_55" autocomplete="off" class="layui-input">
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-                  <label class="layui-form-label">右眼</label>
+                  <label class="layui-form-label">{{d.formData['hproject_56'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_56" autocomplete="off" class="layui-input">
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-                  <label class="layui-form-label">左眼（矫正）</label>
+                  <label class="layui-form-label">{{d.formData['hproject_57'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_57" autocomplete="off" class="layui-input">
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-                  <label class="layui-form-label">右眼（矫正）</label>
+                  <label class="layui-form-label">{{d.formData['hproject_58'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_58" autocomplete="off" class="layui-input">
                   </div>
@@ -379,7 +379,7 @@
               <legend>心脏</legend>
               <div class="layui-field-box layui-col-space10">
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">心率</label>
+                  <label class="layui-form-label">{{d.formData['hproject_71'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_71" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">次/分钟</div>
@@ -456,7 +456,7 @@
                 <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_89">
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">妇科其它</label>
+                  <label class="layui-form-label">{{d.formData['hproject_90'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_90" autocomplete="off" class="layui-input">
                   </div>
@@ -468,7 +468,7 @@
               <legend>其它*</legend>
               <div class="layui-field-box layui-col-space10">
                 <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">查体其他</label>
+                  <label class="layui-form-label">{{d.formData['hproject_124'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_124" autocomplete="off" class="layui-input">
                   </div>
@@ -485,28 +485,28 @@
               <legend>血常规*</legend>
               <div class="layui-field-box layui-col-space10">
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">血红蛋白</label>
+                  <label class="layui-form-label">{{d.formData['hproject_91'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_91" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">g/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">白细胞</label>
+                  <label class="layui-form-label">{{d.formData['hproject_92'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_92" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">X 10/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">血小板</label>
+                  <label class="layui-form-label">{{d.formData['hproject_93'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_93" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">X 10/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">血常规其他</label>
+                  <label class="layui-form-label">{{d.formData['hproject_125'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_125" autocomplete="off" class="layui-input">
                   </div>
@@ -528,7 +528,7 @@
               <legend>尿微量蛋白*</legend>
               <div class="layui-field-box layui-col-space10">
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">尿微量蛋白*</label>
+                  <label class="layui-form-label">{{d.formData['hproject_96'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_96" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">mg/dL</div>
@@ -539,7 +539,7 @@
           </div>
           <div class="layui-form-item">
             <fieldset class="layui-elem-field">
-              <legend>大便潜血*</legend>
+              <legend>{{d.formData['hproject_97'].Physical_Detail.CHINESE_NAME}}</legend>
               <div class="layui-field-box layui-col-space10">
                 <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_97">
                 </div>
@@ -548,10 +548,10 @@
           </div>
           <div class="layui-form-item">
             <fieldset class="layui-elem-field">
-              <legend>糖化血红蛋白*</legend>
+              <legend>{{d.formData['hproject_98'].Physical_Detail.CHINESE_NAME}}</legend>
               <div class="layui-field-box layui-col-space10">
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">糖化血红蛋白*</label>
+                  <label class="layui-form-label">{{d.formData['hproject_98'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_98" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">%</div>
@@ -562,7 +562,7 @@
           </div>
           <div class="layui-form-item">
             <fieldset class="layui-elem-field">
-              <legend>乙型肝炎表面抗原*</legend>
+              <legend>{{d.formData['hproject_99'].Physical_Detail.CHINESE_NAME}}</legend>
               <div class="layui-field-box layui-col-space10">
                 <div class="layui-col-xs12 layui-col-sm12 layui-col-md12" id="hproject_99">
                 </div>
@@ -574,35 +574,35 @@
               <legend>肝功能*</legend>
               <div class="layui-field-box layui-col-space10">
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">血清谷丙转氨酶</label>
+                  <label class="layui-form-label">{{d.formData['hproject_100'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_100" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">U/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">血清谷草转氨酶</label>
+                  <label class="layui-form-label">{{d.formData['hproject_101'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_101" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">U/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">白蛋白</label>
+                  <label class="layui-form-label">{{d.formData['hproject_102'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_102" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">g/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">总胆红素</label>
+                  <label class="layui-form-label">{{d.formData['hproject_103'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_103" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">μmol/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">结合胆红素</label>
+                  <label class="layui-form-label">{{d.formData['hproject_104'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_104" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">μmol/L</div>
@@ -616,28 +616,28 @@
               <legend>肾功能*</legend>
               <div class="layui-field-box layui-col-space10">
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">血清肌酐</label>
+                  <label class="layui-form-label">{{d.formData['hproject_105'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_105" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">μmol/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">血尿素</label>
+                  <label class="layui-form-label">{{d.formData['hproject_106'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_106" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">mmol/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">血钾浓度</label>
+                  <label class="layui-form-label">{{d.formData['hproject_107'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_107" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">mmol/L</div>
                   </div>
                 </div>
                 <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-                  <label class="layui-form-label">血钠浓度</label>
+                  <label class="layui-form-label">{{d.formData['hproject_108'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_108" autocomplete="off" class="layui-input xy-form-unit">
                     <div class="layui-form-mid">mmol/L</div>
@@ -680,7 +680,7 @@
               <legend>其它*</legend>
               <div class="layui-field-box layui-col-space10">
                 <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                  <label class="layui-form-label">其他辅助检查</label>
+                  <label class="layui-form-label">{{d.formData['hproject_126'].Physical_Detail.CHINESE_NAME}}</label>
                   <div class="layui-input-block">
                     <input type="text" name="hproject_126" autocomplete="off" class="layui-input">
                   </div>

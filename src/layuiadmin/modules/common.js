@@ -8,6 +8,13 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
 
   ,common = {
     user: {}
+    ,empty: function(value) {
+      if (value && value != '') {
+        return false;
+      } else {
+        return true;
+      }
+    }
     ,closeParent: function() {
       var index = parent.layer.getFrameIndex(window.name);
       parent.layer.close(index);
@@ -493,7 +500,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
       var node = {name: data.HOSPITAL_UNIT_INFO.UNIT_NAME, id: data.HOSPITAL_UNIT_INFO.ID, spread: true};
       if (data.CHILDREN_HOSPITAL_UNIT_INFO && data.CHILDREN_HOSPITAL_UNIT_INFO.length > 0) {
         node.children = [];
-        for (i = 0; i < data.CHILDREN_HOSPITAL_UNIT_INFO.length; i++) {
+        for (var i = 0; i < data.CHILDREN_HOSPITAL_UNIT_INFO.length; i++) {
           node.children.push(formatTree(data.CHILDREN_HOSPITAL_UNIT_INFO[i]));
         }
       }
@@ -527,15 +534,13 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
         }
         ,success: function(data){
           layer.closeAll('loading');
-          var nodes = formatTree(data.data);
+          var nodes = formatTree(data.data);console.log(nodes)
           nodes = [nodes];
           layui.tree({
             elem: '#xy-inslist'
             ,nodes: nodes
             ,click: function(node){
-              if ($('#ins-confirm').attr('data-id')) {
-                $('#ins-confirm').attr('data-id', node.id);
-              }
+              $('#ins-confirm').attr('data-id', node.id);
               $('#ins-confirm').attr('data-name', node.name);
             }
           });

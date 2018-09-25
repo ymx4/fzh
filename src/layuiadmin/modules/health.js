@@ -17,49 +17,74 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
         } else {
           item.Physical_Detail.longTitle = false;
         }
-        if (item.Physical_Detail.DATA_VALUE) {
-          if (item.Physical_Detail.DATA_VALUE.indexOf('|') != -1) {
-            var arrValue = item.Physical_Detail.DATA_VALUE.split('|');
-            item.Physical_Detail.DATA_VALUE = arrValue[0].split(',');
-            item.Physical_Detail.INPUT_OTHER_VALUE = arrValue[1];
-          } else {
-            item.Physical_Detail.DATA_VALUE = item.Physical_Detail.DATA_VALUE.split(',');
-            item.Physical_Detail.INPUT_OTHER_VALUE = '';
+        var otherChecked = true;
+        $.each(item.Project_ENUM_DATA_List, function(subIndex, subItem) {
+          if (subItem.DATA_VALUE == 'OTHER_VALUE') {
+            item.Physical_Detail.hasOther = true;
           }
+          if (subItem.DATA_VALUE == item.Physical_Detail.DATA_VALUE) {
+            otherChecked = false;
+          }
+        });
+        if (item.Physical_Detail.hasOther && otherChecked && !common.empty(item.Physical_Detail.DATA_VALUE)) {
+          item.Physical_Detail.INPUT_OTHER_VALUE = item.Physical_Detail.DATA_VALUE;
+        } else {
+          item.Physical_Detail.INPUT_OTHER_VALUE = '';
         }
         var html = laytpl('<label class="layui-form-label"{{#  if(d.Physical_Detail.longTitle){ }} style="width:220px;"{{#  } }}>\
-          {{#  if(d.Physical_Detail.REMARK){ }}\
+          {{#  if(d.Physical_Detail.REMARK && d.Physical_Detail.REMARK != ""){ }}\
             <i class="layui-icon layui-icon-tips" lay-tips="{{d.Physical_Detail.REMARK}}"></i> \
           {{#  } }}{{d.Physical_Detail.CHINESE_NAME}}</label>\
           <div class="layui-input-block">\
-            <input type="radio" name="hproject_{{d.Physical_Detail.PROJECT_ID}}" value="未检" title="未检">\
+            <input type="radio" name="hproject_{{d.Physical_Detail.PROJECT_ID}}"{{#  if(d.Physical_Detail.STATUS == 0){ }} checked{{#  } }} value="未检" title="未检" lay-filter="xy-form-extra-input">\
             {{#  layui.each(d.Project_ENUM_DATA_List, function(index, tplitem){ }}\
               {{#  if(tplitem.DATA_VALUE == "OTHER_VALUE"){ }}\
-                <input type="radio" name="hproject_{{d.Physical_Detail.PROJECT_ID}}" value="{{tplitem.DATA_VALUE}}" title="{{tplitem.ENUM_VALUE}}" data-show="1" lay-filter="xy-form-extra-input">\
-                <div class="xy-form-extra-control extra-control-other layui-hide">\
-                  <input type="text" name="other_hproject_{{d.Physical_Detail.PROJECT_ID}}" autocomplete="off" class="layui-input xy-form-unit">\
+                <input type="radio" name="hproject_{{d.Physical_Detail.PROJECT_ID}}"{{#  if(d.Physical_Detail.INPUT_OTHER_VALUE != ""){ }} checked{{#  } }} value="{{tplitem.DATA_VALUE}}" title="{{tplitem.ENUM_VALUE}}" data-show="1" lay-filter="xy-form-extra-input">\
+                <div class="xy-form-extra-control extra-control-other{{#  if(d.Physical_Detail.INPUT_OTHER_VALUE == ""){ }} layui-hide{{#  } }}">\
+                  <input type="text" name="other_hproject_{{d.Physical_Detail.PROJECT_ID}}" value="{{d.Physical_Detail.INPUT_OTHER_VALUE}}" autocomplete="off" class="layui-input xy-form-unit">\
                 </div>\
               {{#  } else if(d.Physical_Detail.hasOther) { }}\
-                <input type="radio" name="hproject_{{d.Physical_Detail.PROJECT_ID}}" value="{{tplitem.DATA_VALUE}}" title="{{tplitem.ENUM_VALUE}}" lay-filter="xy-form-extra-input">\
+                <input type="radio" name="hproject_{{d.Physical_Detail.PROJECT_ID}}"{{#  if (d.Physical_Detail.DATA_VALUE == tplitem.DATA_VALUE) { }} checked{{#  } }} value="{{tplitem.DATA_VALUE}}" title="{{tplitem.ENUM_VALUE}}" lay-filter="xy-form-extra-input">\
               {{#  } else { }}\
-                <input type="radio" name="hproject_{{d.Physical_Detail.PROJECT_ID}}" value="{{tplitem.DATA_VALUE}}" title="{{tplitem.ENUM_VALUE}}">\
+                <input type="radio" name="hproject_{{d.Physical_Detail.PROJECT_ID}}"{{#  if (d.Physical_Detail.DATA_VALUE == tplitem.DATA_VALUE) { }} checked{{#  } }} value="{{tplitem.DATA_VALUE}}" title="{{tplitem.ENUM_VALUE}}">\
               {{#  } }}\
             {{#  }); }}\
           </div>').render(item);
         $('#hproject_' + item.Physical_Detail.PROJECT_ID).html(html);
         break;
       case 2:
+        var defaultProjectId = [122, 123];
+        if (defaultProjectId.indexOf(item.Physical_Detail.PROJECT_ID) != -1) {
+          item.Physical_Detail.hasDefault = false;
+        } else {
+          item.Physical_Detail.hasDefault = true;
+        }
+        if (!common.empty(item.Physical_Detail.DATA_VALUE)) {
+          if (item.Physical_Detail.DATA_VALUE.indexOf('|') != -1) {
+            var arrValue = item.Physical_Detail.DATA_VALUE.split('|');
+            item.Physical_Detail.DATA_VALUE = arrValue[0] == '' ? [] : arrValue[0].split(',');
+            item.Physical_Detail.INPUT_OTHER_VALUE = arrValue[1];
+          } else {
+            item.Physical_Detail.DATA_VALUE = item.Physical_Detail.DATA_VALUE.split(',');
+            item.Physical_Detail.INPUT_OTHER_VALUE = '';
+          }
+        } else {
+          item.Physical_Detail.DATA_VALUE = [];
+          item.Physical_Detail.INPUT_OTHER_VALUE = '';
+        }
         var html = laytpl('<label class="layui-form-label">{{d.Physical_Detail.CHINESE_NAME}}</label>\
           <div class="layui-input-block">\
-            <input type="checkbox" name="hproject_{{d.Physical_Detail.PROJECT_ID}}" lay-skin="primary" value="未检" title="未检" lay-filter="xy-form-extra-input">\
+            {{#  if(d.Physical_Detail.hasDefault){ }}\
+            <input type="checkbox" name="hproject_{{d.Physical_Detail.PROJECT_ID}}" lay-skin="primary"{{#  if(d.Physical_Detail.STATUS == 0){ }} checked{{#  } }} value="未检" title="未检" lay-filter="xy-form-extra-input">\
+            {{#  } }}\
             {{#  layui.each(d.Project_ENUM_DATA_List, function(index, tplitem){ }}\
               {{#  if(tplitem.DATA_VALUE == "OTHER_VALUE"){ }}\
-                <input type="checkbox" name="hproject_{{d.Physical_Detail.PROJECT_ID}}" lay-skin="primary" value="{{tplitem.DATA_VALUE}}" title="{{tplitem.ENUM_VALUE}}" lay-filter="xy-form-extra-input">\
-                <div class="xy-form-extra-control extra-control-other layui-hide">\
-                  <input type="text" name="other_hproject_{{d.Physical_Detail.PROJECT_ID}}" autocomplete="off" class="layui-input xy-form-unit">\
+                <input type="checkbox" name="hproject_{{d.Physical_Detail.PROJECT_ID}}" lay-skin="primary"{{#  if(d.Physical_Detail.INPUT_OTHER_VALUE != ""){ }} checked{{#  } }} value="{{tplitem.DATA_VALUE}}" title="{{tplitem.ENUM_VALUE}}" lay-filter="xy-form-extra-input">\
+                <div class="xy-form-extra-control extra-control-other{{#  if(d.Physical_Detail.INPUT_OTHER_VALUE == ""){ }} layui-hide{{#  } }}">\
+                  <input type="text" name="other_hproject_{{d.Physical_Detail.PROJECT_ID}}" value="{{d.Physical_Detail.INPUT_OTHER_VALUE}}" autocomplete="off" class="layui-input xy-form-unit">\
                 </div>\
               {{#  } else { }}\
-                <input type="checkbox" name="hproject_{{d.Physical_Detail.PROJECT_ID}}" lay-skin="primary" value="{{tplitem.DATA_VALUE}}" title="{{tplitem.ENUM_VALUE}}" lay-filter="xy-form-extra-check">\
+                <input type="checkbox" name="hproject_{{d.Physical_Detail.PROJECT_ID}}" lay-skin="primary"{{#  if (d.Physical_Detail.DATA_VALUE.indexOf(tplitem.DATA_VALUE) != -1) { }} checked{{#  } }} value="{{tplitem.DATA_VALUE}}" title="{{tplitem.ENUM_VALUE}}" lay-filter="xy-form-extra-check">\
               {{#  } }}\
             {{#  }); }}\
           </div>').render(item);
@@ -122,13 +147,87 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
             });
           });
         } else if (obj.event === 'detail') {
-          // parent.layui.index.openTabsPage('health/detail.html#/id=' + obj.data.ID, '查看-' + data.REAL_NAME);
+          parent.layui.index.openTabsPage('health/detail.html#/id=' + obj.data.ID + '/clientId=' + obj.data.CLIENT_ID, '查看档案-' + obj.data.CLIENT_REAL_NAME);
         }
       });
     }
     ,detail: function() {
-      laytpl(xy_detail.innerHTML).render({username: '测试'}, function(html){
-        document.getElementById('xy_detail_container').innerHTML = html;
+      var curId = router.search.clientId;
+      var healthId = router.search.id;
+      var showHistory = ['hospital', 'familyHospital', 'medicine', 'inoculate'];
+
+      var historySort = layui.history.historySort;
+      var renderHistory = layui.history.renderHistory;
+
+      var formData = {};
+
+      common.req({
+        url: layui.setter.api.GetClientInfo
+        ,data: {
+          CLIENT_ID: curId
+        }
+        ,success: $.proxy(function(clientData){
+          laytpl(clientContainer.innerHTML).render({clientData: clientData.data}, function(html){
+            $('.layui-fluid').prepend(html);
+          });
+        })
+      });
+
+      common.req({
+        url: layui.setter.api.GetPhysicalExaminationInfo
+        ,data: {
+          ID: healthId
+        }
+        ,success: $.proxy(function(examData) {
+          $.each(examData.data, function(hIndex, item) {
+            if (item.Physical_Detail.STATUS == 0) {
+              item.Physical_Detail.DATA_VALUE = '未检';
+            } else if (common.empty(item.Physical_Detail.DATA_VALUE)) {
+              item.Physical_Detail.DATA_VALUE = '无';
+            } else if (item.Physical_Detail.INPUT_MODE == 2) {
+              item.Physical_Detail.DATA_VALUE = item.Physical_Detail.DATA_VALUE.replace(/^\|/, '').replace(/\|/, ' ');
+            }
+            formData['hproject_' + item.Physical_Detail.PROJECT_ID] = item.Physical_Detail;
+          });
+          laytpl(detailContainer.innerHTML).render({formData: formData}, function(html){
+            $('.layui-fluid').append(html);
+
+            common.xyRender({
+              elem: '#xy-equipment'
+              ,url: layui.setter.api.GetDataFormClientID
+              ,where: {
+                "CLIENT_ID": curId
+                ,"ID_NUMBER": ''
+                ,"SATRT_DATE": ''
+                ,"END_DATE": ''
+              }
+              ,cols: [[
+                {field: 'RECEIVE_TIME', title: '接收时间'}
+                ,{field: 'CHINESE_NAME', title: '项目名称'}
+                ,{field: 'RECEIVE_DATA', title: '接收数据'}
+                ,{field: 'UNIT_NAME', title: '单位'}
+                ,{field: 'ABNORMAL', title: '异常'}
+                ,{field: 'STANDARD_RANGE', title: '参考范围',templet: function(d){
+                  if (d.STANDARD_MAX_VALUE) {
+                    return d.STANDARD_MIX_VALUE + ' - ' + d.STANDARD_MAX_VALUE;
+                  } else {
+                    return d.STANDARD_MIX_VALUE;
+                  }
+                }}
+                ,{field: 'USED', title: '是否使用',templet: function(d){
+                  return d.USED == 1 ? '已使用' : '未使用';
+                }}
+              ]]
+            });
+
+            $.each(showHistory, function(hIndex, item) {
+              renderHistory[item].call(this, {
+                "CLIENT_ID" : curId,
+                "HISTORY_SORT_ID": historySort[item].id
+              });
+            });
+          });
+        }, this)
       });
     }
     ,edit: function() {
@@ -177,26 +276,22 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
           ID: healthId
         }
         ,success: $.proxy(function(examData) {
-
           var arrInputMode = [1, 2];
           $.each(examData.data, function(hIndex, item) {
-            if (arrInputMode.indexOf(item.Physical_Detail.INPUT_MODE) != -1 && $.isArray(item.Project_ENUM_DATA_List)) {
-              $.each(item.Project_ENUM_DATA_List, function(subIndex, subItem) {
-                if (subItem.DATA_VALUE == 'OTHER_VALUE') {
-                  item.Physical_Detail.hasOther = true;
-                  return false;
-                }
-              });
-            }
             formData['hproject_' + item.Physical_Detail.PROJECT_ID] = item;
           });
           laytpl(formContainer.innerHTML).render({formData: formData}, function(html){
             $('.layui-fluid').append(html);
+            var inputData = {};
             $.each(formData, function(hIndex, item) {
               if (arrInputMode.indexOf(item.Physical_Detail.INPUT_MODE) != -1) {
                 renderHisForm(item);
+              } else {
+                inputData['hproject_' + item.Physical_Detail.PROJECT_ID] = item.Physical_Detail.DATA_VALUE;
               }
             });
+
+            $('#bmiDiv').text(inputData['hproject_25'] ? inputData['hproject_25'] : '');
             $('#hproject_29 .layui-input-block').append('<div class="xy-form-extra-control">\
                 <div class="layui-form-mid">简易智力状态检查，总分</div>\
                 <input type="text" name="hproject_129" autocomplete="off" class="layui-input xy-form-unit" style="width: 100px;">\
@@ -221,12 +316,8 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
                   <input type="text" name="hproject_134" autocomplete="off" class="layui-input xy-form-unit" style="width: 100px;">\
                   <div class="layui-form-mid">kg</div>）\
               </div>');
-            // if (data.data.WEIGHT && data.data.HEIGHT) {
-            //   var bmi = data.data.WEIGHT / data.data.HEIGHT / data.data.HEIGHT * 10000;
-            //   bmi = bmi.toFixed(1);
-            //   $('#bmiDiv').text(bmi);
-            //   $('input[name="BMI"]').val(bmi);
-            // }
+
+            form.val('xy-health-form', inputData);
             form.render();
           
             common.xyRender({
@@ -283,39 +374,47 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
               if (!sdata.field[formKey] || sdata.field[formKey].indexOf(',') == -1) {
                 sdata.field[formKey] = '';
               }
+
+              if ($(this).val() == '未检' || $(this).val() == 'OTHER_VALUE') {
+                return true;
+              }
               sdata.field[formKey] += $(this).val() + ',';
             });
-            console.log(formData)
-            console.log(sdata.field)
+            $("#healthForm input:radio:checked").each(function() {
+              var formKey = $(this).attr('name');
+              if (!sdata.field[formKey] || $(this).val() == '未检' || $(this).val() == 'OTHER_VALUE') {
+                sdata.field[formKey] = '';
+              }
+            });
 
             $.each(formData, function(hIndex, item) {
-              if (arrInputMode.indexOf(item.Physical_Detail.INPUT_MODE) != -1) {
-                if (!sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID] || sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID] == '未检,') {
+              if (item.Physical_Detail.INPUT_MODE == 2) {
+                if (!sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID]) {
                   sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID] = '';
                 }
                 if (sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID] != '') {
-                  sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID] = sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID].substr(0, sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID].length-1);
-                  if (sdata.field['other_hproject_' + item.Physical_Detail.PROJECT_ID] != '') {
-                    sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID] += '|' + sdata.field['other_hproject_' + item.Physical_Detail.PROJECT_ID];
-                  }
+                  sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID] = sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID].substr(0, sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID].length - 1);
                 }
-                submitData.push({
-                  ID: item.Physical_Detail.ID
-                  ,PROJECT_ID: item.Physical_Detail.PROJECT_ID
-                  ,PHYSICAL_EXAMINATION_ID: item.Physical_Detail.PHYSICAL_EXAMINATION_ID
-                  ,DATA_VALUE: sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID]
-                  ,status: sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID] == '' ? 0 : 1
-                });
-              } else {
-                submitData.push({
-                  ID: item.Physical_Detail.ID
-                  ,PROJECT_ID: item.Physical_Detail.PROJECT_ID
-                  ,PHYSICAL_EXAMINATION_ID: item.Physical_Detail.PHYSICAL_EXAMINATION_ID
-                  ,DATA_VALUE: sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID]
-                  ,status: sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID] == '' ? 0 : 1
-                });
+               if (!common.empty(sdata.field['other_hproject_' + item.Physical_Detail.PROJECT_ID])) {
+                  sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID] += '|' + sdata.field['other_hproject_' + item.Physical_Detail.PROJECT_ID];
+                }
+              } else if (item.Physical_Detail.INPUT_MODE == 1) {
+                if (!sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID]) {
+                  sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID] = '';
+                }
+                if (!common.empty(sdata.field['other_hproject_' + item.Physical_Detail.PROJECT_ID])) {
+                  sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID] = sdata.field['other_hproject_' + item.Physical_Detail.PROJECT_ID];
+                }
               }
+              submitData.push({
+                ID: item.Physical_Detail.ID
+                ,PROJECT_ID: item.Physical_Detail.PROJECT_ID
+                ,PHYSICAL_EXAMINATION_ID: item.Physical_Detail.PHYSICAL_EXAMINATION_ID
+                ,DATA_VALUE: sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID]
+                ,status: sdata.field['hproject_' + item.Physical_Detail.PROJECT_ID] == '' ? 0 : 1
+              });
             });
+
             common.req({
               url: layui.setter.api.SavePhysicalExaminationData
               ,formerror: true
@@ -342,6 +441,10 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
           }
         } else {
           if (data.elem.checked) {
+            if ($(data.elem).siblings(':checkbox[title="未检"]').length > 0) {
+              $(data.elem).siblings(':checkbox[title="未检"]').prop("checked", false);
+              form.render('checkbox');
+            }
             curElem.nextAll('.xy-form-extra-control:first').removeClass('layui-hide');
           } else {
             curElem.nextAll('.xy-form-extra-control:first').addClass('layui-hide').find('input').val('');

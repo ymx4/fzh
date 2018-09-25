@@ -215,12 +215,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             common.initArea({default: data.data.HOME_ADDRESS_AREA_ID, elem: '#home_address_area_container'});
             common.initArea({default: data.data.ADDRESS_AREA_ID, elem: '#address_area_container'});
 
-            if (data.data.WEIGHT && data.data.HEIGHT) {
-              var bmi = data.data.WEIGHT / data.data.HEIGHT / data.data.HEIGHT * 10000;
-              bmi = bmi.toFixed(1);
-              $('#bmiDiv').text(bmi);
-              $('input[name="BMI"]').val(bmi);
-            }
+            $('#bmiDiv').text(data.data.BMI ? data.data.BMI : '');
 
             element.on('collapse(collapse-history)', function(collData){
               if (collData.show && !collData.title.attr('data-init')) {
@@ -309,7 +304,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           ,data: data.field
           ,success: function(data){
             layer.msg('操作成功', function() {
-              common.saveSuccess('resident/list.html');
+              parent.layui.admin.closeThisTabs();
             });
           }
         });

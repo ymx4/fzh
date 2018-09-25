@@ -368,6 +368,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       });
     }
     ,history: function() {
+      var historySort = layui.history.historySort;
+      var renderHistory = layui.history.renderHistory;
       laytpl(hiddenContainer.innerHTML).render({CLIENT_ID:router.search.CLIENT_ID, historyKey:router.search.historyKey, historySort:historySort}, function(html){
         $('#historyForm').prepend(html);
         $('title').text(historySort[router.search.historyKey].name);

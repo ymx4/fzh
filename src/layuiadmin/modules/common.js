@@ -385,6 +385,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
       common.user = sess.user;
       if (location.href.indexOf('views/index.html') != -1) {
         $('#myRealname').text(common.user.REAL_NAME);
+        $('#myUnitname').text(common.user.UNIT_NAME);
       }
     }
   }

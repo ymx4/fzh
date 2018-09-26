@@ -203,7 +203,6 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             $('select[name="EDUCATION"]').attr('data-val', data.data.EDUCATION);
             $('select[name="OCCUPATION"]').attr('data-val', data.data.OCCUPATION);
             $('select[name="PAYMENT"]').attr('data-val', data.data.PAYMENT);
-            $('select[name="CENSUS_TYPE_ID"]').attr('data-val', data.data.CENSUS_TYPE_ID);
             $('select[name="BLOOD_TYPE"]').attr('data-val', data.data.BLOOD_TYPE);
             $('select[name="BLOOD_RH_TYPE"]').attr('data-val', data.data.BLOOD_RH_TYPE);
             $('select[name="SHHJ_RLLX_ID"]').attr('data-val', data.data.SHHJ_RLLX_ID);
@@ -271,6 +270,12 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           }, this)
         });
       } else {
+        form.val('xy-resident-form', {
+          MANAGE_USER_ID: common.user.ID
+          ,MANAGE_REAL_NAME: common.user.REAL_NAME
+          ,MANAGE_UNIT_ID: common.user.UNIT_ID
+          ,MANAGE_UNIT_NAME: common.user.UNIT_NAME
+        });
         common.initArea();
         common.initConfig();
 

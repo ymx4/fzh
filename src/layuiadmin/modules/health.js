@@ -244,7 +244,7 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
           ,success: $.proxy(function(data) {
             var topLayui = top.layui;
             var index = topLayui.admin.tabsPage.index;
-            topLayui.index.openTabsPage('health/edit.html#/id=' + data.message + '/clientId=' + router.search.clientId, '公共卫生-' + router.search.REAL_NAME);
+            topLayui.index.openTabsPage('health/edit.html#/id=' + data.message + '/clientId=' + router.search.clientId, '公共卫生-' + decodeURIComponent(router.search.REAL_NAME));
             topLayui.common.closeTab(index);
           }, this)
         });

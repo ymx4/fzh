@@ -60,6 +60,9 @@ i.fas, i.far{
 	display: inline-block;
 	width: auto;
 }
+.layui-form-item .layui-inline .xy-form-group {
+	margin-bottom: 0;
+}
 td[lay-event=detail] {
 	cursor: pointer!important;
 }

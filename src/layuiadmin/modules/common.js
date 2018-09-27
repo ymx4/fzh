@@ -447,6 +447,14 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
     });
   };
 
+  admin.events.xyalldoctor = function(elemid){
+    if (elemid.attr('data-id')) {
+      $('#' + elemid.attr('data-id')).val('0');
+    }
+    $('#' + elemid.attr('data-name')).val(elemid.text());
+    $('#' + elemid.attr('data-name')).attr('title', elemid.text());
+  }
+
   admin.events.xyseldoctor = function(elemid){
     var seldoctorindex = layer.open({
       type: 1,

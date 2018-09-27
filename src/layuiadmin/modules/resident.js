@@ -16,8 +16,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         laytpl(searchTpl.innerHTML).render({t: router.search.t}, function(html){
           $('#searchContainer').after(html);
           form.val('xy-resident-search-form', {
-            USER_ID: common.user.ID
-            ,REAL_NAME: common.user.REAL_NAME
+            USER_ID: 0
+            ,REAL_NAME: '全部'
           });
           common.xyRender({
             elem: '#xy-resident-manage'
@@ -180,6 +180,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           }
           ,success: $.proxy(function(data){
             form.val('xy-resident-form', data.data);
+            $('#CREATE_USER_ID_V').text(data.data.DOCTOR_REAL_NAME);
+            $('#UNIT_ID_V').text(data.data.UNIT_NAME);
             laydate.render({
               elem: '#BIRTHDAY'
               ,format: layui.setter.dateFormat.day
@@ -275,7 +277,11 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           ,MANAGE_REAL_NAME: common.user.REAL_NAME
           ,MANAGE_UNIT_ID: common.user.UNIT_ID
           ,MANAGE_UNIT_NAME: common.user.UNIT_NAME
+          ,UNIT_ID: common.user.UNIT_ID
+          ,CREATE_USER_ID: common.user.ID
         });
+        $('#CREATE_USER_ID_V').text(common.user.REAL_NAME);
+        $('#UNIT_ID_V').text(common.user.UNIT_NAME);
         common.initArea();
         common.initConfig();
 
@@ -299,8 +305,6 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       });
 
       form.on('submit(xy-resident-submit)', function(data){
-        delete data.field.UNIT_NAME;
-        delete data.field.DOCTOR_REAL_NAME;
         delete data.field.MANAGE_UNIT_NAME;
         delete data.field.MANAGE_REAL_NAME;
         common.req({

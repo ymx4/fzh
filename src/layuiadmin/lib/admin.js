@@ -27,7 +27,7 @@ layui.define('view', function(exports){
 
   //通用方法
   ,admin = {
-    v: '1.0.0 std'
+    v: '1.1.0 std'
     
     //数据的异步请求
     ,req: view.req
@@ -309,6 +309,31 @@ layui.define('view', function(exports){
       $(TABS_HEADER).eq(admin.tabsPage.index).find('.layui-tab-close').trigger('click');
     }
     
+    //全屏
+    ,fullScreen: function(){
+      var ele = document.documentElement
+      ,reqFullScreen = ele.requestFullScreen || ele.webkitRequestFullScreen 
+      || ele.mozRequestFullScreen || ele.msRequestFullscreen;      
+      if(typeof reqFullScreen !== 'undefined' && reqFullScreen) {
+        reqFullScreen.call(ele);
+      };
+    }
+    
+    
+    //退出全屏
+    ,exitScreen: function(){
+      var ele = document.documentElement
+      if (document.exitFullscreen) {  
+        document.exitFullscreen();  
+      } else if (document.mozCancelFullScreen) {  
+        document.mozCancelFullScreen();  
+      } else if (document.webkitCancelFullScreen) {  
+        document.webkitCancelFullScreen();  
+      } else if (document.msExitFullscreen) {  
+        document.msExitFullscreen();  
+      }
+    }
+    
     //……
   };
   
@@ -415,28 +440,10 @@ layui.define('view', function(exports){
       ,iconElem = othis.children("i");
       
       if(iconElem.hasClass(SCREEN_FULL)){
-        var elem = document.body;
-        if(elem.webkitRequestFullScreen){
-          elem.webkitRequestFullScreen();
-        } else if(elem.mozRequestFullScreen) {
-          elem.mozRequestFullScreen();
-        } else if(elem.requestFullScreen) {
-          elem.requestFullscreen();
-        }
-        
+        admin.fullScreen();
         iconElem.addClass(SCREEN_REST).removeClass(SCREEN_FULL);
       } else {
-        var elem = document;
-        if(elem.webkitCancelFullScreen){
-          elem.webkitCancelFullScreen();
-        } else if(elem.mozCancelFullScreen) {
-          elem.mozCancelFullScreen();
-        } else if(elem.cancelFullScreen) {
-          elem.cancelFullScreen();
-        } else if(elem.exitFullscreen) {  
-          elem.exitFullscreen();
-        }
-        
+        admin.exitScreen();
         iconElem.addClass(SCREEN_FULL).removeClass(SCREEN_REST);
       }
     }
@@ -556,7 +563,8 @@ layui.define('view', function(exports){
     
     //关闭当前标签页
     ,closeThisTabs: function(){
-      admin.closeThisTabs();
+      var topAdmin = parent === self ? admin : parent.layui.admin;
+      topAdmin.closeThisTabs();
     }
     
     //关闭其它标签页

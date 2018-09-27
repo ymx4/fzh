@@ -159,4 +159,28 @@
 .layui-serachlist-cover img{width: 90px; height: 90px;}
 
 
+
+/* 用户列表开始 */
+.layadmin-caller{background: #fff;padding: 30px;}
+.layadmin-caller em{font-style: normal;}
+.layadmin-caller .caller-fl{float: left;}
+.layadmin-caller .caller-fr{float: right;}
+.layadmin-caller .caller-seach{position: relative;padding-bottom:40px;}
+.layadmin-caller .caller-seach .caller-icon{font-size: 18px;position: absolute;top: 9px;}
+.layadmin-caller .caller-seach-icon{left: 6px;}
+.layadmin-caller .caller-dump-icon{right: 6px;cursor: pointer;}
+.layadmin-caller .caller-pl32{padding:0 32px;}
+.layadmin-caller .caller-tab{margin:0;}
+.layadmin-caller .caller-contar{padding-bottom:20px;}
+.layadmin-caller .caller-contar .caller-item{padding:25px 0;overflow: hidden;border-bottom: 1px solid #e0e0e0;}
+.layadmin-caller .caller-contar .caller-item .caller-main{margin-left: 20px;}
+.layadmin-caller .caller-contar .caller-item .caller-main p{line-height: 100%;padding:8px 0;}
+.layadmin-caller .caller-contar .caller-item .caller-main p:first-child{padding-top:0;}
+.layadmin-caller .caller-contar .caller-item .caller-main em{margin-left: 5px;}
+.layadmin-caller .caller-contar .caller-item .caller-main .caller-adds i{padding-right: 5px;margin:0;}
+.layadmin-caller .caller-contar .caller-item .caller-main .caller-adds{padding-bottom:12px;}
+.layadmin-caller .caller-contar .caller-iconset i{margin:0 5px;}
+.layadmin-caller .caller-contar .caller-iconset i:first-child{margin-left: 0;}
+.layadmin-caller .caller-contar button{margin-top: 22px;}
+.layadmin-caller .caller-contar .caller-img{width: 40px;height: 40px;border-radius: 100%;}
 /******  模板结束 By xuzhiwen  ******/

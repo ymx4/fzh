@@ -200,6 +200,7 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
 
       var formData = {};
 
+      layer.load(0, {time: layui.setter.loadsec});
       common.req({
         url: layui.setter.api.GetClientInfo
         ,data: {
@@ -289,6 +290,7 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
         });
         return;
       }
+      layer.load(0, {time: layui.setter.loadsec});
       
       var showHistory = ['hospital', 'familyHospital', 'medicine', 'inoculate'];
 

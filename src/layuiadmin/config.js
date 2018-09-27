@@ -152,6 +152,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       DeletePhysicalExamination: 'http://holtest.fres.cn/PhysicalExamination/DeletePhysicalExamination.ashx',
       SavePhysicalExaminationData: 'http://holtest.fres.cn/PhysicalExamination/SavePhysicalExaminationData.ashx',
     }
+    ,loadsec: 5*1000
     ,dateFormat: {
       day: 'yyyy/MM/dd'
       ,sec: 'yyyy/MM/dd HH:mm:ss'

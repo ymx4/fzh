@@ -145,7 +145,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       }, options));
     }
     ,xyReload: function(filter, options){
-      layer.load(0, {time: 10*1000});
+      layer.load(0, {time: layui.setter.loadsec});
       table.reload(filter, options);
     }
     ,xyRender: function(options){
@@ -158,7 +158,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
 
       delete options.parseData;
 
-      layer.load(0, {time: 10*1000});
+      layer.load(0, {time: layui.setter.loadsec});
 
       return table.render($.extend({
         limit: 10
@@ -584,7 +584,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       title: '机构选择'
     });
     view('xyins').render('common/ins').done(function(){
-      layer.load(0, {time: 10*1000});
+      layer.load(0, {time: layui.setter.loadsec});
       common.req({
         url: layui.setter.api.GetHospitalUnit
         ,data: {

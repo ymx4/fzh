@@ -168,6 +168,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       var historySort = layui.history.historySort;
       var renderHistory = layui.history.renderHistory;
 
+      layer.load(0, {time: layui.setter.loadsec});
       common.req({
         url: layui.setter.api.GetClientInfo
         ,data: {
@@ -213,6 +214,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       var renderHistory = layui.history.renderHistory;
 
       if (router.search.id) {
+        layer.load(0, {time: layui.setter.loadsec});
         common.req({
           url: layui.setter.api.GetClientInfo
           ,data: {

@@ -415,7 +415,8 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       content: '<div id="xyicd"></div>',
       title: 'ICD查询'
     });
-    view('xyicd').render('common/icd').done(function(){
+    var typeId = elemid.data('type');
+    view('xyicd').render('common/icd', {often: typeId ? true : false}).done(function(){
       setTimeout(function(){
         common.xyRender({
           elem: '#xy-icd-table'
@@ -434,13 +435,12 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       element.on('tab(xy-icd-tab)', function(data){
         if (data.index == 1) {
           if (common.empty(data.elem.data('check'))) {
-            data.elem.data('check', 1);console.log(layui.setter.api.GetOftenICD)
+            data.elem.data('check', 1);
             common.xyRender({
               elem: '#xy-icd-often-table'
               ,url: layui.setter.api.GetOftenICD
-              ,page: false
               ,where: {
-                TYPE_ID: elemid.data('type'),
+                TYPE_ID: typeId,
               }
               ,cols: [[
                 {type: 'numbers', title: '序号'}
@@ -593,7 +593,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
         }
         ,success: function(data){
           layer.closeAll('loading');
-          var nodes = formatTree(data.data);console.log(nodes)
+          var nodes = formatTree(data.data);
           nodes = [nodes];
           layui.tree({
             elem: '#xy-inslist'

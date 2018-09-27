@@ -95,32 +95,70 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
     }
   };
 
+  var renderHealth = function(where) {
+    common.xyRender({
+      elem: '#xy-health-manage'
+      ,url: layui.setter.api.GetPhysicalExaminationList
+      ,where: where
+      ,cols: [[
+        {field: 'PHYSICAL_EXAMINATION_NO', title: '档案编号', minWidth:100, event:'detail'}
+        ,{field: 'CLIENT_REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
+        ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
+        ,{field: 'CREATE_TIME', title: '建档时间', minWidth:100, event:'detail'}
+        ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-health', minWidth:230}
+      ]]
+    });
+  }
+
   var init = {
     list: function() {
-      form.val('xy-health-search-form', {
-        CREATE_UNIT_ID: 0
-        ,UNIT_NAME: '全部'
-        ,CREATE_USER_ID: 0
-        ,REAL_NAME: '全部'
-      });
-      common.xyRender({
-        elem: '#xy-health-manage'
-        ,url: layui.setter.api.GetPhysicalExaminationList
-        ,where: {
-          "CLIENT_ID": 0,
-          "CREATE_UNIT_ID": 0,
-          "CREATE_USER_ID": 0,
-          "KEY_WORD" : "",
-          "ALL_UNIT": 1,
-        }
-        ,cols: [[
-          {field: 'PHYSICAL_EXAMINATION_NO', title: '档案编号', minWidth:100, event:'detail'}
-          ,{field: 'CLIENT_REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
-          ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
-          ,{field: 'CREATE_TIME', title: '建档时间', minWidth:100, event:'detail'}
-          ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-health', minWidth:230}
-        ]]
-      });
+      if (router.search.t == 's') {
+        //本单位
+        laytpl(searchTpl.innerHTML).render({t: router.search.t}, function(html){
+          $('#searchContainer').after(html);
+          form.val('xy-health-search-form', {
+            CREATE_UNIT_ID: common.user.UNIT_ID
+            ,UNIT_NAME: common.user.UNIT_NAME
+            ,CREATE_USER_ID: 0
+            ,REAL_NAME: '全部'
+          });
+          renderHealth({
+            "CLIENT_ID": 0,
+            "CREATE_UNIT_ID": common.user.UNIT_ID,
+            "CREATE_USER_ID": 0,
+            "KEY_WORD" : "",
+            "ALL_UNIT": 0,
+          });
+        });
+      } else if (router.search.t == 'l') {
+        //下级
+        laytpl(searchTpl.innerHTML).render({t: router.search.t}, function(html){
+          $('#searchContainer').after(html);
+          form.val('xy-health-search-form', {
+            CREATE_UNIT_ID: common.user.UNIT_ID
+            ,UNIT_NAME: common.user.UNIT_NAME
+          });
+          renderHealth({
+            "CLIENT_ID": 0,
+            "CREATE_UNIT_ID": common.user.UNIT_ID,
+            "CREATE_USER_ID": 0,
+            "KEY_WORD" : "",
+            "ALL_UNIT": 1,
+          });
+        });
+      } else {
+        //我的客户
+        laytpl(searchTpl.innerHTML).render({t: router.search.t}, function(html){
+          $('#searchContainer').after(html);
+          renderHealth({
+            "CLIENT_ID": 0,
+            "CREATE_UNIT_ID": 0,
+            "CREATE_USER_ID": common.user.ID,
+            "KEY_WORD" : "",
+            "ALL_UNIT": 0,
+          });
+        });
+      }
 
       //监听搜索
       form.on('submit(xy-health-search)', function(data){

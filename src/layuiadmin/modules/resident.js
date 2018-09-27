@@ -69,6 +69,23 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     });
   }
 
+  var renderResident = function(where) {
+    common.xyRender({
+      elem: '#xy-resident-manage'
+      ,url: layui.setter.api.SearchClient
+      ,where: where
+      ,cols: [[
+        {field: 'REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
+        ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
+        ,{field: 'BIRTHDAY', title: '出生日期', minWidth:100, event:'detail'}
+        ,{field: 'ID_NUMBER', title: '身份证号', minWidth:100, event:'detail'}
+        ,{field: 'CREATE_TIME', title: '建档时间', minWidth:100, event:'detail'}
+        ,{field: 'MANAGE_REAL_NAME', title: '签约医生', minWidth:100, event:'detail'}
+        ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
+      ]]
+    });
+  }
+
   var init = {
     list: function() {
       if (router.search.t == 's') {
@@ -79,24 +96,11 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             USER_ID: 0
             ,REAL_NAME: '全部'
           });
-          common.xyRender({
-            elem: '#xy-resident-manage'
-            ,url: layui.setter.api.SearchClient
-            ,where: {
-              "KEY_WORD" : "",
-              "UNIT_ID": common.user.UNIT_ID,
-              "CHILDREN_UNIT": 0,
-              "USER_ID": common.user.ID
-            }
-            ,cols: [[
-              {field: 'REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
-              ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
-              ,{field: 'BIRTHDAY', title: '出生日期', minWidth:100, event:'detail'}
-              ,{field: 'ID_NUMBER', title: '身份证号', minWidth:100, event:'detail'}
-              ,{field: 'CREATE_TIME', title: '建档时间', minWidth:100, event:'detail'}
-              ,{field: 'MANAGE_REAL_NAME', title: '签约医生', minWidth:100, event:'detail'}
-              ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
-            ]]
+          renderResident({
+            "KEY_WORD" : "",
+            "UNIT_ID": common.user.UNIT_ID,
+            "CHILDREN_UNIT": 0,
+            "USER_ID": common.user.ID
           });
         });
       } else if (router.search.t == 'l') {
@@ -109,47 +113,22 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             ,USER_ID: common.user.ID
             ,REAL_NAME: common.user.REAL_NAME
           });
-          common.xyRender({
-            elem: '#xy-resident-manage'
-            ,url: layui.setter.api.SearchClient
-            ,where: {
-              "KEY_WORD" : "",
-              "UNIT_ID": common.user.UNIT_ID,
-              "CHILDREN_UNIT": 1,
-              "USER_ID": common.user.ID
-            }
-            ,cols: [[
-              {field: 'REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
-              ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
-              ,{field: 'BIRTHDAY', title: '出生日期', minWidth:100, event:'detail'}
-              ,{field: 'ID_NUMBER', title: '身份证号', minWidth:100, event:'detail'}
-              ,{field: 'CREATE_TIME', title: '建档时间', minWidth:100, event:'detail'}
-              ,{field: 'UNIT_NAME', title: '所属单位', minWidth:100, event:'detail'}
-              ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
-            ]]
+          renderResident({
+            "KEY_WORD" : "",
+            "UNIT_ID": common.user.UNIT_ID,
+            "CHILDREN_UNIT": 1,
+            "USER_ID": common.user.ID
           });
         });
       } else {
         //我的客户
         laytpl(searchTpl.innerHTML).render({t: router.search.t}, function(html){
           $('#searchContainer').after(html);
-          common.xyRender({
-            elem: '#xy-resident-manage'
-            ,url: layui.setter.api.SearchClient
-            ,where: {
-              "KEY_WORD" : "",
-              "UNIT_ID": common.user.UNIT_ID,
-              "CHILDREN_UNIT": 0,
-              "USER_ID": common.user.ID
-            }
-            ,cols: [[
-              {field: 'REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
-              ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
-              ,{field: 'BIRTHDAY', title: '出生日期', minWidth:100, event:'detail'}
-              ,{field: 'ID_NUMBER', title: '身份证号', minWidth:100, event:'detail'}
-              ,{field: 'CREATE_TIME', title: '建档时间', minWidth:100, event:'detail'}
-              ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
-            ]]
+          renderResident({
+            "KEY_WORD" : "",
+            "UNIT_ID": common.user.UNIT_ID,
+            "CHILDREN_UNIT": 0,
+            "USER_ID": common.user.ID
           });
         });
       }

@@ -43,7 +43,7 @@
       <div class="layui-inline">
         <label class="layui-form-label">子机构</label>
         <div class="layui-input-block">
-            <input type="checkbox" name="CHILDREN_UNIT" title="包含子机构" value="1" checked>
+            <input type="checkbox" name="CHILDREN_UNIT" title="包含" value="1" checked>
         </div>
       </div>
     {{#  } else { }}
@@ -75,6 +75,7 @@
         
         <table id="xy-resident-manage" lay-filter="xy-resident-manage"></table>
         <script type="text/html" id="table-resident">
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="health/edit.html#/clientId={{d.ID}}/REAL_NAME={{d.REAL_NAME}}" lay-text="公共卫生-{{d.REAL_NAME}}">添加体检</a>
           <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="resident/edit.html#/id={{d.ID}}" lay-text="编辑-{{d.REAL_NAME}}">编辑</a>
           <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>

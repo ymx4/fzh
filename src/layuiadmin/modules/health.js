@@ -98,19 +98,20 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
   var init = {
     list: function() {
       form.val('xy-health-search-form', {
-        CREATE_UNIT_ID: common.user.UNIT_ID
-        ,UNIT_NAME: common.user.UNIT_NAME
-        ,CREATE_USER_ID: common.user.ID
-        ,REAL_NAME: common.user.REAL_NAME
+        CREATE_UNIT_ID: 0
+        ,UNIT_NAME: '全部'
+        ,CREATE_USER_ID: 0
+        ,REAL_NAME: '全部'
       });
       common.xyRender({
         elem: '#xy-health-manage'
         ,url: layui.setter.api.GetPhysicalExaminationList
         ,where: {
+          "CLIENT_ID": 0,
+          "CREATE_UNIT_ID": 0,
+          "CREATE_USER_ID": 0,
           "KEY_WORD" : "",
-          "UNIT_ID": common.user.UNIT_ID,
           "ALL_UNIT": 1,
-          "USER_ID": common.user.ID
         }
         ,cols: [[
           {field: 'PHYSICAL_EXAMINATION_NO', title: '档案编号', minWidth:100, event:'detail'}
@@ -494,7 +495,7 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
   var openHis = function(id, callback){
     layer.open({
       type:1,//类型
-      area:['80%', '80%'],//定义宽和高
+      area:['90%', '90%'],//定义宽和高
       title:'历史记录',//题目
       content: $('#' + id),//打开的内容
       success: function(){

@@ -1,10 +1,11 @@
-layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(exports){
+layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], function(exports){
   var $ = layui.$
   ,layer = layui.layer
   ,admin = layui.admin
   ,view = layui.view
   ,table = layui.table
   ,form = layui.form
+  ,element = layui.element
 
   ,common = {
     user: {}
@@ -153,9 +154,9 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
         options.url = options.url + '?token=' + this.user.token;
       }
       var that = this;
-      var done = options.done;
+      var parseData = options.parseData;
 
-      delete options.done;
+      delete options.parseData;
 
       layer.load(0, {time: 10*1000});
 
@@ -172,20 +173,29 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
           ,statusCode: 1
           ,countName: 'message'
         }
-        ,page: {layout:['prev', 'page', 'next', 'count']}
-        ,text: {none: '暂无相关数据'}
-        ,done: function(res, curr, count){
+        ,parseData: function(res){
           layer.closeAll('loading');
           if (res.errorCode == 4006) {
             layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
               top.location.href = layui.setter.baseUrl + 'passport/login.html';
             });
           } else {
-            if (typeof done === 'function') {
-              done(res, curr, count);
+            if (options.url.indexOf('GetClientHistory') != -1 && res.data && res.data.length > 0) {
+              for (var i = 0; i < res.data.length; i++) {
+                Object.keys(res.data[i]).forEach(function(key){
+                  if (key.indexOf('_TIME') != -1) {
+                    res.data[i][key] = res.data[i][key].replace(/00:00:00/, '');
+                  }
+                });
+              }
+            }
+            if (typeof parseData === 'function') {
+              parseData(res);
             }
           }
         }
+        ,page: {layout:['prev', 'page', 'next', 'count']}
+        ,text: {none: '暂无相关数据'}
       }, options));
     }
     ,initConfig: function(){
@@ -401,7 +411,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
   admin.events.xyicd = function(elemid){
     var icdindex = layer.open({
       type: 1,
-      area:['80%', '80%'],
+      area:['90%', '90%'],
       content: '<div id="xyicd"></div>',
       title: 'ICD查询'
     });
@@ -421,7 +431,39 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
         });
       },100);
 
+      element.on('tab(xy-icd-tab)', function(data){
+        if (data.index == 1) {
+          if (common.empty(data.elem.data('check'))) {
+            data.elem.data('check', 1);console.log(layui.setter.api.GetOftenICD)
+            common.xyRender({
+              elem: '#xy-icd-often-table'
+              ,url: layui.setter.api.GetOftenICD
+              ,page: false
+              ,where: {
+                TYPE_ID: elemid.data('type'),
+              }
+              ,cols: [[
+                {type: 'numbers', title: '序号'}
+                ,{field: 'DISEASE_NAME', title: '疾病名称'}
+                ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-icd-ope'}
+              ]]
+            });
+          }
+        }
+      });
+
       table.on('tool(xy-icd-table)', function(obj){
+        if(obj.event === 'sel'){
+          if (elemid.attr('data-id')) {
+            $('#' + elemid.attr('data-id')).val(obj.data.ID);
+          }
+          $('#' + elemid.attr('data-name')).val(obj.data.DISEASE_NAME);
+          $('#' + elemid.attr('data-name')).attr('title', obj.data.DISEASE_NAME);
+          layer.close(icdindex);
+        }
+      });
+
+      table.on('tool(xy-icd-often-table)', function(obj){
         if(obj.event === 'sel'){
           if (elemid.attr('data-id')) {
             $('#' + elemid.attr('data-id')).val(obj.data.ID);
@@ -458,7 +500,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
   admin.events.xyseldoctor = function(elemid){
     var seldoctorindex = layer.open({
       type: 1,
-      area:['80%', '80%'],
+      area:['90%', '90%'],
       content: '<div id="xyseldoctor"></div>',
       title: '选择医生'
     });
@@ -518,6 +560,14 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
     return data;
   }
 
+  admin.events.xyallins = function(elemid){
+    if (elemid.attr('data-id')) {
+      $('#' + elemid.attr('data-id')).val('0');
+    }
+    $('#' + elemid.attr('data-name')).val(elemid.text());
+    $('#' + elemid.attr('data-name')).attr('title', elemid.text());
+  }
+
   admin.events.xyinscancel = function(elemid){
     if (elemid.attr('data-id')) {
       $('#' + elemid.attr('data-id')).val(common.user.UNIT_ID);
@@ -529,7 +579,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree'], function(expor
   admin.events.xyins = function(elemid){
     var insindex = layer.open({
       type: 1,
-      area:['80%', '80%'],
+      area:['90%', '90%'],
       content: '<div id="xyins"></div>',
       title: '机构选择'
     });

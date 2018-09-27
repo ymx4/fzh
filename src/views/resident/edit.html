@@ -331,6 +331,21 @@
     <script id="historyContainer" type="text/html">
       {{#  if(d.edit == 1){ }}
         <div class="layui-card">
+          <div class="layui-card-header">公共卫生体检列表</div>
+          <div class="layui-card-body">
+            <div style="padding-bottom: 10px;">
+              <button class="layui-btn" lay-href="health/edit.html#/clientId={{d.client.ID}}/REAL_NAME={{d.client.REAL_NAME}}" lay-text="公共卫生-{{d.client.REAL_NAME}}">添加</button>
+            </div>
+            <table id="xy-history-health" lay-filter="xy-history-health"></table>
+          </div>
+        </div>
+        <div class="layui-card">
+          <div class="layui-card-header">健康在线生化数据</div>
+          <div class="layui-card-body">
+            <table id="xy-history-equipment" lay-filter="xy-history-equipment"></table>
+          </div>
+        </div>
+        <div class="layui-card">
           <div class="layui-card-header">既往史</div>
           <div class="layui-card-body">
             <div class="layui-collapse" lay-filter="collapse-history">
@@ -402,6 +417,11 @@
       {{#  } }}
     </script>
   </div>
+
+  <script type="text/html" id="table-health-ope">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="health/edit.html#/id={{d.ID}}/clientId={{d.CLIENT_ID}}" lay-text="公共卫生-{{d.CLIENT_REAL_NAME}}">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+  </script>
 
   <script type="text/html" id="table-history-ope">
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>

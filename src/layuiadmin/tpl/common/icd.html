@@ -1,7 +1,7 @@
 <script type="text/html" template>
   <div class="layui-card">
     <div class="layui-card-body">
-      <div class="layui-tab">
+      <div class="layui-tab" lay-filter="xy-icd-tab">
         <ul class="layui-tab-title">
           <li class="layui-this">关键字查询</li>
           <li class="">常用列表</li>
@@ -21,11 +21,12 @@
                 </div>
               </div>
             </div>
-        
             <table id="xy-icd-table" lay-filter="xy-icd-table"></table>
           </div>
 
-          <div class="layui-tab-item">常用列表</div>
+          <div class="layui-tab-item">
+            <table id="xy-icd-often-table" lay-filter="xy-icd-often-table"></table>
+          </div>
 
         </div>
       </div>

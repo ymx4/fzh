@@ -7,7 +7,7 @@
     
  */
 layui.config({
-  version: true
+  version: Date.parse(new Date())
   ,debug: true
 });
 layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
@@ -115,6 +115,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       GetAreaList: 'http://holtest.fres.cn/PublicMethods/AreaCode/GetAreaList.ashx',
       GetAreaText: 'http://holtest.fres.cn/PublicMethods/AreaCode/GetAreaText.ashx',
       SearchICD: 'http://holtest.fres.cn/PublicMethods/ICD10/SearchICD.ashx',
+      GetOftenICD: 'http://holtest.fres.cn/PublicMethods/ICD10/GetOftenICD.ashx',
       UserLogin: 'http://holtest.fres.cn/User/UserLogin.ashx',
       UserLogOut: 'http://holtest.fres.cn/User/UserLogOut.ashx',
       GetUserList: 'http://holtest.fres.cn/User/GetUserList.ashx',

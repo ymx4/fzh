@@ -9,6 +9,66 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
   ,common = layui.common
   ,router = layui.router();
 
+  var renderHealth = function(cliendId, edit) {
+    //公共卫生
+    var cols = [
+      {field: 'PHYSICAL_EXAMINATION_NO', title: '档案编号', minWidth:100, event:'detail'}
+      ,{field: 'CLIENT_REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
+      ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
+      ,{field: 'CREATE_TIME', title: '建档时间', minWidth:100, event:'detail'}
+    ];
+    if (edit) {
+      cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-health-ope'});
+    }
+    common.xyRender({
+      elem: '#xy-history-health'
+      ,url: layui.setter.api.GetPhysicalExaminationList
+      ,page: false
+      ,where: {
+        "CLIENT_ID": cliendId,
+        "CREATE_UNIT_ID": 0,
+        "CREATE_USER_ID": 0,
+        "KEY_WORD" : "",
+        "ALL_UNIT": 1,
+      }
+      ,cols: [cols]
+    });
+    table.on('tool(xy-history-health)', function(obj){
+      var data = obj.data;
+      if (obj.event === 'detail') {
+        parent.layui.index.openTabsPage('health/detail.html#/id=' + obj.data.ID + '/clientId=' + obj.data.CLIENT_ID, '查看档案-' + obj.data.CLIENT_REAL_NAME);
+      }
+    });
+
+    common.xyRender({
+      elem: '#xy-history-equipment'
+      ,url: layui.setter.api.GetDataFormClientID
+      ,where: {
+        "CLIENT_ID": cliendId
+        ,"ID_NUMBER": ''
+        ,"SATRT_DATE": ''
+        ,"END_DATE": ''
+      }
+      ,cols: [[
+        {field: 'RECEIVE_TIME', title: '接收时间'}
+        ,{field: 'CHINESE_NAME', title: '项目名称'}
+        ,{field: 'RECEIVE_DATA', title: '接收数据'}
+        ,{field: 'UNIT_NAME', title: '单位'}
+        ,{field: 'ABNORMAL', title: '异常'}
+        ,{field: 'STANDARD_RANGE', title: '参考范围',templet: function(d){
+          if (d.STANDARD_MAX_VALUE) {
+            return d.STANDARD_MIX_VALUE + ' - ' + d.STANDARD_MAX_VALUE;
+          } else {
+            return d.STANDARD_MIX_VALUE;
+          }
+        }}
+        ,{field: 'USED', title: '是否使用',templet: function(d){
+          return d.USED == 1 ? '已使用' : '未使用';
+        }}
+      ]]
+    });
+  }
+
   var init = {
     list: function() {
       if (router.search.t == 's') {
@@ -162,6 +222,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           // history
           laytpl(historyContainer.innerHTML).render({edit:1, historySort: historySort}, function(html){
             $('.resident-form').after(html);
+            renderHealth(data.data.ID, false);
             element.render('collapse');
           });
         }, this)
@@ -231,6 +292,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             // history
             laytpl(historyContainer.innerHTML).render({edit:1, historySort: historySort, client: data.data}, function(html){
               $('.resident-form').after(html);
+
+              renderHealth(data.data.ID, true);
+
               element.render('collapse');
               $('.history-refresh').click(function(){
                 var type = $(this).closest('.layui-colla-content').siblings('.layui-colla-title').attr('data-type');
@@ -243,7 +307,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             $('.add-history').on('click', function(){
               layer.open({
                 type:2
-                ,area:['80%', '80%']
+                ,area:['90%', '90%']
                 ,title:$(this).attr('data-text')
                 ,content: layui.setter.baseUrl + $(this).attr('data-href')
                 ,success: function(){

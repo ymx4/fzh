@@ -157,6 +157,6 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       day: 'yyyy/MM/dd'
       ,sec: 'yyyy/MM/dd HH:mm:ss'
     }
-    ,baseUrl: '/views/'
+    ,baseUrl: '/src/views/'
   });
 });

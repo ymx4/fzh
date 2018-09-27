@@ -546,5 +546,5 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
     });
   }
 
-  exports('health', {init})
+  exports('health', {init: init});
 });

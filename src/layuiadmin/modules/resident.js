@@ -474,5 +474,5 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     }
   }
 
-  exports('resident', {init})
+  exports('resident', {init: init})
 });

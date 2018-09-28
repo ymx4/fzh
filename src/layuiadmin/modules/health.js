@@ -101,10 +101,10 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
       ,url: layui.setter.api.GetPhysicalExaminationList
       ,where: where
       ,cols: [[
-        {field: 'PHYSICAL_EXAMINATION_NO', title: '档案编号', minWidth:100, event:'detail'}
-        ,{field: 'CLIENT_REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
-        ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
-        ,{field: 'CREATE_TIME', title: '建档时间', minWidth:100, event:'detail'}
+        {field: 'PHYSICAL_EXAMINATION_NO', title: '档案编号', event:'detail'}
+        ,{field: 'CLIENT_REAL_NAME', title: '姓名', event:'detail'}
+        ,{field: 'SEX_VALUE', title: '性别', event:'detail'}
+        ,{field: 'CREATE_TIME', title: '建档时间', event:'detail'}
         ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-health', minWidth:230}
       ]]
     });
@@ -254,9 +254,6 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
                     return d.STANDARD_MIX_VALUE;
                   }
                 }}
-                ,{field: 'USED', title: '是否使用',templet: function(d){
-                  return d.USED == 1 ? '已使用' : '未使用';
-                }}
               ]]
             });
 
@@ -382,9 +379,6 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
                   } else {
                     return d.STANDARD_MIX_VALUE;
                   }
-                }}
-                ,{field: 'USED', title: '是否使用',templet: function(d){
-                  return d.USED == 1 ? '已使用' : '未使用';
                 }}
               ]]
             });
@@ -521,9 +515,9 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
           elem: '#testhis-table'
           ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
           ,cols: [[
-            {field: 'username', title: '名称', minWidth:100}
-            ,{field: 'jointime', title: '接种日期', minWidth:100}
-            ,{field: 'username', title: '接种机构', minWidth:100}
+            {field: 'username', title: '名称'}
+            ,{field: 'jointime', title: '接种日期'}
+            ,{field: 'username', title: '接种机构'}
           ]]
         });
       });

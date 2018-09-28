@@ -35,6 +35,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
             }
             return $.trim(r);
           }}
+          ,{field: 'UNIT_NAME', title: '单位'}
           ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-doctor'}
         ]]
       });

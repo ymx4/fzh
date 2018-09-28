@@ -12,10 +12,10 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
   var renderHealth = function(cliendId, edit) {
     //公共卫生
     var cols = [
-      {field: 'PHYSICAL_EXAMINATION_NO', title: '档案编号', minWidth:100, event:'detail'}
-      ,{field: 'CLIENT_REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
-      ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
-      ,{field: 'CREATE_TIME', title: '建档时间', minWidth:100, event:'detail'}
+      {field: 'PHYSICAL_EXAMINATION_NO', title: '档案编号', event:'detail'}
+      ,{field: 'CLIENT_REAL_NAME', title: '姓名', event:'detail'}
+      ,{field: 'SEX_VALUE', title: '性别', event:'detail'}
+      ,{field: 'CREATE_TIME', title: '建档时间', event:'detail'}
     ];
     if (edit) {
       cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-health-ope'});
@@ -62,27 +62,50 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             return d.STANDARD_MIX_VALUE;
           }
         }}
-        ,{field: 'USED', title: '是否使用',templet: function(d){
-          return d.USED == 1 ? '已使用' : '未使用';
-        }}
       ]]
     });
   }
 
   var renderResident = function(where) {
+    var cols = [
+      {field: 'REAL_NAME', title: '姓名', event:'detail'}
+      ,{field: 'SEX_VALUE', title: '性别', event:'detail'}
+      ,{field: 'BIRTHDAY', title: '出生日期', event:'detail',templet: function(d){
+        return common.empty(d.BIRTHDAY) ? '' : d.BIRTHDAY.replace(/00:00:00/, '');
+      }}
+      ,{field: 'ID_NUMBER', title: '身份证号', event:'detail'}
+      ,{field: 'CREATE_TIME', title: '建档时间', event:'detail'}
+      ,{field: 'MANAGE_REAL_NAME', title: '签约医生', event:'detail'}
+    ];
+    if (router.search.t == 'l') {
+      cols.push({field: 'MANAGE_UNIT_NAME', title: '管理单位', event:'detail'});
+    }
+    cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230});
     common.xyRender({
       elem: '#xy-resident-manage'
       ,url: layui.setter.api.SearchClient
       ,where: where
-      ,cols: [[
-        {field: 'REAL_NAME', title: '姓名', minWidth:100, event:'detail'}
-        ,{field: 'SEX_VALUE', title: '性别', minWidth:100, event:'detail'}
-        ,{field: 'BIRTHDAY', title: '出生日期', minWidth:100, event:'detail'}
-        ,{field: 'ID_NUMBER', title: '身份证号', minWidth:100, event:'detail'}
-        ,{field: 'CREATE_TIME', title: '建档时间', minWidth:100, event:'detail'}
-        ,{field: 'MANAGE_REAL_NAME', title: '签约医生', minWidth:100, event:'detail'}
-        ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230}
-      ]]
+      ,cols: [cols]
+    });
+  }
+
+  var previeImg = function(){
+    $('#xy-resident-avatar-img,#xy-resident-identity-img').click(function() {
+      var src = $(this).attr('src');
+      if (!common.empty(src)) {
+        layer.photos({
+          photos: {
+            "title": "预览",
+            "data": [
+              {
+                "alt": "预览",
+                "src": src
+              }
+            ]
+          }
+          ,anim: 5
+        });
+      }
     });
   }
 
@@ -100,7 +123,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             "KEY_WORD" : "",
             "UNIT_ID": common.user.UNIT_ID,
             "CHILDREN_UNIT": 0,
-            "USER_ID": common.user.ID
+            "USER_ID": 0
           });
         });
       } else if (router.search.t == 'l') {
@@ -117,7 +140,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             "KEY_WORD" : "",
             "UNIT_ID": common.user.UNIT_ID,
             "CHILDREN_UNIT": 1,
-            "USER_ID": common.user.ID
+            "USER_ID": 0
           });
         });
       } else {
@@ -188,6 +211,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             if (data.data.ID_NUMBER_FILE_NAME) {
               $('#xy-resident-identity-img').attr('src', common.getImageUrl(data.data.ID_NUMBER_FILE_NAME));
             }
+            previeImg();
           });
           element.on('collapse(collapse-history)', function(collData){
             if (collData.show && !collData.title.attr('data-init')) {
@@ -240,6 +264,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             if (data.data.ID_NUMBER_FILE_NAME) {
               $('#xy-resident-identity-img').attr('src', common.getImageUrl(data.data.ID_NUMBER_FILE_NAME));
             }
+            previeImg();
             $('select[name="SEX"]').attr('data-val', data.data.SEX);
             $('select[name="MARRIAGE"]').attr('data-val', data.data.MARRIAGE);
             $('select[name="DWELL_TYPE"]').attr('data-val', data.data.DWELL_TYPE);

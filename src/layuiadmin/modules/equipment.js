@@ -60,9 +60,6 @@ layui.define(['table', 'form', 'common', 'laytpl'], function(exports){
               return d.STANDARD_MIX_VALUE;
             }
           }}
-          ,{field: 'USED', title: '是否使用',templet: function(d){
-            return d.USED == 1 ? '已使用' : '未使用';
-          }}
         ]]
         ,done: function(){
           common.rowspan('RECEIVE_TIME', 1);

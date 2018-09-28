@@ -146,7 +146,11 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
     }
     ,xyReload: function(filter, options){
       layer.load(0, {time: layui.setter.loadsec});
-      table.reload(filter, options);
+      table.reload(filter, $.extend({
+        page: {
+          curr: 1
+        }
+      }, options));
     }
     ,xyRender: function(options){
       if(this.user && this.user.token){
@@ -162,6 +166,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
 
       return table.render($.extend({
         limit: 10
+        ,cellMinWidth: 80
         ,method: 'post'
         ,contentType: 'application/json'
         ,request: {
@@ -184,7 +189,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
               for (var i = 0; i < res.data.length; i++) {
                 Object.keys(res.data[i]).forEach(function(key){
                   if (key.indexOf('_TIME') != -1) {
-                    res.data[i][key] = res.data[i][key].replace(/00:00:00/, '');
+                    res.data[i][key] = common.empty(res.data[i][key]) ? '' : res.data[i][key].replace(/00:00:00/, '');
                   }
                 });
               }
@@ -478,10 +483,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       form.on('submit(xy-icd-search)', function(data){
         //执行重载
         common.xyReload('xy-icd-table', {
-          page: {
-            curr: 1
-          }
-          ,where: {
+          where: {
             ICD_KEYWORD: data.field.icdq
           }
         });

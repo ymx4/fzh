@@ -98,6 +98,9 @@ td[lay-event=detail] {
 	margin-top: 6px;
     vertical-align: middle;
 }
+.xy-form-extra-l {
+	display: block;
+}
 .xy-form-extra-control input {
 	height: 28px;
 }

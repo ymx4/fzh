@@ -1,9 +1,10 @@
-layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports){
+layui.define(['table', 'form', 'laytpl', 'common', 'element', 'history'], function(exports){
   var $ = layui.$
   ,table = layui.table
   ,form = layui.form
   ,laytpl = layui.laytpl
   ,common = layui.common
+  ,element = layui.element
   ,router = layui.router();
 
   var testhisFlag = false;
@@ -122,6 +123,28 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
     });
   }
 
+  var showHistory = function(clientId) {
+    var showHistory = ['hospital', 'familyHospital', 'medicine', 'inoculate'];
+
+    var historySort = layui.history.historySort;
+    var renderHistory = layui.history.renderHistory;
+    var renderEquipment = layui.history.renderEquipment;
+
+    $.each(showHistory, function(hIndex, item) {
+      renderHistory[item].call(this, {
+        "CLIENT_ID" : clientId,
+        "HISTORY_SORT_ID": historySort[item].id
+      });
+    });
+    element.on('collapse(collapse-equipment)', function(collData){
+      if (collData.show && !collData.title.attr('data-init')) {
+        collData.title.attr('data-init', 1);
+        var type = collData.title.attr('data-type');
+        renderEquipment(clientId, type);
+      }
+    });
+  }
+
   var init = {
     list: function() {
       if (router.search.t == 's') {
@@ -205,10 +228,6 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
     ,detail: function() {
       var curId = router.search.clientId;
       var healthId = router.search.id;
-      var showHistory = ['hospital', 'familyHospital', 'medicine', 'inoculate'];
-
-      var historySort = layui.history.historySort;
-      var renderHistory = layui.history.renderHistory;
 
       var formData = {};
 
@@ -241,40 +260,11 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
             }
             formData['hproject_' + item.Physical_Detail.PROJECT_ID] = item.Physical_Detail;
           });
-          laytpl(detailContainer.innerHTML).render({formData: formData}, function(html){
+          laytpl(detailContainer.innerHTML).render({formData: formData, equipmentSort: layui.history.equipmentSort}, function(html){
             $('.layui-fluid').append(html);
 
-            common.xyRender({
-              elem: '#xy-equipment'
-              ,url: layui.setter.api.GetDataFormClientID
-              ,where: {
-                "CLIENT_ID": curId
-                ,"ID_NUMBER": ''
-                ,"SATRT_DATE": ''
-                ,"END_DATE": ''
-              }
-              ,cols: [[
-                {field: 'RECEIVE_TIME', title: '接收时间'}
-                ,{field: 'CHINESE_NAME', title: '项目名称'}
-                ,{field: 'RECEIVE_DATA', title: '接收数据'}
-                ,{field: 'UNIT_NAME', title: '单位'}
-                ,{field: 'ABNORMAL', title: '异常'}
-                ,{field: 'STANDARD_RANGE', title: '参考范围',templet: function(d){
-                  if (d.STANDARD_MAX_VALUE) {
-                    return d.STANDARD_MIX_VALUE + ' - ' + d.STANDARD_MAX_VALUE;
-                  } else {
-                    return d.STANDARD_MIX_VALUE;
-                  }
-                }}
-              ]]
-            });
-
-            $.each(showHistory, function(hIndex, item) {
-              renderHistory[item].call(this, {
-                "CLIENT_ID" : curId,
-                "HISTORY_SORT_ID": historySort[item].id
-              });
-            });
+            showHistory(curId);
+            element.render('collapse');
           });
         }, this)
       });
@@ -300,11 +290,6 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
         return;
       }
       layer.load(0, {time: layui.setter.loadsec});
-      
-      var showHistory = ['hospital', 'familyHospital', 'medicine', 'inoculate'];
-
-      var historySort = layui.history.historySort;
-      var renderHistory = layui.history.renderHistory;
 
       var formData = {};
 
@@ -330,7 +315,7 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
           $.each(examData.data, function(hIndex, item) {
             formData['hproject_' + item.Physical_Detail.PROJECT_ID] = item;
           });
-          laytpl(formContainer.innerHTML).render({formData: formData}, function(html){
+          laytpl(formContainer.innerHTML).render({formData: formData, equipmentSort: layui.history.equipmentSort}, function(html){
             $('.layui-fluid').append(html);
             var inputData = {};
             $.each(formData, function(hIndex, item) {
@@ -377,38 +362,9 @@ layui.define(['table', 'form', 'laytpl', 'common', 'history'], function(exports)
 
             form.val('xy-health-form', inputData);
             form.render();
-          
-            common.xyRender({
-              elem: '#xy-equipment'
-              ,url: layui.setter.api.GetDataFormClientID
-              ,where: {
-                "CLIENT_ID": curId
-                ,"ID_NUMBER": ''
-                ,"SATRT_DATE": ''
-                ,"END_DATE": ''
-              }
-              ,cols: [[
-                {field: 'RECEIVE_TIME', title: '接收时间'}
-                ,{field: 'CHINESE_NAME', title: '项目名称'}
-                ,{field: 'RECEIVE_DATA', title: '接收数据'}
-                ,{field: 'UNIT_NAME', title: '单位'}
-                ,{field: 'ABNORMAL', title: '异常'}
-                ,{field: 'STANDARD_RANGE', title: '参考范围',templet: function(d){
-                  if (d.STANDARD_MAX_VALUE) {
-                    return d.STANDARD_MIX_VALUE + ' - ' + d.STANDARD_MAX_VALUE;
-                  } else {
-                    return d.STANDARD_MIX_VALUE;
-                  }
-                }}
-              ]]
-            });
 
-            $.each(showHistory, function(hIndex, item) {
-              renderHistory[item].call(this, {
-                "CLIENT_ID" : curId,
-                "HISTORY_SORT_ID": historySort[item].id
-              });
-            });
+            showHistory(curId);
+            element.render('collapse');
 
             $('input[name="hproject_24"],input[name="hproject_23"]').on('input', function(){
               var weight = parseInt($('input[name="hproject_24"]').val());

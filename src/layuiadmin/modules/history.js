@@ -16,6 +16,52 @@ layui.define(['common'], function(exports){
     ,inoculate: {id:12,name:'预防接种史'}
   }
 
+  var equipmentSort = {
+    data1: {id:1,name:'血总胆固醇'}
+    ,data2: {id:2,name:'血高密度胆固醇'}
+    ,data3: {id:3,name:'血甘油三酯'}
+    ,data4: {id:4,name:'血低密度胆固醇'}
+    ,data5: {id:5,name:'白细胞'}
+    ,data6: {id:6,name:'亚硝酸盐'}
+    ,data7: {id:7,name:'尿胆原'}
+    ,data8: {id:8,name:'胆红素'}
+    ,data9: {id:9,name:'尿潜血'}
+    ,data10: {id:10,name:'尿蛋白'}
+    ,data11: {id:11,name:'酸碱度'}
+    ,data12: {id:12,name:'尿比重'}
+    ,data13: {id:13,name:'维生素C'}
+    ,data14: {id:14,name:'尿酮体'}
+    ,data15: {id:15,name:'葡萄糖'}
+    ,data16: {id:16,name:'血糖'}
+  }
+
+  var renderEquipment = function(clientId, equipmentType){
+    common.xyRender({
+      elem: '#xy-equipment-' + equipmentType
+      ,url: layui.setter.api.GetDataFormClientID
+      ,where: {
+        "CLIENT_ID": clientId
+        ,"PROJECT_ID": equipmentSort[equipmentType].id
+        // ,"ID_NUMBER": ''
+        // ,"SATRT_DATE": ''
+        // ,"END_DATE": ''
+      }
+      ,cols: [[
+        {field: 'RECEIVE_TIME', title: '接收时间'}
+        ,{field: 'RECEIVE_DATA', title: '接收数据'}
+        ,{field: 'UNIT_NAME', title: '单位'}
+        ,{field: 'ABNORMAL', title: '异常'}
+        ,{field: 'STANDARD_RANGE', title: '参考范围',templet: function(d){
+          if (d.STANDARD_MAX_VALUE) {
+            return d.STANDARD_MIX_VALUE + ' - ' + d.STANDARD_MAX_VALUE;
+          } else {
+            return d.STANDARD_MIX_VALUE;
+          }
+        }}
+      ]]
+    });
+  }
+
   var renderHistory = {
     medical: function(where){
       //个人病史
@@ -362,5 +408,5 @@ layui.define(['common'], function(exports){
     }
   };
 
-  exports('history', {historySort: historySort, renderHistory: renderHistory})
+  exports('history', {historySort: historySort, renderHistory: renderHistory, equipmentSort: equipmentSort, renderEquipment: renderEquipment})
 });

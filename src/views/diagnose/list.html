@@ -35,18 +35,21 @@
             </div>
           </div>
           <div class="layui-inline">
-            <button class="layui-btn layuiadmin-btn-visit" lay-submit lay-filter="xy-visit-search">
+            <button class="layui-btn layuiadmin-btn-diagnose" lay-submit lay-filter="xy-diagnose-search">
               <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
             </button>
           </div>
         </div>
       </div>
 
-      <div class="layui-card-body">        
-        <table id="xy-visit-manage" lay-filter="xy-visit-manage"></table>
-        <script type="text/html" id="table-visit">
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="visit/edit.html" lay-text="{{d.username}}">查看</a>
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="visit/edit.html" lay-text="{{d.username}}">编辑</a>
+      <div class="layui-card-body">
+        <div style="padding-bottom: 10px;">
+          <a class="layui-btn" lay-href="diagnose/edit.html" lay-text="添加就诊">添加</a>
+        </div>   
+        <table id="xy-diagnose-manage" lay-filter="xy-diagnose-manage"></table>
+        <script type="text/html" id="table-diagnose">
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="diagnose/edit.html" lay-text="{{d.username}}">查看</a>
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="diagnose/edit.html" lay-text="{{d.username}}">编辑</a>
           <a class="layui-btn layui-btn-danger layui-btn-xs">会诊</a>
         </script>
       </div>
@@ -59,15 +62,8 @@
     base: '../../layuiadmin/'
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'visit', 'laydate'], function() {
-    var laydate = layui.laydate;
-
-    lay('.xy-date').each(function(){
-      laydate.render({
-        elem: this
-        ,trigger: 'click'
-      });
-    });
+  }).use(['index', 'diagnose'], function() {
+    layui.diagnose.init.list();
   });
   </script>
 </body>

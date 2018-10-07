@@ -158,7 +158,7 @@
             </div>
           </div>
           <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-            <label class="layui-form-label">责任医生</label>
+            <label class="layui-form-label">签约医生</label>
             <div class="layui-input-block">
               <div class="layui-form-mid layui-word-aux">{{d.MANAGE_REAL_NAME}}</div>
             </div>
@@ -281,12 +281,21 @@
         <table id="xy-history-health" lay-filter="xy-history-health"></table>
       </div>
     </div>
-        <div class="layui-card">
-          <div class="layui-card-header">健康在线生化数据</div>
-          <div class="layui-card-body">
-            <table id="xy-history-equipment" lay-filter="xy-history-equipment"></table>
-          </div>
+    <div class="layui-card">
+      <div class="layui-card-header">健康在线生化数据</div>
+      <div class="layui-card-body">
+        <div class="layui-collapse" lay-filter="collapse-equipment">
+          {{#  layui.each(d.equipmentSort, function(index, item){ }}
+            <div class="layui-colla-item">
+              <h2 class="layui-colla-title" data-type="{{index}}">{{item.name}}</h2>
+              <div class="layui-colla-content">
+                <table id="xy-equipment-{{index}}" lay-filter="xy-equipment-{{index}}"></table>
+              </div>
+            </div>
+          {{#  }); }}
         </div>
+      </div>
+    </div>
     <div class="layui-card">
       <div class="layui-card-header">既往史</div>
       <div class="layui-card-body">

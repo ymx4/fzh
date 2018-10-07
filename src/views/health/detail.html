@@ -967,11 +967,18 @@
         </div>
       </div>
       <div class="layui-card">
-        <div class="layui-card-header">设备数据</div>
-        <div class="layui-card-body layui-row">
-            <div class="layui-field-box layui-col-space10">
-              <table id="xy-equipment" lay-filter="xy-equipment"></table>
-            </div>
+        <div class="layui-card-header">健康在线生化数据</div>
+        <div class="layui-card-body">
+          <div class="layui-collapse" lay-filter="collapse-equipment">
+            {{#  layui.each(d.equipmentSort, function(index, item){ }}
+              <div class="layui-colla-item">
+                <h2 class="layui-colla-title" data-type="{{index}}">{{item.name}}</h2>
+                <div class="layui-colla-content">
+                  <table id="xy-equipment-{{index}}" lay-filter="xy-equipment-{{index}}"></table>
+                </div>
+              </div>
+            {{#  }); }}
+          </div>
         </div>
       </div>
       <div class="layui-card">

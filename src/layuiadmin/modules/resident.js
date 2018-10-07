@@ -1,4 +1,4 @@
-layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common', 'history'], function(exports){
+layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common', 'history', 'dropdown'], function(exports){
   var $ = layui.$
   ,table = layui.table
   ,form = layui.form
@@ -39,30 +39,28 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         parent.layui.index.openTabsPage('health/detail.html#/id=' + obj.data.ID + '/clientId=' + obj.data.CLIENT_ID, '查看档案-' + obj.data.CLIENT_REAL_NAME);
       }
     });
+  }
 
-    common.xyRender({
-      elem: '#xy-history-equipment'
-      ,url: layui.setter.api.GetDataFormClientID
-      ,where: {
-        "CLIENT_ID": cliendId
-        ,"ID_NUMBER": ''
-        ,"SATRT_DATE": ''
-        ,"END_DATE": ''
+  var listenHistory = function(clientId) {
+    var historySort = layui.history.historySort;
+    var renderHistory = layui.history.renderHistory;
+    var renderEquipment = layui.history.renderEquipment;
+    element.on('collapse(collapse-history)', function(collData){
+      if (collData.show && !collData.title.attr('data-init')) {
+        collData.title.attr('data-init', 1);
+        var type = collData.title.attr('data-type');
+        renderHistory[type].call(this, {
+          "CLIENT_ID" : clientId,
+          "HISTORY_SORT_ID": historySort[type].id
+        });
       }
-      ,cols: [[
-        {field: 'RECEIVE_TIME', title: '接收时间'}
-        ,{field: 'CHINESE_NAME', title: '项目名称'}
-        ,{field: 'RECEIVE_DATA', title: '接收数据'}
-        ,{field: 'UNIT_NAME', title: '单位'}
-        ,{field: 'ABNORMAL', title: '异常'}
-        ,{field: 'STANDARD_RANGE', title: '参考范围',templet: function(d){
-          if (d.STANDARD_MAX_VALUE) {
-            return d.STANDARD_MIX_VALUE + ' - ' + d.STANDARD_MAX_VALUE;
-          } else {
-            return d.STANDARD_MIX_VALUE;
-          }
-        }}
-      ]]
+    });
+    element.on('collapse(collapse-equipment)', function(collData){
+      if (collData.show && !collData.title.attr('data-init')) {
+        collData.title.attr('data-init', 1);
+        var type = collData.title.attr('data-type');
+        renderEquipment(clientId, type);
+      }
     });
   }
 
@@ -86,6 +84,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       ,url: layui.setter.api.SearchClient
       ,where: where
       ,cols: [cols]
+      ,done: function() {
+        layui.dropdown.render();
+      }
     });
   }
 
@@ -115,15 +116,11 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         //本单位
         laytpl(searchTpl.innerHTML).render({t: router.search.t}, function(html){
           $('#searchContainer').after(html);
-          form.val('xy-resident-search-form', {
-            USER_ID: 0
-            ,REAL_NAME: '全部'
-          });
           renderResident({
             "KEY_WORD" : "",
             "UNIT_ID": common.user.UNIT_ID,
             "CHILDREN_UNIT": 0,
-            "USER_ID": 0
+            "USER_ID": router.search.u
           });
         });
       } else if (router.search.t == 'l') {
@@ -133,14 +130,12 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           form.val('xy-resident-search-form', {
             UNIT_ID: common.user.UNIT_ID
             ,UNIT_NAME: common.user.UNIT_NAME
-            ,USER_ID: common.user.ID
-            ,REAL_NAME: common.user.REAL_NAME
           });
           renderResident({
             "KEY_WORD" : "",
             "UNIT_ID": common.user.UNIT_ID,
             "CHILDREN_UNIT": 1,
-            "USER_ID": 0
+            "USER_ID": router.search.u
           });
         });
       } else {
@@ -188,9 +183,6 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       });
     }
     ,detail: function() {
-      var historySort = layui.history.historySort;
-      var renderHistory = layui.history.renderHistory;
-
       layer.load(0, {time: layui.setter.loadsec});
       common.req({
         url: layui.setter.api.GetClientInfo
@@ -213,18 +205,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             }
             previeImg();
           });
-          element.on('collapse(collapse-history)', function(collData){
-            if (collData.show && !collData.title.attr('data-init')) {
-              collData.title.attr('data-init', 1);
-              var type = collData.title.attr('data-type');
-              renderHistory[type].call(this, {
-                "CLIENT_ID" : data.data.ID,
-                "HISTORY_SORT_ID": historySort[type].id
-              });
-            }
-          });
+          listenHistory(data.data.ID);
           // history
-          laytpl(historyContainer.innerHTML).render({edit:1, historySort: historySort}, function(html){
+          laytpl(historyContainer.innerHTML).render({edit:1, historySort: layui.history.historySort, equipmentSort: layui.history.equipmentSort}, function(html){
             $('.resident-form').after(html);
             renderHealth(data.data.ID, false);
             element.render('collapse');
@@ -234,8 +217,6 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     }
     ,edit: function() {
       common.user.pageType = 'edit';
-      var historySort = layui.history.historySort;
-      var renderHistory = layui.history.renderHistory;
 
       if (router.search.id) {
         layer.load(0, {time: layui.setter.loadsec});
@@ -285,18 +266,11 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
             $('#bmiDiv').text(data.data.BMI ? data.data.BMI : '');
 
-            element.on('collapse(collapse-history)', function(collData){
-              if (collData.show && !collData.title.attr('data-init')) {
-                collData.title.attr('data-init', 1);
-                var type = collData.title.attr('data-type');
-                renderHistory[type].call(this, {
-                  "CLIENT_ID" : data.data.ID,
-                  "HISTORY_SORT_ID": historySort[type].id
-                });
-              }
-            });
+            listenHistory(data.data.ID);
+            var historySort = layui.history.historySort;
+            var renderHistory = layui.history.renderHistory;console.log(layui.history.equipmentSort)
             // history
-            laytpl(historyContainer.innerHTML).render({edit:1, historySort: historySort, client: data.data}, function(html){
+            laytpl(historyContainer.innerHTML).render({edit:1, historySort: historySort, equipmentSort: layui.history.equipmentSort, client: data.data}, function(html){
               $('.resident-form').after(html);
 
               renderHealth(data.data.ID, true);

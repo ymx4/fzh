@@ -17,24 +17,25 @@
       <div class="layui-card-header">就诊</div>
       <div class="layui-card-body" style="padding: 15px;">
         <form class="layui-form" action="" lay-filter="">
+          <input type="hidden" name="ID" value="0">
 
           <div class="layui-form-item">
             <div class="layui-inline">
               <label class="layui-form-label">就诊编号</label>
-              <div class="layui-input-inline">
-                <input type="text" name="number" lay-verify="required" autocomplete="off" class="layui-input">
-              </div>
-            </div>
-            <div class="layui-inline">
-              <label class="layui-form-label">就诊时间</label>
-              <div class="layui-input-inline">
-                <input type="text" class="layui-input xy-date" name="test">
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux" id="DIAGNOSE_NO"></div>
               </div>
             </div>
             <div class="layui-inline">
               <label class="layui-form-label">就诊医生</label>
-              <div class="layui-input-inline">
-                <input type="text" name="number" lay-verify="required" autocomplete="off" class="layui-input">
+              <div class="layui-input-block">
+                <div class="layui-inline xy-form-group">
+                  <input type="hidden" id="USER_ID" name="USER_ID">
+                  <input type="text" id="DOCTOR_REAL_NAME" name="DOCTOR_REAL_NAME" disabled class="layui-input">
+                  <div class="layui-btn-group">
+                    <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyseldoctor" data-id="USER_ID" data-name="DOCTOR_REAL_NAME">选择</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -42,56 +43,43 @@
           <div class="layui-form-item">
             <label class="layui-form-label">就诊内容</label>
             <div class="layui-input-block">
-              <textarea name="text" placeholder="请输入内容" class="layui-textarea"></textarea>
+              <textarea name="INQUIRY" placeholder="请输入内容" class="layui-textarea"></textarea>
             </div>
           </div>
           
           <div class="layui-form-item">
             <label class="layui-form-label">情况描述</label>
             <div class="layui-input-block">
-              <textarea name="text" placeholder="请输入内容" class="layui-textarea"></textarea>
+              <textarea name="DESCRIPTION" placeholder="请输入内容" class="layui-textarea"></textarea>
             </div>
           </div>
           
           <div class="layui-form-item">
             <label class="layui-form-label">诊断结论</label>
             <div class="layui-input-block">
-              <textarea name="text" placeholder="请输入内容" class="layui-textarea"></textarea>
-            </div>
-          </div>
-
-          <div class="layui-form-item">
-            <label class="layui-form-label">ICD疾病统计</label>
-            <div class="layui-input-block">
-              <div class="layui-inline xy-form-group">
-                <input type="hidden" id="icdid" name="test">
-                <input type="text" id="icdname" name="test" lay-verify="required" disabled class="layui-input layui-disabled">
-                <div class="layui-btn-group">
-                  <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyicd" data-id="icdid" data-name="icdname">选择ICD疾病名称</button>
-                </div>
-              </div>
+              <textarea name="CONCLUSION" placeholder="请输入内容" class="layui-textarea"></textarea>
             </div>
           </div>
           
           <div class="layui-form-item">
             <label class="layui-form-label">处方</label>
             <div class="layui-input-block">
-              <textarea name="text" placeholder="请输入内容" class="layui-textarea"></textarea>
+              <textarea name="RECIPE" placeholder="请输入内容" class="layui-textarea"></textarea>
             </div>
           </div>
           
           <div class="layui-form-item">
             <div class="layui-input-block">
               <div class="layui-inline">
-                <input type="checkbox" name="like1[write]" lay-skin="primary" title="复查时间" checked="">
+                <input type="checkbox" name="NEED_REVIEW" lay-skin="primary" title="复查时间" value="1">
               </div>
               <div class="layui-inline">
-                <input type="text" class="layui-input xy-date" name="test" placeholder="选择复查时间">
+                <input type="text" class="layui-input xy-date" name="REVIEW_DATE" placeholder="选择复查时间">
               </div>
             </div>
           </div>
 
-          <div class="layui-form-item">
+          <!-- <div class="layui-form-item">
             <label class="layui-form-label">是否需要随访</label>
             <div class="layui-input-block">
               <input type="radio" name="sex" value="1" title="是" checked="">
@@ -103,6 +91,12 @@
             <label class="layui-form-label">随访内容</label>
             <div class="layui-input-block">
               <textarea name="text" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+          </div> -->
+
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button type="button" class="layui-btn" lay-submit lay-filter="xy-diagnose-submit">保存</button>
             </div>
           </div>
           
@@ -118,15 +112,8 @@
     base: '../../layuiadmin/'
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'laydate', 'common'], function() {
-    var laydate = layui.laydate;
-
-    lay('.xy-date').each(function(){
-      laydate.render({
-        elem: this
-        ,trigger: 'click'
-      });
-    });
+  }).use(['index', 'diagnose'], function() {
+    layui.diagnose.init.edit();
   });
   </script>
 </body>

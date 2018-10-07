@@ -151,6 +151,11 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       NewPhysicalExamination: 'http://holtest.fres.cn/PhysicalExamination/NewPhysicalExamination.ashx',
       DeletePhysicalExamination: 'http://holtest.fres.cn/PhysicalExamination/DeletePhysicalExamination.ashx',
       SavePhysicalExaminationData: 'http://holtest.fres.cn/PhysicalExamination/SavePhysicalExaminationData.ashx',
+      GetDiagnoseNO: 'http://holtest.fres.cn/Client/Diagnose/GetDiagnoseNO.ashx',
+      GetDiagnoseInfo: 'http://holtest.fres.cn/Client/Diagnose/GetDiagnoseInfo.ashx',
+      SearchDiagnose: 'http://holtest.fres.cn/Client/Diagnose/SearchDiagnose.ashx',
+      DeleteDiagnose: 'http://holtest.fres.cn/Client/Diagnose/DeleteDiagnose.ashx',
+      ModifyDiagnose: 'http://holtest.fres.cn/Client/Diagnose/ModifyDiagnose.ashx',
     }
     ,loadsec: 5*1000
     ,dateFormat: {

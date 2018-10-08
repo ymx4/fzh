@@ -61,8 +61,7 @@
         </div>   
         <table id="xy-diagnose-manage" lay-filter="xy-diagnose-manage"></table>
         <script type="text/html" id="table-diagnose">
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="diagnose/edit.html" lay-text="{{d.username}}">查看</a>
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="diagnose/edit.html" lay-text="{{d.username}}">编辑</a>
+          {{# if(d.STATUS != 1) { }}<a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="diagnose/edit.html#/id={{d.ID}}" lay-text="就诊-{{d.CLIENT_REAL_NAME}}">编辑</a>{{# } }}
           <a class="layui-btn layui-btn-danger layui-btn-xs">会诊</a>
         </script>
       </div>

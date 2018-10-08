@@ -12,7 +12,8 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
       $('.xy-date').each(function(){
         laydate.render({
           elem: this
-          ,format: layui.setter.dateFormat.day
+          ,format: layui.setter.dateFormat.sec
+          ,type: 'datetime'
           ,trigger: 'click'
         });
       });
@@ -43,11 +44,10 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
         ,url: layui.setter.api.SearchDiagnose
         ,where: where
         ,cols: [[
-          {field: 'username', title: '就诊编号'}
-          ,{field: 'username', title: '就诊时间'}
-          ,{field: 'username', title: '患者姓名'}
-          ,{field: 'username', title: '就诊医生'}
-          ,{field: 'username', title: '状态'}
+          {field: 'DIAGNOSE_NO', title: '就诊编号', event:'detail'}
+          ,{field: 'DIAGNOSE_DATE', title: '就诊时间', event:'detail'}
+          ,{field: 'CLIENT_REAL_NAME', title: '患者姓名', event:'detail'}
+          ,{field: 'DOCTOR_REAL_NAME', title: '就诊医生', event:'detail'}
           ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-diagnose'}
         ]]
       });
@@ -77,6 +77,8 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
               }
             });
           });
+        } else if (obj.event === 'detail') {
+          parent.layui.index.openTabsPage('diagnose/detail.html#/id=' + obj.data.ID, '就诊-' + obj.data.CLIENT_REAL_NAME);
         }
       });
     }
@@ -93,10 +95,12 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
               $(':input[name="REVIEW_DATE"]').removeClass('layui-hide');
               laydate.render({
                 elem: '#REVIEW_DATE'
-                ,format: layui.setter.dateFormat.day
-                ,value: data.data.REVIEW_DATE ? data.data.REVIEW_DATE.substring(0, 10) : ''
+                ,format: layui.setter.dateFormat.sec
+                ,type: 'datetime'
               });
             }
+            $('#DOCTOR_REAL_NAME').text(data.data.DOCTOR_REAL_NAME);
+            $('#UNIT_NAME').text(data.data.UNIT_NAME);
             $('#SHOW_DIAGNOSE_NO').text(data.data.DIAGNOSE_NO);
           }, this)
         });
@@ -106,12 +110,15 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
           ,data: {}
           ,success: function(data) {
             diagnoseNo = data.message;
+            $('#DOCTOR_REAL_NAME').text(common.user.REAL_NAME);
+            $('#UNIT_NAME').text(common.user.UNIT_NAME);
             $('#SHOW_DIAGNOSE_NO').text(diagnoseNo);
             $('#DIAGNOSE_NO').val(diagnoseNo);
             $(':input[name="CLIENT_ID"]').val(router.search.CLIENT_ID);
             laydate.render({
               elem: '#REVIEW_DATE'
-              ,format: layui.setter.dateFormat.day
+              ,format: layui.setter.dateFormat.sec
+              ,type: 'datetime'
             });
           }
         });
@@ -126,7 +133,6 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
       });
 
       form.on('submit(xy-diagnose-submit)', function(data){
-        console.log(data.field.STATUS);
         if (data.field.STATUS == '1') {
           layer.confirm('确认就诊已完成吗？完成后不可修改', function(index){
             common.req({
@@ -153,6 +159,24 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
           });
         }
         return false;
+      });
+    }
+    ,detail: function() {
+      common.req({
+        url: layui.setter.api.GetDiagnoseInfo
+        ,data: {
+          ID: router.search.id
+        }
+        ,success: $.proxy(function(data){
+          Object.keys(data.data).forEach(function(key){
+            if (data.data[key] == null) {
+              data.data[key] = '';
+            }
+          });
+          laytpl(xy_diagnose_detail.innerHTML).render(data.data, function(html){
+            document.getElementById('xy_diagnose_detail_container').innerHTML = html;
+          });
+        }, this)
       });
     }
   }

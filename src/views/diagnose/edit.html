@@ -16,7 +16,7 @@
     <div class="layui-card">
       <div class="layui-card-header">就诊</div>
       <div class="layui-card-body" style="padding: 15px;">
-        <form class="layui-form" action="" lay-filter="">
+        <form class="layui-form" action="" lay-filter="xy-diagnose-form">
           <input type="hidden" name="ID" value="0">
           <input type="hidden" name="CLIENT_ID" value="0">
 
@@ -26,6 +26,18 @@
               <div class="layui-input-block">
                 <input type="hidden" name="DIAGNOSE_NO" id="DIAGNOSE_NO">
                 <div class="layui-form-mid layui-word-aux" id="SHOW_DIAGNOSE_NO"></div>
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">就诊医生</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux" id="DOCTOR_REAL_NAME"></div>
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">就诊机构</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux" id="UNIT_NAME"></div>
               </div>
             </div>
           </div>

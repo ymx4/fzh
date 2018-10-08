@@ -18,7 +18,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
       });
       var where = {
         CLIENT_ID: 0,
-        UNIT_ID: 0,
+        UNIT_ID: common.user.UNIT_ID,
         CHILDREN_UNIT: 1,
         USER_ID: 0,
         START_TIME: '',
@@ -27,14 +27,17 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
         END_REVIEW_DATE: '',
       };
       if (router.search.t == 'completed') {
+        where.NEED_REVIEW = -1;
         where.STATAUS = 1;
       } else if (router.search.t == 'revisit') {
-        where.STATAUS = 2;
+        where.NEED_REVIEW = 1;
+        where.STATAUS = -1;
       } else {
         //未完成
+        where.NEED_REVIEW = -1;
         where.STATAUS = 0;
       }
-      // form.val('xy-diagnose-search-form', {UNIT_ID: common.user.UNIT_ID, UNIT_NAME: common.user.UNIT_NAME});
+      form.val('xy-diagnose-search-form', {UNIT_ID: common.user.UNIT_ID, UNIT_NAME: common.user.UNIT_NAME});
       common.xyRender({
         elem: '#xy-diagnose-manage'
         ,url: layui.setter.api.SearchDiagnose
@@ -52,13 +55,8 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
       //监听搜索
       form.on('submit(xy-diagnose-search)', function(data){
         var field = data.field;
-        // delete field.UNIT_NAME;
-        // if (data.field.GROUP_ID == '') {
-        //   field.GROUP_ID = 0;
-        // }
-        // field.ALL_UNIT = field.ALL_UNIT || 0;
-        // field.SPECIALIST = field.SPECIALIST || 0;
-        // field.FAMILY_diagnose = field.FAMILY_diagnose || 0;
+        delete field.UNIT_NAME;
+        field.CHILDREN_UNIT = field.CHILDREN_UNIT || 0;
         //执行重载
         common.xyReload('xy-diagnose-manage', {
           where: field
@@ -128,16 +126,32 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
       });
 
       form.on('submit(xy-diagnose-submit)', function(data){
-        common.req({
-          url: layui.setter.api.ModifyDiagnose
-          ,formerror: true
-          ,data: data.field
-          ,success: function(data){
-            layer.msg('操作成功', function() {
-              common.closeSelf();
+        console.log(data.field.STATUS);
+        if (data.field.STATUS == '1') {
+          layer.confirm('确认就诊已完成吗？完成后不可修改', function(index){
+            common.req({
+              url: layui.setter.api.ModifyDiagnose
+              ,formerror: true
+              ,data: data.field
+              ,success: function(data){
+                layer.msg('操作成功', function() {
+                  common.closeSelf();
+                });
+              }
             });
-          }
-        });
+          });
+        } else {
+          common.req({
+            url: layui.setter.api.ModifyDiagnose
+            ,formerror: true
+            ,data: data.field
+            ,success: function(data){
+              layer.msg('操作成功', function() {
+                common.closeSelf();
+              });
+            }
+          });
+        }
         return false;
       });
     }

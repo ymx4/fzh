@@ -6,31 +6,33 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
   ,laydate = layui.laydate
   ,laytpl = layui.laytpl
   ,router = layui.router();
-  
-  $('.xy-date').each(function(){
-    laydate.render({
-      elem: this
-      ,trigger: 'click'
-    });
-  });
 
   var init = {
     list: function() {
+      $('.xy-date').each(function(){
+        laydate.render({
+          elem: this
+          ,format: layui.setter.dateFormat.day
+          ,trigger: 'click'
+        });
+      });
       var where = {
-        // CLIENT_ID: 0,
-        // UNIT_ID: 0,
-        // CHILDREN_UNIT: 1,
-        // USER_ID: 0,
-        // START_TIME: '',
-        // END_TIME: '',
-        // START_REVIEW_DATE: '',
-        // END_REVIEW_DATE: '',
+        CLIENT_ID: 0,
+        UNIT_ID: 0,
+        CHILDREN_UNIT: 1,
+        USER_ID: 0,
+        START_TIME: '',
+        END_TIME: '',
+        START_REVIEW_DATE: '',
+        END_REVIEW_DATE: '',
       };
       if (router.search.t == 'completed') {
+        where.STATAUS = 1;
       } else if (router.search.t == 'revisit') {
-
+        where.STATAUS = 2;
       } else {
         //未完成
+        where.STATAUS = 0;
       }
       // form.val('xy-diagnose-search-form', {UNIT_ID: common.user.UNIT_ID, UNIT_NAME: common.user.UNIT_NAME});
       common.xyRender({
@@ -82,46 +84,57 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
     }
     ,edit: function() {
       if (router.search.id) {
+        common.req({
+          url: layui.setter.api.GetDiagnoseInfo
+          ,data: {
+            ID: router.search.id
+          }
+          ,success: $.proxy(function(data){
+            form.val('xy-diagnose-form', data.data);
+            if (data.data.NEED_REVIEW) {
+              $(':input[name="REVIEW_DATE"]').removeClass('layui-hide');
+              laydate.render({
+                elem: '#REVIEW_DATE'
+                ,format: layui.setter.dateFormat.day
+                ,value: data.data.REVIEW_DATE ? data.data.REVIEW_DATE.substring(0, 10) : ''
+              });
+            }
+            $('#SHOW_DIAGNOSE_NO').text(data.data.DIAGNOSE_NO);
+          }, this)
+        });
       } else {
-        // common.req({
-        //   url: layui.setter.api.GetDiagnoseNO
-        //   ,data: {}
-        //   ,success: $.proxy(function(data) {
-        //     // var topLayui = top.layui;
-        //     // var index = topLayui.admin.tabsPage.index;
-        //     // topLayui.index.openTabsPage('health/edit.html#/id=' + data.message + '/clientId=' + router.search.clientId, '公共卫生-' + decodeURIComponent(router.search.REAL_NAME));
-        //     // topLayui.common.closeTab(index);
-        //   }, this)
-        // });
-        // return;
+        common.req({
+          url: layui.setter.api.GetDiagnoseNO
+          ,data: {}
+          ,success: function(data) {
+            diagnoseNo = data.message;
+            $('#SHOW_DIAGNOSE_NO').text(diagnoseNo);
+            $('#DIAGNOSE_NO').val(diagnoseNo);
+            $(':input[name="CLIENT_ID"]').val(router.search.CLIENT_ID);
+            laydate.render({
+              elem: '#REVIEW_DATE'
+              ,format: layui.setter.dateFormat.day
+            });
+          }
+        });
       }
-      common.req({
-        url: layui.setter.api.GetDiagnoseInfo
-        ,data: {
-          ID: router.search.id
+
+      form.on('checkbox(xy-revisit)', function(data){
+        if (data.elem.checked) {
+          $(':input[name="REVIEW_DATE"]').removeClass('layui-hide');
+        } else {
+          $(':input[name="REVIEW_DATE"]').addClass('layui-hide').val('');
         }
-        ,success: $.proxy(function(data){
-          form.val('xy-diagnose-form', data.data);
-          laydate.render({
-            elem: '#BIRTHDAY'
-            ,format: layui.setter.dateFormat.day
-            ,value: data.data.BIRTHDAY ? data.data.BIRTHDAY.substring(0, 10) : ''
-          });
-          // $('select[name="SEX"]').attr('data-val', data.data.SEX);
-          // $('select[name="STATUS"]').attr('data-val', data.data.STATUS);
-          // $('select[name="GROUP_ID"]').attr('data-val', data.data.GROUP_ID);
-          // common.initConfig();
-        }, this)
       });
 
       form.on('submit(xy-diagnose-submit)', function(data){
-
         common.req({
           url: layui.setter.api.ModifyDiagnose
           ,formerror: true
           ,data: data.field
           ,success: function(data){
             layer.msg('操作成功', function() {
+              common.closeSelf();
             });
           }
         });

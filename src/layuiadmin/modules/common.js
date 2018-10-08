@@ -20,6 +20,9 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       var index = parent.layer.getFrameIndex(window.name);
       parent.layer.close(index);
     }
+    ,closeSelf: function() {
+      top.layui.common.closeTab(top.layui.admin.tabsPage.index);
+    }
     ,getUploadUrl: function () {
       if(this.user && this.user.token){
         return layui.setter.api.UpFile + '?token=' + this.user.token;

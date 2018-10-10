@@ -61,12 +61,35 @@
         </div>   
         <table id="xy-diagnose-manage" lay-filter="xy-diagnose-manage"></table>
         <script type="text/html" id="table-diagnose">
-          {{# if(d.STATUS != 1) { }}<a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="diagnose/edit.html#/id={{d.ID}}" lay-text="就诊-{{d.CLIENT_REAL_NAME}}">编辑</a>{{# } }}
-          <a class="layui-btn layui-btn-danger layui-btn-xs">会诊</a>
+          {{# if(d.STATUS != 1) { }}
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="diagnose/edit.html#/id={{d.ID}}" lay-text="就诊-{{d.CLIENT_REAL_NAME}}">编辑</a>
+          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+          {{# } }}
+          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="consultation">申请会诊</a>
         </script>
       </div>
     </div>
   </div>
+
+  <script id="consolusionCause" type="text/html">
+    <div class="layui-card">
+      <div class="layui-card-body">
+        <form class="layui-form" action="" lay-filter="xy-consolusion-form">
+          <div class="layui-form-item">
+            <label class="layui-form-label">会诊原因</label>
+            <div class="layui-input-block">
+              <textarea name="text" placeholder="请输入会诊原因" class="layui-textarea"></textarea>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button type="button" class="layui-btn" lay-submit lay-filter="xy-consolusion-submit">提交</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </script>
 
   <script src="../../layuiadmin/layui/layui.js"></script>  
   <script>

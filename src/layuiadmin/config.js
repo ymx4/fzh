@@ -156,6 +156,8 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       SearchDiagnose: 'http://holtest.fres.cn/Client/Diagnose/SearchDiagnose.ashx',
       DeleteDiagnose: 'http://holtest.fres.cn/Client/Diagnose/DeleteDiagnose.ashx',
       ModifyDiagnose: 'http://holtest.fres.cn/Client/Diagnose/ModifyDiagnose.ashx',
+      ModifyConsultation: 'http://holtest.fres.cn/Client/Consultation/ModifyConsultation.ashx',
+      GetConsultationInfo: 'http://holtest.fres.cn/Client/Consultation/GetConsultationInfo.ashx',
     }
     ,loadsec: 5*1000
     ,dateFormat: {

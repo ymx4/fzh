@@ -7,6 +7,8 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
   ,laytpl = layui.laytpl
   ,router = layui.router();
 
+  var consultationIndex;
+
   var init = {
     list: function() {
       $('.xy-date').each(function(){
@@ -79,8 +81,33 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
           });
         } else if (obj.event === 'detail') {
           parent.layui.index.openTabsPage('diagnose/detail.html#/id=' + obj.data.ID, '就诊-' + obj.data.CLIENT_REAL_NAME);
+        } else if (obj.event === 'consultation') {
+          consultationIndex = layer.open({
+            type: 1,
+            area:['80%', 'auto'],
+            content: laytpl(consolusionCause.innerHTML).render({}),
+            title: '申请会诊'
+          });
         }
       });
+
+      form.on('submit(xy-consolusion-submit)', function(data){
+            layer.msg('操作成功', function() {
+              layer.close(consultationIndex);
+            });
+        // common.req({
+        //   url: layui.setter.api.ModifyConsultation
+        //   ,formerror: true
+        //   ,data: data.field
+        //   ,success: function(data){
+        //     layer.msg('操作成功', function() {
+        //       common.closeParent();
+        //     });
+        //   }
+        // });
+        return false;
+      });
+
     }
     ,edit: function() {
       if (router.search.id) {

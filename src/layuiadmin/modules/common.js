@@ -97,7 +97,9 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
         content: options.content,
         title: options.title
       });
-      layer.full(index);
+      if (options.full) {
+        layer.full(index);
+      }
       return index;
     }
     ,req: function(options){

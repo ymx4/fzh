@@ -43,6 +43,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
   var listenHistory = function(clientId) {
     var historySort = layui.history.historySort;
+    var healthSort = layui.history.healthSort;
     var renderHistory = layui.history.renderHistory;
     var renderEquipment = layui.history.renderEquipment;
     element.on('collapse(collapse-history)', function(collData){
@@ -268,7 +269,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
             listenHistory(data.data.ID);
             var historySort = layui.history.historySort;
-            var renderHistory = layui.history.renderHistory;console.log(layui.history.equipmentSort)
+            var renderHistory = layui.history.renderHistory;
             // history
             laytpl(historyContainer.innerHTML).render({edit:1, historySort: historySort, equipmentSort: layui.history.equipmentSort, client: data.data}, function(html){
               $('.resident-form').after(html);

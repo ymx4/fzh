@@ -14,7 +14,7 @@ layui.define(['common'], function(exports){
     ,allergy: {id:10,name:'过敏史'}
     ,disability: {id:11,name:'残疾情况'}
     ,inoculate: {id:12,name:'预防接种史'}
-  }
+  };
 
   var equipmentSort = {
     data1: {id:1,name:'血总胆固醇'}
@@ -33,7 +33,16 @@ layui.define(['common'], function(exports){
     ,data14: {id:14,name:'尿酮体'}
     ,data15: {id:15,name:'葡萄糖'}
     ,data16: {id:16,name:'血糖'}
-  }
+  };
+
+  var healthSort = {
+    diagnose: {name:'就诊记录'}
+    ,consultation: {name:'会诊记录'}
+    ,transfer: {name:'转诊记录'}
+    ,examination: {name:'体检记录'}
+    ,followup: {name:'随访记录'}
+    ,survey: {name:'问卷记录'}
+  };
 
   var renderEquipment = function(clientId, equipmentType){
     common.xyRender({
@@ -313,18 +322,17 @@ layui.define(['common'], function(exports){
       });
     }
 
-    ,visit: function(){
+    ,diagnose: function(){
       //就诊记录
       var cols = [
-        {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '就诊时间'}
-        ,{field: 'username', title: '科室'}
-        ,{field: 'username', title: '就诊医生'}
-        ,{field: 'username', title: '就诊机构'}
+        {field: 'DIAGNOSE_NO', title: '就诊编号', event:'detail'}
+        ,{field: 'DIAGNOSE_DATE', title: '就诊时间', event:'detail'}
+        ,{field: 'CLIENT_REAL_NAME', title: '患者姓名', event:'detail'}
+        ,{field: 'DOCTOR_REAL_NAME', title: '就诊医生', event:'detail'}
       ];
       common.xyRender({
-        elem: '#xy-history-visit'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+        elem: '#xy-history-diagnose'
+        ,url: layui.setter.api.SearchDiagnose
         ,cols: [cols]
       });
     }
@@ -332,19 +340,20 @@ layui.define(['common'], function(exports){
     ,consultation: function(){
       //会诊记录
       var cols = [
-        {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '会诊时间'}
-        ,{field: 'username', title: '会诊医生'}
-        ,{field: 'username', title: '会诊机构'}
+        {field: 'CONSULTATION_NO', title: '编号', event:'detail'}
+        ,{field: 'CLIENT_REAL_NAME', title: '姓名', event:'detail'}
+        ,{field: 'DIAGNOSE_UNIT_NAME', title: '就诊单位', event:'detail'}
+        ,{field: 'CONSULTATION_UNIT_NAME', title: '会诊单位', event:'detail'}
+        ,{field: 'STATUS_NAME', title: '状态', event:'detail'}
       ];
       common.xyRender({
         elem: '#xy-history-consultation'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+        ,url: layui.setter.api.SearchConsultation
         ,cols: [cols]
       });
     }
 
-    ,referral: function(){
+    ,transfer: function(){
       //转诊记录
       var cols = [
         {type: 'numbers', title: '序号'}
@@ -408,5 +417,11 @@ layui.define(['common'], function(exports){
     }
   };
 
-  exports('history', {historySort: historySort, renderHistory: renderHistory, equipmentSort: equipmentSort, renderEquipment: renderEquipment})
+  exports('history', {
+    historySort: historySort,
+    healthSort: healthSort,
+    renderHistory: renderHistory,
+    equipmentSort: equipmentSort,
+    enderEquipment: renderEquipment
+  })
 });

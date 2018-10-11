@@ -14,28 +14,16 @@
 
   <div class="layui-fluid">
     <div class="layui-card">
-      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-filter="xy-consultation-search-form">
         <div class="layui-form-item">
           <div class="layui-inline">
-            <label class="layui-form-label">关键词</label>
-            <div class="layui-input-inline">
-              <input type="text" name="searchq" placeholder="请输入" autocomplete="off" class="layui-input">
+            <label class="layui-form-label">搜索词</label>
+            <div class="layui-input-block">
+              <input type="text" name="KEY_WORD" autocomplete="off" class="layui-input">
             </div>
           </div>
           <div class="layui-inline">
-            <label class="layui-form-label">日期</label>
-            <div class="layui-input-inline">
-              <input type="text" class="layui-input xy-date" name="search-date-start" placeholder="开始日期">
-            </div>
-            <div class="layui-form-mid">
-              -
-            </div>
-            <div class="layui-input-inline">
-              <input type="text" class="layui-input xy-date" name="search-date-end" placeholder="结束日期">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <button class="layui-btn layuiadmin-btn-visit" lay-submit lay-filter="xy-visit-search">
+            <button class="layui-btn layuiadmin-btn-consultation" lay-submit lay-filter="xy-consultation-search">
               <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
             </button>
           </div>
@@ -45,8 +33,10 @@
       <div class="layui-card-body">        
         <table id="xy-consultation-manage" lay-filter="xy-consultation-manage"></table>
         <script type="text/html" id="table-consultation">
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="consultation/edit.html" lay-text="{{d.username}}">查看</a>
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="consultation/edit.html" lay-text="{{d.username}}">编辑</a>
+          {{# if(d.STATUS == 0) { }}
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="consultation/edit.html#/id={{d.ID}}" lay-text="会诊-{{d.CLIENT_REAL_NAME}}">编辑</a>
+          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+          {{# } }}
           <a class="layui-btn layui-btn-danger layui-btn-xs">撤回</a>
           <a class="layui-btn layui-btn-danger layui-btn-xs">确定转诊</a>
         </script>
@@ -60,15 +50,8 @@
     base: '../../layuiadmin/'
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'consultation', 'laydate'], function() {
-    var laydate = layui.laydate;
-
-    lay('.xy-date').each(function(){
-      laydate.render({
-        elem: this
-        ,trigger: 'click'
-      });
-    });
+  }).use(['index', 'consultation'], function() {
+    layui.consultation.init.list();
   });
   </script>
 </body>

@@ -29,16 +29,18 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
         START_REVIEW_DATE: '',
         END_REVIEW_DATE: '',
       };
-      if (router.search.t == 'completed') {
+      if (router.search.t == 'uncompleted') {
+        where.NEED_REVIEW = -1;
+        where.STATAUS = 0;
+      } else if (router.search.t == 'completed') {
         where.NEED_REVIEW = -1;
         where.STATAUS = 1;
       } else if (router.search.t == 'revisit') {
         where.NEED_REVIEW = 1;
         where.STATAUS = -1;
       } else {
-        //未完成
-        where.NEED_REVIEW = -1;
-        where.STATAUS = 0;
+        layer.msg('参数错误');
+        return;
       }
       form.val('xy-diagnose-search-form', {UNIT_ID: common.user.UNIT_ID, UNIT_NAME: common.user.UNIT_NAME});
       common.xyRender({
@@ -85,26 +87,24 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
           consultationIndex = layer.open({
             type: 1,
             area:['80%', 'auto'],
-            content: laytpl(consolusionCause.innerHTML).render({}),
+            content: laytpl(consolusionCause.innerHTML).render({ID: obj.data.ID}),
             title: '申请会诊'
           });
         }
       });
 
       form.on('submit(xy-consolusion-submit)', function(data){
+        $('#xyAddConsolusion' + data.field.DIAGNOSE_ID).remove();
+        common.req({
+          url: layui.setter.api.ModifyConsultation
+          ,formerror: true
+          ,data: data.field
+          ,success: function(data){
             layer.msg('操作成功', function() {
               layer.close(consultationIndex);
             });
-        // common.req({
-        //   url: layui.setter.api.ModifyConsultation
-        //   ,formerror: true
-        //   ,data: data.field
-        //   ,success: function(data){
-        //     layer.msg('操作成功', function() {
-        //       common.closeParent();
-        //     });
-        //   }
-        // });
+          }
+        });
         return false;
       });
 

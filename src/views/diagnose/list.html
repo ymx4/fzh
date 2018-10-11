@@ -61,11 +61,15 @@
         </div>   
         <table id="xy-diagnose-manage" lay-filter="xy-diagnose-manage"></table>
         <script type="text/html" id="table-diagnose">
-          {{# if(d.STATUS != 1) { }}
+          {{# if(d.STATUS == 0) { }}
           <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="diagnose/edit.html#/id={{d.ID}}" lay-text="就诊-{{d.CLIENT_REAL_NAME}}">编辑</a>
           <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
           {{# } }}
-          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="consultation">申请会诊</a>
+          {{# if (d.CONSULTATION_ID) { }}
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="consultation/edit.html#/id={{d.CONSULTATION_ID}}" lay-text="会诊-{{d.CLIENT_REAL_NAME}}">查看会诊</a>
+          {{# } else { }}
+          <a class="layui-btn layui-btn-normal layui-btn-xs" id="xyAddConsolusion{{d.ID}}" lay-event="consultation">申请会诊</a>
+          {{# } }}
         </script>
       </div>
     </div>
@@ -75,10 +79,12 @@
     <div class="layui-card">
       <div class="layui-card-body">
         <form class="layui-form" action="" lay-filter="xy-consolusion-form">
+          <input name="ID" type="hidden" value="0">
+          <input name="DIAGNOSE_ID" type="hidden" value="{{d.ID}}">
           <div class="layui-form-item">
             <label class="layui-form-label">会诊原因</label>
             <div class="layui-input-block">
-              <textarea name="text" placeholder="请输入会诊原因" class="layui-textarea"></textarea>
+              <textarea name="CAUSE" placeholder="请输入会诊原因" class="layui-textarea"></textarea>
             </div>
           </div>
           <div class="layui-form-item">

@@ -322,7 +322,7 @@ layui.define(['common'], function(exports){
       });
     }
 
-    ,diagnose: function(){
+    ,diagnose: function(where){
       //就诊记录
       var cols = [
         {field: 'DIAGNOSE_NO', title: '就诊编号', event:'detail'}
@@ -333,11 +333,12 @@ layui.define(['common'], function(exports){
       common.xyRender({
         elem: '#xy-history-diagnose'
         ,url: layui.setter.api.SearchDiagnose
+        ,where: where
         ,cols: [cols]
       });
     }
 
-    ,consultation: function(){
+    ,consultation: function(where){
       //会诊记录
       var cols = [
         {field: 'CONSULTATION_NO', title: '编号', event:'detail'}
@@ -349,6 +350,7 @@ layui.define(['common'], function(exports){
       common.xyRender({
         elem: '#xy-history-consultation'
         ,url: layui.setter.api.SearchConsultation
+        ,where: where
         ,cols: [cols]
       });
     }
@@ -422,6 +424,6 @@ layui.define(['common'], function(exports){
     healthSort: healthSort,
     renderHistory: renderHistory,
     equipmentSort: equipmentSort,
-    enderEquipment: renderEquipment
+    renderEquipment: renderEquipment
   })
 });

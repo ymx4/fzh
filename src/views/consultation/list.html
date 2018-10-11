@@ -35,9 +35,7 @@
         <script type="text/html" id="table-consultation">
           {{# if(d.STATUS == 0) { }}
           <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="consultation/edit.html#/id={{d.ID}}" lay-text="会诊-{{d.CLIENT_REAL_NAME}}">编辑</a>
-          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
           {{# } }}
-          <a class="layui-btn layui-btn-danger layui-btn-xs">撤回</a>
           <a class="layui-btn layui-btn-danger layui-btn-xs">确定转诊</a>
         </script>
       </div>

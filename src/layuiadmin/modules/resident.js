@@ -56,6 +56,15 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         });
       }
     });
+    element.on('collapse(collapse-health)', function(collData){
+      if (collData.show && !collData.title.attr('data-init')) {
+        collData.title.attr('data-init', 1);
+        var type = collData.title.attr('data-type');
+        renderHistory[type].call(this, {
+          "CLIENT_ID" : clientId
+        });
+      }
+    });
     element.on('collapse(collapse-equipment)', function(collData){
       if (collData.show && !collData.title.attr('data-init')) {
         collData.title.attr('data-init', 1);
@@ -208,7 +217,12 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           });
           listenHistory(data.data.ID);
           // history
-          laytpl(historyContainer.innerHTML).render({edit:1, historySort: layui.history.historySort, equipmentSort: layui.history.equipmentSort}, function(html){
+          laytpl(historyContainer.innerHTML).render({
+            edit:1,
+            historySort: layui.history.historySort,
+            healthSort: layui.history.healthSort,
+            equipmentSort: layui.history.equipmentSort
+          }, function(html){
             $('.resident-form').after(html);
             renderHealth(data.data.ID, false);
             element.render('collapse');
@@ -271,7 +285,13 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             var historySort = layui.history.historySort;
             var renderHistory = layui.history.renderHistory;
             // history
-            laytpl(historyContainer.innerHTML).render({edit:1, historySort: historySort, equipmentSort: layui.history.equipmentSort, client: data.data}, function(html){
+            laytpl(historyContainer.innerHTML).render({
+              edit:1,
+              historySort: historySort,
+              healthSort: layui.history.healthSort,
+              equipmentSort: layui.history.equipmentSort,
+              client: data.data
+            }, function(html){
               $('.resident-form').after(html);
 
               renderHealth(data.data.ID, true);

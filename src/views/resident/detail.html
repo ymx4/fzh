@@ -315,49 +315,15 @@
     <div class="layui-card">
       <div class="layui-card-header">健康记录</div>
       <div class="layui-card-body">
-        <div class="layui-collapse" lay-filter="collapse-history">
-
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="visit">就诊记录</h2>
-            <div class="layui-colla-content">
-              <table id="xy-history-visit" lay-filter="xy-history-visit"></table>
+        <div class="layui-collapse" lay-filter="collapse-health">
+          {{#  layui.each(d.healthSort, function(index, item){ }}
+            <div class="layui-colla-item">
+              <h2 class="layui-colla-title" data-type="{{index}}">{{item.name}}</h2>
+              <div class="layui-colla-content">
+                <table id="xy-history-{{index}}" lay-filter="xy-history-{{index}}"></table>
+              </div>
             </div>
-          </div>
-
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="consultation">会诊记录</h2>
-            <div class="layui-colla-content">
-              <table id="xy-history-consultation" lay-filter="xy-history-consultation"></table>
-            </div>
-          </div>
-
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="referral">转诊记录</h2>
-            <div class="layui-colla-content">
-              <table id="xy-history-referral" lay-filter="xy-history-referral"></table>
-            </div>
-          </div>
-
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="examination">体检记录</h2>
-            <div class="layui-colla-content">
-              <table id="xy-history-examination" lay-filter="xy-history-examination"></table>
-            </div>
-          </div>
-
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="followup">随访记录</h2>
-            <div class="layui-colla-content">
-              <table id="xy-history-followup" lay-filter="xy-history-followup"></table>
-            </div>
-          </div>
-
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-type="survey">问卷记录</h2>
-            <div class="layui-colla-content">
-              <table id="xy-history-survey" lay-filter="xy-history-survey"></table>
-            </div>
-          </div>
+          {{#  }); }}
         </div>
       </div>
     </div>

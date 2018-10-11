@@ -56,13 +56,25 @@
         <div class="layui-inline">
           <label class="layui-form-label">会诊单位</label>
           <div class="layui-input-block">
-            <div class="layui-form-mid layui-word-aux">{{d.CONSULTATION_UNIT_NAME}}</div>
+            <div class="layui-inline xy-form-group">
+              <input type="hidden" id="CONSULTATION_UNIT_ID" name="CONSULTATION_UNIT_ID">
+              <input type="text" id="CONSULTATION_UNIT_NAME" name="CONSULTATION_UNIT_NAME" disabled class="layui-input">
+              <div class="layui-btn-group">
+                <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyins" data-id="CONSULTATION_UNIT_ID" data-name="CONSULTATION_UNIT_NAME">选择</button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="layui-inline">
           <label class="layui-form-label">会诊医生</label>
           <div class="layui-input-block">
-            <div class="layui-form-mid layui-word-aux">{{d.CONSULTATION_REAL_NAME}}</div>
+            <div class="layui-inline xy-form-group">
+              <input type="hidden" id="CONSULTATION_USER_ID" name="CONSULTATION_USER_ID">
+              <input type="text" id="CONSULTATION_REAL_NAME" name="CONSULTATION_REAL_NAME" disabled class="layui-input">
+              <div class="layui-btn-group">
+                <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyseldoctor" data-id="CONSULTATION_USER_ID" data-name="CONSULTATION_REAL_NAME">选择</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -78,13 +90,6 @@
         <label class="layui-form-label">会诊意见</label>
         <div class="layui-input-block">
           <textarea name="OPINION" placeholder="请输入内容" class="layui-textarea"></textarea>
-        </div>
-      </div>
-      
-      <div class="layui-form-item">
-        <label class="layui-form-label">诊断结论</label>
-        <div class="layui-input-block">
-          <textarea name="CONCLUSION" placeholder="请输入内容" class="layui-textarea"></textarea>
         </div>
       </div>
 

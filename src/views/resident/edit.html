@@ -73,21 +73,21 @@
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">性别</label>
               <div class="layui-input-block">
-                <select name="SEX" class="xy-config" data-cf="22">
+                <select name="SEX" lay-verify="required" class="xy-config" data-cf="22">
                 </select>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">婚姻状态</label>
               <div class="layui-input-block">
-                <select name="MARRIAGE" class="xy-config" data-cf="12">
+                <select name="MARRIAGE" lay-verify="required" class="xy-config" data-cf="12">
                 </select>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">出生日期</label>
               <div class="layui-input-block">
-                <input type="text" id="BIRTHDAY" name="BIRTHDAY" placeholder="yyyy/MM/dd" autocomplete="off" class="layui-input">
+                <input type="text" id="BIRTHDAY" name="BIRTHDAY" lay-verify="required" placeholder="yyyy/MM/dd" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
@@ -99,7 +99,7 @@
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">移动电话</label>
               <div class="layui-input-block">
-                <input type="text" name="MOBILE" autocomplete="off" class="layui-input">
+                <input type="text" name="MOBILE" lay-verify="required|phone" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
@@ -118,14 +118,14 @@
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">民族</label>
               <div class="layui-input-block">
-                <select name="NATION" class="xy-config" data-cf="11">
+                <select name="NATION" lay-verify="required" class="xy-config" data-cf="11">
                 </select>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">文化程度</label>
               <div class="layui-input-block">
-                <select name="EDUCATION" class="xy-config" data-cf="1">
+                <select name="EDUCATION" lay-verify="required" class="xy-config" data-cf="1">
                 </select>
               </div>
             </div>
@@ -151,9 +151,23 @@
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">贫困户</label>
+              <div class="layui-input-block">
+                <select name="POVERTY_ID" class="xy-config" data-cf="23">
+                </select>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">重点人群</label>
+              <div class="layui-input-block">
+                <select name="EMPHASIS_ID" class="xy-config" data-cf="24">
+                </select>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">建档时间</label>
               <div class="layui-input-block">
-                <input type="text" id="CREATE_TIME" name="CREATE_TIME" placeholder="yyyy/MM/dd" autocomplete="off" class="layui-input">
+                <input type="text" id="CREATE_TIME" name="CREATE_TIME" lay-verify="required" placeholder="yyyy/MM/dd" autocomplete="off" class="layui-input">
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
@@ -206,7 +220,7 @@
                 <input type="hidden" class="xy-select-val" name="HOME_ADDRESS_AREA_ID">
                 <span class="xy-area" id="home_address_area_container"></span>
                 <div class="layui-inline">
-                  <input type="text" name="HOME_ADDRESS_NAME" autocomplete="off" placeholder="请输入详细地址" class="layui-input">
+                  <input type="text" name="HOME_ADDRESS_NAME" lay-verify="required" autocomplete="off" placeholder="请输入详细地址" class="layui-input">
                 </div>
               </div>
             </div>

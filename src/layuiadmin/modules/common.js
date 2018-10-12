@@ -185,6 +185,9 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
         }
         ,parseData: function(res){
           layer.closeAll('loading');
+          $('.layui-table-body').on('click', '.layui-table-grid-down', function(e) {
+            layui.stope(e);
+          });
           if (res.errorCode == 4006) {
             layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
               top.location.href = layui.setter.baseUrl + 'passport/login.html';

@@ -268,6 +268,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             $('select[name="EDUCATION"]').attr('data-val', data.data.EDUCATION);
             $('select[name="OCCUPATION"]').attr('data-val', data.data.OCCUPATION);
             $('select[name="PAYMENT"]').attr('data-val', data.data.PAYMENT);
+            $('select[name="POVERTY_ID"]').attr('data-val', data.data.POVERTY_ID);
+            $('select[name="EMPHASIS_ID"]').attr('data-val', data.data.EMPHASIS_ID);
             $('select[name="BLOOD_TYPE"]').attr('data-val', data.data.BLOOD_TYPE);
             $('select[name="BLOOD_RH_TYPE"]').attr('data-val', data.data.BLOOD_RH_TYPE);
             $('select[name="SHHJ_RLLX_ID"]').attr('data-val', data.data.SHHJ_RLLX_ID);

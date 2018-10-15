@@ -84,11 +84,18 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
         } else if (obj.event === 'detail') {
           parent.layui.index.openTabsPage('diagnose/detail.html#/id=' + obj.data.ID, '就诊-' + obj.data.CLIENT_REAL_NAME);
         } else if (obj.event === 'consultation') {
-          consultationIndex = layer.open({
-            type: 1,
-            area:['80%', 'auto'],
-            content: laytpl(consolusionCause.innerHTML).render({ID: obj.data.ID}),
-            title: '申请会诊'
+          common.req({
+            url: layui.setter.api.HospitalGetParent
+            ,formerror: true
+            ,data: {}
+            ,success: function(data){
+              consultationIndex = layer.open({
+                type: 1,
+                area:['80%', 'auto'],
+                content: laytpl(consolusionCause.innerHTML).render({ID: obj.data.ID, UNIT_NAME: data.data.PARENT_UNIT_NAME}),
+                title: '申请会诊'
+              });
+            }
           });
         }
       });

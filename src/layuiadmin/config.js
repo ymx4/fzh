@@ -129,6 +129,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       GetHospitalUnit: 'http://holtest.fres.cn/Hospital/GetHospitalUnit.ashx',
       ModificationHospitalUnit: 'http://holtest.fres.cn/Hospital/ModificationHospitalUnit.ashx',
       DeleteHospitalUnit: 'http://holtest.fres.cn/Hospital/DeleteHospitalUnit.ashx',
+      HospitalGetParent: 'http://holtest.fres.cn/Hospital/GetParent.ashx',
       GetDataFormClientID: 'http://holtest.fres.cn/Equipment/GetDataFormClientID.ashx',
       GetEquipmentType: 'http://holtest.fres.cn/Equipment/GetEquipmentType.ashx',
       GetEquipmentList: 'http://holtest.fres.cn/Equipment/GetEquipmentList.ashx',

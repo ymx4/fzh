@@ -81,6 +81,12 @@
           <input name="ID" type="hidden" value="0">
           <input name="DIAGNOSE_ID" type="hidden" value="{{d.ID}}">
           <div class="layui-form-item">
+            <label class="layui-form-label">会诊单位</label>
+            <div class="layui-input-block">
+              <div class="layui-form-mid layui-word-aux">{{d.UNIT_NAME}}</div>
+            </div>
+          </div>
+          <div class="layui-form-item">
             <label class="layui-form-label">会诊原因</label>
             <div class="layui-input-block">
               <textarea name="CAUSE" placeholder="请输入会诊原因" class="layui-textarea"></textarea>

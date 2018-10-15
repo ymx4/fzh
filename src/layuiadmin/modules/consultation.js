@@ -24,22 +24,41 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
         where.STATUS = 0;
       } else if (router.search.t == 'completed') {
         where.STATUS = 9;
+      } else if (router.search.c == 'ft' || router.search.c == 'tt') {
+        where.STATUS = 2;
       } else {
         layer.msg('参数错误');
         return;
+      }
+      var cols = [
+        {field: 'CONSULTATION_NO', title: '编号', event:'detail'}
+        ,{field: 'CLIENT_REAL_NAME', title: '姓名', event:'detail'}
+        ,{field: 'DIAGNOSE_UNIT_NAME', title: '就诊单位', event:'detail'}
+        ,{field: 'CONSULTATION_UNIT_NAME', title: '会诊单位', event:'detail'}
+        ,{field: 'STATUS_NAME', title: '状态', event:'detail',templet: function(d){
+          if (d.CONSENT_TRANSFER != 0 && d.STATUS != 2) {
+            return d.STATUS_NAME + ' , ' + d.CONSENT_TRANSFER_NAME;
+          } else {
+            return d.STATUS_NAME;
+          }
+        }}
+      ];
+      if (router.search.c != 'ft' && router.search.c != 'tt') {
+        cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-consultation'});
       }
       common.xyRender({
         elem: '#xy-consultation-manage'
         ,url: layui.setter.api.SearchConsultation
         ,where: where
-        ,cols: [[
-          {field: 'CONSULTATION_NO', title: '编号', event:'detail'}
-          ,{field: 'CLIENT_REAL_NAME', title: '姓名', event:'detail'}
-          ,{field: 'DIAGNOSE_UNIT_NAME', title: '就诊单位', event:'detail'}
-          ,{field: 'CONSULTATION_UNIT_NAME', title: '会诊单位', event:'detail'}
-          ,{field: 'STATUS_NAME', title: '状态', event:'detail'}
-          ,{title: '操作', align:'center', fixed: 'right', toolbar: '#table-consultation'}
-        ]]
+        ,cols: [cols]
+        ,parseData: function(res){
+          if (res.data && res.data.length) {
+            $.each(res.data, function(i, item){
+              res.data[i].xy_category = router.search.c;
+            });
+          }
+          return res;
+        }
       });
 
       //监听搜索
@@ -67,6 +86,14 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
           });
         } else if (obj.event === 'detail') {
           parent.layui.index.openTabsPage('consultation/detail.html#/id=' + obj.data.ID, '就诊-' + obj.data.CLIENT_REAL_NAME);
+        } else if (obj.event === 'confirm') {
+          common.req({
+            url: layui.setter.api.SetTransfer
+            ,data: {ID: obj.data.ID, STATUS: 2}
+            ,success: function(data){
+              $('#xyConfirmConsolusion' + obj.data.ID).remove();
+            }
+          });
         }
       });
     }
@@ -90,31 +117,22 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
       });
 
       form.on('submit(xy-consultation-submit)', function(data){
-        if (data.field.STATUS == '1') {
-          layer.confirm('确认会诊已完成吗？完成后不可修改', function(index){
-            common.req({
-              url: layui.setter.api.ModifyConsultation
-              ,formerror: true
-              ,data: data.field
-              ,success: function(data){
-                layer.msg('操作成功', function() {
-                  common.closeSelf();
-                });
-              }
-            });
-          });
-        } else {
-          common.req({
-            url: layui.setter.api.ModifyConsultation
-            ,formerror: true
-            ,data: data.field
-            ,success: function(data){
-              layer.msg('操作成功', function() {
-                common.closeSelf();
-              });
-            }
-          });
+        if (data.field.CONSENT_TRANSFER == '0') {
+          layer.msg('请选择是否同意转诊', {icon: 5, shift: 6});
+          $('select[name="CONSENT_TRANSFER"]').addClass('layui-form-danger');
+          return false;
         }
+        data.field.STATUS = 1;
+        common.req({
+          url: layui.setter.api.ModifyConsultation
+          ,formerror: true
+          ,data: data.field
+          ,success: function(data){
+            layer.msg('操作成功', function() {
+              common.closeSelf();
+            });
+          }
+        });
         return false;
       });
     }

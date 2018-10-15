@@ -120,12 +120,12 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
             form.val('xy-diagnose-form', data.data);
             if (data.data.NEED_REVIEW) {
               $(':input[name="REVIEW_DATE"]').removeClass('layui-hide');
-              laydate.render({
-                elem: '#REVIEW_DATE'
-                ,format: layui.setter.dateFormat.sec
-                ,type: 'datetime'
-              });
             }
+            laydate.render({
+              elem: '#REVIEW_DATE'
+              ,format: layui.setter.dateFormat.sec
+              ,type: 'datetime'
+            });
             $('#DOCTOR_REAL_NAME').text(data.data.DOCTOR_REAL_NAME);
             $('#UNIT_NAME').text(data.data.UNIT_NAME);
             $('#SHOW_DIAGNOSE_NO').text(data.data.DIAGNOSE_NO);

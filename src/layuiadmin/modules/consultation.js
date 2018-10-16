@@ -24,11 +24,16 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
         where.STATUS = 0;
       } else if (router.search.t == 'completed') {
         where.STATUS = 9;
-      } else if (router.search.c == 'ft' || router.search.c == 'tt') {
+      } else if (router.search.s == 't') {
         where.STATUS = 2;
       } else {
         layer.msg('参数错误');
         return;
+      }
+      if (router.search.c == 'f') {
+        where.SearchType = 1;
+      } else {
+        where.SearchType = 2;
       }
       var cols = [
         {field: 'CONSULTATION_NO', title: '编号', event:'detail'}
@@ -43,12 +48,12 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
           }
         }}
       ];
-      if (router.search.c != 'ft' && router.search.c != 'tt') {
+      if (router.search.s != 't') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-consultation'});
       }
       common.xyRender({
         elem: '#xy-consultation-manage'
-        ,url: layui.setter.api.SearchConsultation
+        ,url: layui.setter.api.GetConsultationList
         ,where: where
         ,cols: [cols]
         ,parseData: function(res){

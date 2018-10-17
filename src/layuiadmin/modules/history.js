@@ -345,7 +345,13 @@ layui.define(['common'], function(exports){
         ,{field: 'CLIENT_REAL_NAME', title: '姓名', event:'detail'}
         ,{field: 'DIAGNOSE_UNIT_NAME', title: '就诊单位', event:'detail'}
         ,{field: 'CONSULTATION_UNIT_NAME', title: '会诊单位', event:'detail'}
-        ,{field: 'STATUS_NAME', title: '状态', event:'detail'}
+        ,{field: 'STATUS_NAME', title: '状态', event:'detail',templet: function(d){
+          if (d.CONSENT_TRANSFER != 0 && d.STATUS != 2) {
+            return d.STATUS_NAME + ' , ' + d.CONSENT_TRANSFER_NAME;
+          } else {
+            return d.STATUS_NAME;
+          }
+        }}
       ];
       common.xyRender({
         elem: '#xy-history-consultation'

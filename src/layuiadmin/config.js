@@ -160,6 +160,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       ModifyConsultation: 'http://holtest.fres.cn/Client/Consultation/ModifyConsultation.ashx',
       GetConsultationInfo: 'http://holtest.fres.cn/Client/Consultation/GetConsultationInfo.ashx',
       SearchConsultation: 'http://holtest.fres.cn/Client/Consultation/SearchConsultation.ashx',
+      GetConsultationList: 'http://holtest.fres.cn/Client/Consultation/GetConsultationList.ashx',
       SetTransfer: 'http://holtest.fres.cn/Client/Consultation/SetTransfer.ashx',
     }
     ,loadsec: 5*1000

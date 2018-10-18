@@ -12,7 +12,7 @@ layui.define(['common', 'laytpl', 'element', 'flow'], function(exports){
     var where = {
       "KEY_WORD" : "",
       "UNIT_ID": common.user.UNIT_ID,
-      "CHILDREN_UNIT": 0,
+      // "CHILDREN_UNIT": 0,
       "PAGE_NO": page,
       "PAGE_SIZE": pageSize
     }

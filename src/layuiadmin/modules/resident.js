@@ -82,8 +82,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         return common.empty(d.BIRTHDAY) ? '' : d.BIRTHDAY.replace(/00:00:00/, '');
       }}
       ,{field: 'ID_NUMBER', title: '身份证号', event:'detail'}
-      ,{field: 'CREATE_TIME', title: '建档时间', event:'detail'}
       ,{field: 'MANAGE_REAL_NAME', title: '签约医生', event:'detail'}
+      ,{field: 'EMPHASIS_NAME', title: '重点人群', event:'detail'}
+      ,{field: 'CREATE_TIME', title: '建档时间', event:'detail'}
     ];
     if (router.search.t == 'l') {
       cols.push({field: 'MANAGE_UNIT_NAME', title: '管理单位', event:'detail'});

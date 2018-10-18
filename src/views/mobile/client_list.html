@@ -16,7 +16,7 @@
     {{#  layui.each(d.clientList, function(index, item){ }}
     <div class="caller-item">
       <div class="caller-main caller-fl">
-        <p><strong>{{ item.REAL_NAME }}</strong></p>
+        <p>{{# if (item.EMPHASIS_ID && item.EMPHASIS_ID != 165) { }}<span class="layui-badge-dot"></span> {{# } }}<strong>{{ item.REAL_NAME }}</strong></p>
         <p>签约医生：{{ item.MANAGE_REAL_NAME }}</p>
         <p>身份证：{{ item.ID_NUMBER }}</p>
         <p>建档时间：{{ item.CREATE_TIME ? item.CREATE_TIME : '' }}</p>

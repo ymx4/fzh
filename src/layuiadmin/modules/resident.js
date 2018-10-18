@@ -100,7 +100,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     });
   }
 
-  var previeImg = function(){
+  var previewImg = function(){
     $('#xy-resident-avatar-img,#xy-resident-identity-img').click(function() {
       var src = $(this).attr('src');
       if (!common.empty(src)) {
@@ -213,7 +213,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             if (data.data.ID_NUMBER_FILE_NAME) {
               $('#xy-resident-identity-img').attr('src', common.getImageUrl(data.data.ID_NUMBER_FILE_NAME));
             }
-            previeImg();
+            previewImg();
           });
           listenHistory(data.data.ID);
           // history
@@ -260,7 +260,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             if (data.data.ID_NUMBER_FILE_NAME) {
               $('#xy-resident-identity-img').attr('src', common.getImageUrl(data.data.ID_NUMBER_FILE_NAME));
             }
-            previeImg();
+            previewImg();
             $('select[name="SEX"]').attr('data-val', data.data.SEX);
             $('select[name="MARRIAGE"]').attr('data-val', data.data.MARRIAGE);
             $('select[name="DWELL_TYPE"]').attr('data-val', data.data.DWELL_TYPE);

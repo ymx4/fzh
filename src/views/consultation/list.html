@@ -34,7 +34,7 @@
         <table id="xy-consultation-manage" lay-filter="xy-consultation-manage"></table>
         <script type="text/html" id="table-consultation">
           {{# if(d.xy_category == 'tc' && d.STATUS == 0) { }}
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="consultation/edit.html#/id={{d.ID}}" lay-text="会诊-{{d.CLIENT_REAL_NAME}}">编辑</a>
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="consultation/edit.html#/id={{d.ID}}/CLIENT_ID={{d.CLIENT_ID}}" lay-text="会诊-{{d.CLIENT_REAL_NAME}}">编辑</a>
           {{# } else if(d.xy_category == 'fc' && d.STATUS == 1 && d.CONSENT_TRANSFER == 2) { }}
           <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="confirm" id="xyConfirmConsolusion{{d.ID}}">确定转诊</a>
           {{# } }}

@@ -12,35 +12,6 @@
 </head>
 <body>
 
-  <script id="clientContainer" type="text/html">
-    <div class="layui-card">
-      <div class="layui-card-header">客户信息</div>
-      <div class="layui-card-body layui-row">
-        <div class="layui-form-item layui-col-space10">
-          <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-            <label class="layui-form-label">姓名</label>
-            <div class="layui-input-block">
-              <div class="layui-form-mid layui-word-aux">{{d.clientData.REAL_NAME}}</div>
-            </div>
-          </div>
-          <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-            <label class="layui-form-label">身份证号</label>
-            <div class="layui-input-block">
-              <div class="layui-form-mid layui-word-aux">{{d.clientData.ID_NUMBER}}</div>
-            </div>
-          </div>
-          <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-            <label class="layui-form-label">性别</label>
-            <div class="layui-input-block">
-              <div class="layui-form-mid layui-word-aux">{{d.clientData.SEX_VALUE}}</div>
-              <button class="layui-btn layui-btn-sm" lay-href="resident/detail.html#/id={{d.clientData.ID}}" lay-text="查看-{{d.clientData.REAL_NAME}}">查看个人档案</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </script>
-
   <script id="formContainer" type="text/html">
     <form class="layui-form xy-form" id="healthForm" action="" lay-filter="xy-health-form">
       <div class="layui-card">
@@ -793,6 +764,7 @@
   </script>
 
   <div class="layui-fluid">
+    <div id="xyClientData"></div>
   </div>
   <div id="testhis-container" style="display:none;"><table id="testhis-table" lay-filter="testhis-table"></table></div>
 

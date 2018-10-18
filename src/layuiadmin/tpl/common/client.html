@@ -1,0 +1,28 @@
+<script type="text/html" template>
+  <div class="layui-card" style="margin-bottom:15px;">
+    <div class="layui-card-header">客户信息</div>
+    <div class="layui-card-body layui-row">
+      <div class="layui-form-item layui-col-space10">
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">姓名</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.params.clientData.REAL_NAME}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">身份证号</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.params.clientData.ID_NUMBER}}</div>
+          </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+          <label class="layui-form-label">性别</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.params.clientData.SEX_VALUE ? d.params.clientData.SEX_VALUE : '未填'}}</div>
+            <button class="layui-btn layui-btn-sm" lay-href="resident/detail.html#/id={{d.params.clientData.ID}}" lay-text="查看-{{d.params.clientData.REAL_NAME}}">查看个人档案</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>

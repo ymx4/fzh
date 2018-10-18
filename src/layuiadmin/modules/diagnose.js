@@ -117,6 +117,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
 
     }
     ,edit: function() {
+      common.clientData('xyClientData', router.search.CLIENT_ID);
       if (router.search.id) {
         common.req({
           url: layui.setter.api.GetDiagnoseInfo
@@ -196,6 +197,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
       });
     }
     ,detail: function() {
+      common.clientData('xyClientData', router.search.CLIENT_ID);
       common.req({
         url: layui.setter.api.GetDiagnoseInfo
         ,data: {

@@ -64,7 +64,7 @@
           {{# } }}
           {{# if (d.STATUS != 0) { }}
             {{# if (d.CONSULTATION_ID) { }}
-            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="consultation/edit.html#/id={{d.CONSULTATION_ID}}" lay-text="会诊-{{d.CLIENT_REAL_NAME}}">查看会诊</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="consultation/edit.html#/id={{d.CONSULTATION_ID}}/CLIENT_ID={{d.CLIENT_ID}}" lay-text="会诊-{{d.CLIENT_REAL_NAME}}">查看会诊</a>
             {{# } else { }}
             <a class="layui-btn layui-btn-normal layui-btn-xs" id="xyAddConsolusion{{d.ID}}" lay-event="consultation">申请会诊</a>
             {{# } }}

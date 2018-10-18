@@ -304,7 +304,7 @@
         url: layui.setter.api.UserLogOut
         ,success: function(data){
           //请求成功后，写入 access_token
-          layui.sessionData(layui.setter.tableName, null);
+          layui.data(layui.setter.tableName, null);
           
           //登入成功的提示与跳转
           layer.msg('登出成功', {

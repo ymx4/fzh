@@ -90,7 +90,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
             });
           });
         } else if (obj.event === 'detail') {
-          parent.layui.index.openTabsPage('consultation/detail.html#/id=' + obj.data.ID, '就诊-' + obj.data.CLIENT_REAL_NAME);
+          parent.layui.index.openTabsPage('consultation/detail.html#/id=' + obj.data.ID + '/CLIENT_ID=' + obj.data.CLIENT_ID, '会诊-' + obj.data.CLIENT_REAL_NAME);
         } else if (obj.event === 'confirm') {
           common.req({
             url: layui.setter.api.SetTransfer
@@ -103,6 +103,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
       });
     }
     ,edit: function() {
+      common.clientData('xyClientData', router.search.CLIENT_ID);
       common.req({
         url: layui.setter.api.GetConsultationInfo
         ,data: {
@@ -142,6 +143,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
       });
     }
     ,detail: function() {
+      common.clientData('xyClientData', router.search.CLIENT_ID);
       common.req({
         url: layui.setter.api.GetConsultationInfo
         ,data: {

@@ -48,7 +48,8 @@
   }).use(['index', 'form'], function(){
     var $ = layui.$
     ,admin = layui.admin
-    ,form = layui.form;
+    ,form = layui.form
+    ,router = layui.router();
 
     //提交
     form.on('submit(xy-login-submit)', function(obj){
@@ -69,7 +70,11 @@
             ,icon: 1
             ,time: 1000
           }, function(){
-            location.href = layui.setter.baseUrl + 'index.html';
+            if (router.search.redirect) {
+              location.href = decodeURIComponent(router.search.redirect);
+            } else {
+              location.href = layui.setter.baseUrl + 'index.html';
+            }
           });
         }
       });

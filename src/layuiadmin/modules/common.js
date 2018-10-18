@@ -137,7 +137,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
             success(res);
           } else if (res.errorCode == 4006) {
             layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
-              top.location.href = layui.setter.baseUrl + 'passport/login.html';
+              top.location.href = layui.setter.baseUrl + loginPath;
             });
           } else {
             if (formerror) {
@@ -190,7 +190,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
           });
           if (res.errorCode == 4006) {
             layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
-              top.location.href = layui.setter.baseUrl + 'passport/login.html';
+              top.location.href = layui.setter.baseUrl + loginPath;
             });
           } else {
             if (options.url.indexOf('GetClientHistory') != -1 && res.data && res.data.length > 0) {
@@ -335,6 +335,18 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
         }
       });
     }
+    ,clientData: function(elem, clientId){
+      common.req({
+        url: layui.setter.api.GetClientInfo
+        ,data: {
+          CLIENT_ID: clientId
+        }
+        ,success: $.proxy(function(clientData){
+          view(elem).render('common/client', {clientData: clientData.data}).done(function(){
+          });
+        })
+      });
+    }
     ,rowspan: function(fieldName,index,flag){
       /**
         *跨行合并单元格
@@ -400,10 +412,15 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
     }
   };
 
+  var loginPath = 'passport/login.html';
+  if (location.href.indexOf('/mobile/') != -1) {
+    loginPath += '#/redirect=' + encodeURIComponent(location.href);
+  }
+
   if (location.href.indexOf('login') == -1) {
     var sess = layui.data(layui.setter.tableName);
     if (!sess.user) {
-      location.href = layui.setter.baseUrl + 'passport/login.html';
+      location.href = layui.setter.baseUrl + loginPath;
     } else {
       common.user = sess.user;
       if (location.href.indexOf('views/index.html') != -1) {

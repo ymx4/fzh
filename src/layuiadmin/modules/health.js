@@ -231,7 +231,6 @@ layui.define(['table', 'form', 'laytpl', 'common', 'element', 'history'], functi
 
       var formData = {};
 
-      layer.load(0, {time: layui.setter.loadsec});
       common.clientData('xyClientData', curId);
 
       common.req({
@@ -279,7 +278,6 @@ layui.define(['table', 'form', 'laytpl', 'common', 'element', 'history'], functi
         });
         return;
       }
-      layer.load(0, {time: layui.setter.loadsec});
 
       var formData = {};
 

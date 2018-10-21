@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>客户列表</title>
+  <title>随访列表</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -17,21 +17,23 @@
 </head>
 <body>
 
-  <script id="clientTpl" type="text/html">
-    {{#  layui.each(d.clientList, function(index, item){ }}
+  <script id="arrangeTpl" type="text/html">
+    {{#  layui.each(d.arrangeList, function(index, item){ }}
     <div class="caller-item">
       <div class="caller-main">
-        <p>{{# if (item.EMPHASIS_ID && item.EMPHASIS_ID != 165) { }}<span class="layui-badge-dot"></span> {{# } }}<strong>{{ item.REAL_NAME }}</strong></p>
-        <p>签约医生：{{ item.MANAGE_REAL_NAME }}</p>
-        <p>身份证：{{ item.ID_NUMBER }}</p>
-        <p>建档时间：{{ item.CREATE_TIME ? item.CREATE_TIME : '' }}</p>
+        <p><strong>{{ item.CLIENT_REAL_NAME }}</strong></p>
+        {{# if (item.STATUS == 1) { }}
+        <p>随访时间：{{ item.ARRANGE_TIME }}</p>
+        {{# } else { }}
+        <p>计划时间：{{ item.PLAN_TIME }}</p>
+        {{# } }}
+        <p>随访类型：{{ item.ARRANAGE_TYPE_NAME }}</p>
       </div>
-      <a class="layui-btn layui-btn-sm caller-fr" href="{{d.equipmentUrl}}#/id={{ item.ID }}/adapter=m">
-        获取设备数据
+      {{# if (item.STATUS == 0) { }}
+      <a class="layui-btn layui-btn-sm caller-fr" href="{{d.editUrl}}#/id={{ item.ID }}/adapter=m">
+        编辑
       </a>
-      <a class="layui-btn layui-btn-sm caller-fr" href="{{d.addArrangeUrl}}#/CLIENT_ID={{ item.ID }}/adapter=m">
-        添加随访
-      </a>
+      {{# } }}
       <a class="layui-btn layui-btn-sm caller-fr" href="{{d.detailUrl}}#/id={{ item.ID }}/adapter=m">
         查看
       </a>
@@ -40,13 +42,13 @@
   </script>
   <div class="layui-fluid">
     <div class="layadmin-caller">
-      <div class="layui-tab layui-tab-brief caller-tab" id="clientTab" lay-filter="clientSwitch">
+      <div class="layui-tab layui-tab-brief caller-tab" id="arrangeTab" lay-filter="arrangeSwitch">
         <ul class="layui-tab-title">
-          <li class="layui-this" data-tab="1">已签约</li>
-          <li data-tab="2">所有客户</li>
+          <li class="layui-this" data-tab="1">计划中</li>
+          <li data-tab="2">已完成</li>
         </ul>
       </div>
-      <div class="caller-contar" id="clientContainer">
+      <div class="caller-contar" id="arrangeContainer">
       </div>
     </div>
   
@@ -57,7 +59,7 @@
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index', 'xymobile'], function() {
-    layui.xymobile.init.clientList();
+    layui.xymobile.init.arrangeList();
   });
   </script>
 </body>

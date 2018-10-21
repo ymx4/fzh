@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>我的</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/xy.css" media="all">
+</head>
+<body>
+
+  <style>
+  .layui-upload-img{width: 150px; height: 150px; margin: 0 10px 10px 0;}
+  </style>
+
+  <div class="layui-fluid">
+    <div class="layui-form resident-form" id="xy_equipment_view" style="margin-bottom: 15px;">
+    </div>
+  </div>
+
+  <script type="text/html" id="xy_equipment_detail">
+    <div class="layui-card">
+      <div class="layui-card-header">设备数据</div>
+      <div class="layui-card-body layui-row layui-col-space10">
+        <form class="layui-form" action="" lay-filter="xy-equipment-form">
+          <input type="hidden" name="ID" value="{{d.ID}}">
+          <blockquote class="layui-elem-quote">请从设备选择数据</blockquote>
+          <div class="layui-row layui-col-space10 layui-form-item">
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">姓名</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.REAL_NAME}}</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">身份证号</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.ID_NUMBER}}</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">性别</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.SEX_VALUE}}</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">设备类型</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">34</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">检测项目</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">待获取</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">检测数据</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">待获取</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="layui-form-item" style="text-align: center;">
+            <div class="layui-input-block">
+              <button type="button" class="layui-btn" lay-submit lay-filter="xy-equipment-submit">提交数据</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </script>
+
+  <script src="../../layuiadmin/layui/layui.js"></script>  
+  <script>
+  layui.config({
+    base: '../../layuiadmin/'
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'xymobile'], function(){
+    layui.xymobile.init.equipment();
+  });
+  function setEquipmentData(json) {
+    alert(json)
+  }
+  </script>
+</body>
+</html>

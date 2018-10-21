@@ -73,7 +73,7 @@
     base: '../../layuiadmin/'
   }).extend({
     index: 'lib/index' //主入口模块
-  }).use(['index', 'xymobile'], function(){console.log(layui.setter.baseUrl + 'passport/login.html#/redirect=' + encodeURIComponent(layui.setter.baseUrl + 'mobile/client_list.html'))
+  }).use(['index', 'xymobile'], function(){
     layui.xymobile.init.myProfile();
     var $ = layui.$;
     $('.xy-logout').click(function() {

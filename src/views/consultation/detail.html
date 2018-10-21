@@ -14,7 +14,6 @@
 
   <script type="text/html" id="xy_consultation_form">
     <form class="layui-form" action="" lay-filter="xy-consultation-form">
-      <input type="hidden" name="ID" value="0">
       
       <div class="layui-form-item">
         <label class="layui-form-label">客户姓名</label>
@@ -85,12 +84,6 @@
         <label class="layui-form-label">会诊状态</label>
         <div class="layui-input-block">
           <div class="layui-form-mid layui-word-aux">{{d.STATUS_NAME}}</div>
-        </div>
-      </div>
-
-      <div class="layui-form-item">
-        <div class="layui-input-block">
-          <button type="button" class="layui-btn" lay-submit lay-filter="xy-consultation-submit">保存</button>
         </div>
       </div>
     </form>

@@ -1,9 +1,10 @@
-layui.define(['common', 'laytpl', 'element', 'flow'], function(exports){
+layui.define(['common', 'laytpl', 'element', 'flow', 'form'], function(exports){
   var $ = layui.$
   ,common = layui.common
   ,element = layui.element
   ,laytpl = layui.laytpl
   ,flow = layui.flow
+  ,form = layui.form
   ,router = layui.router();
 
   var pageSize = 10;
@@ -25,8 +26,41 @@ layui.define(['common', 'laytpl', 'element', 'flow'], function(exports){
     common.req({
       url: layui.setter.api.SearchClient
       ,data: where
+      ,disableLoad: true
       ,success: function(data){
-        laytpl(clientTpl.innerHTML).render({clientList: data.data}, function(html){
+        laytpl(clientTpl.innerHTML).render({
+          clientList: data.data,
+          detailUrl: layui.setter.baseUrl + 'resident/detail.html',
+          equipmentUrl: layui.setter.baseUrl + 'mobile/equipment.html',
+          addArrangeUrl: layui.setter.baseUrl + 'arrange/edit.html'
+        }, function(html){
+          next(html, data.message > pageSize * page);
+        });
+      }
+    });
+  }
+
+  var renderArrange = function(page, next) {
+    var where = {
+      "PAGE_NO": page,
+      "PAGE_SIZE": pageSize
+    }
+    if ($('#arrangeTab .layui-this').data('tab') == 2) {
+      where.STATUS = 1;
+    } else {
+      where.STATUS = 0;
+    }
+
+    common.req({
+      url: layui.setter.api.SearchArrange
+      ,data: where
+      ,disableLoad: true
+      ,success: function(data){
+        laytpl(arrangeTpl.innerHTML).render({
+          arrangeList: data.data,
+          editUrl: layui.setter.baseUrl + 'arrange/edit.html',
+          detailUrl: layui.setter.baseUrl + 'arrange/detail.html',
+        }, function(html){
           next(html, data.message > pageSize * page);
         });
       }
@@ -52,30 +86,49 @@ layui.define(['common', 'laytpl', 'element', 'flow'], function(exports){
         }
       });
     }
-    ,clientDetail: function() {
-      layer.load(0, {time: layui.setter.loadsec});
+    ,arrangeList: function() {
+      element.on('tab(arrangeSwitch)', function(data){
+        $('#arrangeContainer').html('');
+        flow.load({
+          elem: '#arrangeContainer'
+          ,done: function(page, next) {
+            renderArrange(page, next);
+          }
+        });
+      });
+
+      flow.load({
+        elem: '#arrangeContainer'
+        ,done: function(page, next) {
+          renderArrange(page, next);
+        }
+      });
+    }
+    ,equipment: function() {
       common.req({
         url: layui.setter.api.GetClientInfo
         ,data: {
           CLIENT_ID: router.search.id
         }
         ,success: $.proxy(function(data){
-          Object.keys(data.data).forEach(function(key){
-            if (data.data[key] == null) {
-              data.data[key] = '';
-            }
+          laytpl(xy_equipment_detail.innerHTML).render(data.data, function(html){
+            document.getElementById('xy_equipment_view').innerHTML = html;
           });
-          laytpl(xy_resident_detail.innerHTML).render(data.data, function(html){
-            document.getElementById('xy_resident_view').innerHTML = html;
-            if (data.data.FACE_FILE_NAME) {
-              $('#xy-resident-avatar-img').attr('src', common.getImageUrl(data.data.FACE_FILE_NAME));
-            }
-            if (data.data.ID_NUMBER_FILE_NAME) {
-              $('#xy-resident-identity-img').attr('src', common.getImageUrl(data.data.ID_NUMBER_FILE_NAME));
-            }
-            previewImg();
-          });
-        }, this)
+        })
+      });
+
+      form.on('submit(xy-equipment-submit)', function(data){
+        alert('submit')
+        // common.req({
+        //   url: layui.setter.api.
+        //   ,formerror: true
+        //   ,data: data.field
+        //   ,success: function(data){
+        //     layer.msg('操作成功', function() {
+        //     });
+        //   }
+        // });
+        return false;
       });
     }
     ,myProfile: function() {
@@ -84,26 +137,6 @@ layui.define(['common', 'laytpl', 'element', 'flow'], function(exports){
       });
     }
   };
-
-  var previewImg = function(){
-    $('#xy-resident-avatar-img,#xy-resident-identity-img').click(function() {
-      var src = $(this).attr('src');
-      if (!common.empty(src)) {
-        layer.photos({
-          photos: {
-            "title": "预览",
-            "data": [
-              {
-                "alt": "预览",
-                "src": src
-              }
-            ]
-          }
-          ,anim: 5
-        });
-      }
-    });
-  }
 
   exports('xymobile', {init: init})
 });

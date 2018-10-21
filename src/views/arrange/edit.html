@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>随访</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/xy.css" media="all">
+</head>
+<body>
+
+  <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-card-header">随访</div>
+      <div class="layui-card-body" style="padding: 15px;">
+        <form class="layui-form" action="" lay-filter="xy-arrange-form">
+          <input type="hidden" name="ID" value="0">
+          <input type="hidden" name="CLIENT_ID">
+          
+          <div class="layui-form-item">
+            <label class="layui-form-label">随访类型</label>
+            <div class="layui-input-block">
+              <select name="ARRANGE_TYPE" lay-verify="required" class="xy-config" data-cf="25">
+              </select>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">随访计划</label>
+            <div class="layui-input-block">
+              <textarea name="PLAN_CONTENT" class="layui-textarea"></textarea>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">计划时间</label>
+            <div class="layui-input-block">
+              <input type="text" id="PLAN_TIME" name="PLAN_TIME" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">随访内容</label>
+            <div class="layui-input-block">
+              <textarea name="ARRANGE_CONTENT" class="layui-textarea"></textarea>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">随访状态</label>
+            <div class="layui-input-block">
+              <select name="STATUS">
+                <option value="0">暂存计划</option>
+                <option value="1">随访完成</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button type="button" class="layui-btn" lay-submit lay-filter="xy-arrange-submit">保存</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+    
+  <script src="../../layuiadmin/layui/layui.js"></script>  
+  <script>
+  layui.config({
+    base: '../../layuiadmin/'
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'arrange'], function(){
+    layui.arrange.init.edit();
+  });
+  </script>
+</body>
+</html>

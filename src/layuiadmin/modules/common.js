@@ -6,6 +6,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
   ,table = layui.table
   ,form = layui.form
   ,element = layui.element
+  ,router = layui.router()
 
   ,common = {
     user: {}
@@ -106,6 +107,8 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       var success = options.success;
       
       var formerror = options.formerror || false;
+      var disableLoad = options.disableLoad || false;
+
       options.data = options.data || {};
       var params = JSON.stringify(options.data);
       if (params != '{}') {
@@ -128,11 +131,17 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       }
 
       delete options.success;
+      delete options.disableLoad;
+
+      if (!disableLoad) {
+        layer.load(0, {time: layui.setter.loadsec});
+      }
 
       return $.ajax($.extend({
         type: 'post'
         ,dataType: 'json'
         ,success: function(res){
+          layer.closeAll('loading');
           if (res.status == 1 && typeof success === 'function') {
             success(res);
           } else if (res.errorCode == 4006) {
@@ -164,10 +173,14 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       }
       var that = this;
       var parseData = options.parseData;
+      var disableLoad = options.disableLoad || false;
 
       delete options.parseData;
+      delete options.disableLoad;
 
-      layer.load(0, {time: layui.setter.loadsec});
+      if (!disableLoad) {
+        layer.load(0, {time: layui.setter.loadsec});
+      }
 
       return table.render($.extend({
         limit: 10
@@ -335,14 +348,19 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
         }
       });
     }
-    ,clientData: function(elem, clientId){
+    ,clientData: function(elem, clientId, adapter){
+      adapter = adapter || 'pc';
       common.req({
         url: layui.setter.api.GetClientInfo
         ,data: {
           CLIENT_ID: clientId
         }
         ,success: $.proxy(function(clientData){
-          view(elem).render('common/client', {clientData: clientData.data}).done(function(){
+          view(elem).render('common/client', {
+            clientData: clientData.data,
+            adapter: adapter,
+            detailUrl: layui.setter.baseUrl + 'resident/detail.html'
+          }).done(function(){
           });
         })
       });
@@ -413,7 +431,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
   };
 
   var loginPath = 'passport/login.html';
-  if (location.href.indexOf('/mobile/') != -1) {
+  if (location.href.indexOf('/mobile/') != -1 || router.search.adapter == 'm') {
     loginPath += '#/redirect=' + encodeURIComponent(location.href);
   }
 
@@ -611,7 +629,6 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       title: '机构选择'
     });
     view('xyins').render('common/ins').done(function(){
-      layer.load(0, {time: layui.setter.loadsec});
       common.req({
         url: layui.setter.api.GetHospitalUnit
         ,data: {
@@ -619,7 +636,6 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
           "GET_TYPE": 2
         }
         ,success: function(data){
-          layer.closeAll('loading');
           var nodes = formatTree(data.data);
           nodes = [nodes];
           layui.tree({

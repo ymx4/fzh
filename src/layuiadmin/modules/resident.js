@@ -194,7 +194,6 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       });
     }
     ,detail: function() {
-      layer.load(0, {time: layui.setter.loadsec});
       common.req({
         url: layui.setter.api.GetClientInfo
         ,data: {
@@ -235,7 +234,6 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       common.user.pageType = 'edit';
 
       if (router.search.id) {
-        layer.load(0, {time: layui.setter.loadsec});
         common.req({
           url: layui.setter.api.GetClientInfo
           ,data: {

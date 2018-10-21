@@ -162,6 +162,10 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       SearchConsultation: 'http://holtest.fres.cn/Client/Consultation/SearchConsultation.ashx',
       GetConsultationList: 'http://holtest.fres.cn/Client/Consultation/GetConsultationList.ashx',
       SetTransfer: 'http://holtest.fres.cn/Client/Consultation/SetTransfer.ashx',
+      SearchArrange: 'http://holtest.fres.cn/Client/Arrange/SearchArrange.ashx',
+      ModifyArrange: 'http://holtest.fres.cn/Client/Arrange/ModifyArrange.ashx',
+      DeleteArrange: 'http://holtest.fres.cn/Client/Arrange/DeleteArrange.ashx',
+      GetArrangeInfo: 'http://holtest.fres.cn/Client/Arrange/GetArrangeInfo.ashx',
     }
     ,loadsec: 5*1000
     ,dateFormat: {

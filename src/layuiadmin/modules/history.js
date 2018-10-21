@@ -38,9 +38,7 @@ layui.define(['common'], function(exports){
   var healthSort = {
     diagnose: {name:'就诊记录'}
     ,consultation: {name:'会诊记录'}
-    ,transfer: {name:'转诊记录'}
-    ,examination: {name:'体检记录'}
-    ,followup: {name:'随访记录'}
+    ,arrange: {name:'随访记录'}
     ,survey: {name:'问卷记录'}
   };
 
@@ -361,49 +359,19 @@ layui.define(['common'], function(exports){
       });
     }
 
-    ,transfer: function(){
-      //转诊记录
-      var cols = [
-        {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '转诊时间'}
-        ,{field: 'username', title: '转诊医生'}
-        ,{field: 'username', title: '转诊机构'}
-      ];
-      common.xyRender({
-        elem: '#xy-history-referral'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,cols: [cols]
-      });
-    }
-
-    ,examination: function(){
-      //体检记录
-      var cols = [
-        {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '体检时间'}
-        ,{field: 'username', title: '体检类型'}
-        ,{field: 'username', title: '体检医生'}
-        ,{field: 'username', title: '医疗机构'}
-      ];
-      common.xyRender({
-        elem: '#xy-history-examination'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
-        ,cols: [cols]
-      });
-    }
-
-    ,followup: function(){
+    ,arrange: function(where){
       //随访记录
+      where.STATUS = where.STATUS || 1;
       var cols = [
-        {type: 'numbers', title: '序号'}
-        ,{field: 'jointime', title: '随访时间'}
-        ,{field: 'username', title: '随访类型'}
-        ,{field: 'username', title: '随访医生'}
-        ,{field: 'username', title: '医疗机构'}
+        {field: 'ARRANGE_TIME', title: '随访时间'}
+        ,{field: 'CLIENT_REAL_NAME', title: '姓名'}
+        ,{field: 'ARRANAGE_TYPE_NAME', title: '随访类型'}
+        ,{field: 'USER_REAL_NAME', title: '医生'}
       ];
       common.xyRender({
-        elem: '#xy-history-followup'
-        ,url: layui.setter.base + 'json/useradmin/webuser.js' //模拟接口
+        elem: '#xy-history-arrange'
+        ,url: layui.setter.api.SearchArrange
+        ,where: where
         ,cols: [cols]
       });
     }

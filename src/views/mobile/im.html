@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<title>消息</title>
+
+<link rel="stylesheet" href="../../layuiadmin/layui/css/layui.mobile.css" media="all">
+
+</head>
+<body>
+
+<script src="../../layuiadmin/layui/layui.js"></script>  
+<script>
+layui.config({
+  version: true
+}).use('mobile', function(){
+  var mobile = layui.mobile
+  ,layim = mobile.layim
+  ,layer = mobile.layer;
+
+  layim.config({
+    brief: true
+
+    ,init: {
+      //我的信息
+      mine: {
+        "username": "佟丽娅" //我的昵称
+        ,"id": 100001 //我的ID
+        ,"avatar": "http://tp4.sinaimg.cn/1345566427/180/5730976522/0" //我的头像
+      }
+    }
+  });
+  
+  layim.chat({
+    name: '在线客服一' //名称
+    ,type: 'friend' //聊天类型
+    ,avatar: 'http://tp1.sinaimg.cn/5619439268/180/40030060651/1' //头像
+    ,id: 100002 //定义唯一的id方便你处理信息
+  });
+  setTimeout(function(){
+    // layim.getMessage({
+    //   username: "贤心"
+    //   ,avatar: "http://tp1.sinaimg.cn/1571889140/180/40030060651/1"
+    //   ,id: 100002
+    //   ,type: "friend"
+    //   ,content: "嗨，欢迎体验LayIM。演示标记："+ new Date().getTime()
+    // });
+    // layim.getMessage({
+    //   username: "贤心"
+    //   ,avatar: "http://tp1.sinaimg.cn/1571889140/180/40030060651/1"
+    //   ,id: 100002
+    //   ,type: "friend"
+    //   ,content: "嗨，欢迎体验LayIM。演示标记："+ new Date().getTime()
+    // });
+    // layim.getMessage({
+    //   username: "佟丽娅"
+    //   ,avatar: "http://tp1.sinaimg.cn/1571889140/180/40030060651/1"
+    //   ,id: 100002
+    //   ,mine:true
+    //   ,type: "friend"
+    //   ,content: "xxxxxxx"
+    // });
+    // console.log(layim.cache())
+  }, 1000);
+  
+});
+</script>
+</body>
+</html>

@@ -166,6 +166,10 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       ModifyArrange: 'http://holtest.fres.cn/Client/Arrange/ModifyArrange.ashx',
       DeleteArrange: 'http://holtest.fres.cn/Client/Arrange/DeleteArrange.ashx',
       GetArrangeInfo: 'http://holtest.fres.cn/Client/Arrange/GetArrangeInfo.ashx',
+      ChangeClientPassword: 'http://holtest.fres.cn/Client/Login/ChangeClientPassword.ashx',
+      ClientLogin: 'http://holtest.fres.cn/Client/Login/ClientLogin.ashx',
+      GetMyInfo: 'http://holtest.fres.cn/Client/Login/GetMyInfo.ashx',
+      ClientLoginOut: 'http://holtest.fres.cn/Client/Login/ClientLoginOut.ashx',
     }
     ,loadsec: 5*1000
     ,dateFormat: {

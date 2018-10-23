@@ -176,6 +176,6 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       day: 'yyyy/MM/dd'
       ,sec: 'yyyy/MM/dd HH:mm:ss'
     }
-    ,baseUrl: '/src/views/'
+    ,baseUrl: '/html/views/'
   });
 });

@@ -68,8 +68,10 @@
 
     if (router.search.type == 'resetpass') {
       $('title').text('重置密码');
+      var successMsg = '重置密码成功';
     } else {
       $('title').text('注册');
+      var successMsg = '注册成功';
     }
 
     form.on('submit(xy-register)', function(obj){
@@ -80,19 +82,12 @@
         url: layui.setter.api.ChangeClientPassword
         ,data: obj.field
         ,success: function(data){
-          //请求成功后，写入 access_token
-          data.data.token = data.message;
-          layui.data(layui.setter.tableName, {
-            key: 'user'
-            ,value: data.data
-          });
-          //登入成功的提示与跳转
-          layer.msg('登录成功', {
+          layer.msg(successMsg, {
             offset: '15px'
             ,icon: 1
-            ,time: 1000
+            ,time: 2000
           }, function(){
-            // location.href = layui.setter.baseUrl + 'index.html';
+            location.href = 'login.html';
           });
         }
       });

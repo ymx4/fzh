@@ -82,7 +82,7 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'flow', 'table', 'element', 'h
               for (var i = 0; i < res.data.length; i++) {
                 Object.keys(res.data[i]).forEach(function(key){
                   if (key.indexOf('_TIME') != -1) {
-                    res.data[i][key] = common.empty(res.data[i][key]) ? '' : res.data[i][key].replace(/00:00:00/, '');
+                    res.data[i][key] = clientapp.empty(res.data[i][key]) ? '' : res.data[i][key].replace(/00:00:00/, '');
                   }
                 });
               }
@@ -205,7 +205,7 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'flow', 'table', 'element', 'h
 
         form.on('submit(xy-equipment-submit)', function(data){
           alert('submit')
-          // common.req({
+          // clientapp.req({
           //   url: layui.setter.api.
           //   ,formerror: true
           //   ,data: data.field
@@ -247,7 +247,7 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'flow', 'table', 'element', 'h
     table.on('tool(xy-history-health)', function(obj){
       var data = obj.data;
       if (obj.event === 'detail') {
-        parent.layui.index.openTabsPage('health/detail.html#/id=' + obj.data.ID + '/clientId=' + obj.data.CLIENT_ID, '查看档案-' + obj.data.CLIENT_REAL_NAME);
+        location.href = layui.setter.baseUrl + 'health/detail.html#/id=' + obj.data.ID + '/clientId=' + obj.data.CLIENT_ID + '/adapter=clientapp';
       }
     });
   }
@@ -285,7 +285,29 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'flow', 'table', 'element', 'h
     });
   }
 
+  var activePage = function() {
+    var activeTab = 'default';
+    var pages = {
+      equipment: ['equipment.html']
+      ,doctor: ['doctor.html']
+      ,message: ['message_list.html']
+    };
+    $.each(pages, function(key, keyitem){
+      $.each(pages[key], function(i, item){
+        if (location.href.indexOf(item) != -1) {
+          activeTab = key;
+          return false;
+        }
+      });
+      if (activeTab != 'default') {
+        return false;
+      }
+    });
+    return activeTab;
+  }
+
   var layout = function(){
+    var activeTab = activePage();
     $.ajax({
       url: layui.setter.views + 'common/clientapp' + layui.setter.engine
       ,type: 'get'
@@ -293,12 +315,12 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'flow', 'table', 'element', 'h
       ,data: {
         v: layui.cache.version
       }
-      ,success: function(html){
+      ,success: $.proxy(function(html){
         html = '<div>' + html + '</div>';
         var layoutElem = $(html).find('*[template]');
-        $('.layui-body').before(laytpl(layoutElem.eq(0).html()).render({user: clientapp.user}));
-        $('.layui-body').after(laytpl(layoutElem.eq(1).html()).render({user: clientapp.user}));
-      }
+        $('.layui-body').before(laytpl(layoutElem.eq(0).html()).render({user: xymobile.user}));
+        $('.layui-body').after(laytpl(layoutElem.eq(1).html()).render({activeTab: activeTab}));
+      }, this)
     });
   }
 
@@ -317,7 +339,7 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'flow', 'table', 'element', 'h
   var previewImg = function(){
     $('#xy-resident-avatar-img,#xy-resident-identity-img').click(function() {
       var src = $(this).attr('src');
-      if (!common.empty(src)) {
+      if (!clientapp.empty(src)) {
         layer.photos({
           photos: {
             "title": "预览",

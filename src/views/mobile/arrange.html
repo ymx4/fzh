@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
   <link rel="stylesheet" href="../../layuiadmin/style/template.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/mobile.css" media="all">
   <style type="text/css">
     .caller-item a {
       margin-left: 5px;
@@ -40,25 +41,32 @@
     </div>
     {{#  }); }}
   </script>
-  <div class="layui-fluid">
-    <div class="layadmin-caller">
-      <div class="layui-tab layui-tab-brief caller-tab" id="arrangeTab" lay-filter="arrangeSwitch">
-        <ul class="layui-tab-title">
-          <li class="layui-this" data-tab="1">计划中</li>
-          <li data-tab="2">已完成</li>
-        </ul>
-      </div>
-      <div class="caller-contar" id="arrangeContainer">
+  <div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+      <div class="layui-body" id="LAY_app_body">
+        <div class="layui-fluid">
+          <div class="layadmin-caller">
+            <div class="layui-tab layui-tab-brief caller-tab" id="arrangeTab" lay-filter="arrangeSwitch">
+              <ul class="layui-tab-title">
+                <li class="layui-this" data-tab="1">计划中</li>
+                <li data-tab="2">已完成</li>
+              </ul>
+            </div>
+            <div class="caller-contar" id="arrangeContainer">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
   
   <script src="../../layuiadmin/layui/layui.js"></script>  
   <script>
   layui.config({
     base: '../../layuiadmin/' //静态资源所在路径
   }).extend({
-    index: 'lib/index' //主入口模块
-  }).use(['index', 'xymobile'], function() {
+    mobileindex: 'lib/mobileindex' //主入口模块
+  }).use(['mobileindex', 'xymobile'], function() {
     layui.xymobile.init.arrangeList();
   });
   </script>

@@ -231,7 +231,7 @@ layui.define(['table', 'form', 'laytpl', 'common', 'element', 'history'], functi
 
       var formData = {};
 
-      common.clientData('xyClientData', curId);
+      common.clientData('xyClientData', curId, router.search.adapter);
 
       common.req({
         url: layui.setter.api.GetPhysicalExaminationInfo

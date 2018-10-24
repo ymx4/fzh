@@ -350,6 +350,9 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
     }
     ,clientData: function(elem, clientId, adapter){
       adapter = adapter || 'pc';
+      if (adapter == 'clientapp') {
+        return;
+      }
       common.req({
         url: layui.setter.api.GetClientInfo
         ,data: {
@@ -435,7 +438,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
     loginPath += '#/redirect=' + encodeURIComponent(location.href);
   }
 
-  if (location.href.indexOf('login') == -1) {
+  if (location.href.indexOf('login') == -1 && router.search.adapter != 'clientapp') {
     var sess = layui.data(layui.setter.tableName);
     if (!sess.user) {
       location.href = layui.setter.baseUrl + loginPath;

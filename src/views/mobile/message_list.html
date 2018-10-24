@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
   <link rel="stylesheet" href="../../layuiadmin/style/template.css" media="all">
-  <link rel="stylesheet" href="../../layuiadmin/style/clientapp.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/mobile.css" media="all">
   <style type="text/css">
     .caller-item a {
       margin-left: 5px;
@@ -77,9 +77,9 @@
   layui.config({
     base: '../../layuiadmin/'
   }).extend({
-    clientindex: 'lib/clientindex' //主入口模块
-  }).use(['clientindex', 'clientapp'], function(){
-    layui.clientapp.init.messageList();
+    mobileindex: 'lib/mobileindex' //主入口模块
+  }).use(['mobileindex', 'xymobile'], function(){
+    layui.xymobile.init.messageList();
   });
   </script>
 </body>

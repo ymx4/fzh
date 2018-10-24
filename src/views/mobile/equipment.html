@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
-  <link rel="stylesheet" href="../../layuiadmin/style/xy.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/mobile.css" media="all">
 </head>
 <body>
 
@@ -16,8 +16,14 @@
   .layui-upload-img{width: 150px; height: 150px; margin: 0 10px 10px 0;}
   </style>
 
-  <div class="layui-fluid">
-    <div class="layui-form resident-form" id="xy_equipment_view" style="margin-bottom: 15px;">
+  <div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+      <div class="layui-body" id="LAY_app_body">
+        <div class="layui-fluid">
+          <div class="layui-form resident-form" id="xy_equipment_view" style="margin-bottom: 15px;">
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -68,9 +74,7 @@
           </div>
 
           <div class="layui-form-item" style="text-align: center;">
-            <div class="layui-input-block">
-              <button type="button" class="layui-btn" lay-submit lay-filter="xy-equipment-submit">提交数据</button>
-            </div>
+            <button type="button" class="layui-btn" lay-submit lay-filter="xy-equipment-submit">提交数据</button>
           </div>
         </form>
       </div>
@@ -82,8 +86,8 @@
   layui.config({
     base: '../../layuiadmin/'
   }).extend({
-    index: 'lib/index' //主入口模块
-  }).use(['index', 'xymobile'], function(){
+    mobileindex: 'lib/mobileindex' //主入口模块
+  }).use(['mobileindex', 'xymobile'], function(){
     layui.xymobile.init.equipment();
   });
   function setEquipmentData(json) {

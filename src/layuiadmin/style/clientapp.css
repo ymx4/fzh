@@ -1,0 +1,57 @@
+.layui-layout-admin .layui-body {
+    top: 50px;
+    padding-bottom: 50px;
+}
+/*底部样式*/
+.layui-layim-tab {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    border-top: 1px solid #f2f2f2;
+    background-color: #fff;
+    z-index: 999;
+}
+.layui-layim-tab li.layim-this {
+    color: #3FDD86;
+}
+
+.layui-layim-tab li {
+    position: relative;
+    width: 25%;
+    height: 50px;
+    text-align: center;
+    color: #666;
+    color: rgba(0,0,0,.6);
+    cursor: pointer;
+}
+.layim-tab-content li h5 *, .layui-layim-skin li, .layui-layim-tab li, .layui-layim-tool li {
+    display: inline-block;
+    vertical-align: top;
+}
+.layui-layim-tab li .layui-icon {
+    position: relative;
+    top: 7px;
+    font-size: 25px;
+}
+.layui-layim-tab li span {
+    position: relative;
+    bottom: -3px;
+    display: block;
+    font-size: 12px;
+    line-height: 22px;
+}
+
+.layim-new {
+    display: none;
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    margin-left: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: #F74C31;
+    color: #fff;
+}

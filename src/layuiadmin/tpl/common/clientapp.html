@@ -1,0 +1,29 @@
+<script type="text/html" template>
+  <div class="layui-header">
+    <!-- 头部区域 -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item" lay-unselect>
+        <a href="javascript:;" layadmin-event="xyback" title="后退">
+          <i class="layui-icon layui-icon-left"></i>
+        </a>
+      </li>
+      <li class="layui-nav-item" lay-unselect>
+        <a href="javascript:;" layadmin-event="xyrefresh" title="刷新">
+          <i class="layui-icon layui-icon-refresh-3"></i>
+        </a>
+      </li>
+    </ul>
+    <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+      <li class="layui-nav-item" lay-unselect style="margin-right: 10px;">
+        <a href="javascript:;">
+          <cite id="myRealname">test</cite>
+        </a>
+      </li>
+    </ul>
+  </div>
+</script>
+<script type="text/html" template>
+  <ul class="layui-unselect layui-layim-tab">
+    <li title="个人档案" layadmin-event="xytab" lay-type="client" class="layim-this"><i class="layui-icon layui-icon-form"></i><span>个人档案</span></li><li title="数据采集" layadmin-event="xytab" lay-type="equipment"><i class="layui-icon layui-icon-upload-drag"></i><span>数据采集</span></li><li title="家庭医生" layadmin-event="xytab" lay-type="doctor"><i class="layui-icon layui-icon-friends"></i><span>家庭医生</span></li><li title="消息" layadmin-event="xytab" lay-type="message"><i class="layui-icon layui-icon-reply-fill"></i><span>消息</span></li>
+  </ul>
+</script>

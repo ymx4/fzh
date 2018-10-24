@@ -170,12 +170,13 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       ClientLogin: 'http://holtest.fres.cn/Client/Login/ClientLogin.ashx',
       GetMyInfo: 'http://holtest.fres.cn/Client/Login/GetMyInfo.ashx',
       ClientLoginOut: 'http://holtest.fres.cn/Client/Login/ClientLoginOut.ashx',
+      ClientGSM: 'http://holtest.fres.cn/Client/Login/ClientGSM.ashx',
     }
     ,loadsec: 5*1000
     ,dateFormat: {
       day: 'yyyy/MM/dd'
       ,sec: 'yyyy/MM/dd HH:mm:ss'
     }
-    ,baseUrl: '/html/views/'
+    ,baseUrl: '/src/views/'
   });
 });

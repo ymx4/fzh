@@ -11,6 +11,7 @@
     height: 50px;
     border-top: 1px solid #f2f2f2;
     background-color: #fff;
+    z-index: 999;
 }
 .layui-layim-tab li.layim-this {
     color: #3FDD86;
@@ -18,7 +19,7 @@
 
 .layui-layim-tab li {
     position: relative;
-    width: 33.33%;
+    width: 25%;
     height: 50px;
     text-align: center;
     color: #666;

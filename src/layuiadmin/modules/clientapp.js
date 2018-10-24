@@ -95,14 +95,32 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'flow'], function(exports){
     }
   };
 
+  var layout = function(){
+    $.ajax({
+      url: layui.setter.views + 'common/clientapp' + layui.setter.engine
+      ,type: 'get'
+      ,dataType: 'html'
+      ,data: {
+        v: layui.cache.version
+      }
+      ,success: function(html){
+        html = '<div>' + html + '</div>';
+        var layoutElem = $(html).find('*[template]');
+        $('.layui-body').before(laytpl(layoutElem.eq(0).html()).render({}));
+        $('.layui-body').after(laytpl(layoutElem.eq(1).html()).render({}));
+      }
+    });
+  }
+
   var loginPath = 'clientapp/login.html';
-  if (location.href.indexOf('login') != -1) {
+  if (location.href.indexOf('login') == -1 && location.href.indexOf('register') == -1) {
     loginPath += '#/redirect=' + encodeURIComponent(location.href);
     var sess = layui.data(layui.setter.tableName);
     if (!sess.user) {
       location.href = layui.setter.baseUrl + loginPath;
     } else {
       clientapp.user = sess.user;
+      layout();
     }
   }
 
@@ -112,6 +130,23 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'flow'], function(exports){
 
   admin.events.xyback = function(){
     history.back();
+  }
+
+  admin.events.xytab = function(e){
+    switch(e.attr('lay-type')) {
+      case 'equipment':
+        location.href = layui.setter.baseUrl + '';
+        break;
+      case 'doctor':
+        location.href = layui.setter.baseUrl + '';
+        break;
+      case 'message':
+        location.href = layui.setter.baseUrl + '';
+        break;
+
+      default:
+        location.href = layui.setter.baseUrl + '';
+    }
   }
 
   exports('clientapp', clientapp);

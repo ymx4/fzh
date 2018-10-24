@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
   <link rel="stylesheet" href="../../layuiadmin/style/template.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/mobile.css" media="all">
   <style type="text/css">
     .caller-item a {
       margin-left: 5px;
@@ -55,12 +56,18 @@
       <a href="javascript:;" layadmin-event="replyNote" data-id="1" class="layui-btn layui-btn-xs layuiadmin-reply">回复</a>
     </li>
   </script>
-  <div class="layui-fluid">
-    <div class="layui-card">
-      <div class="layui-card-header">我的消息</div>
-      <div class="layui-card-body">
-        <ul class="layuiadmin-card-status layuiadmin-home2-usernote" id="messageContainer">
-        </ul>
+  <div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+      <div class="layui-body" id="LAY_app_body">
+        <div class="layui-fluid">
+          <div class="layui-card">
+            <div class="layui-card-header">我的消息</div>
+            <div class="layui-card-body">
+              <ul class="layuiadmin-card-status layuiadmin-home2-usernote" id="messageContainer">
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

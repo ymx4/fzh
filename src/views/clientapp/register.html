@@ -74,9 +74,7 @@
 
     form.on('submit(xy-register)', function(obj){
       var field = obj.field;
-      
-      console.log(field);
-return false;
+
       //请求接口
       layui.clientapp.req({
         url: layui.setter.api.ChangeClientPassword
@@ -102,10 +100,63 @@ return false;
       return false;
     });
 
-    $('#xy-getsmscode').on('click', function() {
+    var smsCode = function() {
 
-    });
-    
+      options = {
+        seconds: 60
+        ,elemPhone: '#xy-login-cellphone'
+        ,elemVercode: '#xy-login-smscode'
+      };
+
+      var seconds = options.seconds
+      ,btn = $('#xy-getsmscode')
+      ,token = null
+      ,timer, countDown = function(loop){
+        seconds--;
+        if(seconds < 0){
+          btn.removeClass('layui-disabled').html('获取验证码');
+          seconds = options.seconds;
+          clearInterval(timer);
+        } else {
+          btn.addClass('layui-disabled').html(seconds + '秒后重获');
+        }
+
+        if(!loop){
+          timer = setInterval(function(){
+            countDown(true);
+          }, 1000);
+        }
+      };
+      
+      options.elemPhone = $(options.elemPhone);
+      options.elemVercode = $(options.elemVercode);
+
+      btn.on('click', function(){
+        var elemPhone = options.elemPhone
+        ,value = elemPhone.val();
+
+        if(seconds !== options.seconds || $(this).hasClass('layui-disabled')) return;
+
+        if(!/^1\d{10}$/.test(value)){
+          elemPhone.focus();
+          return layer.msg('请输入正确的手机号')
+        };
+        
+        layui.clientapp.req({
+          url: layui.setter.api.ClientGSM
+          ,data: {MOBILE: value}
+          ,success: function(data){
+            layer.msg('验证码已发送至你的手机，请注意查收', {
+              icon: 1
+              ,shade: 0
+            });
+            options.elemVercode.focus();
+            countDown();
+          }
+        });
+      });
+    }
+    smsCode();
   });
   </script>
 </body>

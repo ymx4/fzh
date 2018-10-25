@@ -309,7 +309,7 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'flow', 'table', 'element', 'h
   var layout = function(){
     var activeTab = activePage();
     $.ajax({
-      url: layui.setter.views + 'common/clientapp' + layui.setter.engine
+      url: layui.setter.views + 'clientapp/layout' + layui.setter.engine
       ,type: 'get'
       ,dataType: 'html'
       ,data: {
@@ -318,7 +318,7 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'flow', 'table', 'element', 'h
       ,success: $.proxy(function(html){
         html = '<div>' + html + '</div>';
         var layoutElem = $(html).find('*[template]');
-        $('.layui-body').before(laytpl(layoutElem.eq(0).html()).render({user: xymobile.user}));
+        $('.layui-body').before(laytpl(layoutElem.eq(0).html()).render({user: clientapp.user}));
         $('.layui-body').after(laytpl(layoutElem.eq(1).html()).render({activeTab: activeTab}));
       }, this)
     });
@@ -327,7 +327,7 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'flow', 'table', 'element', 'h
   var loginPath = 'clientapp/login.html';
   if (location.href.indexOf('login') == -1 && location.href.indexOf('register') == -1) {
     loginPath += '#/redirect=' + encodeURIComponent(location.href);
-    var sess = layui.data(layui.setter.tableName);
+    var sess = layui.data(layui.setter.clientSess);
     if (!sess.user) {
       location.href = layui.setter.baseUrl + loginPath;
     } else {

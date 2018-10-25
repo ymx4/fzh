@@ -1,4 +1,4 @@
-layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table'], function(exports){
+layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 'view'], function(exports){
   var $ = layui.$
   ,element = layui.element
   ,laytpl = layui.laytpl
@@ -6,6 +6,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table'],
   ,form = layui.form
   ,admin = layui.admin
   ,table = layui.table
+  ,view = layui.view
   ,router = layui.router()
 
   ,xymobile = {
@@ -149,19 +150,43 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table'],
         }
       }, options));
     }
+    ,clientData: function(elem, clientId, adapter){
+      adapter = adapter || 'pc';
+      if (adapter == 'clientapp') {
+        return;
+      }
+      xymobile.req({
+        url: layui.setter.api.GetClientInfo
+        ,data: {
+          CLIENT_ID: clientId
+        }
+        ,success: $.proxy(function(clientData){
+          view(elem).render('xymobile/client', {
+            clientData: clientData.data,
+            adapter: adapter,
+            detailUrl: layui.setter.baseUrl + 'mobile/resident_detail.html'
+          }).done(function(){
+          });
+        })
+      });
+    }
 
     ,init: {
       messageList: function() {
         flow.load({
           elem: '#messageContainer'
           ,done: function(page, next) {
-            var where = {
-            }
-            
-            laytpl(messageTpl.innerHTML).render({
-              messageList: {}
-            }, function(html){
-              next(html, true);
+            xymobile.req({
+              url: layui.setter.api.ReadMessage
+              ,data: {READ_STATE: 2}
+              ,disableLoad: true
+              ,success: function(data){
+                laytpl(messageTpl.innerHTML).render({
+                  messageList: data.data
+                }, function(html){
+                  next(html, data.message > pageSize * page);
+                });
+              }
             });
           }
         });
@@ -176,12 +201,29 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table'],
             }
           });
         });
+        form.on('submit(client-search)', function(data){
+          $('#clientContainer').html('');
+          flow.load({
+            elem: '#clientContainer'
+            ,done: function(page, next) {
+              renderResident(page, next);
+            }
+          });
+        });
 
         flow.load({
           elem: '#clientContainer'
           ,done: function(page, next) {
             renderResident(page, next);
           }
+        });
+        $('#clientContainer').on('click', '.addArrange', function() {
+          layer.open({
+            type: 2,
+            area:['100%', $('#LAY_app_body').height() + 'px'],
+            content: layui.setter.baseUrl + 'arrange/edit.html#/CLIENT_ID=' + $(this).closest('.caller-item').data('id') + '/adapter=m',
+            title: '添加随访'
+          });
         });
       }
       ,residentDetail: function() {
@@ -221,6 +263,39 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table'],
           }, this)
         });
       }
+      ,healthDetail: function() {
+        var curId = router.search.clientId;
+        var healthId = router.search.id;
+
+        var formData = {};
+
+        xymobile.clientData('xyClientData', curId, router.search.adapter);
+
+        xymobile.req({
+          url: layui.setter.api.GetPhysicalExaminationInfo
+          ,data: {
+            ID: healthId
+          }
+          ,success: $.proxy(function(examData) {
+            $.each(examData.data, function(hIndex, item) {
+              if (item.Physical_Detail.STATUS == 0) {
+                item.Physical_Detail.DATA_VALUE = '未检';
+              } else if (xymobile.empty(item.Physical_Detail.DATA_VALUE)) {
+                item.Physical_Detail.DATA_VALUE = '无';
+              } else if (item.Physical_Detail.INPUT_MODE == 2) {
+                item.Physical_Detail.DATA_VALUE = item.Physical_Detail.DATA_VALUE.replace(/^\|/, '').replace(/\|/, ' ');
+              }
+              formData['hproject_' + item.Physical_Detail.PROJECT_ID] = item.Physical_Detail;
+            });
+            laytpl(detailContainer.innerHTML).render({formData: formData, equipmentSort: layui.history.equipmentSort}, function(html){
+              $('.layui-fluid').append(html);
+
+              showHistory(curId);
+              element.render('collapse');
+            });
+          }, this)
+        });
+      }
       ,arrangeList: function() {
         element.on('tab(arrangeSwitch)', function(data){
           $('#arrangeContainer').html('');
@@ -237,6 +312,22 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table'],
           ,done: function(page, next) {
             renderArrange(page, next);
           }
+        });
+        $('#arrangeContainer').on('click', '.editArrange', function() {
+          layer.open({
+            type: 2,
+            area:['100%', $('#LAY_app_body').height() + 'px'],
+            content: layui.setter.baseUrl + 'arrange/edit.html#/id=' + $(this).closest('.caller-item').data('id') + '/adapter=m',
+            title: '随访'
+          });
+        });
+        $('#arrangeContainer').on('click', '.showArrange', function() {
+          layer.open({
+            type: 2,
+            area:['100%', $('#LAY_app_body').height() + 'px'],
+            content: layui.setter.baseUrl + 'arrange/detail.html?abc#/id=' + $(this).closest('.caller-item').data('id') + '/adapter=m',
+            title: '随访'
+          });
         });
       }
       ,equipment: function() {
@@ -303,7 +394,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table'],
     table.on('tool(xy-history-health)', function(obj){
       var data = obj.data;
       if (obj.event === 'detail') {
-        location.href = layui.setter.baseUrl + 'health/detail.html#/id=' + obj.data.ID + '/clientId=' + obj.data.CLIENT_ID + '/adapter=m';
+        location.href = layui.setter.baseUrl + 'mobile/health_detail.html#/id=' + obj.data.ID + '/clientId=' + obj.data.CLIENT_ID + '/adapter=m';
       }
     });
   }
@@ -343,7 +434,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table'],
 
   var renderResident = function(page, next) {
     var where = {
-      "KEY_WORD" : "",
+      "KEY_WORD" : $('#KEY_WORD').val(),
       "UNIT_ID": xymobile.user.UNIT_ID,
       // "CHILDREN_UNIT": 0,
       "PAGE_NO": page,
@@ -364,10 +455,31 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table'],
           clientList: data.data,
           detailUrl: layui.setter.baseUrl + 'mobile/resident_detail.html',
           equipmentUrl: layui.setter.baseUrl + 'mobile/equipment.html',
-          addArrangeUrl: layui.setter.baseUrl + 'arrange/edit.html'
         }, function(html){
           next(html, data.message > pageSize * page);
         });
+      }
+    });
+  }
+
+  var showHistory = function(clientId) {
+    var showHistory = ['hospital', 'familyHospital', 'medicine', 'inoculate'];
+
+    var historySort = layui.history.historySort;
+    var renderHistory = layui.history.renderHistory;
+    var renderEquipment = layui.history.renderEquipment;
+
+    $.each(showHistory, function(hIndex, item) {
+      renderHistory[item].call(this, {
+        "CLIENT_ID" : clientId,
+        "HISTORY_SORT_ID": historySort[item].id
+      });
+    });
+    element.on('collapse(collapse-equipment)', function(collData){
+      if (collData.show && !collData.title.attr('data-init')) {
+        collData.title.attr('data-init', 1);
+        var type = collData.title.attr('data-type');
+        renderEquipment(clientId, type);
       }
     });
   }
@@ -389,9 +501,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table'],
       ,disableLoad: true
       ,success: function(data){
         laytpl(arrangeTpl.innerHTML).render({
-          arrangeList: data.data,
-          editUrl: layui.setter.baseUrl + 'arrange/edit.html',
-          detailUrl: layui.setter.baseUrl + 'arrange/detail.html',
+          arrangeList: data.data
         }, function(html){
           next(html, data.message > pageSize * page);
         });
@@ -423,7 +533,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table'],
   var layout = function(){
     var activeTab = activePage();
     $.ajax({
-      url: layui.setter.views + 'common/mobile' + layui.setter.engine
+      url: layui.setter.views + 'xymobile/layout' + layui.setter.engine
       ,type: 'get'
       ,dataType: 'html'
       ,data: {
@@ -495,5 +605,17 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table'],
     }
   }
 
+  admin.events.sendmsg = function(elem){
+    layer.open({
+      type: 2,
+      area:['100%', $('#LAY_app_body').height() + 'px'],
+      content: layui.setter.baseUrl + 'message/send.html#/CLIENT_ID=' + elem.data('id') + '/CLIENT_NAME=' + elem.data('name'),
+      title: '发送消息'
+    });
+  };
+
+  $('body').on('click', '.xylink', function() {
+    top.location.href = layui.setter.baseUrl + $(this).data('href');
+  });
   exports('xymobile', xymobile)
 });

@@ -20,7 +20,7 @@
 
   <script id="clientTpl" type="text/html">
     {{#  layui.each(d.clientList, function(index, item){ }}
-    <div class="caller-item">
+    <div class="caller-item" data-id="{{item.ID}}">
       <div class="caller-main">
         <p>{{# if (item.EMPHASIS_ID && item.EMPHASIS_ID != 165) { }}<span class="layui-badge-dot"></span> {{# } }}<strong>{{ item.REAL_NAME }}</strong></p>
         <p>签约医生：{{ item.MANAGE_REAL_NAME }}</p>
@@ -30,7 +30,7 @@
       <a class="layui-btn layui-btn-sm caller-fr" href="{{d.equipmentUrl}}#/id={{ item.ID }}/adapter=m">
         获取设备数据
       </a>
-      <a class="layui-btn layui-btn-sm caller-fr" href="{{d.addArrangeUrl}}#/CLIENT_ID={{ item.ID }}/adapter=m">
+      <a class="layui-btn layui-btn-sm caller-fr addArrange" href="javascript:;">
         添加随访
       </a>
       <a class="layui-btn layui-btn-sm caller-fr" href="{{d.detailUrl}}#/id={{ item.ID }}/adapter=m">
@@ -44,6 +44,12 @@
       <div class="layui-body" id="LAY_app_body">
         <div class="layui-fluid">
           <div class="layadmin-caller">
+            <div class="layui-form" style="margin: 10px 0;">
+              <div class="layui-inline">
+                <input class="layui-input" id="KEY_WORD" autocomplete="off">
+              </div>
+              <button class="layui-btn" lay-submit lay-filter="client-search" style="margin-top: 0;">搜索</button>
+            </div>
             <div class="layui-tab layui-tab-brief caller-tab" id="clientTab" lay-filter="clientSwitch">
               <ul class="layui-tab-title">
                 <li class="layui-this" data-tab="1">已签约</li>

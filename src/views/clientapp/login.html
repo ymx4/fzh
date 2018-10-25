@@ -58,7 +58,7 @@
         ,success: function(data){
           //请求成功后，写入 access_token
           data.data.token = data.message;
-          layui.data(layui.setter.tableName, {
+          layui.data(layui.setter.clientSess, {
             key: 'user'
             ,value: data.data
           });

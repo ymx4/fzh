@@ -48,7 +48,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
           }
         }}
       ];
-      if (router.search.s != 't') {
+      if (router.search.s != 't' || router.search.c == 't') {
         cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-consultation'});
       }
       common.xyRender({
@@ -60,6 +60,9 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
           if (res.data && res.data.length) {
             $.each(res.data, function(i, item){
               res.data[i].xy_category = router.search.c;
+              if (router.search.s == 't' && router.search.c == 't') {
+                res.data[i].xy_category = 'transfer_completed';
+              }
             });
           }
           return res;

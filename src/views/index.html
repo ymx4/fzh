@@ -68,7 +68,7 @@
       <!-- 侧边菜单 -->
       <div class="layui-side layui-side-menu">
         <div class="layui-side-scroll">
-          <div class="layui-logo" lay-href="resident/list.html">
+          <div class="layui-logo" lay-href="resident/list.html#/t=my">
             <span><img src="../layuiadmin/style/res/logo-b.png" style="width:120px;"></span>
           </div>
           
@@ -90,6 +90,14 @@
                 <cite>专科医生</cite>
               </a>
               <dl class="layui-nav-child">
+                <dd>
+                  <a href="javascript:;">就诊<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd><a lay-href="diagnose/list.html#/t=uncompleted/d=f" lay-text="就诊-未完成">未完成</a></dd>
+                    <dd><a lay-href="diagnose/list.html#/t=completed/d=f" lay-text="就诊-已完成">已完成</a></dd>
+                    <dd><a lay-href="diagnose/list.html#/t=revisit/d=f" lay-text="就诊-待复诊">待复诊</a></dd>
+                  </dl>
+                </dd>
                 <dd>
                   <a href="javascript:;">会诊请求<span class="layui-nav-more"></span></a>
                   <dl class="layui-nav-child">
@@ -171,7 +179,7 @@
                 <cite>客户管理</cite>
               </a>
               <dl class="layui-nav-child">
-                <dd><a lay-href="resident/list.html">我的签约客户</a></dd>
+                <dd><a lay-href="resident/list.html#/t=my">我的签约客户</a></dd>
                 <dd>
                   <a href="javascript:;">本单位客户</a>
                   <dl class="layui-nav-child">
@@ -246,7 +254,7 @@
               <dl class="layui-nav-child">
                 <dd><a lay-href="">通知公告</a></dd>
                 <dd><a lay-href="">医友消息</a></dd>
-                <dd><a lay-href="">客户消息</a></dd>
+                <dd><a lay-href="message/list.html">客户消息</a></dd>
               </dl>
             </li>
           </ul>
@@ -271,7 +279,7 @@
         </div>
         <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
           <ul class="layui-tab-title" id="LAY_app_tabsheader">
-            <li lay-id="resident/list.html" lay-attr="resident/list.html" class="layui-this">我的签约客户</li>
+            <li lay-id="resident/list.html" lay-attr="resident/list.html#/t=my" class="layui-this">我的签约客户</li>
           </ul>
         </div>
       </div>
@@ -280,7 +288,7 @@
       <!-- 主体内容 -->
       <div class="layui-body" id="LAY_app_body">
         <div class="layadmin-tabsbody-item layui-show">
-          <iframe src="resident/list.html" frameborder="0" class="layadmin-iframe"></iframe>
+          <iframe src="resident/list.html#/t=my" frameborder="0" class="layadmin-iframe"></iframe>
         </div>
       </div>
       

@@ -39,7 +39,7 @@ layui.define(['common'], function(exports){
     diagnose: {name:'就诊记录'}
     ,consultation: {name:'会诊记录'}
     ,arrange: {name:'随访记录'}
-    ,survey: {name:'问卷记录'}
+    // ,survey: {name:'问卷记录'}
   };
 
   var renderEquipment = function(clientId, equipmentType){

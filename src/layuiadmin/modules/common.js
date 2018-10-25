@@ -361,8 +361,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
         ,success: $.proxy(function(clientData){
           view(elem).render('common/client', {
             clientData: clientData.data,
-            adapter: adapter,
-            detailUrl: layui.setter.baseUrl + 'resident/detail.html'
+            adapter: adapter
           }).done(function(){
           });
         })
@@ -663,6 +662,19 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
         $('#' + elemid.attr('data-name')).attr('title', $(this).attr('data-name'));
         layer.close(insindex);
       });
+    });
+  };
+
+  $('body').on('click', '.xylink', function() {
+    top.location.href = layui.setter.baseUrl + $(this).data('href');
+  });
+
+  admin.events.sendmsg = function(elem){
+    layer.open({
+      type: 2,
+      area:['90%', '90%'],
+      content: layui.setter.baseUrl + 'message/send.html#/CLIENT_ID=' + elem.data('id') + '/CLIENT_NAME=' + elem.data('name'),
+      title: '发送消息'
     });
   };
 

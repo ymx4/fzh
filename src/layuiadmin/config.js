@@ -166,11 +166,25 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       ModifyArrange: 'http://holtest.fres.cn/Client/Arrange/ModifyArrange.ashx',
       DeleteArrange: 'http://holtest.fres.cn/Client/Arrange/DeleteArrange.ashx',
       GetArrangeInfo: 'http://holtest.fres.cn/Client/Arrange/GetArrangeInfo.ashx',
-      ChangeClientPassword: 'http://holtest.fres.cn/Client/Login/ChangeClientPassword.ashx',
-      ClientLogin: 'http://holtest.fres.cn/Client/Login/ClientLogin.ashx',
-      GetMyInfo: 'http://holtest.fres.cn/Client/Login/GetMyInfo.ashx',
-      ClientLoginOut: 'http://holtest.fres.cn/Client/Login/ClientLoginOut.ashx',
-      ClientGSM: 'http://holtest.fres.cn/Client/Login/ClientGSM.ashx',
+      SendMessage: 'http://holtest.fres.cn/Message/SendMessage.ashx',
+      ReadMessage: 'http://holtest.fres.cn/Message/ReadMessage.ashx',
+      Client: {
+        ChangeClientPassword: 'http://holtest.fres.cn/Client/Login/ChangeClientPassword.ashx',
+        ClientLogin: 'http://holtest.fres.cn/Client/Login/ClientLogin.ashx',
+        GetMyInfo: 'http://holtest.fres.cn/Client/Login/GetMyInfo.ashx',
+        ClientLoginOut: 'http://holtest.fres.cn/Client/Login/ClientLoginOut.ashx',
+        ClientGSM: 'http://holtest.fres.cn/Client/Login/ClientGSM.ashx',
+        GetClientHistory: 'http://holtest.fres.cn/Client/Login/History/GetClientHistory.ashx',
+        GetPhysicalExaminationList: 'http://holtest.fres.cn/Client/Login/PhysicalExamination/GetPhysicalExaminationList.ashx',
+        GetPhysicalExaminationInfo: 'http://holtest.fres.cn/Client/Login/PhysicalExamination/GetPhysicalExaminationInfo.ashx',
+        GetDataFormClientID: 'http://holtest.fres.cn/Client/Login/Equipment/GetDataFormClientID.ashx',
+        SearchDiagnose: 'http://holtest.fres.cn/Client/Login/Diagnose/SearchDiagnose.ashx',
+        GetDiagnoseInfo: 'http://holtest.fres.cn/Client/Login/Diagnose/GetDiagnoseInfo.ashx',
+        SearchConsultation: 'http://holtest.fres.cn/Client/Login/Consultation/SearchConsultation.ashx',
+        GetConsultationInfo: 'http://holtest.fres.cn/Client/Login/Consultation/GetConsultationInfo.ashx',
+        SearchArrange: 'http://holtest.fres.cn/Client/Login/Arrange/SearchArrange.ashx',
+        GetArrangeInfo: 'http://holtest.fres.cn/Client/Login/Arrange/GetArrangeInfo.ashx',
+      },
     }
     ,loadsec: 5*1000
     ,dateFormat: {
@@ -178,5 +192,6 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       ,sec: 'yyyy/MM/dd HH:mm:ss'
     }
     ,baseUrl: '/src/views/'
+    ,clientSess: 'clientapp'
   });
 });

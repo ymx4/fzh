@@ -100,7 +100,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
           ,success: function(data){
             layer.msg('操作成功', function() {
               if (router.search.adapter == 'm') {
-                location.href = layui.setter.baseUrl + 'mobile/arrange.html';
+                common.closeParent();
               } else {
                 common.closeSelf();
               }

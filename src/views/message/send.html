@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>发送消息</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/xy.css" media="all">
+</head>
+<body>
+
+  <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-card-header">发送消息</div>
+      <div class="layui-card-body" style="padding: 15px;">
+        <form class="layui-form" action="" lay-filter="xy-message-form">
+          <div class="layui-form-item">
+            <label class="layui-form-label">收件人</label>
+            <div class="layui-input-block">
+              <input type="hidden" id="RECEIVE_USER_ID" name="RECEIVE_USER_ID">
+              <div class="layui-form-mid layui-word-aux" id="RECEIVE_USER"></div>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">内容</label>
+            <div class="layui-input-block">
+              <textarea name="MESSAGE" class="layui-textarea"></textarea>
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button type="button" class="layui-btn" lay-submit lay-filter="xy-message-submit">发送</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+    
+  <script src="../../layuiadmin/layui/layui.js"></script>  
+  <script>
+  layui.config({
+    base: '../../layuiadmin/'
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'message'], function(){
+    layui.message.init.send();
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>档案详情</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/xy.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/mobile.css" media="all">
+</head>
+<body>
+  <div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+      <div class="layui-body" id="LAY_app_body">
+        <div class="layui-fluid">
+          <div id="xyClientData"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script id="detailContainer" type="text/html">
+    <form class="layui-form xy-form" action="" lay-filter="xy-health-form">
+      <div class="layui-card">
+        <div class="layui-card-header">{{d.formData['hproject_17'].CHINESE_NAME}}</div>
+        <div class="layui-card-body layui-row">
+          <div class="layui-form-item layui-col-space10">
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label">{{d.formData['hproject_17'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_17'].DATA_VALUE}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header">一般状况</div>
+        <div class="layui-card-body layui-row">
+          <div class="layui-form-item layui-col-space10">
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">{{d.formData['hproject_18'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_18'].DATA_VALUE}}</div>
+                <div class="layui-form-mid">°C</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">{{d.formData['hproject_19'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_19'].DATA_VALUE}}</div>
+                <div class="layui-form-mid">次/分钟</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">{{d.formData['hproject_20'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_20'].DATA_VALUE}}</div>
+                <div class="layui-form-mid">次/分钟</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">{{d.formData['hproject_21'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_21'].DATA_VALUE}}</div>
+                <div class="layui-form-mid">mmHg</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">{{d.formData['hproject_22'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_22'].DATA_VALUE}}</div>
+                <div class="layui-form-mid">mmHg</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">{{d.formData['hproject_23'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_23'].DATA_VALUE}}</div>
+                <div class="layui-form-mid">cm</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">{{d.formData['hproject_24'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_24'].DATA_VALUE}}</div>
+                <div class="layui-form-mid">kg</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">{{d.formData['hproject_26'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_26'].DATA_VALUE}}</div>
+                <div class="layui-form-mid">cm</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+              <label class="layui-form-label">{{d.formData['hproject_25'].CHINESE_NAME}}</label>
+              <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_25'].DATA_VALUE}}</div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label" style="width:200px;">{{d.formData['hproject_27'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_27'].DATA_VALUE}}</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label" style="width:200px;">{{d.formData['hproject_28'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_28'].DATA_VALUE}}</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label" style="width:200px;">{{d.formData['hproject_29'].CHINESE_NAME}}</label>
+              <div class="layui-input-block xy-form-extra">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_29'].DATA_VALUE}}</div>
+                <div class="xy-form-extra-control">
+                  <div class="layui-form-mid">{{d.formData['hproject_129'].CHINESE_NAME}}</div>
+                  <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_129'].DATA_VALUE}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label" style="width:200px;">{{d.formData['hproject_30'].CHINESE_NAME}}</label>
+              <div class="layui-input-block xy-form-extra">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_30'].DATA_VALUE}}</div>
+                <div class="xy-form-extra-control">
+                  <div class="layui-form-mid">{{d.formData['hproject_128'].CHINESE_NAME}}</div>
+                  <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_128'].DATA_VALUE}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header">生活方式</div>
+        <div class="layui-card-body layui-row">
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>饮食习惯</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_31'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_31'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_32'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_32'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">分钟</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_33'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_33'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">年</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_34'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_34'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>饮食习惯</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_35'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_35'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>吸烟状况</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_36'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_36'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_37'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_37'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">支</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_38'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_38'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">岁</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_39'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_39'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">岁</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>饮酒情况</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_40'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_40'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_41'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block xy-form-extra">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_41'].DATA_VALUE}}</div>
+                    <div class="xy-form-extra-control">
+                      <div class="layui-form-mid">{{d.formData['hproject_130'].CHINESE_NAME}}</div>
+                      <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_130'].DATA_VALUE}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_42'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_42'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">两</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_43'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_43'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">岁</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_44'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_44'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_45'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block xy-form-extra">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_45'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>职业病危害因素接触史</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_46'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block xy-form-extra">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_46'].DATA_VALUE}}</div>
+                    <div class="xy-form-extra-control">
+                      <div class="layui-form-mid">{{d.formData['hproject_131'].CHINESE_NAME}}</div>
+                      <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_131'].DATA_VALUE}}</div>
+                      <div class="layui-form-mid">{{d.formData['hproject_132'].CHINESE_NAME}}</div>
+                      <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_132'].DATA_VALUE}}</div>
+                      <div class="layui-form-mid">年</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_47'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_47'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_48'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_48'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_49'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_49'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_50'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_50'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_51'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_51'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header">脏器功能</div>
+        <div class="layui-card-body layui-row">
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>口腔</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_52'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_52'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_53'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_53'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_54'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_54'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>视力</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+                  <label class="layui-form-label">{{d.formData['hproject_55'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_55'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+                  <label class="layui-form-label">{{d.formData['hproject_56'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_56'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+                  <label class="layui-form-label">{{d.formData['hproject_57'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_57'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+                  <label class="layui-form-label">{{d.formData['hproject_58'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_58'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>听力</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_59'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_59'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>运动功能</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_60'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_60'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header">查体</div>
+        <div class="layui-card-body layui-row">
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>眼底*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_61'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_61'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>皮肤</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_62'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_62'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>巩膜</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_64'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_64'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>淋巴结</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_67'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_67'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>肺</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_68'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_68'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_69'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_69'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_70'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_70'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>心脏</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_71'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_71'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">次/分钟</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_72'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_72'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_73'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_73'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>腹部</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_74'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_74'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_75'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_75'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_76'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_76'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_77'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_77'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_78'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_78'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>下肢水肿</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_79'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_79'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>足背动脉搏动</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_80'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_80'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>肛门指诊*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_81'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_81'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>乳腺*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_83'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_83'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>妇科*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_85'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_85'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_86'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_86'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_87'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_87'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_88'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_88'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_89'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_89'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_90'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_90'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>其它*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_124'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_124'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header">辅助检查</div>
+        <div class="layui-card-body layui-row">
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>血常规*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_91'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_91'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">g/L</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_92'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_92'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">X 10/L</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_93'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_93'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">X 10/L</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_125'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_125'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>心电图*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_94'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_94'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>尿微量蛋白*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_96'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_96'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">mg/dL</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>大便潜血*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_97'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_97'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>糖化血红蛋白*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_98'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_98'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">%</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>乙型肝炎表面抗原*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_99'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_99'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>肝功能*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_100'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_100'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">U/L</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_101'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_101'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">U/L</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_102'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_102'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">g/L</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_103'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_103'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">μmol/L</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_104'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_104'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">μmol/L</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>肾功能*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_105'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_105'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">μmol/L</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_106'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_106'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">mmol/L</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_107'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_107'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">mmol/L</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+                  <label class="layui-form-label">{{d.formData['hproject_108'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_108'].DATA_VALUE}}</div>
+                    <div class="layui-form-mid">mmol/L</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>胸部X线片*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_109'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_109'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>B超*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_111'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_111'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_133'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_133'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>宫颈涂片*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_113'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_113'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="layui-form-item">
+            <fieldset class="layui-elem-field">
+              <legend>其它*</legend>
+              <div class="layui-field-box layui-col-space10">
+                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                  <label class="layui-form-label">{{d.formData['hproject_126'].CHINESE_NAME}}</label>
+                  <div class="layui-input-block">
+                    <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_126'].DATA_VALUE}}</div>
+                  </div>
+                </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header">现存主要健康问题</div>
+        <div class="layui-card-body layui-row">
+          <div class="layui-form-item layui-col-space10">
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label">{{d.formData['hproject_114'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_114'].DATA_VALUE}}</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label">{{d.formData['hproject_115'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_115'].DATA_VALUE}}</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label">{{d.formData['hproject_116'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_116'].DATA_VALUE}}</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label">{{d.formData['hproject_117'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_117'].DATA_VALUE}}</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label">{{d.formData['hproject_118'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_118'].DATA_VALUE}}</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label">{{d.formData['hproject_119'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_119'].DATA_VALUE}}</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label">{{d.formData['hproject_120'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_120'].DATA_VALUE}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header">健康在线生化数据</div>
+        <div class="layui-card-body">
+          <div class="layui-collapse" lay-filter="collapse-equipment">
+            {{#  layui.each(d.equipmentSort, function(index, item){ }}
+              <div class="layui-colla-item">
+                <h2 class="layui-colla-title" data-type="{{index}}">{{item.name}}</h2>
+                <div class="layui-colla-content">
+                  <table id="xy-equipment-{{index}}" lay-filter="xy-equipment-{{index}}"></table>
+                </div>
+              </div>
+            {{#  }); }}
+          </div>
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header"><i class="layui-icon layui-icon-tips" style="position: static;" lay-tips="指最近 1 年内的住院治疗情况。应逐项填写。日期填写年月，年份应写 4 位。如因慢性病急性发作或加重而住院/家庭病床，请特别说明。医疗机构名称应写全称"></i> 住院治疗情况</div>
+        <div class="layui-card-body layui-row">
+          <fieldset class="layui-elem-field">
+            <legend>住院史</legend>
+            <div class="layui-field-box layui-col-space10">
+              <table id="xy-history-hospital" lay-filter="xy-history-hospital"></table>
+            </div>
+          </fieldset>
+          <fieldset class="layui-elem-field">
+            <legend>家庭病床史</legend>
+            <div class="layui-field-box layui-col-space10">
+              <table id="xy-history-familyHospital" lay-filter="xy-history-familyHospital"></table>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header"><i class="layui-icon layui-icon-tips" style="position: static;" lay-tips="对长期服药的慢性病患者了解其最近 1 年内的主要用药情况，西药填写化学名及商品名，中药填写药品名称或中药汤剂，用法、用量按医生医嘱填写，用法指给药途径，如：口服、皮下注射等。用量指用药频次和剂量，如：每日三次，每次 5mg 等。用药时间指在此时间段内一共服用此药的时间，单位为年、月或天。服药依从性是指对此药的依从情况，“规律”为按医嘱服药，“间断”为未按医嘱服药，频次或数量不足，“不服药”即为医生开了处方，但患者未使用此药"></i> 用药情况</div>
+        <div class="layui-card-body layui-row">
+          <table id="xy-history-medicine" lay-filter="xy-history-medicine"></table>
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header"><i class="layui-icon layui-icon-tips" style="position: static;" lay-tips="填写最近 1 年内接种的疫苗的名称、接种日期和接种机构"></i> 预防接种史</div>
+        <div class="layui-card-body layui-row">
+          <table id="xy-history-inoculate" lay-filter="xy-history-inoculate"></table>
+        </div>
+      </div>
+
+      <div class="layui-card">
+        <div class="layui-card-header">健康评价</div>
+        <div class="layui-card-body layui-row">
+          <div class="layui-form-item layui-col-space10">
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label">{{d.formData['hproject_121'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_121'].DATA_VALUE}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header">健康指导</div>
+        <div class="layui-card-body layui-row">
+          <div class="layui-form-item layui-col-space10">
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label">{{d.formData['hproject_122'].CHINESE_NAME}}</label>
+              <div class="layui-input-block">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_122'].DATA_VALUE}}</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label">{{d.formData['hproject_123'].CHINESE_NAME}}</label>
+              <div class="layui-input-block xy-form-extra">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_123'].DATA_VALUE}}</div>
+              </div>
+            </div>
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+              <label class="layui-form-label">{{d.formData['hproject_134'].CHINESE_NAME}}</label>
+              <div class="layui-input-block xy-form-extra">
+                <div class="layui-form-mid layui-word-aux">{{d.formData['hproject_134'].DATA_VALUE}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </script>
+
+  <script src="../../layuiadmin/layui/layui.js"></script>  
+  <script>
+  layui.config({
+    base: '../../layuiadmin/'
+  }).extend({
+    mobileindex: 'lib/mobileindex' //主入口模块
+  }).use(['mobileindex', 'xymobile'], function(){
+    layui.xymobile.init.healthDetail();
+  });
+  </script>
+</body>
+</html>

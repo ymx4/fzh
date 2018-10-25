@@ -20,7 +20,7 @@
 
   <script id="arrangeTpl" type="text/html">
     {{#  layui.each(d.arrangeList, function(index, item){ }}
-    <div class="caller-item">
+    <div class="caller-item" data-id="{{item.ID}}">
       <div class="caller-main">
         <p><strong>{{ item.CLIENT_REAL_NAME }}</strong></p>
         {{# if (item.STATUS == 1) { }}
@@ -31,11 +31,11 @@
         <p>随访类型：{{ item.ARRANAGE_TYPE_NAME }}</p>
       </div>
       {{# if (item.STATUS == 0) { }}
-      <a class="layui-btn layui-btn-sm caller-fr" href="{{d.editUrl}}#/id={{ item.ID }}/adapter=m">
+      <a class="layui-btn layui-btn-sm caller-fr editArrange" href="javascript:;">
         编辑
       </a>
       {{# } }}
-      <a class="layui-btn layui-btn-sm caller-fr" href="{{d.detailUrl}}#/id={{ item.ID }}/adapter=m">
+      <a class="layui-btn layui-btn-sm caller-fr showArrange" href="javascript:;">
         查看
       </a>
     </div>

@@ -19,11 +19,7 @@
           <label class="layui-form-label">性别</label>
           <div class="layui-input-block">
             <div class="layui-form-mid layui-word-aux">{{d.params.clientData.SEX_VALUE ? d.params.clientData.SEX_VALUE : '未填'}}</div>
-            {{# if (d.params.adapter == 'm') { }}
-            <button class="layui-btn layui-btn-sm xylink" data-href="mobile/resident_detail.html#/id={{d.params.clientData.ID}}/adapter=m">查看个人档案</button>
-            {{# } else { }}
-            <button class="layui-btn layui-btn-sm" lay-href="resident/detail.html#/id={{d.params.clientData.ID}}" lay-text="查看-{{d.params.clientData.REAL_NAME}}">查看个人档案</button>
-            {{# } }}
+            <button class="layui-btn layui-btn-sm xylink" data-href="mobile/resident_detail.html#/id={{d.params.clientData.ID}}">查看个人档案</button>
           </div>
         </div>
       </div>

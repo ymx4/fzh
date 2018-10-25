@@ -117,7 +117,6 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
 
     }
     ,edit: function() {
-      common.clientData('xyClientData', router.search.CLIENT_ID);
       if (router.search.id) {
         common.req({
           url: layui.setter.api.GetDiagnoseInfo
@@ -125,6 +124,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
             ID: router.search.id
           }
           ,success: $.proxy(function(data){
+            common.clientData('xyClientData', data.data.CLIENT_ID);
             form.val('xy-diagnose-form', data.data);
             if (data.data.NEED_REVIEW) {
               $(':input[name="REVIEW_DATE"]').removeClass('layui-hide');
@@ -140,6 +140,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
           }, this)
         });
       } else {
+        common.clientData('xyClientData', router.search.CLIENT_ID);
         common.req({
           url: layui.setter.api.GetDiagnoseNO
           ,data: {}

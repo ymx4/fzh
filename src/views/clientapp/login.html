@@ -45,15 +45,15 @@
     base: '../../layuiadmin/'
   }).extend({
     clientindex: 'lib/clientindex' //主入口模块
-  }).use(['clientindex', 'form', 'clientapp'], function(){
+  }).use(['clientindex', 'form', 'common'], function(){
     var $ = layui.$
     ,form = layui.form;
 
     //提交
     form.on('submit(xy-login-submit)', function(obj){
       //请求登入接口
-      layui.clientapp.req({
-        url: layui.setter.api.ClientLogin
+      layui.common.req({
+        url: layui.setter.api.Client.ClientLogin
         ,data: obj.field
         ,success: function(data){
           //请求成功后，写入 access_token

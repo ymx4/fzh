@@ -22,15 +22,11 @@
     {{#  layui.each(d.messageList, function(index, item){ }}
     <li>
       <h3>
-      {{# if (item.SEND_USER_TYPE == 2) { }}
-        {{item.SEND_REAL_NAME}} <i class="fas fa-share"></i>
-      {{# } else { }}
-        {{item.RECEIVE_REAL_NAME}} <i class="fas fa-reply"></i>
-      {{# } }}
+        {{item.SEND_REAL_NAME}} <i class="layui-icon layui-icon-triangle-r"></i> {{item.RECEIVE_REAL_NAME}}
       </h3>
       <p>{{item.MESSAGE}}</p>
       <span>{{item.SEND_TIME}}</span>
-      <a href="javascript:;" layadmin-event="sendmsg" data-id="{{item.RECEIVE_REAL_NAME}}" data-name="{{item.RECEIVE_REAL_NAME}}" class="layui-btn layui-btn-xs layuiadmin-reply">回复</a>
+      <a href="javascript:;" layadmin-event="sendmsg" data-id="{{item.SEND_USER_TYPE == 2 ? item.RECEIVE_USER_ID : item.SEND_USER_ID}}" data-name="{{item.SEND_USER_TYPE == 2 ? item.RECEIVE_REAL_NAME : item.SEND_REAL_NAME}}" class="layui-btn layui-btn-xs layuiadmin-reply">回复</a>
     </li>
     {{#  }); }}
   </script>

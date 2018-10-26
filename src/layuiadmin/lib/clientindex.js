@@ -22,7 +22,7 @@ layui.extend({
   
   //将模块根路径设置为 controller 目录
   layui.config({
-    base: setter.base + 'modules/'
+    base: setter.base + 'clientapp/'
   });
   
   //扩展 lib 目录下的其它模块
@@ -35,7 +35,7 @@ layui.extend({
   view().autoRender();
   
   //加载公共模块
-  layui.use('clientapp');
+  layui.use('common');
 
   //对外输出
   exports('clientindex', {});

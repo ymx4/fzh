@@ -61,7 +61,7 @@
     base: '../../layuiadmin/'
   }).extend({
     clientindex: 'lib/clientindex' //主入口模块
-  }).use(['clientindex', 'form', 'clientapp'], function(){
+  }).use(['clientindex', 'form', 'common'], function(){
     var $ = layui.$
     ,form = layui.form
     ,router = layui.router();
@@ -78,8 +78,8 @@
       var field = obj.field;
 
       //请求接口
-      layui.clientapp.req({
-        url: layui.setter.api.ChangeClientPassword
+      layui.common.req({
+        url: layui.setter.api.Client.ChangeClientPassword
         ,data: obj.field
         ,success: function(data){
           layer.msg(successMsg, {
@@ -137,8 +137,8 @@
           return layer.msg('请输入正确的手机号')
         };
         
-        layui.clientapp.req({
-          url: layui.setter.api.ClientGSM
+        layui.common.req({
+          url: layui.setter.api.Client.ClientGSM
           ,data: {MOBILE: value}
           ,success: function(data){
             layer.msg('验证码已发送至你的手机，请注意查收', {

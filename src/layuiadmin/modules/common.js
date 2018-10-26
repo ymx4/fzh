@@ -437,6 +437,25 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
     loginPath += '#/redirect=' + encodeURIComponent(location.href);
   }
 
+  var messageTimer = null;
+  var refreshUnread = function() {
+    common.req({
+      url: layui.setter.api.UnreadMessage
+      ,disableLoad: true
+      ,data: {}
+      ,success: function(data){
+        if (data.message > 0) {
+          $('#xyUnreadTip').removeClass('layui-hide');
+          clearInterval(messageTimer);
+        } else {
+          if (!$('#xyUnreadTip').hasClass('layui-hide')) {
+            $('#xyUnreadTip').addClass('layui-hide')
+          }
+        }
+      }
+    });
+  }
+
   if (location.href.indexOf('login') == -1 && router.search.adapter != 'clientapp') {
     var sess = layui.data(layui.setter.tableName);
     if (!sess.user) {
@@ -446,6 +465,8 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       if (location.href.indexOf('views/index.html') != -1) {
         $('#myRealname').text(common.user.REAL_NAME);
         $('#myUnitname').text(common.user.UNIT_NAME);
+        refreshUnread();
+        messageTimer = setInterval(function() {refreshUnread();}, 5000);
       }
     }
   }

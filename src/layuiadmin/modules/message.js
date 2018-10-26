@@ -20,7 +20,7 @@ layui.define(['table', 'form', 'common'], function(exports){
         ]]
       });
     }
-    ,send: function() {console.log(router.search)
+    ,send: function() {
       if (router.search.CLIENT_ID && router.search.CLIENT_NAME) {
         $('#RECEIVE_USER_ID').val(router.search.CLIENT_ID);
         $('#RECEIVE_USER').text(decodeURIComponent(router.search.CLIENT_NAME));

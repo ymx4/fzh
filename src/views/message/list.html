@@ -17,7 +17,7 @@
       <div class="layui-card-body">
         <table id="xy-message-manage" lay-filter="xy-message-manage"></table>
         <script type="text/html" id="table-message">
-          <button class="layui-btn layui-btn-normal layui-btn-xs" layadmin-event="sendmsg" data-id="{{d.SEND_USER_ID}}" data-name="{{d.SEND_REAL_NAME}}">回复</button>
+          <button class="layui-btn layui-btn-normal layui-btn-xs" layadmin-event="sendmsg" data-id="{{d.SEND_USER_TYPE == 2 ? d.RECEIVE_USER_ID : d.SEND_USER_ID}}" data-name="{{d.SEND_USER_TYPE == 2 ? d.RECEIVE_REAL_NAME : d.SEND_REAL_NAME}}">回复</button>
         </script>
       </div>
     </div>

@@ -30,6 +30,13 @@
           </li>
         </ul>
         <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+          <li class="layui-nav-item" lay-unselect="">
+            <a lay-href="message/list.html" layadmin-event="message" lay-text="客户消息">
+              <i class="layui-icon layui-icon-notice"></i>
+              <!-- 如果有新消息，则显示小圆点 -->
+              <span id="xyUnreadTip" class="layui-badge-dot layui-hide"></span>
+            </a>
+          </li>
           <li class="layui-nav-item layui-hide-xs" lay-unselect>
             <a href="javascript:;" layadmin-event="theme">
               <i class="layui-icon layui-icon-theme"></i>

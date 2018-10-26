@@ -198,13 +198,13 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
       });
     }
     ,detail: function() {
-      common.clientData('xyClientData', router.search.CLIENT_ID);
       common.req({
         url: layui.setter.api.GetDiagnoseInfo
         ,data: {
           ID: router.search.id
         }
         ,success: $.proxy(function(data){
+          common.clientData('xyClientData', data.data.CLIENT_ID);
           Object.keys(data.data).forEach(function(key){
             if (data.data[key] == null) {
               data.data[key] = '';

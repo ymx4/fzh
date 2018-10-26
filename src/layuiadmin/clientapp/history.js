@@ -1,5 +1,7 @@
-layui.define(['common'], function(exports){
-  var common = layui.common;
+layui.define(['common', 'table'], function(exports){
+  var $ = layui.$
+  ,common = layui.common
+  ,table = layui.table;
 
   var historySort = {
     medical: {id:1,name:'个人病史'}
@@ -334,6 +336,17 @@ layui.define(['common'], function(exports){
         ,where: where
         ,cols: [cols]
       });
+      
+      table.on('tool(xy-history-diagnose)', function(obj){
+        if (obj.event === 'detail') {
+          layer.open({
+            type: 2,
+            area:['100%', $('#LAY_app_body').height() + 'px'],
+            content: layui.setter.baseUrl + 'clientapp/diagnose_detail.html#/id=' + obj.data.ID,
+            title: '就诊'
+          });
+        }
+      });
     }
 
     ,consultation: function(where){
@@ -357,22 +370,44 @@ layui.define(['common'], function(exports){
         ,where: where
         ,cols: [cols]
       });
+      
+      table.on('tool(xy-history-consultation)', function(obj){
+        if (obj.event === 'detail') {
+          layer.open({
+            type: 2,
+            area:['100%', $('#LAY_app_body').height() + 'px'],
+            content: layui.setter.baseUrl + 'clientapp/consultation_detail.html#/id=' + obj.data.ID,
+            title: '会诊'
+          });
+        }
+      });
     }
 
     ,arrange: function(where){
       //随访记录
       where.STATUS = where.STATUS || 1;
       var cols = [
-        {field: 'ARRANGE_TIME', title: '随访时间'}
-        ,{field: 'CLIENT_REAL_NAME', title: '姓名'}
-        ,{field: 'ARRANAGE_TYPE_NAME', title: '随访类型'}
-        ,{field: 'USER_REAL_NAME', title: '医生'}
+        {field: 'ARRANGE_TIME', title: '随访时间', event:'detail'}
+        ,{field: 'CLIENT_REAL_NAME', title: '姓名', event:'detail'}
+        ,{field: 'ARRANAGE_TYPE_NAME', title: '随访类型', event:'detail'}
+        ,{field: 'USER_REAL_NAME', title: '医生', event:'detail'}
       ];
       common.xyRender({
         elem: '#xy-history-arrange'
         ,url: layui.setter.api.SearchArrange
         ,where: where
         ,cols: [cols]
+      });
+      
+      table.on('tool(xy-history-arrange)', function(obj){
+        if (obj.event === 'detail') {
+          layer.open({
+            type: 2,
+            area:['100%', $('#LAY_app_body').height() + 'px'],
+            content: layui.setter.baseUrl + 'clientapp/arrange_detail.html#/id=' + obj.data.ID,
+            title: '随访'
+          });
+        }
       });
     }
 

@@ -23,7 +23,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     common.xyRender({
       elem: '#xy-history-health'
       ,url: layui.setter.api.GetPhysicalExaminationList
-      ,page: false
+      ,page: falsef
       ,where: {
         "CLIENT_ID": cliendId,
         "CREATE_UNIT_ID": 0,

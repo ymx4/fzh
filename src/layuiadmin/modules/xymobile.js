@@ -73,7 +73,9 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
             layui.stope(e);
           });
           if (res.errorCode == 4006) {
-            layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
+            top.layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消'], shade: 1}, function(){
+              top.location.href = layui.setter.baseUrl + loginPath;
+            }, function(){
               top.location.href = layui.setter.baseUrl + loginPath;
             });
           } else {
@@ -137,7 +139,9 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
           if (res.status == 1 && typeof success === 'function') {
             success(res);
           } else if (res.errorCode == 4006) {
-            layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
+            top.layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消'], shade: 1}, function(){
+              top.location.href = layui.setter.baseUrl + loginPath;
+            }, function(){
               top.location.href = layui.setter.baseUrl + loginPath;
             });
           } else {
@@ -184,7 +188,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
                 laytpl(messageTpl.innerHTML).render({
                   messageList: data.data
                 }, function(html){
-                  next(html, data.message > pageSize * page);
+                  next(html, data.message > layui.setter.pageSize * page);
                 });
               }
             });
@@ -224,6 +228,14 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
             content: layui.setter.baseUrl + 'arrange/edit.html#/CLIENT_ID=' + $(this).closest('.caller-item').data('id') + '/adapter=m',
             title: '添加随访'
           });
+        });
+        $('#clientContainer').on('click', '.getEquipment', function() {
+          var ua = window.navigator.userAgent.toLowerCase();
+          if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+            wx.miniProgram.navigateTo({url: 'page/index/index?redirect=' + encodeURIComponent($(this).data('href'))});
+          } else {
+            js2Android.showDeviceList($(this).data('href'));
+          }
         });
       }
       ,residentDetail: function() {
@@ -330,7 +342,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
           });
         });
       }
-      ,equipment: function() {
+      ,equipment: function() {alert(JSON.stringify(router.search))
         xymobile.req({
           url: layui.setter.api.GetClientInfo
           ,data: {
@@ -364,8 +376,6 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
       }
     }
   };
-
-  var pageSize = 10;
 
   var renderHealth = function(cliendId, edit) {
     //公共卫生
@@ -438,7 +448,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
       "UNIT_ID": xymobile.user.UNIT_ID,
       // "CHILDREN_UNIT": 0,
       "PAGE_NO": page,
-      "PAGE_SIZE": pageSize
+      "PAGE_SIZE": layui.setter.pageSize
     }
     if ($('#clientTab .layui-this').data('tab') == 2) {
       where.USER_ID = -2;
@@ -456,7 +466,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
           detailUrl: layui.setter.baseUrl + 'mobile/resident_detail.html',
           equipmentUrl: layui.setter.baseUrl + 'mobile/equipment.html',
         }, function(html){
-          next(html, data.message > pageSize * page);
+          next(html, data.message > layui.setter.pageSize * page);
         });
       }
     });
@@ -487,7 +497,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
   var renderArrange = function(page, next) {
     var where = {
       "PAGE_NO": page,
-      "PAGE_SIZE": pageSize
+      "PAGE_SIZE": layui.setter.pageSize
     }
     if ($('#arrangeTab .layui-this').data('tab') == 2) {
       where.STATUS = 1;
@@ -503,7 +513,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
         laytpl(arrangeTpl.innerHTML).render({
           arrangeList: data.data
         }, function(html){
-          next(html, data.message > pageSize * page);
+          next(html, data.message > layui.setter.pageSize * page);
         });
       }
     });
@@ -548,6 +558,25 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
     });
   }
 
+  var messageTimer = null;
+  var refreshUnread = function() {
+    xymobile.req({
+      url: layui.setter.api.UnreadMessage
+      ,disableLoad: true
+      ,data: {}
+      ,success: function(data){
+        if (data.message > 0) {
+          $('#xyNewMsg').addClass('layui-show');
+          clearInterval(messageTimer);
+        } else {
+          if ($('#xyNewMsg').hasClass('layui-show')) {
+            $('#xyNewMsg').removeClass('layui-show');
+          }
+        }
+      }
+    });
+  }
+
   var loginPath = 'passport/login.html';
   if (location.href.indexOf('login') == -1) {
     loginPath += '#/redirect=' + encodeURIComponent(location.href);
@@ -557,6 +586,8 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
     } else {
       xymobile.user = sess.user;
       layout();
+      refreshUnread();
+      messageTimer = setInterval(function() {refreshUnread();}, layui.setter.unreadInterval);
     }
   }
 

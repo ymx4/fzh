@@ -24,7 +24,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
               laytpl(messageTpl.innerHTML).render({
                 messageList: data.data
               }, function(html){
-                next(html, data.message > pageSize * page);
+                next(html, data.message > layui.setter.pageSize * page);
               });
             }
           });
@@ -115,8 +115,6 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
 
       var formData = {};
 
-      common.clientData('xyClientData', curId, router.search.adapter);
-
       common.req({
         url: layui.setter.api.Client.GetPhysicalExaminationInfo
         ,data: {
@@ -138,6 +136,60 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
 
             showHistory(curId);
             element.render('collapse');
+          });
+        }, this)
+      });
+    }
+    ,diagnoseDetail: function() {
+      common.req({
+        url: layui.setter.api.Client.GetDiagnoseInfo
+        ,data: {
+          ID: router.search.id
+        }
+        ,success: $.proxy(function(data){
+          Object.keys(data.data).forEach(function(key){
+            if (data.data[key] == null) {
+              data.data[key] = '';
+            }
+          });
+          laytpl(xy_diagnose_detail.innerHTML).render(data.data, function(html){
+            document.getElementById('xy_diagnose_detail_container').innerHTML = html;
+          });
+        }, this)
+      });
+    }
+    ,consultationDetail: function() {
+      common.req({
+        url: layui.setter.api.Client.GetConsultationInfo
+        ,data: {
+          ID: router.search.id
+        }
+        ,success: $.proxy(function(data){
+          Object.keys(data.data).forEach(function(key){
+            if (data.data[key] == null) {
+              data.data[key] = '';
+            }
+          });
+          laytpl(xy_consultation_form.innerHTML).render(data.data, function(html) {
+            document.getElementById('xy_consultation_container').innerHTML = html;
+          });
+        }, this)
+      });
+    }
+    ,arrangeDetail: function() {
+      common.req({
+        url: layui.setter.api.Client.GetArrangeInfo
+        ,data: {
+          ID: router.search.id
+        }
+        ,success: $.proxy(function(data){
+          Object.keys(data.data).forEach(function(key){
+            if (data.data[key] == null) {
+              data.data[key] = '';
+            }
+          });
+          laytpl(xy_arrange_form.innerHTML).render(data.data, function(html) {
+            document.getElementById('xy_arrange_container').innerHTML = html;
           });
         }, this)
       });
@@ -193,7 +245,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
     table.on('tool(xy-history-health)', function(obj){
       var data = obj.data;
       if (obj.event === 'detail') {
-        location.href = layui.setter.baseUrl + 'health/detail.html#/id=' + obj.data.ID + '/clientId=' + obj.data.CLIENT_ID + '/adapter=clientapp';
+        location.href = layui.setter.baseUrl + 'clientapp/health_detail.html#/id=' + obj.data.ID + '/clientId=' + obj.data.CLIENT_ID + '/adapter=clientapp';
       }
     });
   }

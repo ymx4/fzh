@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>就诊</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/xy.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/mobile.css" media="all">
+</head>
+<body>
+
+  <div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+      <div class="layui-body" id="LAY_app_body">
+        <div class="layui-fluid">
+          <div class="layui-card">
+            <div class="layui-card-header">就诊</div>
+            <div class="layui-card-body" style="padding: 15px;" id="xy_diagnose_detail_container">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/html" id="xy_diagnose_detail">
+    <form class="layui-form" action="" lay-filter="">
+
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">就诊编号</label>
+          <div class="layui-input-inline">
+            <div class="layui-form-mid layui-word-aux">{{d.DIAGNOSE_NO}}</div>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">就诊医生</label>
+          <div class="layui-input-inline">
+            <div class="layui-form-mid layui-word-aux">{{d.DOCTOR_REAL_NAME}}</div>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">就诊机构</label>
+          <div class="layui-input-inline">
+            <div class="layui-form-mid layui-word-aux">{{d.UNIT_NAME}}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="layui-form-item">
+        <label class="layui-form-label">就诊时间</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-word-aux">{{d.DIAGNOSE_DATE}}</div>
+        </div>
+      </div>
+      
+      <div class="layui-form-item">
+        <label class="layui-form-label">就诊内容</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-word-aux">{{d.INQUIRY}}</div>
+        </div>
+      </div>
+      
+      <div class="layui-form-item">
+        <label class="layui-form-label">情况描述</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-word-aux">{{d.DESCRIPTION}}</div>
+        </div>
+      </div>
+      
+      <div class="layui-form-item">
+        <label class="layui-form-label">诊断结论</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-word-aux">{{d.CONCLUSION}}</div>
+        </div>
+      </div>
+      
+      <div class="layui-form-item">
+        <label class="layui-form-label">处方</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-word-aux">{{d.RECIPE}}</div>
+        </div>
+      </div>
+      
+      <div class="layui-form-item">
+        <label class="layui-form-label">就诊状态</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-word-aux">{{# if (d.STATUS == 0) { }}未完成{{# } else if (d.STATUS == 1) { }}已完成{{# } }}</div>
+        </div>
+      </div>
+      
+      {{# if (d.NEED_REVIEW == 1) { }}
+      <div class="layui-form-item">
+        <label class="layui-form-label">复诊时间</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-word-aux">{{d.REVIEW_DATE}}</div>
+        </div>
+      </div>
+      {{# } }}
+    </form>
+  </script>
+
+    
+  <script src="../../layuiadmin/layui/layui.js"></script>  
+  <script>
+  layui.config({
+    base: '../../layuiadmin/'
+  }).extend({
+    clientindex: 'lib/clientindex' //主入口模块
+  }).use(['clientindex', 'init'], function() {
+    layui.init.diagnoseDetail();
+  });
+  </script>
+</body>
+</html>

@@ -145,7 +145,9 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
           if (res.status == 1 && typeof success === 'function') {
             success(res);
           } else if (res.errorCode == 4006) {
-            layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
+            top.layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消'], shade: 1}, function(){
+              top.location.href = layui.setter.baseUrl + loginPath;
+            }, function(){
               top.location.href = layui.setter.baseUrl + loginPath;
             });
           } else {
@@ -183,7 +185,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       }
 
       return table.render($.extend({
-        limit: 10
+        limit: layui.setter.pageSize
         ,cellMinWidth: 80
         ,method: 'post'
         ,contentType: 'application/json'
@@ -202,7 +204,9 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
             layui.stope(e);
           });
           if (res.errorCode == 4006) {
-            layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
+            top.layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消'], shade: 1}, function(){
+              top.location.href = layui.setter.baseUrl + loginPath;
+            }, function(){
               top.location.href = layui.setter.baseUrl + loginPath;
             });
           } else {
@@ -445,11 +449,11 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       ,data: {}
       ,success: function(data){
         if (data.message > 0) {
-          $('#xyUnreadTip').removeClass('layui-hide');
+          $('#xyNewMsg').removeClass('layui-hide');
           clearInterval(messageTimer);
         } else {
-          if (!$('#xyUnreadTip').hasClass('layui-hide')) {
-            $('#xyUnreadTip').addClass('layui-hide')
+          if (!$('#xyNewMsg').hasClass('layui-hide')) {
+            $('#xyNewMsg').addClass('layui-hide')
           }
         }
       }
@@ -466,7 +470,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
         $('#myRealname').text(common.user.REAL_NAME);
         $('#myUnitname').text(common.user.UNIT_NAME);
         refreshUnread();
-        messageTimer = setInterval(function() {refreshUnread();}, 5000);
+        messageTimer = setInterval(function() {refreshUnread();}, layui.setter.unreadInterval);
       }
     }
   }

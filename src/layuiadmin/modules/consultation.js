@@ -102,6 +102,9 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
               $('#xyConfirmConsolusion' + obj.data.ID).remove();
             }
           });
+        } else if (obj.event === 'addDiagnose') {
+          $('#addDiagnose' + obj.data.ID).remove();
+          parent.layui.index.openTabsPage('diagnose/edit.html#/CLIENT_ID=' + obj.data.CLIENT_ID + '/REAL_NAME=' + obj.data.CLIENT_REAL_NAME + '/transfer=' + obj.data.ID, '就诊-' + obj.data.CLIENT_REAL_NAME);
         }
       });
     }

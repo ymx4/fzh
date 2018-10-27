@@ -47,7 +47,7 @@ layui.define(['common', 'table'], function(exports){
   var renderEquipment = function(clientId, equipmentType){
     common.xyRender({
       elem: '#xy-equipment-' + equipmentType
-      ,url: layui.setter.api.GetDataFormClientID
+      ,url: layui.setter.api.Client.GetDataFormClientID
       ,where: {
         "CLIENT_ID": clientId
         ,"PROJECT_ID": equipmentSort[equipmentType].id
@@ -86,7 +86,7 @@ layui.define(['common', 'table'], function(exports){
       }
       common.xyRender({
         elem: '#xy-history-medical'
-        ,url: layui.setter.api.GetClientHistory
+        ,url: layui.setter.api.Client.GetClientHistory
         ,where: where
         ,cols: [cols]
         ,page: false
@@ -107,7 +107,7 @@ layui.define(['common', 'table'], function(exports){
       }
       common.xyRender({
         elem: '#xy-history-surgery'
-        ,url: layui.setter.api.GetClientHistory
+        ,url: layui.setter.api.Client.GetClientHistory
         ,where: where
         ,cols: [cols]
         ,page: false
@@ -128,7 +128,7 @@ layui.define(['common', 'table'], function(exports){
       }
       common.xyRender({
         elem: '#xy-history-traumatic'
-        ,url: layui.setter.api.GetClientHistory
+        ,url: layui.setter.api.Client.GetClientHistory
         ,where: where
         ,cols: [cols]
         ,page: false
@@ -148,7 +148,7 @@ layui.define(['common', 'table'], function(exports){
       }
       common.xyRender({
         elem: '#xy-history-transfusion'
-        ,url: layui.setter.api.GetClientHistory
+        ,url: layui.setter.api.Client.GetClientHistory
         ,where: where
         ,cols: [cols]
         ,page: false
@@ -171,7 +171,7 @@ layui.define(['common', 'table'], function(exports){
       }
       common.xyRender({
         elem: '#xy-history-hospital'
-        ,url: layui.setter.api.GetClientHistory
+        ,url: layui.setter.api.Client.GetClientHistory
         ,where: where
         ,cols: [cols]
         ,page: false
@@ -193,7 +193,7 @@ layui.define(['common', 'table'], function(exports){
       }
       common.xyRender({
         elem: '#xy-history-medicine'
-        ,url: layui.setter.api.GetClientHistory
+        ,url: layui.setter.api.Client.GetClientHistory
         ,where: where
         ,cols: [cols]
         ,page: false
@@ -216,7 +216,7 @@ layui.define(['common', 'table'], function(exports){
       }
       common.xyRender({
         elem: '#xy-history-familyHospital'
-        ,url: layui.setter.api.GetClientHistory
+        ,url: layui.setter.api.Client.GetClientHistory
         ,where: where
         ,cols: [cols]
         ,page: false
@@ -236,7 +236,7 @@ layui.define(['common', 'table'], function(exports){
       }
       common.xyRender({
         elem: '#xy-history-familyMedical'
-        ,url: layui.setter.api.GetClientHistory
+        ,url: layui.setter.api.Client.GetClientHistory
         ,where: where
         ,cols: [cols]
         ,page: false
@@ -255,7 +255,7 @@ layui.define(['common', 'table'], function(exports){
       }
       common.xyRender({
         elem: '#xy-history-geneticDisorders'
-        ,url: layui.setter.api.GetClientHistory
+        ,url: layui.setter.api.Client.GetClientHistory
         ,where: where
         ,cols: [cols]
         ,page: false
@@ -275,7 +275,7 @@ layui.define(['common', 'table'], function(exports){
       }
       common.xyRender({
         elem: '#xy-history-allergy'
-        ,url: layui.setter.api.GetClientHistory
+        ,url: layui.setter.api.Client.GetClientHistory
         ,where: where
         ,cols: [cols]
         ,page: false
@@ -294,7 +294,7 @@ layui.define(['common', 'table'], function(exports){
       }
       common.xyRender({
         elem: '#xy-history-disability'
-        ,url: layui.setter.api.GetClientHistory
+        ,url: layui.setter.api.Client.GetClientHistory
         ,where: where
         ,cols: [cols]
         ,page: false
@@ -315,7 +315,7 @@ layui.define(['common', 'table'], function(exports){
       }
       common.xyRender({
         elem: '#xy-history-inoculate'
-        ,url: layui.setter.api.GetClientHistory
+        ,url: layui.setter.api.Client.GetClientHistory
         ,where: where
         ,cols: [cols]
         ,page: false
@@ -332,19 +332,14 @@ layui.define(['common', 'table'], function(exports){
       ];
       common.xyRender({
         elem: '#xy-history-diagnose'
-        ,url: layui.setter.api.SearchDiagnose
+        ,url: layui.setter.api.Client.SearchDiagnose
         ,where: where
         ,cols: [cols]
       });
       
       table.on('tool(xy-history-diagnose)', function(obj){
         if (obj.event === 'detail') {
-          layer.open({
-            type: 2,
-            area:['100%', $('#LAY_app_body').height() + 'px'],
-            content: layui.setter.baseUrl + 'clientapp/diagnose_detail.html#/id=' + obj.data.ID,
-            title: '就诊'
-          });
+          location.href = layui.setter.baseUrl + 'clientapp/diagnose_detail.html#/id=' + obj.data.ID;
         }
       });
     }
@@ -366,19 +361,14 @@ layui.define(['common', 'table'], function(exports){
       ];
       common.xyRender({
         elem: '#xy-history-consultation'
-        ,url: layui.setter.api.SearchConsultation
+        ,url: layui.setter.api.Client.SearchConsultation
         ,where: where
         ,cols: [cols]
       });
       
       table.on('tool(xy-history-consultation)', function(obj){
         if (obj.event === 'detail') {
-          layer.open({
-            type: 2,
-            area:['100%', $('#LAY_app_body').height() + 'px'],
-            content: layui.setter.baseUrl + 'clientapp/consultation_detail.html#/id=' + obj.data.ID,
-            title: '会诊'
-          });
+          location.href = layui.setter.baseUrl + 'clientapp/consultation_detail.html#/id=' + obj.data.ID;
         }
       });
     }
@@ -394,19 +384,14 @@ layui.define(['common', 'table'], function(exports){
       ];
       common.xyRender({
         elem: '#xy-history-arrange'
-        ,url: layui.setter.api.SearchArrange
+        ,url: layui.setter.api.Client.SearchArrange
         ,where: where
         ,cols: [cols]
       });
       
       table.on('tool(xy-history-arrange)', function(obj){
         if (obj.event === 'detail') {
-          layer.open({
-            type: 2,
-            area:['100%', $('#LAY_app_body').height() + 'px'],
-            content: layui.setter.baseUrl + 'clientapp/arrange_detail.html#/id=' + obj.data.ID,
-            title: '随访'
-          });
+          location.href = layui.setter.baseUrl + 'clientapp/arrange_detail.html#/id=' + obj.data.ID;
         }
       });
     }

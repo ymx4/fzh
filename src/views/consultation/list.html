@@ -38,8 +38,8 @@
           {{# } else if(d.xy_category == 'f' && d.STATUS == 1 && d.CONSENT_TRANSFER == 2) { }}
           <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="confirm" id="xyConfirmConsolusion{{d.ID}}">确定转诊</a>
           {{# } }}
-          {{# if (d.xy_category == 'transfer_completed') { }}
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-href="diagnose/edit.html#/CLIENT_ID={{d.CLIENT_ID}}/REAL_NAME={{d.CLIENT_REAL_NAME}}" lay-text="就诊-{{d.CLIENT_REAL_NAME}}">添加就诊</a>
+          {{# if (d.xy_category == 'transfer_completed' && d.TO_DIAGNOSE != 1) { }}
+          <a class="layui-btn layui-btn-normal layui-btn-xs" id="addDiagnose{{d.ID}}" lay-event="addDiagnose">添加就诊</a>
           {{# } }}
         </script>
       </div>

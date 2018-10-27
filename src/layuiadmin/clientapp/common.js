@@ -22,9 +22,9 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'table'], function(exports){
     }
     ,getImageUrl: function (fn) {
       if(this.user && this.user.token){
-        return layui.setter.api.Client.ReadFile + '?FN=' + encodeURIComponent(fn) + '&token=' + this.user.token;
+        return layui.setter.api.ReadFile + '?FN=' + encodeURIComponent(fn) + '&token=' + this.user.token;
       } else {
-        return layui.setter.api.Client.ReadFile + '?FN=' + encodeURIComponent(fn);
+        return layui.setter.api.ReadFile + '?FN=' + encodeURIComponent(fn);
       }
     }
     ,xyReload: function(filter, options){
@@ -52,7 +52,7 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'table'], function(exports){
       }
 
       return table.render($.extend({
-        limit: 10
+        limit: layui.setter.pageSize
         ,cellMinWidth: 80
         ,method: 'post'
         ,contentType: 'application/json'
@@ -71,7 +71,9 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'table'], function(exports){
             layui.stope(e);
           });
           if (res.errorCode == 4006) {
-            layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
+            top.layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消'], shade: 1}, function(){
+              top.location.href = layui.setter.baseUrl + loginPath;
+            }, function(){
               top.location.href = layui.setter.baseUrl + loginPath;
             });
           } else {
@@ -135,7 +137,9 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'table'], function(exports){
           if (res.status == 1 && typeof success === 'function') {
             success(res);
           } else if (res.errorCode == 4006) {
-            layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消']}, function(){
+            top.layer.confirm('登录超时，请重新登录', {btn: ['去登录', '取消'], shade: 1}, function(){
+              top.location.href = layui.setter.baseUrl + loginPath;
+            }, function(){
               top.location.href = layui.setter.baseUrl + loginPath;
             });
           } else {
@@ -189,6 +193,25 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'table'], function(exports){
     });
   }
 
+  var messageTimer = null;
+  var refreshUnread = function() {
+    common.req({
+      url: layui.setter.api.Client.UnreadMessage
+      ,disableLoad: true
+      ,data: {}
+      ,success: function(data){
+        if (data.message > 0) {
+          $('#xyNewMsg').addClass('layui-show');
+          clearInterval(messageTimer);
+        } else {
+          if ($('#xyNewMsg').hasClass('layui-show')) {
+            $('#xyNewMsg').removeClass('layui-show');
+          }
+        }
+      }
+    });
+  }
+
   var loginPath = 'clientapp/login.html';
   if (location.href.indexOf('login') == -1 && location.href.indexOf('register') == -1) {
     loginPath += '#/redirect=' + encodeURIComponent(location.href);
@@ -198,6 +221,8 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'table'], function(exports){
     } else {
       common.user = sess.user;
       layout();
+      refreshUnread();
+      messageTimer = setInterval(function() {refreshUnread();}, layui.setter.unreadInterval);
     }
   }
 console.log(common.user);

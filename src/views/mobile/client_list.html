@@ -27,7 +27,7 @@
         <p>身份证：{{ item.ID_NUMBER }}</p>
         <p>建档时间：{{ item.CREATE_TIME ? item.CREATE_TIME : '' }}</p>
       </div>
-      <a class="layui-btn layui-btn-sm caller-fr" href="{{d.equipmentUrl}}#/id={{ item.ID }}/adapter=m">
+      <a class="layui-btn layui-btn-sm caller-fr getEquipment" href="javascript:;" data-href="{{d.equipmentUrl}}#/id={{ item.ID }}">
         获取设备数据
       </a>
       <a class="layui-btn layui-btn-sm caller-fr addArrange" href="javascript:;">
@@ -64,6 +64,7 @@
     </div>
   </div>
   
+  <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
   <script src="../../layuiadmin/layui/layui.js"></script>  
   <script>
   layui.config({

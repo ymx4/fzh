@@ -177,6 +177,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
               ,data: data.field
               ,success: function(data){
                 layer.msg('操作成功', function() {
+                  SetToDiagnose();
                   common.closeSelf();
                 });
               }
@@ -189,6 +190,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
             ,data: data.field
             ,success: function(data){
               layer.msg('操作成功', function() {
+                SetToDiagnose();
                 common.closeSelf();
               });
             }
@@ -214,6 +216,20 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
             document.getElementById('xy_diagnose_detail_container').innerHTML = html;
           });
         }, this)
+      });
+    }
+  }
+
+  var SetToDiagnose = function () {
+    if (router.search.transfer) {
+      common.req({
+        url: layui.setter.api.SetToDiagnose
+        ,data: {
+          ID: router.search.transfer
+        }
+        ,async: false
+        ,success:function(data){
+        }
       });
     }
   }

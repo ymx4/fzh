@@ -232,8 +232,18 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
         $('#clientContainer').on('click', '.getEquipment', function() {
           var ua = window.navigator.userAgent.toLowerCase();
           if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-            wx.miniProgram.navigateTo({url: 'page/index/index?redirect=' + encodeURIComponent($(this).data('href'))});
+            wx.miniProgram.navigateTo({url: '../../page/index/index?redirect=' + encodeURIComponent($(this).data('href'))});
           } else {
+            // var params = '{"number":"P711","datetime":"1810220907","value":{"1001":"总胆固醇:0.00","1002":"高密度胆固醇:0.00","1003":"甘油三酯:3.2","1004":"血低密度胆固醇:-1.45"}}'
+            // params = JSON.parse(params);
+
+            // $.each(params.value, function(i, item) {
+            //   var tmp = item.split(':');
+            //   params.value[i] = {name: tmp[0], value: tmp[1]}
+            // });
+            // console.log(JSON.stringify(params));
+            // return;
+            console.log($(this).data('href'))
             js2Android.showDeviceList($(this).data('href'));
           }
         });
@@ -342,31 +352,36 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
           });
         });
       }
-      ,equipment: function() {alert(JSON.stringify(router.search))
+      ,equipment: function() {
+        if (!router.search.params) {
+          location.href = layui.setter.baseUrl + 'mobile/client_list.html';
+          return;
+        }
+        var params = JSON.parse(decodeURIComponent(router.search.params));
         xymobile.req({
           url: layui.setter.api.GetClientInfo
           ,data: {
             CLIENT_ID: router.search.id
           }
           ,success: $.proxy(function(data){
-            laytpl(xy_equipment_detail.innerHTML).render(data.data, function(html){
+            laytpl(xy_equipment_detail.innerHTML).render({clientData: data.data, equipmentData: params.value}, function(html){
               document.getElementById('xy_equipment_view').innerHTML = html;
             });
-          })
-        });
 
-        form.on('submit(xy-equipment-submit)', function(data){
-          alert('submit')
-          // xymobile.req({
-          //   url: layui.setter.api.
-          //   ,formerror: true
-          //   ,data: data.field
-          //   ,success: function(data){
-          //     layer.msg('操作成功', function() {
-          //     });
-          //   }
-          // });
-          return false;
+            form.on('submit(xy-equipment-submit)', function(data){
+              alert('submit')
+              // xymobile.req({
+              //   url: layui.setter.api.
+              //   ,formerror: true
+              //   ,data: data.field
+              //   ,success: function(data){
+              //     layer.msg('操作成功', function() {
+              //     });
+              //   }
+              // });
+              return false;
+            });
+          })
         });
       }
       ,profile: function() {

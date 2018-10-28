@@ -32,25 +32,23 @@
       <div class="layui-card-header">设备数据</div>
       <div class="layui-card-body layui-row layui-col-space10">
         <form class="layui-form" action="" lay-filter="xy-equipment-form">
-          <input type="hidden" name="ID" value="{{d.ID}}">
-          <blockquote class="layui-elem-quote">请从设备选择数据</blockquote>
           <div class="layui-row layui-col-space10 layui-form-item">
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">姓名</label>
               <div class="layui-input-block">
-                <div class="layui-form-mid layui-word-aux">{{d.REAL_NAME}}</div>
+                <div class="layui-form-mid layui-word-aux">{{d.clientData.REAL_NAME}}</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">身份证号</label>
               <div class="layui-input-block">
-                <div class="layui-form-mid layui-word-aux">{{d.ID_NUMBER}}</div>
+                <div class="layui-form-mid layui-word-aux">{{d.clientData.ID_NUMBER}}</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">性别</label>
               <div class="layui-input-block">
-                <div class="layui-form-mid layui-word-aux">{{d.SEX_VALUE}}</div>
+                <div class="layui-form-mid layui-word-aux">{{d.clientData.SEX_VALUE}}</div>
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
@@ -62,13 +60,9 @@
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
               <label class="layui-form-label">检测项目</label>
               <div class="layui-input-block">
-                <div class="layui-form-mid layui-word-aux">待获取</div>
-              </div>
-            </div>
-            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">检测数据</label>
-              <div class="layui-input-block">
-                <div class="layui-form-mid layui-word-aux">待获取</div>
+                {{#  layui.each(d.equipmentData, function(index, item){ }}
+                <div class="layui-form-mid layui-word-aux">{{item.name}}: {{item.value}}</div>
+                {{#  }); }}
               </div>
             </div>
           </div>

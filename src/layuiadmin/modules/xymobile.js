@@ -369,16 +369,25 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
             });
 
             form.on('submit(xy-equipment-submit)', function(data){
-              alert('submit')
-              // xymobile.req({
-              //   url: layui.setter.api.
-              //   ,formerror: true
-              //   ,data: data.field
-              //   ,success: function(data){
-              //     layer.msg('操作成功', function() {
-              //     });
-              //   }
-              // });
+              //设备编号,测试时间,项目编号1: 项目1数值 | 项目编号2:项目2数值
+              var eqdata = params.number + ',' + params.datetime + ',';
+              $.each(params.value, function(index, item) {
+                eqdata += item.no + ':' + item.value + '|';
+              });
+              eqdata = eqdata.replace(/\|$/g, '');
+              alert(eqdata);return false;
+              xymobile.req({
+                url: layui.setter.api.Receive34
+                ,formerror: true
+                ,data: {
+                  CLIENT_ID: router.search.id,
+                  DATA: eqdata
+                }
+                ,success: function(data){
+                  layer.msg('操作成功', function() {
+                  });
+                }
+              });
               return false;
             });
           })

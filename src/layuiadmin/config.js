@@ -170,6 +170,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       SendMessage: 'http://holtest.fres.cn/Message/SendMessage.ashx',
       ReadMessage: 'http://holtest.fres.cn/Message/ReadMessage.ashx',
       UnreadMessage: 'http://holtest.fres.cn/Message/UnreadMessage.ashx',
+      Receive34: 'http://holtest.fres.cn/ReceiveData/Receive34.ashx',
       Client: {
         ChangeClientPassword: 'http://holtest.fres.cn/Client/Login/ChangeClientPassword.ashx',
         ClientLogin: 'http://holtest.fres.cn/Client/Login/ClientLogin.ashx',
@@ -189,6 +190,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
         ClientMessageList: 'http://holtest.fres.cn/Client/Login/Message/ClientMessageList.ashx',
         ClientSendMessage: 'http://holtest.fres.cn/Client/Login/Message/ClientSendMessage.ashx',
         UnreadMessage: 'http://holtest.fres.cn/Client/Login/Message/UnreadMessage.ashx',
+        ReceiveClient34: 'http://holtest.fres.cn/ReceiveData/ReceiveClient34.ashx',
       },
     }
     ,loadsec: 5*1000

@@ -237,7 +237,13 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'table'], function(exports){
   admin.events.xytab = function(e){
     switch(e.attr('lay-type')) {
       case 'equipment':
-        location.href = layui.setter.baseUrl + 'clientapp/equipment.html#/test=1';
+        var ua = window.navigator.userAgent.toLowerCase();
+        var redirectUrl = layui.setter.baseUrl + 'clientapp/equipment.html#/test=1';
+        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+          wx.miniProgram.navigateTo({url: '../../page/index/index?redirect=' + encodeURIComponent(redirectUrl)});
+        } else {
+          js2Android.showDeviceList(redirectUrl);
+        }
         break;
       case 'doctor':
         location.href = layui.setter.baseUrl + 'clientapp/doctor.html';

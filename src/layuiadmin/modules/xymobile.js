@@ -234,16 +234,6 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
           if (ua.match(/MicroMessenger/i) == 'micromessenger') {
             wx.miniProgram.navigateTo({url: '../../page/index/index?redirect=' + encodeURIComponent($(this).data('href'))});
           } else {
-            // var params = '{"number":"P711","datetime":"1810220907","value":{"1001":"总胆固醇:0.00","1002":"高密度胆固醇:0.00","1003":"甘油三酯:3.2","1004":"血低密度胆固醇:-1.45"}}'
-            // params = JSON.parse(params);
-
-            // $.each(params.value, function(i, item) {
-            //   var tmp = item.split(':');
-            //   params.value[i] = {name: tmp[0], value: tmp[1]}
-            // });
-            // console.log(JSON.stringify(params));
-            // return;
-            console.log($(this).data('href'))
             js2Android.showDeviceList($(this).data('href'));
           }
         });

@@ -225,7 +225,6 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'table'], function(exports){
       messageTimer = setInterval(function() {refreshUnread();}, layui.setter.unreadInterval);
     }
   }
-console.log(common.user);
 
   admin.events.xyrefresh = function(){
     location.reload();
@@ -238,7 +237,7 @@ console.log(common.user);
   admin.events.xytab = function(e){
     switch(e.attr('lay-type')) {
       case 'equipment':
-        location.href = layui.setter.baseUrl + 'clientapp/equipment.html';
+        location.href = layui.setter.baseUrl + 'clientapp/equipment.html#/test=1';
         break;
       case 'doctor':
         location.href = layui.setter.baseUrl + 'clientapp/doctor.html';

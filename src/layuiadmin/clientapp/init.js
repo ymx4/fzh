@@ -80,21 +80,36 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
       });
     }
     ,equipment: function() {
-      laytpl(xy_equipment_detail.innerHTML).render(common.user, function(html){
+      if (!router.search.params) {
+        layer.msg('参数错误', function() {
+        });
+        return;
+      }
+      var params = JSON.parse(decodeURIComponent(router.search.params));
+
+      laytpl(xy_equipment_detail.innerHTML).render({clientData: common.user, equipmentData: params.value}, function(html){
         document.getElementById('xy_equipment_view').innerHTML = html;
       });
 
       form.on('submit(xy-equipment-submit)', function(data){
-        alert('submit')
-        // common.req({
-        //   url: layui.setter.api.Client.
-        //   ,formerror: true
-        //   ,data: data.field
-        //   ,success: function(data){
-        //     layer.msg('操作成功', function() {
-        //     });
-        //   }
-        // });
+        //设备编号,测试时间,项目编号1: 项目1数值 | 项目编号2:项目2数值
+        var eqdata = params.number + ',' + params.datetime + ',';
+        $.each(params.value, function(index, item) {
+          eqdata += item.no + ':' + item.value + '|';
+        });
+        eqdata = eqdata.replace(/\|$/g, '');
+        alert(eqdata);return false;
+        common.req({
+          url: layui.setter.api.Client.ReceiveClient34
+          ,formerror: true
+          ,data: {
+            DATA: eqdata
+          }
+          ,success: function(data){
+            layer.msg('操作成功', function() {
+            });
+          }
+        });
         return false;
       });
     }

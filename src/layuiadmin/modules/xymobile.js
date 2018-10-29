@@ -354,7 +354,9 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
       }
       ,equipment: function() {
         if (!router.search.params) {
-          location.href = layui.setter.baseUrl + 'mobile/client_list.html';
+          layer.msg('参数错误', function() {
+            location.href = layui.setter.baseUrl + 'mobile/client_list.html';
+          });
           return;
         }
         var params = JSON.parse(decodeURIComponent(router.search.params));
@@ -375,7 +377,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
                 eqdata += item.no + ':' + item.value + '|';
               });
               eqdata = eqdata.replace(/\|$/g, '');
-              alert(eqdata);return false;
+              // alert(eqdata);return false;
               xymobile.req({
                 url: layui.setter.api.Receive34
                 ,formerror: true

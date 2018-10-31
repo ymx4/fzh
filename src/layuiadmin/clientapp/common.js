@@ -256,7 +256,7 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'table'], function(exports){
         location.href = layui.setter.baseUrl + 'clientapp/profile.html';
     }
   }
-
+console.log(common.user)
   admin.events.sendmsg = function(elem){
     layer.open({
       type: 2,

@@ -31,7 +31,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
         }
       });
     }
-    ,send: function() {console.log(router.search)
+    ,send: function() {
       if (router.search.DOCTOR_NAME) {
         $('#RECEIVE_USER').text(decodeURIComponent(router.search.DOCTOR_NAME));
         form.on('submit(xy-message-submit)', function(data){
@@ -98,7 +98,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
           eqdata += item.no + ':' + item.value + '|';
         });
         eqdata = eqdata.replace(/\|$/g, '');
-        // alert(eqdata);return false;
+        alert(eqdata);
         common.req({
           url: layui.setter.api.Client.ReceiveClient34
           ,formerror: true

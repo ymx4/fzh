@@ -198,7 +198,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       day: 'yyyy/MM/dd'
       ,sec: 'yyyy/MM/dd HH:mm:ss'
     }
-    ,baseUrl: 'http://local.fzh.com/src/views/'
+    ,baseUrl: 'http://holtest.fres.cn/html/views/'
     ,clientSess: 'clientapp'
     ,pageSize: 10
     ,unreadInterval: 3000

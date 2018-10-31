@@ -367,7 +367,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
                 eqdata += item.no + ':' + item.value + '|';
               });
               eqdata = eqdata.replace(/\|$/g, '');
-              // alert(eqdata);return false;
+              alert(eqdata);
               xymobile.req({
                 url: layui.setter.api.Receive34
                 ,formerror: true

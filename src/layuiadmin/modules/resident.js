@@ -23,7 +23,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     common.xyRender({
       elem: '#xy-history-health'
       ,url: layui.setter.api.GetPhysicalExaminationList
-      ,page: falsef
+      ,page: false
       ,where: {
         "CLIENT_ID": cliendId,
         "CREATE_UNIT_ID": 0,
@@ -95,6 +95,14 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       ,url: layui.setter.api.SearchClient
       ,where: where
       ,cols: [cols]
+      ,parseData: function(res){
+        if (res.data && res.data.length) {
+          $.each(res.data, function(i, item){
+            res.data[i].token = common.user.token;
+          });
+        }
+        return res;
+      }
       ,done: function() {
         layui.dropdown.render();
       }

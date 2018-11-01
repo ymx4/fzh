@@ -88,7 +88,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     ];
     if (router.search.t == 'l') {
       cols.push({field: 'MANAGE_UNIT_NAME', title: '管理单位', event:'detail'});
-    }
+    }console.log(common.user)
     cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230});
     common.xyRender({
       elem: '#xy-resident-manage'
@@ -98,7 +98,11 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       ,parseData: function(res){
         if (res.data && res.data.length) {
           $.each(res.data, function(i, item){
-            res.data[i].token = common.user.token;
+            res.data[i].loginUser = {
+              ID: common.user.ID,
+              REAL_NAME: common.user.REAL_NAME,
+              token: common.user.token
+            };
           });
         }
         return res;

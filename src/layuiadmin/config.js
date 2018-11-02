@@ -171,6 +171,8 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       ReadMessage: 'http://holtest.fres.cn/Message/ReadMessage.ashx',
       UnreadMessage: 'http://holtest.fres.cn/Message/UnreadMessage.ashx',
       Receive34: 'http://holtest.fres.cn/ReceiveData/Receive34.ashx',
+      GetDCList: 'http://holtest.fres.cn/Equipment/GetDCList.ashx',
+      ShowECG: 'http://holtest.fres.cn/PublicMethods/ECG/ShowECG.ashx',
       Client: {
         ChangeClientPassword: 'http://holtest.fres.cn/Client/Login/ChangeClientPassword.ashx',
         ClientLogin: 'http://holtest.fres.cn/Client/Login/ClientLogin.ashx',

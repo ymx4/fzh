@@ -1,0 +1,90 @@
+<script type="text/html" template>
+  <div class="layui-card">
+    <div class="layui-card-body">
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item">
+          <label class="layui-form-label">心电图心率</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.params.ECG_HR}} bpm</div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">ECG波形图</label>
+          <div class="layui-input-block">
+            {{# if (d.params.ECG_IMG) { }}
+            <img class="xy-ecg-img" style="max-width: 300px; height: auto;" src="{{d.params.ECG_IMG}}">
+            {{# } else { }}
+            <div class="layui-form-mid layui-word-aux">无</div>
+            {{# } }}
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">结论</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.params.ECG_REMARK}}</div>
+          </div>
+        </div>
+        <fieldset class="layui-elem-field">
+          <legend>血氧</legend>
+          <div class="layui-form-item">
+            <label class="layui-form-label">Sp02</label>
+            <div class="layui-input-block">
+              <div class="layui-form-mid layui-word-aux">{{d.params.SPO2}} %</div>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">PR</label>
+            <div class="layui-input-block">
+              <div class="layui-form-mid layui-word-aux">{{d.params.SPO2_PR}} bpm</div>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">PI</label>
+            <div class="layui-input-block">
+              <div class="layui-form-mid layui-word-aux">{{d.params.SPO2_PI}} %</div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="layui-elem-field">
+          <legend>血压 (NIBP)</legend>
+          <div class="layui-form-item">
+            <label class="layui-form-label">收缩压</label>
+            <div class="layui-input-block">
+              <div class="layui-form-mid layui-word-aux">{{d.params.NIBP_SSY}} mmHg</div>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">舒张压</label>
+            <div class="layui-input-block">
+              <div class="layui-form-mid layui-word-aux">{{d.params.NIBP_SZY}} mmHg</div>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">PR</label>
+            <div class="layui-input-block">
+              <div class="layui-form-mid layui-word-aux">{{d.params.NIBP_PR}} bpm</div>
+            </div>
+          </div>
+        </fieldset>
+        <div class="layui-form-item">
+          <label class="layui-form-label">体温</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.params.HEAT}} ℃</div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">建立时间</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.params.CREATE_TIME}}</div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">医生姓名</label>
+          <div class="layui-input-block">
+            <div class="layui-form-mid layui-word-aux">{{d.params.REAL_NAME}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>

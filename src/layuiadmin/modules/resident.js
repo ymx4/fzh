@@ -39,6 +39,51 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         parent.layui.index.openTabsPage('health/detail.html#/id=' + obj.data.ID + '/clientId=' + obj.data.CLIENT_ID, '查看档案-' + obj.data.CLIENT_REAL_NAME);
       }
     });
+    common.xyRender({
+      elem: '#xy-history-eqdc'
+      ,url: layui.setter.api.GetDCList
+      ,page: false
+      ,where: {
+        "CLIENT_ID": cliendId
+      }
+      ,cols: [[
+        {field: 'CREATE_TIME', title: '建立时间', event:'detail'}
+        ,{field: 'REAL_NAME', title: '检测医生', event:'detail'}
+      ]]
+    });
+    table.on('tool(xy-history-eqdc)', function(obj){
+      var data = obj.data;
+      if (obj.event === 'detail') {
+        layer.open({
+          type: 1,
+          area:['90%', '90%'],
+          content: '<div id="eqdcDetail"></div>',
+          title: '生理多参详情'
+        });
+        if (data.ECG_DATA) {
+          data.ECG_IMG = getECGImg(data.ID);
+        }
+        layui.view('eqdcDetail').render('resident/eqdc', data).done(function(){
+          $('.xy-ecg-img').click(function() {
+            var src = $(this).attr('src');
+            if (!common.empty(src)) {
+              layer.photos({
+                photos: {
+                  "title": "预览",
+                  "data": [
+                    {
+                      "alt": "预览",
+                      "src": src
+                    }
+                  ]
+                }
+                ,anim: 5
+              });
+            }
+          });
+        });
+      }
+    });
   }
 
   var listenHistory = function(clientId) {
@@ -88,7 +133,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     ];
     if (router.search.t == 'l') {
       cols.push({field: 'MANAGE_UNIT_NAME', title: '管理单位', event:'detail'});
-    }console.log(common.user)
+    }
     cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230});
     common.xyRender({
       elem: '#xy-resident-manage'
@@ -131,6 +176,14 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         });
       }
     });
+  }
+
+  var getECGImg = function (id) {
+    if (common.user && common.user.token){
+      return layui.setter.api.ShowECG + '?id=' + id + '&token=' + common.user.token;
+    } else {
+      return layui.setter.api.ShowECG + '?id=' + id;
+    }
   }
 
   var init = {

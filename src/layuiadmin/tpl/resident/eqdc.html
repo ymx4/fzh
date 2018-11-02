@@ -12,7 +12,7 @@
           <label class="layui-form-label">ECG波形图</label>
           <div class="layui-input-block">
             {{# if (d.params.ECG_IMG) { }}
-            <img class="xy-ecg-img" style="max-width: 300px; height: auto;" src="{{d.params.ECG_IMG}}">
+            <a target="_blank" href="{{d.params.ECG_IMG}}"><img class="xy-ecg-img" style="max-width: 100%; height: auto;" src="{{d.params.ECG_IMG}}"></a>
             {{# } else { }}
             <div class="layui-form-mid layui-word-aux">无</div>
             {{# } }}

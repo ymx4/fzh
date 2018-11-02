@@ -64,23 +64,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           data.ECG_IMG = getECGImg(data.ID);
         }
         layui.view('eqdcDetail').render('resident/eqdc', data).done(function(){
-          $('.xy-ecg-img').click(function() {
-            var src = $(this).attr('src');
-            if (!common.empty(src)) {
-              layer.photos({
-                photos: {
-                  "title": "预览",
-                  "data": [
-                    {
-                      "alt": "预览",
-                      "src": src
-                    }
-                  ]
-                }
-                ,anim: 5
-              });
-            }
-          });
+          var src = $('.xy-ecg-img').attr('src');
+          if (!common.empty(src)) {
+          }
         });
       }
     });

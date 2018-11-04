@@ -234,6 +234,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
           if (ua.match(/MicroMessenger/i) == 'micromessenger') {
             wx.miniProgram.navigateTo({url: '../../page/index/index?redirect=' + encodeURIComponent($(this).data('href'))});
           } else {
+            // showDataDetailsActivity(String type, String id, String name, String posturl);
             js2Android.showDeviceList($(this).data('href'));
           }
         });

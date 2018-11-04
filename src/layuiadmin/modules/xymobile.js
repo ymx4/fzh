@@ -602,8 +602,10 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
     } else {
       xymobile.user = sess.user;
       layout();
-      refreshUnread();
-      messageTimer = setInterval(function() {refreshUnread();}, layui.setter.unreadInterval);
+      if (location.href.indexOf('message_list.html') == -1) {
+        refreshUnread();
+        messageTimer = setInterval(function() {refreshUnread();}, layui.setter.unreadInterval);
+      }
     }
   }
 

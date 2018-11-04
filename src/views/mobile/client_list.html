@@ -22,19 +22,18 @@
     {{#  layui.each(d.clientList, function(index, item){ }}
     <div class="caller-item" data-id="{{item.ID}}">
       <div class="caller-main">
-        <p>{{# if (item.EMPHASIS_ID && item.EMPHASIS_ID != 165) { }}<span class="layui-badge-dot"></span> {{# } }}<strong>{{ item.REAL_NAME }}</strong></p>
-        <p>签约医生：{{ item.MANAGE_REAL_NAME }}</p>
-        <p>身份证：{{ item.ID_NUMBER }}</p>
-        <p>建档时间：{{ item.CREATE_TIME ? item.CREATE_TIME : '' }}</p>
+        <a href="{{d.detailUrl}}#/id={{ item.ID }}/adapter=m">
+          <p>{{# if (item.EMPHASIS_ID && item.EMPHASIS_ID != 165) { }}<span class="layui-badge-dot"></span> {{# } }}<strong>{{ item.REAL_NAME }}</strong></p>
+          <p>签约医生：{{ item.MANAGE_REAL_NAME }}</p>
+          <p>身份证：{{ item.ID_NUMBER }}</p>
+          <p>建档时间：{{ item.CREATE_TIME ? item.CREATE_TIME : '' }}</p>
+        </a>
       </div>
       <a class="layui-btn layui-btn-sm caller-fr getEquipment" href="javascript:;" data-href="{{d.equipmentUrl}}#/id={{ item.ID }}">
         获取设备数据
       </a>
       <a class="layui-btn layui-btn-sm caller-fr addArrange" href="javascript:;">
         随访
-      </a>
-      <a class="layui-btn layui-btn-sm caller-fr" href="{{d.detailUrl}}#/id={{ item.ID }}/adapter=m">
-        查看
       </a>
       <a href="javascript:;" layadmin-event="sendmsg" data-id="{{item.ID}}" data-name="{{item.REAL_NAME}}" class="layui-btn layui-btn-sm caller-fr">发消息</a>
     </div>

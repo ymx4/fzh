@@ -12,7 +12,7 @@
 </head>
 <body>
 
-  <div class="layadmin-user-login layadmin-user-display-show" style="display: none;">
+  <div class="layadmin-user-login layadmin-user-display-show">
 
     <div class="layadmin-user-login-main">
       <div class="layadmin-user-login-box layadmin-user-login-header">
@@ -21,15 +21,18 @@
       <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
         <div class="layui-form-item">
           <label class="layadmin-user-login-icon layui-icon layui-icon-username"></label>
-          <input type="text" name="USER_NAME" lay-verify="required|phone" placeholder="手机号" class="layui-input">
+          <input type="text" id="xyUsername" name="USER_NAME" lay-verify="required|phone" placeholder="手机号" class="layui-input">
         </div>
         <div class="layui-form-item">
           <label class="layadmin-user-login-icon layui-icon layui-icon-password"></label>
-          <input type="password" name="PASSWORD" lay-verify="required" placeholder="密码" class="layui-input">
+          <input type="password" id="xyPassword" name="PASSWORD" lay-verify="required" placeholder="密码" class="layui-input">
         </div>
         <div class="layui-form-item" style="margin-bottom: 20px;">
-          <a href="register.html#/type=resetpass" class="layadmin-link" style="margin-top: 7px;float: right;">忘记密码？</a>
-          <a href="register.html" class="layadmin-link" style="margin-top: 7px;float: left;">注册</a>
+          <input type="checkbox" id="xyRemember" name="remember" lay-skin="primary" title="记住密码">
+          <div style="margin-top: 7px;float: right;">
+            <a href="register.html" class="layadmin-link">注册</a>
+            &nbsp;<a href="register.html#/type=resetpass" class="layadmin-link">忘记密码</a>
+          </div>
         </div>
         <div class="layui-form-item">
           <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="xy-login-submit">登 入</button>
@@ -49,8 +52,41 @@
     var $ = layui.$
     ,form = layui.form;
 
+    var timestamp = new Date().getTime();
+    var rememberMe = layui.data(layui.setter.rememberClient);
+    var xyUsername = '';
+    var xyPassword = '';
+    var xyRemember = false;
+    if (rememberMe.field) {
+      if (rememberMe.field.expire < timestamp) {
+        layui.data(layui.setter.rememberClient, null);
+      } else {
+        xyUsername = rememberMe.field.USER_NAME;
+        xyPassword = rememberMe.field.PASSWORD;
+        xyRemember = true;
+      }
+    }
+    $("#xyUsername").val(xyUsername);
+    $("#xyPassword").val(xyPassword);
+    $("#xyRemember").attr('checked', xyRemember);
+    form.render();
+
     //提交
     form.on('submit(xy-login-submit)', function(obj){
+      if (obj.field.remember == 'on') {
+        layui.data(layui.setter.rememberClient, {
+          key: 'field'
+          ,value: {
+            USER_NAME: obj.field.USER_NAME
+            ,PASSWORD: obj.field.PASSWORD
+            ,expire: timestamp + 2592000000
+          }
+        });
+      } else {
+        layui.data(layui.setter.rememberClient, null);
+      }
+      delete obj.field.remember;
+
       //请求登入接口
       layui.common.req({
         url: layui.setter.api.Client.ClientLogin

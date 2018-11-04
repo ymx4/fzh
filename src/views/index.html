@@ -11,6 +11,208 @@
   <link rel="stylesheet" href="../layuiadmin/style/xy.css" media="all">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 </head>
+
+<script id="xySideMenu" type="text/html">
+  <div class="layui-side-scroll">
+    <div class="layui-logo" lay-href="resident/list.html#/t=my">
+      <span><img src="../layuiadmin/style/res/logo-b.png" style="width:120px;"></span>
+    </div>
+    
+    <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+      {{# if (d.user.FAMILY_DOCTOR == 1) { }}
+      <li class="layui-nav-item">
+        <a href="javascript:;" lay-tips="公共卫生" lay-direction="2">
+          <i class="fas fa-users"></i>
+          <cite>公共卫生</cite>
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a lay-href="health/list.html">我的客户</a></dd>
+          <dd><a lay-href="health/list.html#/t=s">本单位客户</a></dd>
+          <dd><a lay-href="health/list.html#/t=l">其它单位客户</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item">
+        <a href="javascript:;" lay-tips="家庭医生" lay-direction="2">
+          <i class="fas fa-home"></i>
+          <cite>家庭医生</cite>
+        </a>
+        <dl class="layui-nav-child">
+          <dd>
+            <a href="javascript:;">就诊<span class="layui-nav-more"></span></a>
+            <dl class="layui-nav-child">
+              <dd><a lay-href="diagnose/list.html#/t=uncompleted" lay-text="就诊-未完成">未完成</a></dd>
+              <dd><a lay-href="diagnose/list.html#/t=completed" lay-text="就诊-已完成">已完成</a></dd>
+              <dd><a lay-href="diagnose/list.html#/t=revisit" lay-text="就诊-待复诊">待复诊</a></dd>
+            </dl>
+          </dd>
+          <dd>
+            <a href="javascript:;">会诊申请<span class="layui-nav-more"></span></a>
+            <dl class="layui-nav-child">
+              <dd><a lay-href="consultation/list.html#/c=f/t=request" lay-text="会诊-申请中">申请中</a></dd>
+              <dd><a lay-href="consultation/list.html#/c=f/t=completed" lay-text="会诊-已完成">已完成</a></dd>
+            </dl>
+          </dd>
+          <dd>
+            <a lay-href="consultation/list.html#/c=f/s=t">转诊</a>
+          </dd>
+          <dd>
+            <a href="javascript:;">回诊<span class="layui-nav-more"></span></a>
+            <dl class="layui-nav-child">
+              <dd><a lay-href="" lay-text="回诊-待确认">待确认</a></dd>
+              <dd><a lay-href="" lay-text="回诊-已确认">已确认</a></dd>
+            </dl>
+          </dd>
+          <dd>
+            <a href="javascript:;">健康体检<span class="layui-nav-more"></span></a>
+            <dl class="layui-nav-child">
+              <dd><a lay-href="" lay-text="体检-体检中">体检中</a></dd>
+              <dd><a lay-href="" lay-text="体检-待结论">待结论</a></dd>
+              <dd><a lay-href="" lay-text="体检-已完成">已完成</a></dd>
+            </dl>
+          </dd>
+          <dd>
+            <a href="javascript:;">随访记录<span class="layui-nav-more"></span></a>
+            <dl class="layui-nav-child">
+              <dd><a lay-href="arrange/list.html#/st=0">随访计划</a></dd>
+              <dd><a lay-href="arrange/list.html#/st=1">随访列表</a></dd>
+            </dl>
+          </dd>
+        </dl>
+      </li>
+      {{# } }}
+      {{# if (d.user.SPECIALIST == 1) { }}
+      <li class="layui-nav-item">
+        <a href="javascript:;" lay-tips="专科医生" lay-direction="2">
+          <i class="fas fa-user-md"></i>
+          <cite>专科医生</cite>
+        </a>
+        <dl class="layui-nav-child">
+          <dd>
+            <a href="javascript:;">就诊<span class="layui-nav-more"></span></a>
+            <dl class="layui-nav-child">
+              <dd><a lay-href="diagnose/list.html#/t=uncompleted/d=f" lay-text="就诊-未完成">未完成</a></dd>
+              <dd><a lay-href="diagnose/list.html#/t=completed/d=f" lay-text="就诊-已完成">已完成</a></dd>
+              <dd><a lay-href="diagnose/list.html#/t=revisit/d=f" lay-text="就诊-待复诊">待复诊</a></dd>
+            </dl>
+          </dd>
+          <dd>
+            <a href="javascript:;">会诊请求<span class="layui-nav-more"></span></a>
+            <dl class="layui-nav-child">
+              <dd><a lay-href="consultation/list.html#/c=t/t=request" lay-text="会诊-申请中">申请中</a></dd>
+              <dd><a lay-href="consultation/list.html#/c=t/t=completed" lay-text="会诊-已完成">已完成</a></dd>
+            </dl>
+          </dd>
+          <dd>
+            <a lay-href="consultation/list.html#/c=t/s=t">转诊</a>
+          </dd>
+          <dd>
+            <a href="javascript:;">回诊<span class="layui-nav-more"></span></a>
+            <dl class="layui-nav-child">
+              <dd><a lay-href="" lay-text="回诊-待处理">待处理</a></dd>
+              <dd><a lay-href="" lay-text="回诊-已处理">已处理</a></dd>
+            </dl>
+          </dd>
+          <dd>
+            <a href="javascript:;">健康体检<span class="layui-nav-more"></span></a>
+            <dl class="layui-nav-child">
+              <dd><a lay-href="" lay-text="体检-体检中">体检中</a></dd>
+              <dd><a lay-href="" lay-text="体检-待结论">待结论</a></dd>
+              <dd><a lay-href="" lay-text="体检-已完成">已完成</a></dd>
+            </dl>
+          </dd>
+        </dl>
+      </li>
+      {{# } }}
+      <li class="layui-nav-item">
+        <a href="javascript:;" lay-tips="客户管理" lay-direction="2">
+          <i class="fas fa-users"></i>
+          <cite>客户管理</cite>
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a lay-href="resident/list.html#/t=my">我的签约客户</a></dd>
+          <dd>
+            <a href="javascript:;">本单位客户</a>
+            <dl class="layui-nav-child">
+              <dd>
+                <a lay-href="resident/list.html#/t=s/u=-2" lay-text="本单位-所有客户">所有客户</a>
+              </dd>
+              <dd>
+                <a lay-href="resident/list.html#/t=s/u=-1" lay-text="本单位-已签约客户">已签约客户</a>
+              </dd>
+              <dd>
+                <a lay-href="resident/list.html#/t=s/u=0" lay-text="本单位-未签约客户">未签约客户</a>
+              </dd>
+            </dl>
+          </dd>
+          <dd>
+            <a href="javascript:;">下级单位客户</a>
+            <dl class="layui-nav-child">
+              <dd>
+                <a lay-href="resident/list.html#/t=l/u=-2" lay-text="下级单位-所有客户">所有客户</a>
+              </dd>
+              <dd>
+                <a lay-href="resident/list.html#/t=l/u=-1" lay-text="下级单位-已签约客户">已签约客户</a>
+              </dd>
+              <dd>
+                <a lay-href="resident/list.html#/t=l/u=0" lay-text="下级单位-未签约客户">未签约客户</a>
+              </dd>
+            </dl>
+          </dd>
+        </dl>
+      </li>
+      {{# if (d.user.GROUP_ID == 41) { }}
+      <li class="layui-nav-item">
+        <a href="javascript:;" lay-tips="设备管理" lay-direction="2">
+          <i class="fas fa-laptop"></i>
+          <cite>设备管理</cite>
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a lay-href="equipment/list.html">设备列表</a></dd>
+          <dd><a lay-href="">设备报修</a></dd>
+          <dd><a lay-href="">耗材</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item">
+        <a href="javascript:;" lay-tips="机构管理" lay-direction="2">
+          <i class="fas fa-sitemap"></i>
+          <cite>机构管理</cite>
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a lay-href="institution/list.html">机构列表</a></dd>
+          <dd><a lay-href="doctor/list.html">医生管理</a></dd>
+          <dd><a lay-href="department/list.html">科室管理</a></dd>
+          <dd><a lay-href="">意见反馈</a></dd>
+          <dd><a lay-href="">内部公告</a></dd>
+        </dl>
+      </li>
+      {{# } }}
+      <li class="layui-nav-item">
+        <a href="javascript:;" lay-tips="数据统计" lay-direction="2">
+          <i class="fas fa-chart-area"></i>
+          <cite>数据统计</cite>
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a lay-href="">贫困户统计</a></dd>
+          <dd><a lay-href="">家庭医生签约率</a></dd>
+          <dd><a lay-href="">重点人群统计</a></dd>
+          <dd><a lay-href="">体征数据统计</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item">
+        <a href="javascript:;" lay-tips="消息通知" lay-direction="2">
+          <i class="far fa-comment-dots"></i>
+          <cite>消息通知</cite>
+        </a>
+        <dl class="layui-nav-child">
+          <!-- <dd><a lay-href="">通知公告</a></dd>
+          <dd><a lay-href="">医友消息</a></dd> -->
+          <dd><a lay-href="message/list.html">客户消息</a></dd>
+        </dl>
+      </li>
+    </ul>
+  </div>
+</script>
+
 <body class="layui-layout-body">
   
   <div id="LAY_app">
@@ -43,11 +245,6 @@
             </a>
           </li>
           <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <a href="javascript:;" layadmin-event="note">
-              <i class="layui-icon layui-icon-note"></i>
-            </a>
-          </li>
-          <li class="layui-nav-item layui-hide-xs" lay-unselect>
             <a href="javascript:;" layadmin-event="fullscreen">
               <i class="layui-icon layui-icon-screen-full"></i>
             </a>
@@ -74,198 +271,6 @@
       
       <!-- 侧边菜单 -->
       <div class="layui-side layui-side-menu">
-        <div class="layui-side-scroll">
-          <div class="layui-logo" lay-href="resident/list.html#/t=my">
-            <span><img src="../layuiadmin/style/res/logo-b.png" style="width:120px;"></span>
-          </div>
-          
-          <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
-            <li class="layui-nav-item">
-              <a href="javascript:;" lay-tips="公共卫生" lay-direction="2">
-                <i class="fas fa-users"></i>
-                <cite>公共卫生</cite>
-              </a>
-              <dl class="layui-nav-child">
-                <dd><a lay-href="health/list.html">我的客户</a></dd>
-                <dd><a lay-href="health/list.html#/t=s">本单位客户</a></dd>
-                <dd><a lay-href="health/list.html#/t=l">其它单位客户</a></dd>
-              </dl>
-            </li>
-            <li class="layui-nav-item">
-              <a href="javascript:;" lay-tips="专科医生" lay-direction="2">
-                <i class="fas fa-user-md"></i>
-                <cite>专科医生</cite>
-              </a>
-              <dl class="layui-nav-child">
-                <dd>
-                  <a href="javascript:;">就诊<span class="layui-nav-more"></span></a>
-                  <dl class="layui-nav-child">
-                    <dd><a lay-href="diagnose/list.html#/t=uncompleted/d=f" lay-text="就诊-未完成">未完成</a></dd>
-                    <dd><a lay-href="diagnose/list.html#/t=completed/d=f" lay-text="就诊-已完成">已完成</a></dd>
-                    <dd><a lay-href="diagnose/list.html#/t=revisit/d=f" lay-text="就诊-待复诊">待复诊</a></dd>
-                  </dl>
-                </dd>
-                <dd>
-                  <a href="javascript:;">会诊请求<span class="layui-nav-more"></span></a>
-                  <dl class="layui-nav-child">
-                    <dd><a lay-href="consultation/list.html#/c=t/t=request" lay-text="会诊-申请中">申请中</a></dd>
-                    <dd><a lay-href="consultation/list.html#/c=t/t=completed" lay-text="会诊-已完成">已完成</a></dd>
-                  </dl>
-                </dd>
-                <dd>
-                  <a lay-href="consultation/list.html#/c=t/s=t">转诊</a>
-                </dd>
-                <dd>
-                  <a href="javascript:;">回诊<span class="layui-nav-more"></span></a>
-                  <dl class="layui-nav-child">
-                    <dd><a lay-href="" lay-text="回诊-待处理">待处理</a></dd>
-                    <dd><a lay-href="" lay-text="回诊-已处理">已处理</a></dd>
-                  </dl>
-                </dd>
-                <dd>
-                  <a href="javascript:;">健康体检<span class="layui-nav-more"></span></a>
-                  <dl class="layui-nav-child">
-                    <dd><a lay-href="" lay-text="体检-体检中">体检中</a></dd>
-                    <dd><a lay-href="" lay-text="体检-待结论">待结论</a></dd>
-                    <dd><a lay-href="" lay-text="体检-已完成">已完成</a></dd>
-                  </dl>
-                </dd>
-              </dl>
-            </li>
-            <li class="layui-nav-item">
-              <a href="javascript:;" lay-tips="家庭医生" lay-direction="2">
-                <i class="fas fa-home"></i>
-                <cite>家庭医生</cite>
-              </a>
-              <dl class="layui-nav-child">
-                <dd>
-                  <a href="javascript:;">就诊<span class="layui-nav-more"></span></a>
-                  <dl class="layui-nav-child">
-                    <dd><a lay-href="diagnose/list.html#/t=uncompleted" lay-text="就诊-未完成">未完成</a></dd>
-                    <dd><a lay-href="diagnose/list.html#/t=completed" lay-text="就诊-已完成">已完成</a></dd>
-                    <dd><a lay-href="diagnose/list.html#/t=revisit" lay-text="就诊-待复诊">待复诊</a></dd>
-                  </dl>
-                </dd>
-                <dd>
-                  <a href="javascript:;">会诊申请<span class="layui-nav-more"></span></a>
-                  <dl class="layui-nav-child">
-                    <dd><a lay-href="consultation/list.html#/c=f/t=request" lay-text="会诊-申请中">申请中</a></dd>
-                    <dd><a lay-href="consultation/list.html#/c=f/t=completed" lay-text="会诊-已完成">已完成</a></dd>
-                  </dl>
-                </dd>
-                <dd>
-                  <a lay-href="consultation/list.html#/c=f/s=t">转诊</a>
-                </dd>
-                <dd>
-                  <a href="javascript:;">回诊<span class="layui-nav-more"></span></a>
-                  <dl class="layui-nav-child">
-                    <dd><a lay-href="" lay-text="回诊-待确认">待确认</a></dd>
-                    <dd><a lay-href="" lay-text="回诊-已确认">已确认</a></dd>
-                  </dl>
-                </dd>
-                <dd>
-                  <a href="javascript:;">健康体检<span class="layui-nav-more"></span></a>
-                  <dl class="layui-nav-child">
-                    <dd><a lay-href="" lay-text="体检-体检中">体检中</a></dd>
-                    <dd><a lay-href="" lay-text="体检-待结论">待结论</a></dd>
-                    <dd><a lay-href="" lay-text="体检-已完成">已完成</a></dd>
-                  </dl>
-                </dd>
-                <dd>
-                  <a href="javascript:;">随访记录<span class="layui-nav-more"></span></a>
-                  <dl class="layui-nav-child">
-                    <dd><a lay-href="arrange/list.html#/st=0">随访计划</a></dd>
-                    <dd><a lay-href="arrange/list.html#/st=1">随访列表</a></dd>
-                  </dl>
-                </dd>
-              </dl>
-            </li>
-            <li class="layui-nav-item">
-              <a href="javascript:;" lay-tips="客户管理" lay-direction="2">
-                <i class="fas fa-users"></i>
-                <cite>客户管理</cite>
-              </a>
-              <dl class="layui-nav-child">
-                <dd><a lay-href="resident/list.html#/t=my">我的签约客户</a></dd>
-                <dd>
-                  <a href="javascript:;">本单位客户</a>
-                  <dl class="layui-nav-child">
-                    <dd>
-                      <a lay-href="resident/list.html#/t=s/u=-2" lay-text="本单位-所有客户">所有客户</a>
-                    </dd>
-                    <dd>
-                      <a lay-href="resident/list.html#/t=s/u=-1" lay-text="本单位-已签约客户">已签约客户</a>
-                    </dd>
-                    <dd>
-                      <a lay-href="resident/list.html#/t=s/u=0" lay-text="本单位-未签约客户">未签约客户</a>
-                    </dd>
-                  </dl>
-                </dd>
-                <dd>
-                  <a href="javascript:;">下级单位客户</a>
-                  <dl class="layui-nav-child">
-                    <dd>
-                      <a lay-href="resident/list.html#/t=l/u=-2" lay-text="下级单位-所有客户">所有客户</a>
-                    </dd>
-                    <dd>
-                      <a lay-href="resident/list.html#/t=l/u=-1" lay-text="下级单位-已签约客户">已签约客户</a>
-                    </dd>
-                    <dd>
-                      <a lay-href="resident/list.html#/t=l/u=0" lay-text="下级单位-未签约客户">未签约客户</a>
-                    </dd>
-                  </dl>
-                </dd>
-              </dl>
-            </li>
-            <li class="layui-nav-item">
-              <a href="javascript:;" lay-tips="设备管理" lay-direction="2">
-                <i class="fas fa-laptop"></i>
-                <cite>设备管理</cite>
-              </a>
-              <dl class="layui-nav-child">
-                <dd><a lay-href="equipment/list.html">设备列表</a></dd>
-                <dd><a lay-href="">设备报修</a></dd>
-                <dd><a lay-href="">耗材</a></dd>
-              </dl>
-            </li>
-            <li class="layui-nav-item">
-              <a href="javascript:;" lay-tips="机构管理" lay-direction="2">
-                <i class="fas fa-sitemap"></i>
-                <cite>机构管理</cite>
-              </a>
-              <dl class="layui-nav-child">
-                <dd><a lay-href="institution/list.html">机构列表</a></dd>
-                <dd><a lay-href="doctor/list.html">医生管理</a></dd>
-                <dd><a lay-href="department/list.html">科室管理</a></dd>
-                <dd><a lay-href="">意见反馈</a></dd>
-                <dd><a lay-href="">内部公告</a></dd>
-              </dl>
-            </li>
-            <li class="layui-nav-item">
-              <a href="javascript:;" lay-tips="数据统计" lay-direction="2">
-                <i class="fas fa-chart-area"></i>
-                <cite>数据统计</cite>
-              </a>
-              <dl class="layui-nav-child">
-                <dd><a lay-href="">贫困户统计</a></dd>
-                <dd><a lay-href="">家庭医生签约率</a></dd>
-                <dd><a lay-href="">重点人群统计</a></dd>
-                <dd><a lay-href="">体征数据统计</a></dd>
-              </dl>
-            </li>
-            <li class="layui-nav-item">
-              <a href="javascript:;" lay-tips="消息通知" lay-direction="2">
-                <i class="far fa-comment-dots"></i>
-                <cite>消息通知</cite>
-              </a>
-              <dl class="layui-nav-child">
-                <!-- <dd><a lay-href="">通知公告</a></dd>
-                <dd><a lay-href="">医友消息</a></dd> -->
-                <dd><a lay-href="message/list.html">客户消息</a></dd>
-              </dl>
-            </li>
-          </ul>
-        </div>
       </div>
 
       <!-- 页面标签 -->
@@ -312,26 +317,7 @@
     index: 'lib/index' //主入口模块layui.config({
     ,version: 201808301
     ,debug: true
-  }).use(['index'], function(){
-    var $ = layui.$;
-    $('.xy-logout').click(function() {
-      layui.common.req({
-        url: layui.setter.api.UserLogOut
-        ,success: function(data){
-          //请求成功后，写入 access_token
-          layui.data(layui.setter.tableName, null);
-          
-          //登入成功的提示与跳转
-          layer.msg('登出成功', {
-            offset: '15px'
-            ,icon: 1
-            ,time: 1000
-          }, function(){
-            location.href = layui.setter.baseUrl + 'passport/login.html';
-          });
-        }
-      });
-    });
+  }).use(['index', 'layout'], function(){
   });
   </script>
 </body>

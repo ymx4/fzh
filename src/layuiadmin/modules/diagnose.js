@@ -22,7 +22,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl'], function(exports)
       var where = {
         CLIENT_ID: 0,
         UNIT_ID: common.user.UNIT_ID,
-        CHILDREN_UNIT: 1,
+        CHILDREN_UNIT: 0,
         USER_ID: 0,
         START_TIME: '',
         END_TIME: '',

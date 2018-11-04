@@ -202,6 +202,8 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
     }
     ,baseUrl: 'http://local.fzh.com/src/views/'
     ,clientSess: 'clientapp'
+    ,rememberPc: 'rememberPc'
+    ,rememberClient: 'rememberClient'
     ,pageSize: 10
     ,unreadInterval: 3000
   });

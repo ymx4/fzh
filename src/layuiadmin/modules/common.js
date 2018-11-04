@@ -450,37 +450,12 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
     loginPath += '#/redirect=' + encodeURIComponent(location.href);
   }
 
-  var messageTimer = null;
-  var refreshUnread = function() {
-    common.req({
-      url: layui.setter.api.UnreadMessage
-      ,disableLoad: true
-      ,data: {}
-      ,success: function(data){
-        if (data.message > 0) {
-          $('#xyNewMsg').removeClass('layui-hide');
-          clearInterval(messageTimer);
-        } else {
-          if (!$('#xyNewMsg').hasClass('layui-hide')) {
-            $('#xyNewMsg').addClass('layui-hide')
-          }
-        }
-      }
-    });
-  }
-
   if (location.href.indexOf('login') == -1 && router.search.adapter != 'clientapp') {
     var sess = layui.data(layui.setter.tableName);
     if (!sess.user) {
       location.href = layui.setter.baseUrl + loginPath;
     } else {
       common.user = sess.user;
-      if (location.href.indexOf('views/index.html') != -1) {
-        $('#myRealname').text(common.user.REAL_NAME);
-        $('#myUnitname').text(common.user.UNIT_NAME);
-        refreshUnread();
-        messageTimer = setInterval(function() {refreshUnread();}, layui.setter.unreadInterval);
-      }
     }
   }
 
@@ -702,6 +677,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
   $('body').on('click', '.xylink', function() {
     top.location.href = layui.setter.baseUrl + $(this).data('href');
   });
+  console.log(common.user)
 
   admin.events.sendmsg = function(elem){
     layer.open({

@@ -221,8 +221,10 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'table'], function(exports){
     } else {
       common.user = sess.user;
       layout();
-      refreshUnread();
-      messageTimer = setInterval(function() {refreshUnread();}, layui.setter.unreadInterval);
+      if (location.href.indexOf('message_list.html') == -1) {
+        refreshUnread();
+        messageTimer = setInterval(function() {refreshUnread();}, layui.setter.unreadInterval);
+      }
     }
   }
 

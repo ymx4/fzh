@@ -29,7 +29,7 @@
           <p>建档时间：{{ item.CREATE_TIME ? item.CREATE_TIME : '' }}</p>
         </a>
       </div>
-      <a class="layui-btn layui-btn-sm caller-fr getEquipment" href="javascript:;" data-href="{{d.equipmentUrl}}#/id={{ item.ID }}">
+      <a class="layui-btn layui-btn-sm caller-fr getEquipment" href="javascript:;" data-id="{{item.ID}}" data-name="{{item.REAL_NAME}}" data-href="{{d.equipmentUrl}}#/id={{ item.ID }}">
         获取设备数据
       </a>
       <a class="layui-btn layui-btn-sm caller-fr addArrange" href="javascript:;">

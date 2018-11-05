@@ -244,7 +244,8 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'table'], function(exports){
         if (ua.match(/MicroMessenger/i) == 'micromessenger') {
           wx.miniProgram.navigateTo({url: '../../page/index/index?redirect=' + encodeURIComponent(redirectUrl)});
         } else {
-          js2Android.showDeviceList(redirectUrl);
+          // android
+          showDataDetailsActivity('client', common.user.ID, common.user.REAL_NAME, layui.setter.api.Client.ReceiveClient34 + '?token=' + common.user.token);
         }
         break;
       case 'doctor':

@@ -235,7 +235,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
             wx.miniProgram.navigateTo({url: '../../page/index/index?redirect=' + encodeURIComponent($(this).data('href'))});
           } else {
             // android
-            showDataDetailsActivity('doctor', $(this).data('id'), $(this).data('name'), layui.setter.api.Receive34 + '?token=' + xymobile.user.token);
+            js2Android.showDataDetailsActivity('doctor', $(this).data('id'), $(this).data('name'), layui.setter.api.Receive34 + '?token=' + xymobile.user.token);
           }
         });
       }

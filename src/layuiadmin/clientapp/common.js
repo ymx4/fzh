@@ -245,7 +245,7 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'table'], function(exports){
           wx.miniProgram.navigateTo({url: '../../page/index/index?redirect=' + encodeURIComponent(redirectUrl)});
         } else {
           // android
-          showDataDetailsActivity('client', common.user.ID, common.user.REAL_NAME, layui.setter.api.Client.ReceiveClient34 + '?token=' + common.user.token);
+          js2Android.showDataDetailsActivity('client', common.user.ID, common.user.REAL_NAME, layui.setter.api.Client.ReceiveClient34 + '?token=' + common.user.token);
         }
         break;
       case 'doctor':

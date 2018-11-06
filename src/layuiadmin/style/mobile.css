@@ -55,3 +55,7 @@
     background-color: #F74C31;
     color: #fff;
 }
+
+.layui-elem-field {
+    padding: 0 8px;
+}

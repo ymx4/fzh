@@ -79,6 +79,15 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
               top.location.href = layui.setter.baseUrl + loginPath;
             });
           } else {
+            if (res.data && res.data.length > 0) {
+              for (var i = 0; i < res.data.length; i++) {
+                Object.keys(res.data[i]).forEach(function(key){
+                  if (res.data[i][key] == null) {
+                    res.data[i][key] = '';
+                  }
+                });
+              }
+            }
             if (options.url.indexOf('GetClientHistory') != -1 && res.data && res.data.length > 0) {
               for (var i = 0; i < res.data.length; i++) {
                 Object.keys(res.data[i]).forEach(function(key){
@@ -383,7 +392,6 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
                 eqdata += item.no + ':' + item.value + '|';
               });
               eqdata = eqdata.replace(/\|$/g, '');
-              alert(eqdata);
               xymobile.req({
                 url: layui.setter.api.Receive34
                 ,formerror: true
@@ -439,6 +447,60 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
         location.href = layui.setter.baseUrl + 'mobile/health_detail.html#/id=' + obj.data.ID + '/clientId=' + obj.data.CLIENT_ID + '/adapter=m';
       }
     });
+    xymobile.xyRender({
+      elem: '#xy-history-eqdc'
+      ,url: layui.setter.api.GetDCList
+      ,page: false
+      ,where: {
+        "CLIENT_ID": cliendId
+      }
+      ,cols: [[
+        {field: 'CREATE_TIME', title: '建立时间', event:'detail'}
+        ,{field: 'REAL_NAME', title: '检测医生', event:'detail'}
+      ]]
+    });
+    table.on('tool(xy-history-eqdc)', function(obj){
+      var data = obj.data;
+      if (obj.event === 'detail') {
+        layer.open({
+          type: 1,
+          area:['100%', $('#LAY_app_body').height() + 'px'],
+          content: '<div id="eqdcDetail"></div>',
+          title: '生理多参详情'
+        });
+        if (data.ECG_DATA) {
+          data.ECG_IMG = getECGImg(data.ID);
+        }
+        data.adapter = 'm';
+        layui.view('eqdcDetail').render('resident/eqdc', data).done(function(){
+          $('.xy-ecg-img').click(function() {
+            var src = $(this).attr('src');
+            if (!xymobile.empty(src)) {
+              layer.photos({
+                photos: {
+                  "title": "预览",
+                  "data": [
+                    {
+                      "alt": "预览",
+                      "src": src
+                    }
+                  ]
+                }
+                ,anim: 5
+              });
+            }
+          });
+        });;
+      }
+    });
+  }
+
+  var getECGImg = function (id) {
+    if (xymobile.user && xymobile.user.token){
+      return layui.setter.api.ShowECG + '?id=' + id + '&token=' + xymobile.user.token;
+    } else {
+      return layui.setter.api.ShowECG + '?id=' + id;
+    }
   }
 
   var listenHistory = function(clientId) {

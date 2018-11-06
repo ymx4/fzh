@@ -98,7 +98,6 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
           eqdata += item.no + ':' + item.value + '|';
         });
         eqdata = eqdata.replace(/\|$/g, '');
-        alert(eqdata);
         common.req({
           url: layui.setter.api.Client.ReceiveClient34
           ,formerror: true

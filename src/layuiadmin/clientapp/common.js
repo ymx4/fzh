@@ -77,6 +77,15 @@ layui.define(['layer', 'form', 'admin', 'laytpl', 'table'], function(exports){
               top.location.href = layui.setter.baseUrl + loginPath;
             });
           } else {
+            if (res.data && res.data.length > 0) {
+              for (var i = 0; i < res.data.length; i++) {
+                Object.keys(res.data[i]).forEach(function(key){
+                  if (res.data[i][key] == null) {
+                    res.data[i][key] = '';
+                  }
+                });
+              }
+            }
             if (options.url.indexOf('GetClientHistory') != -1 && res.data && res.data.length > 0) {
               for (var i = 0; i < res.data.length; i++) {
                 Object.keys(res.data[i]).forEach(function(key){

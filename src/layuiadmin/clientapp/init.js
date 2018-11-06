@@ -262,6 +262,52 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
         location.href = layui.setter.baseUrl + 'clientapp/health_detail.html#/id=' + obj.data.ID + '/clientId=' + obj.data.CLIENT_ID + '/adapter=clientapp';
       }
     });
+    common.xyRender({
+      elem: '#xy-history-eqdc'
+      ,url: layui.setter.api.Client.GetDCList
+      ,page: false
+      ,where: {
+        "CLIENT_ID": cliendId
+      }
+      ,cols: [[
+        {field: 'CREATE_TIME', title: '建立时间', event:'detail'}
+        ,{field: 'REAL_NAME', title: '检测医生', event:'detail'}
+      ]]
+    });
+    table.on('tool(xy-history-eqdc)', function(obj){
+      var data = obj.data;
+      if (obj.event === 'detail') {
+        layer.open({
+          type: 1,
+          area:['100%', $('#LAY_app_body').height() + 'px'],
+          content: '<div id="eqdcDetail"></div>',
+          title: '生理多参详情'
+        });
+        if (data.ECG_DATA) {
+          data.ECG_IMG = getECGImg(data.ID);
+        }
+        data.adapter = 'm';
+        layui.view('eqdcDetail').render('resident/eqdc', data).done(function(){
+          $('.xy-ecg-img').click(function() {
+            var src = $(this).attr('src');
+            if (!common.empty(src)) {
+              layer.photos({
+                photos: {
+                  "title": "预览",
+                  "data": [
+                    {
+                      "alt": "预览",
+                      "src": src
+                    }
+                  ]
+                }
+                ,anim: 5
+              });
+            }
+          });
+        });;
+      }
+    });
   }
 
   var listenHistory = function(clientId) {

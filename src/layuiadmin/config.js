@@ -194,6 +194,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
         ClientSendMessage: 'http://dataserver.hihol.com/Client/Login/Message/ClientSendMessage.ashx',
         UnreadMessage: 'http://dataserver.hihol.com/Client/Login/Message/UnreadMessage.ashx',
         ReceiveClient34: 'http://dataserver.hihol.com/ReceiveData/ReceiveClient34.ashx',
+        GetDCList: 'http://dataserver.hihol.com/Equipment/GetDCList.ashx',
       },
     }
     ,loadsec: 5*1000

@@ -476,17 +476,11 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
           $('.xy-ecg-img').click(function() {
             var src = $(this).attr('src');
             if (!xymobile.empty(src)) {
-              layer.photos({
-                photos: {
-                  "title": "预览",
-                  "data": [
-                    {
-                      "alt": "预览",
-                      "src": src
-                    }
-                  ]
-                }
-                ,anim: 5
+              layer.open({
+                type:2
+                ,area:['100%', '100%']
+                ,content: src
+                ,title: 'ECG波形图'
               });
             }
           });

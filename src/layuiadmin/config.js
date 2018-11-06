@@ -173,6 +173,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       Receive34: 'http://dataserver.hihol.com/ReceiveData/Receive34.ashx',
       GetDCList: 'http://dataserver.hihol.com/Equipment/GetDCList.ashx',
       ShowECG: 'http://dataserver.hihol.com/PublicMethods/ECG/ShowECG.ashx',
+      SetClientManage: 'http://dataserver.hihol.com/Client/SetClientManage.ashx',
       Client: {
         ChangeClientPassword: 'http://dataserver.hihol.com/Client/Login/ChangeClientPassword.ashx',
         ClientLogin: 'http://dataserver.hihol.com/Client/Login/ClientLogin.ashx',

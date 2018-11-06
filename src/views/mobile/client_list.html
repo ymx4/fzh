@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="../../layuiadmin/style/template.css" media="all">
   <link rel="stylesheet" href="../../layuiadmin/style/mobile.css" media="all">
   <style type="text/css">
-    .caller-item a {
+    .caller-item a.layui-btn {
       margin-left: 5px;
     }
   </style>
@@ -20,16 +20,21 @@
 
   <script id="clientTpl" type="text/html">
     {{#  layui.each(d.clientList, function(index, item){ }}
-    <div class="caller-item" data-id="{{item.ID}}">
+    <div class="caller-item" data-id="{{item.ID}}" data-name="{{item.REAL_NAME}}">
       <div class="caller-main">
         <a href="{{d.detailUrl}}#/id={{ item.ID }}/adapter=m">
-          <p>{{# if (item.EMPHASIS_ID && item.EMPHASIS_ID != 165) { }}<span class="layui-badge-dot"></span> {{# } }}<strong>{{ item.REAL_NAME }}</strong></p>
+          <p>{{# if (item.EMPHASIS_ID && item.EMPHASIS_ID != 165) { }}<span class="layui-badge-dot"></span> {{# } }}<strong>{{ item.REAL_NAME }}</strong> <span class="has-manager layui-badge layui-bg-blue">{{# if (item.MANAGE_USER_ID) { }}已签约{{# } else { }}未签约{{# } }}</span></p>
           <p>签约医生：{{ item.MANAGE_REAL_NAME }}</p>
           <p>身份证：{{ item.ID_NUMBER }}</p>
           <p>建档时间：{{ item.CREATE_TIME ? item.CREATE_TIME : '' }}</p>
         </a>
       </div>
-      <a class="layui-btn layui-btn-sm caller-fr getEquipment" href="javascript:;" data-id="{{item.ID}}" data-name="{{item.REAL_NAME}}" data-href="{{d.equipmentUrl}}#/id={{ item.ID }}">
+      {{# if (!item.MANAGE_USER_ID) { }}
+      <a class="layui-btn layui-btn-sm caller-fr setManager" href="javascript:;">
+        签约
+      </a>
+      {{# } }}
+      <a class="layui-btn layui-btn-sm caller-fr getEquipment" href="javascript:;" data-href="{{d.equipmentUrl}}#/id={{ item.ID }}">
         获取设备数据
       </a>
       <a class="layui-btn layui-btn-sm caller-fr addArrange" href="javascript:;">

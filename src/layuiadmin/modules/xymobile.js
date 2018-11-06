@@ -235,8 +235,23 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
             wx.miniProgram.navigateTo({url: '../../page/index/index?redirect=' + encodeURIComponent($(this).data('href'))});
           } else {
             // android
-            js2Android.showDataDetailsActivity('doctor', $(this).data('id'), $(this).data('name'), layui.setter.api.Receive34 + '?token=' + xymobile.user.token);
+            var paramsItem = $(this).closest('.caller-item');
+            js2Android.showDataDetailsActivity('doctor', paramsItem.data('id'), paramsItem.data('name'), layui.setter.api.Receive34 + '?token=' + xymobile.user.token);
           }
+        });
+        $('#clientContainer').on('click', '.setManager', function() {
+          var paramsItem = $(this).closest('.caller-item');
+          xymobile.req({
+            url: layui.setter.api.SetClientManage
+            ,data: {
+              CLIENT_ID: paramsItem.data('id')
+              ,MANAGE_USER_ID: xymobile.user.ID
+            }
+            ,success: $.proxy(function(data){
+              $(this).remove();
+              paramsItem.find('.has-manager').text('已签约');
+            }, this)
+          });
         });
       }
       ,residentDetail: function() {

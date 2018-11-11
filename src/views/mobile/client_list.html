@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../../layuiadmin/style/mobile.css" media="all">
   <style type="text/css">
     .caller-item a.layui-btn {
-      margin-left: 5px;
+      margin: 5px 5px 0 0;
     }
   </style>
 </head>
@@ -28,19 +28,22 @@
           <p>身份证：{{ item.ID_NUMBER }}</p>
           <p>建档时间：{{ item.CREATE_TIME ? item.CREATE_TIME : '' }}</p>
         </a>
+        {{# if (!item.MANAGE_USER_ID) { }}
+        <a class="layui-btn layui-btn-sm setManager" href="javascript:;">
+          签约
+        </a>
+        {{# } }}
+        <a href="javascript:;" layadmin-event="sendmsg" data-id="{{item.ID}}" data-name="{{item.REAL_NAME}}" class="layui-btn layui-btn-sm">发消息</a>
+        <a class="layui-btn layui-btn-sm addArrange" href="javascript:;">
+          随访
+        </a>
+        <a class="layui-btn layui-btn-sm getEquipment" href="javascript:;" data-href="{{d.equipmentUrl}}#/id={{ item.ID }}">
+          设备数据
+        </a>
+        <a class="layui-btn layui-btn-sm getEqdc" href="javascript:;" data-href="{{d.eqdcUrl}}#/id={{ item.ID }}">
+          多参数据
+        </a>
       </div>
-      {{# if (!item.MANAGE_USER_ID) { }}
-      <a class="layui-btn layui-btn-sm caller-fr setManager" href="javascript:;">
-        签约
-      </a>
-      {{# } }}
-      <a class="layui-btn layui-btn-sm caller-fr getEquipment" href="javascript:;" data-href="{{d.equipmentUrl}}#/id={{ item.ID }}">
-        获取设备数据
-      </a>
-      <a class="layui-btn layui-btn-sm caller-fr addArrange" href="javascript:;">
-        随访
-      </a>
-      <a href="javascript:;" layadmin-event="sendmsg" data-id="{{item.ID}}" data-name="{{item.REAL_NAME}}" class="layui-btn layui-btn-sm caller-fr">发消息</a>
     </div>
     {{#  }); }}
   </script>
@@ -49,11 +52,16 @@
       <div class="layui-body" id="LAY_app_body">
         <div class="layui-fluid">
           <div class="layadmin-caller">
+            <input type="button" class="layui-btn layui-btn-fluid addClient" value="添加客户">
             <div class="layui-form" style="margin: 10px 0;">
-              <div class="layui-inline">
-                <input class="layui-input" id="KEY_WORD" autocomplete="off">
+              <div class="layui-row">
+                <div class="layui-col-xs8">
+                  <input class="layui-input" id="KEY_WORD" autocomplete="off">
+                </div>
+                <div class="layui-col-xs2">
+                  <button class="layui-btn" lay-submit lay-filter="client-search" style="margin-left: 5px;">搜索</button>
+                </div>
               </div>
-              <button class="layui-btn" lay-submit lay-filter="client-search" style="margin-top: 0;">搜索</button>
             </div>
             <div class="layui-tab layui-tab-brief caller-tab" id="clientTab" lay-filter="clientSwitch">
               <ul class="layui-tab-title">

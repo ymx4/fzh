@@ -40,6 +40,7 @@ layui.define(['common', 'table'], function(exports){
   var healthSort = {
     diagnose: {name:'就诊记录'}
     ,consultation: {name:'会诊记录'}
+    ,transfer: {name:'转诊记录'}
     ,arrange: {name:'随访记录'}
     // ,survey: {name:'问卷记录'}
   };
@@ -381,6 +382,50 @@ layui.define(['common', 'table'], function(exports){
       });
       
       table.on('tool(xy-history-consultation)', function(obj){
+        if (obj.event === 'detail') {
+          if (layui.router().search.adapter == 'm') {
+            layer.open({
+              type: 2,
+              area:['100%', $('#LAY_app_body').height() + 'px'],
+              content: layui.setter.baseUrl + 'consultation/detail.html#/id=' + obj.data.ID,
+              title: '会诊'
+            });
+          } else {
+            layer.open({
+              type: 2,
+              area:['90%', '90%'],
+              content: layui.setter.baseUrl + 'consultation/detail.html#/id=' + obj.data.ID,
+              title: '会诊'
+            });
+          }
+        }
+      });
+    }
+
+    ,transfer: function(where){
+      //转诊记录
+      var cols = [
+        {field: 'CONSULTATION_NO', title: '编号', event:'detail'}
+        ,{field: 'CLIENT_REAL_NAME', title: '姓名', event:'detail'}
+        ,{field: 'DIAGNOSE_UNIT_NAME', title: '就诊单位', event:'detail'}
+        ,{field: 'CONSULTATION_UNIT_NAME', title: '会诊单位', event:'detail'}
+        ,{field: 'STATUS_NAME', title: '状态', event:'detail',templet: function(d){
+          if (d.CONSENT_TRANSFER != 0 && d.STATUS != 2) {
+            return d.STATUS_NAME + ' , ' + d.CONSENT_TRANSFER_NAME;
+          } else {
+            return d.STATUS_NAME;
+          }
+        }}
+      ];
+      where.STATUS = 2;
+      common.xyRender({
+        elem: '#xy-history-transfer'
+        ,url: layui.setter.api.SearchConsultation
+        ,where: where
+        ,cols: [cols]
+      });
+      
+      table.on('tool(xy-history-transfer)', function(obj){
         if (obj.event === 'detail') {
           if (layui.router().search.adapter == 'm') {
             layer.open({

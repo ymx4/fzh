@@ -207,6 +207,6 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
     ,rememberPc: 'rememberPc'
     ,rememberClient: 'rememberClient'
     ,pageSize: 10
-    ,unreadInterval: 3000
+    ,unreadInterval: 10000
   });
 });

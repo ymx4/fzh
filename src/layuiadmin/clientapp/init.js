@@ -79,6 +79,22 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
         element.render('collapse');
       });
     }
+    ,seldata: function() {
+      $('.sel-equipment').on('click', function() {
+        var ua = window.navigator.userAgent.toLowerCase();
+        var redirectUrl = layui.setter.baseUrl + 'clientapp/equipment.html#/test=1';
+        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+          wx.miniProgram.navigateTo({url: '../../page/index/index?redirect=' + encodeURIComponent(redirectUrl)});
+        } else {
+          // android
+          js2Android.showDataDetailsActivity('client', common.user.ID, common.user.REAL_NAME, layui.setter.api.Client.ReceiveClient34 + '?token=' + common.user.token);
+        }
+      });
+      $('.sel-eqdc').on('click', function() {
+        // android
+        js2Android.showDataDetailsActivity('client', common.user.ID, common.user.REAL_NAME, layui.setter.api.Client.ReceiveClient34 + '?token=' + common.user.token);
+      });
+    }
     ,equipment: function() {
       if (!router.search.params) {
         layer.msg('参数错误', function() {

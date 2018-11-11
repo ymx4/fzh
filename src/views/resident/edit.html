@@ -19,7 +19,7 @@
   <div class="layui-fluid">
     <div class="layui-form resident-form" action="" lay-filter="xy-resident-form" style="margin-bottom: 15px;">
       <div class="layui-card">
-        <div class="layui-card-header">个人基本信息 （编号001）</div>
+        <div class="layui-card-header">个人基本信息</div>
         <div class="layui-card-body layui-row layui-col-space10" id="xy_resident_view">
           <input type="hidden" name="ID" value="0">
           <div class="layui-row layui-col-space10 layui-form-item">
@@ -158,9 +158,9 @@
               </div>
             </div>
             <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
-              <label class="layui-form-label">重点人群</label>
+              <label class="layui-form-label">重点人群 <span style="color: red;">*</span></label>
               <div class="layui-input-block">
-                <select name="EMPHASIS_ID" class="xy-config" data-cf="24">
+                <select name="EMPHASIS_ID" lay-verify="required" class="xy-config" data-cf="24">
                 </select>
               </div>
             </div>

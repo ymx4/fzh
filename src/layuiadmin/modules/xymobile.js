@@ -1,4 +1,4 @@
-layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 'view'], function(exports){
+layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 'view', 'laydate'], function(exports){
   var $ = layui.$
   ,element = layui.element
   ,laytpl = layui.laytpl
@@ -7,6 +7,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
   ,admin = layui.admin
   ,table = layui.table
   ,view = layui.view
+  ,laydate = layui.laydate
   ,router = layui.router()
 
   ,xymobile = {
@@ -163,6 +164,130 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
         }
       }, options));
     }
+    ,initConfig: function(){
+      var that = this;
+      var configlen = $('.xy-config').length;
+      $('.xy-config').each(function(index){
+        var dataVal = $(this).attr('data-val');
+        that.req({
+          url: layui.setter.api.GetConfigDetail
+          ,data: {
+            "CONFIG_ID": $(this).attr('data-cf') ? $(this).attr('data-cf') : 9 //TODO
+          }
+          ,success: $.proxy(function(data){
+            if (data.data.length > 0) {
+              var html = '<option value="">请选择</option>';
+              for (i = 0; i < data.data.length; i++) {
+                var selected = '';
+                if (dataVal == data.data[i].ID) {
+                  selected = ' selected';
+                }
+                html += '<option value="' + data.data[i].ID + '"' + selected + '>' + data.data[i].CONFIG_VALUE + '</option>';
+              }
+              $(this).html(html);
+            }
+            form.render('select');
+          }, this)
+        });
+      });
+    }
+    ,areaFirst: true
+    ,initArea: function(editElem){
+      var that = this;
+      if (this.areaFirst) {
+        form.on('select(xy-addr-select)', function(data){
+          $(data.elem).closest('.xy-select').nextAll('.xy-select').remove();
+          if (data.value != '') {
+            var selElem = $(data.elem).closest('.xy-select');
+            that.area(data.value, selElem);
+            selElem.siblings('.xy-select-val').val($(data.elem).val());
+          }
+        });
+      }
+      if (editElem && editElem.default) {
+        that.req({
+          url: layui.setter.api.GetAreaText
+          ,data: {AREA_ID: editElem.default}
+          ,success: function(areadata){
+            var parentid = 1;
+            var tmp = $(editElem.elem);
+            for (ii = 0; ii < areadata.data.length; ii++) {
+              tmp.after('<div class="layui-inline xy-select">\
+                  <select lay-filter="xy-addr-select" data-pid="' + parentid + '" data-id="' + areadata.data[ii].ID + '">\
+                    <option value="">请选择</option>\
+                  </select>\
+                </div>'
+              );
+
+              tmp = tmp.next();
+              parentid = areadata.data[ii].ID;
+            }
+
+            $(editElem.elem).siblings('.xy-select').children('select').each(function(){
+              var othis = $(this);
+              that.req({
+                url: layui.setter.api.GetAreaList
+                ,data: {PARENT_ID: $(this).attr('data-pid')}
+                ,success: function(data){
+                  if (data.data != null && data.data.length > 0) {
+                    layui.laytpl('{{#  layui.each(d.list, function(index, item){ }}\
+                        <option value="{{ item.ID }}"{{#  if(d.defaultId == item.ID){ }} selected{{#  } }} >{{ item.AREA_NAME }}</option>\
+                      {{#  }); }}'
+                    ).render({list: data.data, defaultId: othis.attr('data-id')}, function(html){
+                      othis.append(html);
+                      form.render('select');
+                    });
+                  }
+                }
+              });
+            });
+          }
+        });
+      } else {
+        if (editElem) {
+          var arealist = $(editElem.elem);
+        } else {
+          var arealist = [];
+          $('.xy-area').each(function(){
+            arealist.push($(this));
+          });
+        }
+        if (arealist.length > 0) {
+          this.area(1, arealist);
+        }
+      }
+      this.areaFirst = false;
+    }
+    ,area: function(parentid, elem){
+      var that = this;
+
+      that.req({
+        url: layui.setter.api.GetAreaList
+        ,data: {PARENT_ID: parentid}
+        ,success: function(data){
+          if (data.data != null && data.data.length > 0) {
+            layui.laytpl('<div class="layui-inline xy-select">\
+                <select lay-filter="xy-addr-select">\
+                  <option value="">请选择</option>\
+                  {{#  layui.each(d.list, function(index, item){ }}\
+                    <option value="{{ item.ID }}">{{ item.AREA_NAME }}</option>\
+                  {{#  }); }}\
+                </select>\
+              </div>'
+            ).render({list: data.data}, function(html){
+              if (elem instanceof Array) {
+                $.each(elem,function(i, item){
+                  item.after(html);
+                });
+              } else {
+                elem.after(html);
+              }
+              form.render('select');
+            });
+          }
+        }
+      });
+    }
     ,clientData: function(elem, clientId, adapter){
       adapter = adapter || 'pc';
       if (adapter == 'clientapp') {
@@ -230,6 +355,9 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
             renderResident(page, next);
           }
         });
+        $('.addClient').on('click', function() {
+          location.href = layui.setter.baseUrl + 'mobile/resident_edit.html';
+        });
         $('#clientContainer').on('click', '.addArrange', function() {
           layer.open({
             type: 2,
@@ -242,9 +370,16 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
           var ua = window.navigator.userAgent.toLowerCase();
           if (ua.match(/MicroMessenger/i) == 'micromessenger') {
             wx.miniProgram.navigateTo({url: '../../page/index/index?redirect=' + encodeURIComponent($(this).data('href'))});
-          } else {
+          } else if (ua.match(/MicroMessenger/i) == 'holandroid') {
             // android
             var paramsItem = $(this).closest('.caller-item');
+            js2Android.showDataDetailsActivity('doctor', paramsItem.data('id'), paramsItem.data('name'), layui.setter.api.Receive34 + '?token=' + xymobile.user.token);
+          }
+        });
+        $('#clientContainer').on('click', '.getEqdc', function() {
+          // android
+          if (ua.match(/MicroMessenger/i) == 'holandroid') {
+          var paramsItem = $(this).closest('.caller-item');
             js2Android.showDataDetailsActivity('doctor', paramsItem.data('id'), paramsItem.data('name'), layui.setter.api.Receive34 + '?token=' + xymobile.user.token);
           }
         });
@@ -298,6 +433,66 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
               element.render('collapse');
             });
           }, this)
+        });
+      }
+      ,residentEdit: function() {
+        if (router.search.id) {
+          $('#clientTitle').text('编辑');
+          xymobile.req({
+            url: layui.setter.api.GetClientInfo
+            ,data: {
+              CLIENT_ID: router.search.id
+            }
+            ,success: $.proxy(function(data){
+              form.val('xy-resident-form', data.data);
+              laydate.render({
+                elem: '#BIRTHDAY'
+                ,format: layui.setter.dateFormat.day
+                ,value: data.data.BIRTHDAY ? data.data.BIRTHDAY.substring(0, 10) : ''
+              });
+              laydate.render({
+                elem: '#CREATE_TIME'
+                ,format: layui.setter.dateFormat.day
+                ,value: data.data.CREATE_TIME ? data.data.CREATE_TIME.substring(0, 10) : ''
+              });
+              $('select[name="SEX"]').attr('data-val', data.data.SEX);
+              $('select[name="MARRIAGE"]').attr('data-val', data.data.MARRIAGE);
+              $('select[name="NATION"]').attr('data-val', data.data.NATION);
+              $('select[name="EDUCATION"]').attr('data-val', data.data.EDUCATION);
+              $('select[name="POVERTY_ID"]').attr('data-val', data.data.POVERTY_ID);
+              $('select[name="EMPHASIS_ID"]').attr('data-val', data.data.EMPHASIS_ID);
+              xymobile.initConfig();
+              xymobile.initArea({default: data.data.HOME_ADDRESS_AREA_ID, elem: '#home_address_area_container'});
+            }, this)
+          });
+        } else {
+          $('#clientTitle').text('添加');
+          xymobile.initArea();
+          xymobile.initConfig();
+
+          lay('#BIRTHDAY,#CREATE_TIME').each(function(){
+            laydate.render({
+              elem: this
+              ,format: layui.setter.dateFormat.day
+            });
+          });
+        }
+
+        form.on('submit(xy-resident-submit)', function(data){
+          data.field.UNIT_ID = xymobile.user.UNIT_ID;
+          data.field.MANAGE_UNIT_ID = xymobile.user.UNIT_ID;
+          console.log(data.field);return;
+          xymobile.req({
+            url: layui.setter.api.ModifyClientInfo
+            ,formerror: true
+            ,data: data.field
+            ,success: function(data){
+              layer.msg('操作成功', function() {
+                location.href = layui.setter.baseUrl + 'mobile/client_list.html';
+              });
+            }
+          });
+          return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
       }
       ,healthDetail: function() {

@@ -174,6 +174,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       GetDCList: 'http://dataserver.hihol.com/Equipment/GetDCList.ashx',
       ShowECG: 'http://dataserver.hihol.com/PublicMethods/ECG/ShowECG.ashx',
       SetClientManage: 'http://dataserver.hihol.com/Client/SetClientManage.ashx',
+      DCPost: 'http://dataserver.hihol.com/Equipment/DCPost.ashx',
       Client: {
         ChangeClientPassword: 'http://dataserver.hihol.com/Client/Login/ChangeClientPassword.ashx',
         ClientLogin: 'http://dataserver.hihol.com/Client/Login/ClientLogin.ashx',
@@ -195,6 +196,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
         UnreadMessage: 'http://dataserver.hihol.com/Client/Login/Message/UnreadMessage.ashx',
         ReceiveClient34: 'http://dataserver.hihol.com/ReceiveData/ReceiveClient34.ashx',
         GetDCList: 'http://dataserver.hihol.com/Equipment/GetDCList.ashx',
+        DCPost: 'http://dataserver.hihol.com/Equipment/DCPost.ashx'
       },
     }
     ,loadsec: 5*1000

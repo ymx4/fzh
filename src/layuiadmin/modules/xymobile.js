@@ -377,10 +377,11 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
           }
         });
         $('#clientContainer').on('click', '.getEqdc', function() {
+          var ua = window.navigator.userAgent.toLowerCase();
           // android
           if (ua.match(/MicroMessenger/i) == 'holandroid') {
-          var paramsItem = $(this).closest('.caller-item');
-            js2Android.showDataDetailsActivity('doctor', paramsItem.data('id'), paramsItem.data('name'), layui.setter.api.Receive34 + '?token=' + xymobile.user.token);
+            var paramsItem = $(this).closest('.caller-item');
+            js2Android.showDCDetailsActivity('doctor', paramsItem.data('id'), paramsItem.data('name'), layui.setter.api.DCPost + '?token=' + xymobile.user.token);
           }
         });
         $('#clientContainer').on('click', '.setManager', function() {
@@ -481,7 +482,6 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
         form.on('submit(xy-resident-submit)', function(data){
           data.field.UNIT_ID = xymobile.user.UNIT_ID;
           data.field.MANAGE_UNIT_ID = xymobile.user.UNIT_ID;
-          console.log(data.field);return;
           xymobile.req({
             url: layui.setter.api.ModifyClientInfo
             ,formerror: true

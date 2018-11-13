@@ -370,7 +370,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
           var ua = window.navigator.userAgent.toLowerCase();
           if (ua.match(/MicroMessenger/i) == 'micromessenger') {
             wx.miniProgram.navigateTo({url: '../../page/index/index?redirect=' + encodeURIComponent($(this).data('href'))});
-          } else if (ua.match(/MicroMessenger/i) == 'holandroid') {
+          } else if (ua.match(/holandroid/i) == 'holandroid') {
             // android
             var paramsItem = $(this).closest('.caller-item');
             js2Android.showDataDetailsActivity('doctor', paramsItem.data('id'), paramsItem.data('name'), layui.setter.api.Receive34 + '?token=' + xymobile.user.token);
@@ -379,7 +379,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
         $('#clientContainer').on('click', '.getEqdc', function() {
           var ua = window.navigator.userAgent.toLowerCase();
           // android
-          if (ua.match(/MicroMessenger/i) == 'holandroid') {
+          if (ua.match(/holandroid/i) == 'holandroid') {
             var paramsItem = $(this).closest('.caller-item');
             js2Android.showDCDetailsActivity('doctor', paramsItem.data('id'), paramsItem.data('name'), layui.setter.api.DCPost + '?token=' + xymobile.user.token);
           }

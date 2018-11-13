@@ -93,7 +93,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
       $('.sel-eqdc').on('click', function() {
           var ua = window.navigator.userAgent.toLowerCase();
           // android
-          if (ua.match(/MicroMessenger/i) == 'holandroid') {
+          if (ua.match(/holandroid/i) == 'holandroid') {
             js2Android.showDCDetailsActivity('client', common.user.ID, common.user.REAL_NAME, layui.setter.api.Client.DCPost + '?token=' + common.user.token);
           }
       });

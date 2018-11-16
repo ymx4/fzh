@@ -1,0 +1,73 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>统计</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+<body>
+    <iframe src="http://henan.hihol.com/health-doctor/health/analyze/full" id="iframepage" frameborder="0" width="100%" height="100%"></iframe>
+    <script type="text/javascript" language="javascript">
+    document.getElementById("iframepage").height=document.documentElement.clientHeight;
+    window.onresize = function(){
+        document.getElementById("iframepage").height=document.documentElement.clientHeight;
+    }
+    </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>统计</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/xy.css" media="all">
+</head>
+<body>
+
+  <div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+      <div class="layui-card">
+        <div class="layui-card-body">
+
+          <div class="layui-carousel layadmin-carousel layadmin-dataview xy-dataview" data-anim="fade" lay-filter="chat-poverty">
+            <div carousel-item id="chat-poverty">
+              <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+        <div class="layui-card">
+          <div class="layui-card-body">
+            <div class="layui-row">
+              <div class="layui-col-sm8">
+                  <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-pagetwo">
+                    <div carousel-item id="LAY-index-pagetwo">
+                      <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  
+  <script src="../../layuiadmin/layui/layui.js"></script>
+  <script>
+  layui.config({
+    base: '../../layuiadmin/'
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'statistics'], function() {
+  });
+  </script>
+</body>
+</html>

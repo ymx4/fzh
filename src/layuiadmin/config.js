@@ -175,6 +175,8 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       ShowECG: 'http://dataserver.hihol.com/PublicMethods/ECG/ShowECG.ashx',
       SetClientManage: 'http://dataserver.hihol.com/Client/SetClientManage.ashx',
       DCPost: 'http://dataserver.hihol.com/Equipment/DCPost.ashx',
+      Poverty: 'http://dataserver.hihol.com/Statistics/Poverty.ashx',
+      Project: 'http://dataserver.hihol.com/Statistics/Project.ashx',
       Client: {
         ChangeClientPassword: 'http://dataserver.hihol.com/Client/Login/ChangeClientPassword.ashx',
         ClientLogin: 'http://dataserver.hihol.com/Client/Login/ClientLogin.ashx',

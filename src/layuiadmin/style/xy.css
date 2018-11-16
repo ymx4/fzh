@@ -125,3 +125,5 @@ td[lay-event=detail] {
 .layui-upload-img {
 	cursor: pointer;
 }
+.xy-dataview{height: 500px !important;}
+.xy-dataview>*[carousel-item]>div{height: 500px;}

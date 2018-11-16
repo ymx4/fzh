@@ -1,4 +1,6 @@
-layui.define(function(exports){
+layui.define(['common'], function(exports){
+  var $ = layui.$
+  ,common = layui.common;
 
   //区块轮播切换
   layui.use(['carousel'], function(){
@@ -23,6 +25,73 @@ layui.define(function(exports){
     
     element.render('progress');
     
+  });
+
+  // 贫困户
+  layui.use(['echarts'], function(){
+    echarts = layui.echarts;
+
+    var echcolorline = []
+    ,elemColorline = $('#chat-poverty').children('div')
+    ,renderColorline = function(index, colorline){
+      echcolorline[index] = echarts.init(elemColorline[index], layui.echartsTheme);
+      echcolorline[index].setOption(colorline);
+      window.onresize = echcolorline[index].resize;
+    };
+    if(!elemColorline[0]) return;
+
+    common.req({
+      url: layui.setter.api.Poverty
+      ,data: {
+        UNIT_ID: common.user.UNIT_ID
+        ,CHILDREN_UNIT: 0
+      }
+      ,success: function(data){
+        if (data.data.length <= 0) {
+          return;
+        }
+        colorline = {
+          title: {
+            x: 'center',
+            text: '贫困人口情况统计',
+          },
+          xAxis: {
+            type: 'category',
+            data: []
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [{
+            data: [],
+            type: 'bar',
+            itemStyle: {
+              normal: {
+                color: function(params) {
+                  // build a color map as your need.
+                  var colorList = [
+                    '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                     '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                     '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                  ];
+                  return colorList[params.dataIndex]
+                },
+                label: {
+                  show: true,
+                  position: 'top',
+                  formatter: '{c}'
+                }
+              }
+            }
+          }]
+        };
+        $.each(data.data, function(i, item){
+          colorline.xAxis.data.push(item.POVERTY_NAME);
+          colorline.series[0].data.push(item.COUNT_NUMBER);
+        });
+        renderColorline(0, colorline);
+      }
+    });
   });
 
   // 彩虹柱形图
@@ -96,6 +165,6 @@ layui.define(function(exports){
     renderColorline(0);
   });
 
-  exports('analysis', {})
+  exports('statistics')
 
 });

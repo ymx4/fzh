@@ -33,7 +33,7 @@ layui.define(['common'], function(exports){
 
     var echcolorline = []
     ,elemColorline = $('#chat-poverty').children('div')
-    ,renderColorline = function(index, colorline){
+    ,renderLine = function(index, colorline){
       echcolorline[index] = echarts.init(elemColorline[index], layui.echartsTheme);
       echcolorline[index].setOption(colorline);
       window.onresize = echcolorline[index].resize;
@@ -52,8 +52,10 @@ layui.define(['common'], function(exports){
         }
         colorline = {
           title: {
-            x: 'center',
             text: '贫困人口情况统计',
+          },
+          tooltip : {
+            trigger: 'axis'
           },
           xAxis: {
             type: 'category',
@@ -75,11 +77,6 @@ layui.define(['common'], function(exports){
                      '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
                   ];
                   return colorList[params.dataIndex]
-                },
-                label: {
-                  show: true,
-                  position: 'top',
-                  formatter: '{c}'
                 }
               }
             }
@@ -89,80 +86,89 @@ layui.define(['common'], function(exports){
           colorline.xAxis.data.push(item.POVERTY_NAME);
           colorline.series[0].data.push(item.COUNT_NUMBER);
         });
-        renderColorline(0, colorline);
+        renderLine(0, colorline);
       }
     });
   });
 
-  // 彩虹柱形图
+  // 生化
   layui.use(['echarts'], function(){
-    var $ = layui.$
-    ,echarts = layui.echarts;
+    echarts = layui.echarts;
 
-    var echcolorline = [], colorline = [
-      {
-        title: {
-          x: 'center',
-          text: 'ECharts例子个数统计',
-          subtext: 'Rainbow bar example'
-        },
-        tooltip: {
-          trigger: 'item'
-        },
-        // calculable: true,
-        grid: {
-          borderWidth: 0,
-          y: 80,
-          y2: 60
-        },
-        xAxis: [
-          {
-            type: 'category',
-            show: false,
-            data: ['Line', 'Bar', 'Scatter', 'K', 'Pie', 'Radar', 'Chord', 'Force', 'Map', 'Gauge', 'Funnel']
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value',
-            show: false
-          }
-        ],
-        series: [
-          {
-            name: 'ECharts例子个数统计',
-            type: 'bar',
-            itemStyle: {
-              normal: {
-                color: function(params) {
-                  // build a color map as your need.
-                  var colorList = [
-                    '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
-                     '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-                     '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
-                  ];
-                  return colorList[params.dataIndex]
-                },
-                label: {
-                  show: true,
-                  position: 'top',
-                  formatter: '{b}\n{c}'
-                }
-              }
+    var renderProject = function (year) {
+      // common.req({
+      //   url: layui.setter.api.Project
+      //   ,data: {
+      //     UNIT_ID: common.user.UNIT_ID
+      //     ,CHILDREN_UNIT: 0
+      //     ,PROJUCT_NAME: '血总胆固醇,血高密度胆固醇,血甘油三酯,血低密度胆固醇,白细胞,亚硝酸盐,尿胆原,胆红素,尿潜血,尿蛋白,酸碱度,尿比重,维生素C,尿酮体,葡萄糖,血糖'
+      //     ,YEAR: year
+      //   }
+      //   ,success: function(data){
+      //     if (data.data.length <= 0) {
+      //       return;
+      //     }
+          colorline = {
+            title: {
+              text: '生化数据指标统计',
             },
-            data: [12,21,10,4,12,5,6,5,25,23,7]
-          }
-        ]
+            tooltip : {
+              trigger: 'axis'
+            },
+            legend: {
+                data:['正常数量','偏高数量','偏低数量']
+            },
+            xAxis: {
+              type: 'category',
+              data: ['血总胆固醇','血高密度胆固醇','血甘油三酯']
+            },
+            yAxis: {
+              type: 'value'
+            },
+            series: [{
+              name:'正常数量',
+              data: [21,13,22],
+              type: 'bar'
+            },{
+              name:'偏高数量',
+              data: [45,45,45],
+              type: 'bar'
+            },{
+              name:'偏低数量',
+              data: [1,3,4],
+              type: 'bar'
+            }]
+          };
+    //       $.each(data.data, function(i, item){
+    //         colorline.xAxis.data.push(item.POVERTY_NAME);
+    //         colorline.series[0].data.push(item.COUNT_NUMBER);
+    //       });
+          renderLine(0, colorline);
+    //     }
+    //   });
+    }
+
+    var year = new Date().getFullYear();
+    // $('#chatProjectButton').html('<button class="layui-btn layui-btn-sm layui-btn-normal">' + year + '</button>\
+    //   <button class="layui-btn layui-btn-sm">' + (year - 1) + '</button>');
+    $('#chatProjectButton button').click(function() {
+      if ($(this).hasClass('layui-btn-normal')) {
+        return;
       }
-    ]
-    ,elemColorline = $('#LAY-index-pagetwo').children('div')
-    ,renderColorline = function(index){
+      renderProject($(this).text());
+      $(this).siblings().removeClass('layui-btn-normal');
+      $(this).addClass('layui-btn-normal')
+    });
+
+    var echcolorline = []
+    ,elemColorline = $('#chat-project').children('div')
+    ,renderLine = function(index, colorline){
       echcolorline[index] = echarts.init(elemColorline[index], layui.echartsTheme);
-      echcolorline[index].setOption(colorline[index]);
+      echcolorline[index].setOption(colorline);
       window.onresize = echcolorline[index].resize;
     };
     if(!elemColorline[0]) return;
-    renderColorline(0);
+    renderProject(year);
   });
 
   exports('statistics')

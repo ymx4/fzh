@@ -53,38 +53,50 @@ layui.define(['common'], function(exports){
         colorline = {
           title: {
             text: '贫困人口情况统计',
+            x: 'center'
           },
           tooltip : {
-            trigger: 'axis'
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
           },
-          xAxis: {
-            type: 'category',
+          legend: {
+            orient: 'vertical',
+            x: 'left',
             data: []
           },
-          yAxis: {
-            type: 'value'
-          },
           series: [{
-            data: [],
-            type: 'bar',
+            // data: [],
+            // type: 'bar',
+            // itemStyle: {
+            //   normal: {
+            //     color: function(params) {
+            //       // build a color map as your need.
+            //       var colorList = [
+            //         '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+            //          '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+            //          '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+            //       ];
+            //       return colorList[params.dataIndex]
+            //     }
+            //   }
+            // }
+            name: '访问来源',
+            type: 'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data:[],
             itemStyle: {
-              normal: {
-                color: function(params) {
-                  // build a color map as your need.
-                  var colorList = [
-                    '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
-                     '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-                     '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
-                  ];
-                  return colorList[params.dataIndex]
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
                 }
-              }
             }
           }]
         };
         $.each(data.data, function(i, item){
-          colorline.xAxis.data.push(item.POVERTY_NAME);
-          colorline.series[0].data.push(item.COUNT_NUMBER);
+          colorline.legend.data.push(item.POVERTY_NAME);
+          colorline.series[0].data.push({name: item.POVERTY_NAME, value: item.COUNT_NUMBER});
         });
         renderLine(0, colorline);
       }
@@ -96,18 +108,18 @@ layui.define(['common'], function(exports){
     echarts = layui.echarts;
 
     var renderProject = function (year) {
-      // common.req({
-      //   url: layui.setter.api.Project
-      //   ,data: {
-      //     UNIT_ID: common.user.UNIT_ID
-      //     ,CHILDREN_UNIT: 0
-      //     ,PROJUCT_NAME: '血总胆固醇,血高密度胆固醇,血甘油三酯,血低密度胆固醇,白细胞,亚硝酸盐,尿胆原,胆红素,尿潜血,尿蛋白,酸碱度,尿比重,维生素C,尿酮体,葡萄糖,血糖'
-      //     ,YEAR: year
-      //   }
-      //   ,success: function(data){
-      //     if (data.data.length <= 0) {
-      //       return;
-      //     }
+      common.req({
+        url: layui.setter.api.Project
+        ,data: {
+          UNIT_ID: common.user.UNIT_ID
+          ,CHILDREN_UNIT: 0
+          ,PROJUCT_NAME: '血总胆固醇,血高密度胆固醇,血甘油三酯,血低密度胆固醇,白细胞,亚硝酸盐,尿胆原,胆红素,尿潜血,尿蛋白,酸碱度,尿比重,维生素C,尿酮体,葡萄糖,血糖'
+          ,YEAR: year
+        }
+        ,success: function(data){
+          if (data.data.length <= 0) {
+            return;
+          }
           colorline = {
             title: {
               text: '生化数据指标统计',
@@ -120,32 +132,38 @@ layui.define(['common'], function(exports){
             },
             xAxis: {
               type: 'category',
-              data: ['血总胆固醇','血高密度胆固醇','血甘油三酯']
+              data: [],
+              axisLabel: {  
+                 interval: 0,
+                 rotate: 40
+              }
             },
             yAxis: {
               type: 'value'
             },
             series: [{
               name:'正常数量',
-              data: [21,13,22],
+              data: [],
               type: 'bar'
             },{
               name:'偏高数量',
-              data: [45,45,45],
+              data: [],
               type: 'bar'
             },{
               name:'偏低数量',
-              data: [1,3,4],
+              data: [],
               type: 'bar'
             }]
           };
-    //       $.each(data.data, function(i, item){
-    //         colorline.xAxis.data.push(item.POVERTY_NAME);
-    //         colorline.series[0].data.push(item.COUNT_NUMBER);
-    //       });
+          $.each(data.data, function(i, item){
+            colorline.xAxis.data.push(item.PORJUCT_NAME);
+            colorline.series[0].data.push(item.ZC);
+            colorline.series[1].data.push(item.PG);
+            colorline.series[2].data.push(item.PD);
+          });
           renderLine(0, colorline);
-    //     }
-    //   });
+        }
+      });
     }
 
     var year = new Date().getFullYear();

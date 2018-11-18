@@ -241,25 +241,43 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       var that = this;
       var configlen = $('.xy-config').length;
       $('.xy-config').each(function(index){
-        var dataVal = $(this).attr('data-val');
+        var dataVal = $(this).attr('data-val') || '';
         that.req({
           url: layui.setter.api.GetConfigDetail
           ,data: {
             "CONFIG_ID": $(this).attr('data-cf') ? $(this).attr('data-cf') : 9 //TODO
           }
           ,success: $.proxy(function(data){
-            if (data.data.length > 0) {
-              var html = '<option value="">请选择</option>';
-              for (i = 0; i < data.data.length; i++) {
-                var selected = '';
-                if (dataVal == data.data[i].ID) {
-                  selected = ' selected';
+            var elemType = $(this).data('type');
+            var elemName = $(this).data('name');
+            if (elemType == 'checkbox') {
+              dataVal = dataVal.split(',');
+              if (data.data.length > 0) {
+                var html = '';
+                for (i = 0; i < data.data.length; i++) {
+                  var checked = '';
+                  if (dataVal.indexOf(data.data[i].CONFIG_VALUE) != -1) {
+                    checked = ' checked';
+                  }
+                  html += '<input type="checkbox" name="' + elemName + '" lay-skin="primary"' + checked + ' value="' + data.data[i].CONFIG_VALUE + '" title="' + data.data[i].CONFIG_VALUE + '">';
                 }
-                html += '<option value="' + data.data[i].ID + '"' + selected + '>' + data.data[i].CONFIG_VALUE + '</option>';
+                $(this).append(html);
               }
-              $(this).html(html);
+              form.render('checkbox');
+            } else {
+              if (data.data.length > 0) {
+                var html = '<option value="">请选择</option>';
+                for (i = 0; i < data.data.length; i++) {
+                  var selected = '';
+                  if (dataVal == data.data[i].ID) {
+                    selected = ' selected';
+                  }
+                  html += '<option value="' + data.data[i].ID + '"' + selected + '>' + data.data[i].CONFIG_VALUE + '</option>';
+                }
+                $(this).html(html);
+              }
+              form.render('select');
             }
-            form.render('select');
           }, this)
         });
       });
@@ -560,6 +578,16 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
       content: '<div id="xyseldoctor"></div>',
       title: '选择医生'
     });
+    var elemUnit = elemid.attr('data-unit');
+    var unitId = common.user.UNIT_ID;
+    if (elemUnit) {
+      var tmp = $('#' + elemUnit).val();
+      if (common.empty(tmp)) {
+        layer.msg('请先选择机构');
+        return;
+      }
+      unitId = tmp;
+    }
     view('xyseldoctor').render('common/doctor').done(function(){
       setTimeout(function(){
         common.xyRender({
@@ -567,7 +595,7 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
           ,url: layui.setter.api.GetUserList
           ,where: {
             "KEY_WORD" : "",
-            "UNIT_ID": common.user.UNIT_ID,
+            "UNIT_ID": unitId,
             "ALL_UNIT": 0,
             "GROUP_ID": 0,
             "FAMILY_DOCTOR": 0,

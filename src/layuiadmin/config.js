@@ -201,7 +201,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
         DCPost: 'http://dataserver.hihol.com/Equipment/DCPost.ashx'
       },
     }
-    ,loadsec: 5*1000
+    ,loadsec: 10*1000
     ,dateFormat: {
       day: 'yyyy/MM/dd'
       ,sec: 'yyyy/MM/dd HH:mm:ss'

@@ -386,15 +386,28 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
         });
         $('#clientContainer').on('click', '.setManager', function() {
           var paramsItem = $(this).closest('.caller-item');
+          if ($(this).data('set') == '1') {
+            var userId = xymobile.user.ID;
+          } else {
+            var userId = 0;
+          }
           xymobile.req({
             url: layui.setter.api.SetClientManage
             ,data: {
               CLIENT_ID: paramsItem.data('id')
-              ,MANAGE_USER_ID: xymobile.user.ID
+              ,MANAGE_USER_ID: userId
             }
             ,success: $.proxy(function(data){
-              $(this).remove();
-              paramsItem.find('.has-manager').text('已签约');
+              layer.msg('操作成功');
+              if (userId != 0) {
+                $(this).data('set', '0');
+                $(this).text('取消签约');
+                paramsItem.find('.has-manager').text('已签约');
+              } else {
+                $(this).data('set', '1');
+                $(this).text('签约');
+                paramsItem.find('.has-manager').text('未签约');
+              }
             }, this)
           });
         });

@@ -114,13 +114,14 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       }}
       ,{field: 'ID_NUMBER', title: '身份证号', event:'detail'}
       ,{field: 'MANAGE_REAL_NAME', title: '签约医生', event:'detail'}
-      ,{field: 'EMPHASIS_NAME', title: '重点人群', event:'detail'}
+      ,{field: 'EMPHASIS_CAUSE', title: '重点人群', event:'detail'}
       ,{field: 'CREATE_TIME', title: '建档时间', event:'detail'}
     ];
     if (router.search.t == 'l') {
       cols.push({field: 'MANAGE_UNIT_NAME', title: '管理单位', event:'detail'});
+    } else {
+      cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230});
     }
-    cols.push({title: '操作', align:'center', fixed: 'right', toolbar: '#table-resident', minWidth:230});
     common.xyRender({
       elem: '#xy-resident-manage'
       ,url: layui.setter.api.SearchClient
@@ -319,7 +320,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             $('select[name="OCCUPATION"]').attr('data-val', data.data.OCCUPATION);
             $('select[name="PAYMENT"]').attr('data-val', data.data.PAYMENT);
             $('select[name="POVERTY_ID"]').attr('data-val', data.data.POVERTY_ID);
-            $('select[name="EMPHASIS_ID"]').attr('data-val', data.data.EMPHASIS_ID);
+            $('#ELEM_EMPHASIS_CAUSE').attr('data-val', data.data.EMPHASIS_CAUSE);
             $('select[name="BLOOD_TYPE"]').attr('data-val', data.data.BLOOD_TYPE);
             $('select[name="BLOOD_RH_TYPE"]').attr('data-val', data.data.BLOOD_RH_TYPE);
             $('select[name="SHHJ_RLLX_ID"]').attr('data-val', data.data.SHHJ_RLLX_ID);
@@ -424,6 +425,20 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       form.on('submit(xy-resident-submit)', function(data){
         delete data.field.MANAGE_UNIT_NAME;
         delete data.field.MANAGE_REAL_NAME;
+        $(".resident-form input:checkbox:checked").each(function() {
+          var formKey = $(this).attr('name');
+          if (!data.field[formKey] || data.field[formKey].indexOf(',') == -1) {
+            data.field[formKey] = '';
+          }
+
+          data.field[formKey] += $(this).val() + ',';
+        });
+        if (data.field['EMPHASIS_CAUSE']) {
+          data.field['EMPHASIS_CAUSE'] = data.field['EMPHASIS_CAUSE'].substr(0, data.field['EMPHASIS_CAUSE'].length - 1);
+        } else {
+          data.field['EMPHASIS_CAUSE'] = '';
+        }
+        
         common.req({
           url: layui.setter.api.ModifyClientInfo
           ,formerror: true

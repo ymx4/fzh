@@ -292,14 +292,10 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
             CLIENT_ID: router.search.id
           }
           ,success: $.proxy(function(data){
+            data.data.BIRTHDAY = data.data.BIRTHDAY ? data.data.BIRTHDAY.substring(0, 10) : '';
             form.val('xy-resident-form', data.data);
             $('#CREATE_USER_ID_V').text(data.data.DOCTOR_REAL_NAME);
             $('#UNIT_ID_V').text(data.data.UNIT_NAME);
-            laydate.render({
-              elem: '#BIRTHDAY'
-              ,format: layui.setter.dateFormat.day
-              ,value: data.data.BIRTHDAY ? data.data.BIRTHDAY.substring(0, 10) : ''
-            });
             laydate.render({
               elem: '#CREATE_TIME'
               ,format: layui.setter.dateFormat.day
@@ -403,13 +399,20 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         common.initArea();
         common.initConfig();
 
-        lay('#BIRTHDAY,#CREATE_TIME').each(function(){
+        lay('#CREATE_TIME').each(function(){
           laydate.render({
             elem: this
             ,format: layui.setter.dateFormat.day
           });
         });
       }
+
+      $('#ID_NUMBER').on('blur', function() {
+        var identity = $(this).val();
+        if (identity.length == 18) {
+          $('#BIRTHDAY').val(identity.substr(6, 4) + '/' + identity.substr(10, 2) + '/' + identity.substr(12, 2));
+        }
+      });
 
       $('input[name="WEIGHT"],input[name="HEIGHT"]').on('input', function(){
         var weight = parseInt($('input[name="WEIGHT"]').val());
@@ -424,7 +427,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
       form.on('submit(xy-resident-submit)', function(data){
         delete data.field.MANAGE_UNIT_NAME;
-        delete data.field.MANAGE_REAL_NAME;
+        delete data.field.MANAGE_REAL_NAME;console.log(data.field);return false;
         $(".resident-form input:checkbox:checked").each(function() {
           var formKey = $(this).attr('name');
           if (!data.field[formKey] || data.field[formKey].indexOf(',') == -1) {

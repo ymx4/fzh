@@ -209,9 +209,6 @@ layui.define(['common'], function(exports){
         ,CHILDREN_UNIT: 0
       }
       ,success: function(data){
-        if (data.data.length <= 0) {
-          return;
-        }
         colorline = {
           title: {
             text: '签约统计',
@@ -224,7 +221,7 @@ layui.define(['common'], function(exports){
           legend: {
             orient: 'vertical',
             x: 'left',
-            data: []
+            data: ['未签约', '已签约']
           },
           series: [{
             name: '签约统计',
@@ -241,10 +238,8 @@ layui.define(['common'], function(exports){
             }
           }]
         };
-        $.each(data.data, function(i, item){
-          colorline.legend.data.push(item.POVERTY_NAME);
-          colorline.series[0].data.push({name: item.POVERTY_NAME, value: item.COUNT_NUMBER});
-        });
+        colorline.series[0].data.push({name: '未签约', value: data.data.WQYSL});
+        colorline.series[0].data.push({name: '已签约', value: data.data.QYSL});
         renderLine(0, colorline);
       }
     });

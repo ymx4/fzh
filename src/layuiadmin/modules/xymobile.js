@@ -458,12 +458,8 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
               CLIENT_ID: router.search.id
             }
             ,success: $.proxy(function(data){
+              data.data.BIRTHDAY = data.data.BIRTHDAY ? data.data.BIRTHDAY.substring(0, 10) : '';
               form.val('xy-resident-form', data.data);
-              laydate.render({
-                elem: '#BIRTHDAY'
-                ,format: layui.setter.dateFormat.day
-                ,value: data.data.BIRTHDAY ? data.data.BIRTHDAY.substring(0, 10) : ''
-              });
               laydate.render({
                 elem: '#CREATE_TIME'
                 ,format: layui.setter.dateFormat.day
@@ -484,13 +480,20 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
           xymobile.initArea();
           xymobile.initConfig();
 
-          lay('#BIRTHDAY,#CREATE_TIME').each(function(){
+          lay('#CREATE_TIME').each(function(){
             laydate.render({
               elem: this
               ,format: layui.setter.dateFormat.day
             });
           });
         }
+
+        $('#ID_NUMBER').on('blur', function() {
+          var identity = $(this).val();
+          if (identity.length == 18) {
+            $('#BIRTHDAY').val(identity.substr(6, 4) + '/' + identity.substr(10, 2) + '/' + identity.substr(12, 2));
+          }
+        });
 
         form.on('submit(xy-resident-submit)', function(data){
           data.field.UNIT_ID = xymobile.user.UNIT_ID;

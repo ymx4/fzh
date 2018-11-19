@@ -80,7 +80,7 @@ layui.define(['common'], function(exports){
             //     }
             //   }
             // }
-            name: '访问来源',
+            name: '贫困人口',
             type: 'pie',
             radius : '55%',
             center: ['50%', '60%'],
@@ -134,8 +134,8 @@ layui.define(['common'], function(exports){
               type: 'category',
               data: [],
               axisLabel: {  
-                 interval: 0,
-                 rotate: 40
+                interval: 0,
+                rotate: 40
               }
             },
             yAxis: {
@@ -187,6 +187,138 @@ layui.define(['common'], function(exports){
     };
     if(!elemColorline[0]) return;
     renderProject(year);
+  });
+
+  // 签约
+  layui.use(['echarts'], function(){
+    echarts = layui.echarts;
+
+    var echcolorline = []
+    ,elemColorline = $('#chat-qyys').children('div')
+    ,renderLine = function(index, colorline){
+      echcolorline[index] = echarts.init(elemColorline[index], layui.echartsTheme);
+      echcolorline[index].setOption(colorline);
+      window.onresize = echcolorline[index].resize;
+    };
+    if(!elemColorline[0]) return;
+
+    common.req({
+      url: layui.setter.api.Qyys
+      ,data: {
+        UNIT_ID: common.user.UNIT_ID
+        ,CHILDREN_UNIT: 0
+      }
+      ,success: function(data){
+        if (data.data.length <= 0) {
+          return;
+        }
+        colorline = {
+          title: {
+            text: '签约统计',
+            x: 'center'
+          },
+          tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+          },
+          legend: {
+            orient: 'vertical',
+            x: 'left',
+            data: []
+          },
+          series: [{
+            name: '签约统计',
+            type: 'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data:[],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+          }]
+        };
+        $.each(data.data, function(i, item){
+          colorline.legend.data.push(item.POVERTY_NAME);
+          colorline.series[0].data.push({name: item.POVERTY_NAME, value: item.COUNT_NUMBER});
+        });
+        renderLine(0, colorline);
+      }
+    });
+  });
+
+  // 重点人群统计
+  layui.use(['echarts'], function(){
+    echarts = layui.echarts;
+
+    var renderZdrq = function () {
+      common.req({
+        url: layui.setter.api.Zdrq
+        ,data: {
+          UNIT_ID: common.user.UNIT_ID
+          ,CHILDREN_UNIT: 0
+        }
+        ,success: function(data){
+          if (data.data.length <= 0) {
+            return;
+          }
+          colorline = {
+            title: {
+              text: '重点人群统计',
+            },
+            tooltip : {
+              trigger: 'axis'
+            },
+            xAxis: {
+              type: 'category',
+              data: [],
+              axisLabel: {  
+                interval: 0,
+                rotate: 40
+              }
+            },
+            yAxis: {
+              type: 'value'
+            },
+            series: [{
+              data: [],
+              type: 'bar',
+              itemStyle: {
+                normal: {
+                  color: function(params) {
+                    // build a color map as your need.
+                    var colorList = [
+                      '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                       '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                       '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                    ];
+                    return colorList[params.dataIndex]
+                  }
+                }
+              }
+            }]
+          };
+          $.each(data.data, function(i, item){
+            colorline.xAxis.data.push(item.ZDMC);
+            colorline.series[0].data.push(item.RQSL);
+          });
+          renderLine(0, colorline);
+        }
+      });
+    }
+
+    var echcolorline = []
+    ,elemColorline = $('#chat-zdrq').children('div')
+    ,renderLine = function(index, colorline){
+      echcolorline[index] = echarts.init(elemColorline[index], layui.echartsTheme);
+      echcolorline[index].setOption(colorline);
+      window.onresize = echcolorline[index].resize;
+    };
+    if(!elemColorline[0]) return;
+    renderZdrq();
   });
 
   exports('statistics')

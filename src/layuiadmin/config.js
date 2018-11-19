@@ -177,6 +177,8 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       DCPost: 'http://dataserver.hihol.com/Equipment/DCPost.ashx',
       Poverty: 'http://dataserver.hihol.com/Statistics/Poverty.ashx',
       Project: 'http://dataserver.hihol.com/Statistics/Project.ashx',
+      Qyys: 'http://dataserver.hihol.com/Statistics/Qyys.ashx',
+      Zdrq: 'http://dataserver.hihol.com/Statistics/Zdrq.ashx',
       Client: {
         ChangeClientPassword: 'http://dataserver.hihol.com/Client/Login/ChangeClientPassword.ashx',
         ClientLogin: 'http://dataserver.hihol.com/Client/Login/ClientLogin.ashx',

@@ -279,6 +279,7 @@ layui.define(['common'], function(exports){
               type: 'value'
             },
             series: [{
+              name: '数量',
               data: [],
               type: 'bar',
               itemStyle: {

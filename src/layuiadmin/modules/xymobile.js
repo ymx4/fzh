@@ -695,7 +695,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
               });
             }
           });
-        });;
+        });
       }
     });
   }
@@ -789,6 +789,46 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
         collData.title.attr('data-init', 1);
         var type = collData.title.attr('data-type');
         renderEquipment(clientId, type);
+      }
+    });
+    xymobile.xyRender({
+      elem: '#xy-history-eqdc'
+      ,url: layui.setter.api.GetDCList
+      ,page: false
+      ,where: {
+        "CLIENT_ID": clientId
+      }
+      ,cols: [[
+        {field: 'CREATE_TIME', title: '建立时间', event:'detail'}
+        ,{field: 'REAL_NAME', title: '检测医生', event:'detail'}
+      ]]
+    });
+    table.on('tool(xy-history-eqdc)', function(obj){
+      var data = obj.data;
+      if (obj.event === 'detail') {
+        layer.open({
+          type: 1,
+          area:['100%', $('#LAY_app_body').height() + 'px'],
+          content: '<div id="eqdcDetail"></div>',
+          title: '生理多参详情'
+        });
+        if (data.ECG_DATA) {
+          data.ECG_IMG = getECGImg(data.ID);
+        }
+        data.adapter = 'm';
+        layui.view('eqdcDetail').render('resident/eqdc', data).done(function(){
+          $('.xy-ecg-img').click(function() {
+            var src = $(this).attr('src');
+            if (!xymobile.empty(src)) {
+              layer.open({
+                type:2
+                ,area:['100%', '100%']
+                ,content: src
+                ,title: 'ECG波形图'
+              });
+            }
+          });
+        });
       }
     });
   }

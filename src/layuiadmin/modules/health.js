@@ -143,6 +143,45 @@ layui.define(['table', 'form', 'laytpl', 'common', 'element', 'history'], functi
         renderEquipment(clientId, type);
       }
     });
+    common.xyRender({
+      elem: '#xy-history-eqdc'
+      ,url: layui.setter.api.GetDCList
+      ,page: false
+      ,where: {
+        "CLIENT_ID": clientId
+      }
+      ,cols: [[
+        {field: 'CREATE_TIME', title: '建立时间', event:'detail'}
+        ,{field: 'REAL_NAME', title: '检测医生', event:'detail'}
+      ]]
+    });
+    table.on('tool(xy-history-eqdc)', function(obj){
+      var data = obj.data;
+      if (obj.event === 'detail') {
+        layer.open({
+          type: 1,
+          area:['90%', '90%'],
+          content: '<div id="eqdcDetail"></div>',
+          title: '生理多参详情'
+        });
+        if (data.ECG_DATA) {
+          data.ECG_IMG = getECGImg(data.ID);
+        }
+        layui.view('eqdcDetail').render('resident/eqdc', data).done(function(){
+          var src = $('.xy-ecg-img').attr('src');
+          if (!common.empty(src)) {
+          }
+        });
+      }
+    });
+  }
+
+  var getECGImg = function (id) {
+    if (common.user && common.user.token){
+      return layui.setter.api.ShowECG + '?id=' + id + '&token=' + common.user.token;
+    } else {
+      return layui.setter.api.ShowECG + '?id=' + id;
+    }
   }
 
   var init = {

@@ -9,7 +9,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
   ,common = layui.common
   ,router = layui.router();
 
-  var renderHealth = function(cliendId, edit) {
+  var renderHealth = function(clientId, edit) {
     //公共卫生
     var cols = [
       {field: 'PHYSICAL_EXAMINATION_NO', title: '档案编号', event:'detail'}
@@ -25,7 +25,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       ,url: layui.setter.api.GetPhysicalExaminationList
       ,page: false
       ,where: {
-        "CLIENT_ID": cliendId,
+        "CLIENT_ID": clientId,
         "CREATE_UNIT_ID": 0,
         "CREATE_USER_ID": 0,
         "KEY_WORD" : "",
@@ -44,7 +44,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
       ,url: layui.setter.api.GetDCList
       ,page: false
       ,where: {
-        "CLIENT_ID": cliendId
+        "CLIENT_ID": clientId
       }
       ,cols: [[
         {field: 'CREATE_TIME', title: '建立时间', event:'detail'}

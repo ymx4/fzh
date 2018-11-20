@@ -109,12 +109,14 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
     var cols = [
       {field: 'REAL_NAME', title: '姓名', event:'detail'}
       ,{field: 'SEX_VALUE', title: '性别', event:'detail'}
-      ,{field: 'BIRTHDAY', title: '出生日期', event:'detail',templet: function(d){
+      ,{field: 'BIRTHDAY', title: '出生日期', event:'detail', templet: function(d){
         return common.empty(d.BIRTHDAY) ? '' : d.BIRTHDAY.replace(/00:00:00/, '');
       }}
       ,{field: 'ID_NUMBER', title: '身份证号', event:'detail'}
       ,{field: 'MANAGE_REAL_NAME', title: '签约医生', event:'detail'}
-      ,{field: 'EMPHASIS_CAUSE', title: '重点人群', event:'detail'}
+      ,{field: 'EMPHASIS_CAUSE', title: '重点人群', event:'detail', templet: function(d){
+        return common.empty(d.EMPHASIS_CAUSE) ? '非重点人群' : d.EMPHASIS_CAUSE;
+      }}
       ,{field: 'CREATE_TIME', title: '建档时间', event:'detail'}
     ];
     if (router.search.t == 'l') {
@@ -257,6 +259,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
               data.data[key] = '';
             }
           });
+          data.data.EMPHASIS_CAUSE = common.empty(data.data.EMPHASIS_CAUSE) ? '非重点人群' : data.data.EMPHASIS_CAUSE;
           laytpl(xy_resident_detail.innerHTML).render(data.data, function(html){
             document.getElementById('xy_resident_view').innerHTML = html;
             if (data.data.FACE_FILE_NAME) {

@@ -427,7 +427,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
 
       form.on('submit(xy-resident-submit)', function(data){
         delete data.field.MANAGE_UNIT_NAME;
-        delete data.field.MANAGE_REAL_NAME;console.log(data.field);return false;
+        delete data.field.MANAGE_REAL_NAME;
         $(".resident-form input:checkbox:checked").each(function() {
           var formKey = $(this).attr('name');
           if (!data.field[formKey] || data.field[formKey].indexOf(',') == -1) {

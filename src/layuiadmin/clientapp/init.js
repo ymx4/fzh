@@ -249,9 +249,49 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
         renderEquipment(clientId, type);
       }
     });
+    common.xyRender({
+      elem: '#xy-history-eqdc'
+      ,url: layui.setter.api.Client.GetDCList
+      ,page: false
+      ,where: {
+        "CLIENT_ID": clientId
+      }
+      ,cols: [[
+        {field: 'CREATE_TIME', title: '建立时间', event:'detail'}
+        ,{field: 'REAL_NAME', title: '检测医生', event:'detail'}
+      ]]
+    });
+    table.on('tool(xy-history-eqdc)', function(obj){
+      var data = obj.data;
+      if (obj.event === 'detail') {
+        layer.open({
+          type: 1,
+          area:['100%', $('#LAY_app_body').height() + 'px'],
+          content: '<div id="eqdcDetail"></div>',
+          title: '生理多参详情'
+        });
+        if (data.ECG_DATA) {
+          data.ECG_IMG = getECGImg(data.ID);
+        }
+        data.adapter = 'm';
+        layui.view('eqdcDetail').render('resident/eqdc', data).done(function(){
+          $('.xy-ecg-img').click(function() {
+            var src = $(this).attr('src');
+            if (!common.empty(src)) {
+              layer.open({
+                type:2
+                ,area:['100%', '100%']
+                ,content: src
+                ,title: 'ECG波形图'
+              });
+            }
+          });
+        });;
+      }
+    });
   }
 
-  var renderHealth = function(cliendId, edit) {
+  var renderHealth = function(clientId, edit) {
     //公共卫生
     var cols = [
       {field: 'PHYSICAL_EXAMINATION_NO', title: '档案编号', event:'detail'}
@@ -267,7 +307,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
       ,url: layui.setter.api.Client.GetPhysicalExaminationList
       ,page: false
       ,where: {
-        "CLIENT_ID": cliendId,
+        "CLIENT_ID": clientId,
         "CREATE_UNIT_ID": 0,
         "CREATE_USER_ID": 0,
         "KEY_WORD" : "",
@@ -286,7 +326,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
       ,url: layui.setter.api.Client.GetDCList
       ,page: false
       ,where: {
-        "CLIENT_ID": cliendId
+        "CLIENT_ID": clientId
       }
       ,cols: [[
         {field: 'CREATE_TIME', title: '建立时间', event:'detail'}

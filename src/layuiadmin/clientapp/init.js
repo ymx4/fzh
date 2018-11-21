@@ -310,17 +310,11 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
           $('.xy-ecg-img').click(function() {
             var src = $(this).attr('src');
             if (!common.empty(src)) {
-              layer.photos({
-                photos: {
-                  "title": "预览",
-                  "data": [
-                    {
-                      "alt": "预览",
-                      "src": src
-                    }
-                  ]
-                }
-                ,anim: 5
+              layer.open({
+                type:2
+                ,area:['100%', '100%']
+                ,content: src
+                ,title: 'ECG波形图'
               });
             }
           });
@@ -380,6 +374,14 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
         });
       }
     });
+  }
+
+  var getECGImg = function (id) {
+    if (common.user && common.user.token){
+      return layui.setter.api.ShowECG + '?id=' + id + '&token=' + common.user.token;
+    } else {
+      return layui.setter.api.ShowECG + '?id=' + id;
+    }
   }
 
   exports('init', init)

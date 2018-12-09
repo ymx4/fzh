@@ -358,6 +358,29 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
         $('.addClient').on('click', function() {
           location.href = layui.setter.baseUrl + 'mobile/resident_edit.html';
         });
+        $('#clientContainer').on('click', '.video-call', function() {
+          var ua = window.navigator.userAgent.toLowerCase();
+          if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+            //
+          } else {
+            // android
+            var paramsItem = $(this).closest('.caller-item');
+            callData = {
+              from: {
+                ID: xymobile.user.ID
+                ,REAL_NAME: xymobile.user.REAL_NAME
+                ,TYPE: 'doctor'
+              }
+              ,to: {
+                ID: paramsItem.data('id')
+                ,REAL_NAME: paramsItem.data('name')
+                ,TYPE: 'client'
+              }
+              ,token: xymobile.user.token
+            };
+            js2Android.videoCall(JSON.stringify(callData));
+          }
+        });
         $('#clientContainer').on('click', '.addArrange', function() {
           layer.open({
             type: 2,

@@ -140,6 +140,28 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
       });
       laytpl(xy_doctor_detail.innerHTML).render(clientuser, function(html){
         document.getElementById('xy_doctor_view').innerHTML = html;
+        $('.video-call').on('click', function() {
+          var ua = window.navigator.userAgent.toLowerCase();
+          if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+            //
+          } else {
+            // android
+            callData = {
+              from: {
+                ID: common.user.ID
+                ,REAL_NAME: common.user.REAL_NAME
+                ,TYPE: 'client'
+              }
+              ,to: {
+                ID: common.user.MANAGE_USER_ID
+                ,REAL_NAME: common.user.MANAGE_REAL_NAME
+                ,TYPE: 'doctor'
+              }
+              ,token: common.user.token
+            };
+            js2Android.videoCall(JSON.stringify(callData));
+          }
+        });
       });
     }
     ,healthDetail: function() {

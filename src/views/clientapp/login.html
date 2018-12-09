@@ -104,6 +104,15 @@
             ,icon: 1
             ,time: 1000
           }, function(){
+            var ua = window.navigator.userAgent.toLowerCase();
+            if (ua.match(/holandroid/i) == 'holandroid') {
+              var androidData = {
+                ID: data.data.ID
+                ,REAL_NAME: data.data.REAL_NAME
+                ,TYPE: 'client'
+              };
+              js2Android.holLogin(JSON.stringify(androidData));
+            }
             location.href = 'profile.html';
           });
         }

@@ -142,11 +142,9 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
         document.getElementById('xy_doctor_view').innerHTML = html;
         $('.video-call').on('click', function() {
           var ua = window.navigator.userAgent.toLowerCase();
-          if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-            //
-          } else {
+          if (ua.match(/holandroid/i) == 'holandroid') {
             // android
-            callData = {
+            var callData = {
               from: {
                 ID: common.user.ID
                 ,REAL_NAME: common.user.REAL_NAME

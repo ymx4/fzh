@@ -360,12 +360,10 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
         });
         $('#clientContainer').on('click', '.video-call', function() {
           var ua = window.navigator.userAgent.toLowerCase();
-          if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-            //
-          } else {
+          if (ua.match(/holandroid/i) == 'holandroid') {
             // android
             var paramsItem = $(this).closest('.caller-item');
-            callData = {
+            var callData = {
               from: {
                 ID: xymobile.user.ID
                 ,REAL_NAME: xymobile.user.REAL_NAME

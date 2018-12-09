@@ -104,7 +104,19 @@
             ,time: 1000
           }, function(){
             if (router.search.redirect) {
-              location.href = decodeURIComponent(router.search.redirect);
+              var decodeRedirect = decodeURIComponent(router.search.redirect);
+              if (decodeRedirect.indexOf('/mobile/') != -1) {
+                var ua = window.navigator.userAgent.toLowerCase();
+                if (ua.match(/holandroid/i) == 'holandroid') {
+                  var androidData = {
+                    ID: data.data.ID
+                    ,REAL_NAME: data.data.REAL_NAME
+                    ,TYPE: 'doctor'
+                  };
+                  js2Android.holLogin(JSON.stringify(androidData));
+                }
+              }
+              location.href = decodeRedirect;
             } else {
               location.href = layui.setter.baseUrl + 'index.html';
             }

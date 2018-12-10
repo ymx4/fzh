@@ -630,6 +630,26 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
     });
   };
 
+  admin.events.xyprint = function(elem){
+    var printWin = window.open('打印窗口', '_blank')
+    ,style = ['<style>'
+      ,'body{font-size: 12px; color: #666;}'
+      ,'table{width: 100%; border-collapse: collapse; border-spacing: 0;}'
+      ,'th,td{line-height: 20px; padding: 9px 15px; border: 1px solid #ccc; text-align: left; font-size: 12px; color: #666;}'
+      ,'a{color: #666; text-decoration:none;}'
+      ,'*.layui-hide{display: none}'
+    ,'</style>'].join('')
+    ,html = $($(elem).html());
+    
+    html.find('th.layui-table-patch').remove();
+    html.find('.layui-table-col-special').remove();
+    
+    printWin.document.write(style + html.prop('outerHTML'));
+    printWin.document.close();
+    printWin.print();
+    printWin.close();
+  }
+
   var formatTree = function(data) {
     if (data.HOSPITAL_UNIT_INFO) {
       var node = {name: data.HOSPITAL_UNIT_INFO.UNIT_NAME, id: data.HOSPITAL_UNIT_INFO.ID, spread: true};

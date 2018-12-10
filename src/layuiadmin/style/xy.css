@@ -127,3 +127,4 @@ td[lay-event=detail] {
 }
 .xy-dataview{height: 500px !important;}
 .xy-dataview>*[carousel-item]>div{height: 500px;}
+.xy-print{position: absolute;right: 17px;top: 10px;cursor: pointer;}

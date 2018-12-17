@@ -15,6 +15,34 @@
   <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
       <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-filter="xy-chat-search-form">
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">所属机构</label>
+              <div class="layui-input-block">
+                <div class="layui-inline xy-form-group">
+                  <input type="hidden" id="UNIT_ID" name="UNIT_ID">
+                  <input type="text" id="UNIT_NAME" name="UNIT_NAME" disabled class="layui-input">
+                  <div class="layui-btn-group">
+                    <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyins" data-id="UNIT_ID" data-name="UNIT_NAME">选择</button>
+                    <button type="button" class="layui-btn layui-btn-primary" layadmin-event="xyinscancel" data-id="UNIT_ID" data-name="UNIT_NAME">本机构</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">子机构</label>
+              <div class="layui-input-block">
+                  <input type="checkbox" name="CHILDREN_UNIT" title="包含" value="1">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="xy-chat-search">
+                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+              </button>
+            </div>
+          </div>
+        </div>
         <div class="layui-card-body">
           <div class="layui-carousel layadmin-carousel layadmin-dataview xy-dataview" data-anim="fade" lay-filter="chat-poverty">
             <div carousel-item id="chat-poverty">
@@ -33,6 +61,7 @@
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index', 'statistics'], function() {
+    layui.statistics.init.poverty();
   });
   </script>
 </body>

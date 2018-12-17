@@ -1,6 +1,8 @@
-layui.define(['common'], function(exports){
+layui.define(['common', 'echarts', 'form'], function(exports){
   var $ = layui.$
-  ,common = layui.common;
+  ,common = layui.common
+  ,echarts = layui.echarts
+  ,form = layui.form;
 
   //区块轮播切换
   layui.use(['carousel'], function(){
@@ -27,10 +29,67 @@ layui.define(['common'], function(exports){
     
   });
 
-  // 贫困户
-  layui.use(['echarts'], function(){
-    echarts = layui.echarts;
+  var init = {
+    poverty: function() {
+      //机构管理
+      form.val('xy-chat-search-form', {
+        UNIT_ID: common.user.UNIT_ID
+        ,UNIT_NAME: common.user.UNIT_NAME
+        ,CHILDREN_UNIT: 0
+      });
+      chatPoverty(common.user.UNIT_ID, 0);
 
+      //监听搜索
+      form.on('submit(xy-chat-search)', function(data){
+        chatPoverty(data.field.UNIT_ID, data.field.CHILDREN_UNIT || 0);
+      });
+    }
+    ,project: function() {
+      //机构管理
+      form.val('xy-chat-search-form', {
+        UNIT_ID: common.user.UNIT_ID
+        ,UNIT_NAME: common.user.UNIT_NAME
+        ,CHILDREN_UNIT: 0
+      });
+      chatProject(common.user.UNIT_ID, 0);
+
+      //监听搜索
+      form.on('submit(xy-chat-search)', function(data){
+        chatProject(data.field.UNIT_ID, data.field.CHILDREN_UNIT || 0);
+      });
+    }
+    ,qyys: function() {
+      //机构管理
+      form.val('xy-chat-search-form', {
+        UNIT_ID: common.user.UNIT_ID
+        ,UNIT_NAME: common.user.UNIT_NAME
+        ,CHILDREN_UNIT: 0
+      });
+      chatQyys(common.user.UNIT_ID, 0);
+
+      //监听搜索
+      form.on('submit(xy-chat-search)', function(data){
+        chatQyys(data.field.UNIT_ID, data.field.CHILDREN_UNIT || 0);
+      });
+    }
+    ,zdrq: function() {
+      //机构管理
+      form.val('xy-chat-search-form', {
+        UNIT_ID: common.user.UNIT_ID
+        ,UNIT_NAME: common.user.UNIT_NAME
+        ,CHILDREN_UNIT: 0
+      });
+      chatZdrq(common.user.UNIT_ID, 0);
+
+      //监听搜索
+      form.on('submit(xy-chat-search)', function(data){
+        chatZdrq(data.field.UNIT_ID, data.field.CHILDREN_UNIT || 0);
+      });
+    }
+  }
+
+  // 贫困户
+  var chatPoverty = function(unitId, childUnit){
     var echcolorline = []
     ,elemColorline = $('#chat-poverty').children('div')
     ,renderLine = function(index, colorline){
@@ -43,8 +102,8 @@ layui.define(['common'], function(exports){
     common.req({
       url: layui.setter.api.Poverty
       ,data: {
-        UNIT_ID: common.user.UNIT_ID
-        ,CHILDREN_UNIT: 0
+        UNIT_ID: unitId
+        ,CHILDREN_UNIT: childUnit
       }
       ,success: function(data){
         if (data.data.length <= 0) {
@@ -101,18 +160,16 @@ layui.define(['common'], function(exports){
         renderLine(0, colorline);
       }
     });
-  });
+  };
 
   // 生化
-  layui.use(['echarts'], function(){
-    echarts = layui.echarts;
-
+  var chatProject = function(unitId, childUnit){
     var renderProject = function (year) {
       common.req({
         url: layui.setter.api.Project
         ,data: {
-          UNIT_ID: common.user.UNIT_ID
-          ,CHILDREN_UNIT: 0
+          UNIT_ID: unitId
+          ,CHILDREN_UNIT: childUnit
           ,PROJUCT_NAME: '血总胆固醇,血高密度胆固醇,血甘油三酯,血低密度胆固醇,白细胞,亚硝酸盐,尿胆原,胆红素,尿潜血,尿蛋白,酸碱度,尿比重,维生素C,尿酮体,葡萄糖,血糖'
           ,YEAR: year
         }
@@ -187,12 +244,10 @@ layui.define(['common'], function(exports){
     };
     if(!elemColorline[0]) return;
     renderProject(year);
-  });
+  };
 
   // 签约
-  layui.use(['echarts'], function(){
-    echarts = layui.echarts;
-
+  var chatQyys = function(unitId, childUnit){
     var echcolorline = []
     ,elemColorline = $('#chat-qyys').children('div')
     ,renderLine = function(index, colorline){
@@ -205,8 +260,8 @@ layui.define(['common'], function(exports){
     common.req({
       url: layui.setter.api.Qyys
       ,data: {
-        UNIT_ID: common.user.UNIT_ID
-        ,CHILDREN_UNIT: 0
+        UNIT_ID: unitId
+        ,CHILDREN_UNIT: childUnit
       }
       ,success: function(data){
         colorline = {
@@ -243,18 +298,16 @@ layui.define(['common'], function(exports){
         renderLine(0, colorline);
       }
     });
-  });
+  };
 
   // 重点人群统计
-  layui.use(['echarts'], function(){
-    echarts = layui.echarts;
-
+  var chatZdrq = function(unitId, childUnit){
     var renderZdrq = function () {
       common.req({
         url: layui.setter.api.Zdrq
         ,data: {
-          UNIT_ID: common.user.UNIT_ID
-          ,CHILDREN_UNIT: 0
+          UNIT_ID: unitId
+          ,CHILDREN_UNIT: childUnit
         }
         ,success: function(data){
           if (data.data.length <= 0) {
@@ -315,8 +368,8 @@ layui.define(['common'], function(exports){
     };
     if(!elemColorline[0]) return;
     renderZdrq();
-  });
+  };
 
-  exports('statistics')
+  exports('statistics', {init: init})
 
 });

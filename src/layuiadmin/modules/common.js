@@ -631,23 +631,27 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
   };
 
   admin.events.xyprint = function(elem){
-    var printWin = window.open('打印窗口', '_blank')
-    ,style = ['<style>'
-      ,'body{font-size: 12px; color: #666;}'
-      ,'table{width: 100%; border-collapse: collapse; border-spacing: 0;}'
-      ,'th,td{line-height: 20px; padding: 9px 15px; border: 1px solid #ccc; text-align: left; font-size: 12px; color: #666;}'
-      ,'a{color: #666; text-decoration:none;}'
-      ,'*.layui-hide{display: none}'
-    ,'</style>'].join('')
-    ,html = $($(elem).html());
+    var printWin = window.open('/src/views/resident/detail.html#/id=6', '_blank')
+    // ,style = ['<style>'
+    //   ,'body{font-size: 12px; color: #666;}'
+    //   ,'table{width: 100%; border-collapse: collapse; border-spacing: 0;}'
+    //   ,'th,td{line-height: 20px; padding: 9px 15px; border: 1px solid #ccc; text-align: left; font-size: 12px; color: #666;}'
+    //   ,'a{color: #666; text-decoration:none;}'
+    //   ,'*.layui-hide{display: none}'
+    // ,'</style>'].join('');
+    // var topLayui = top.layui;
+    // var iframe = topLayui.admin.tabsBody(topLayui.admin.tabsPage.index).find('.layadmin-iframe');
+    // var html = $($(iframe[0].contentWindow.document.body).html());
+    // html.find('th.layui-table-patch').remove();
+    // html.find('.layui-table-col-special').remove();
     
-    html.find('th.layui-table-patch').remove();
-    html.find('.layui-table-col-special').remove();
-    
-    printWin.document.write(style + html.prop('outerHTML'));
-    printWin.document.close();
+    // printWin.document.write(style + html.prop('outerHTML'));
+    // printWin.document.close();
+    setTimeout(function(){ 
+      
     printWin.print();
     printWin.close();
+    }, 3000);
   }
 
   var formatTree = function(data) {

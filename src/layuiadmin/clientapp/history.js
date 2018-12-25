@@ -19,22 +19,40 @@ layui.define(['common', 'table'], function(exports){
   };
 
   var equipmentSort = {
-    data1: {id:1,name:'血总胆固醇'}
-    ,data2: {id:2,name:'血高密度胆固醇'}
-    ,data3: {id:3,name:'血甘油三酯'}
-    ,data4: {id:4,name:'血低密度胆固醇'}
-    ,data5: {id:5,name:'白细胞'}
-    ,data6: {id:6,name:'亚硝酸盐'}
-    ,data7: {id:7,name:'尿胆原'}
-    ,data8: {id:8,name:'胆红素'}
-    ,data9: {id:9,name:'尿潜血'}
-    ,data10: {id:10,name:'尿蛋白'}
-    ,data11: {id:11,name:'酸碱度'}
-    ,data12: {id:12,name:'尿比重'}
-    ,data13: {id:13,name:'维生素C'}
-    ,data14: {id:14,name:'尿酮体'}
-    ,data15: {id:15,name:'葡萄糖'}
-    ,data16: {id:16,name:'血糖'}
+    cat1: {
+      name:'血糖',
+      multi: false,
+      children:{
+        data16: {id:16,name:'血糖'}
+      }
+    }
+    ,cat2: {
+      name:'血液四项',
+      multi: true,
+      children:{
+        data1: {id:1,name:'血总胆固醇'}
+        ,data3: {id:3,name:'血甘油三酯'}
+        ,data2: {id:2,name:'血高密度胆固醇'}
+        ,data4: {id:4,name:'血低密度胆固醇'}
+      }
+    }
+    ,cat3: {
+      name:'尿常规',
+      multi: true,
+      children:{
+        data5: {id:5,name:'白细胞'}
+        ,data6: {id:6,name:'亚硝酸盐'}
+        ,data7: {id:7,name:'尿胆原'}
+        ,data8: {id:8,name:'胆红素'}
+        ,data9: {id:9,name:'尿潜血'}
+        ,data10: {id:10,name:'尿蛋白'}
+        ,data11: {id:11,name:'酸碱度'}
+        ,data12: {id:12,name:'尿比重'}
+        ,data13: {id:13,name:'维生素C'}
+        ,data14: {id:14,name:'尿酮体'}
+        ,data15: {id:15,name:'葡萄糖'}
+      }
+    }
   };
 
   var healthSort = {
@@ -46,12 +64,15 @@ layui.define(['common', 'table'], function(exports){
   };
 
   var renderEquipment = function(clientId, equipmentType){
+    var arrType = equipmentType.split('-');
+    var ptype = arrType[0];
+    var stype = arrType[1];
     common.xyRender({
       elem: '#xy-equipment-' + equipmentType
       ,url: layui.setter.api.Client.GetDataFormClientID
       ,where: {
         "CLIENT_ID": clientId
-        ,"PROJECT_ID": equipmentSort[equipmentType].id
+        ,"PROJECT_ID": equipmentSort[ptype].children[stype].id
         // ,"ID_NUMBER": ''
         // ,"SATRT_DATE": ''
         // ,"END_DATE": ''

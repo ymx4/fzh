@@ -955,16 +955,29 @@
         </div>
       </div>
       <div class="layui-card">
-        <div class="layui-card-header">健康在线生化数据</div>
+        <div class="layui-card-header">生化数据</div>
         <div class="layui-card-body">
           <div class="layui-collapse" lay-filter="collapse-equipment">
             {{#  layui.each(d.equipmentSort, function(index, item){ }}
-              <div class="layui-colla-item">
-                <h2 class="layui-colla-title" data-type="{{index}}">{{item.name}}</h2>
-                <div class="layui-colla-content">
-                  <table id="xy-equipment-{{index}}" lay-filter="xy-equipment-{{index}}"></table>
+              {{# if (item.multi) { }}
+                <div class="layui-colla-item">
+                  <h2 class="layui-colla-title" data-init="1">{{item.name}}</h2>
+                  <div class="layui-colla-content layui-show">
+                    <div class="layui-collapse" lay-filter="collapse-equipment">
+              {{# } }}
+                    {{#  layui.each(item.children, function(subindex, subitem){ }}
+                      <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" data-type="{{index}}-{{subindex}}">{{subitem.name}}</h2>
+                        <div class="layui-colla-content">
+                          <table id="xy-equipment-{{index}}-{{subindex}}" lay-filter="xy-equipment-{{index}}-{{subindex}}"></table>
+                        </div>
+                      </div>
+                    {{#  }); }}
+              {{# if (item.multi) { }}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              {{# } }}
             {{#  }); }}
           </div>
         </div>

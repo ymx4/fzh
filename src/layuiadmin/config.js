@@ -179,6 +179,8 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       Project: 'http://dataserver.hihol.com/Statistics/Project.ashx',
       Qyys: 'http://dataserver.hihol.com/Statistics/Qyys.ashx',
       Zdrq: 'http://dataserver.hihol.com/Statistics/Zdrq.ashx',
+      ModificationPact: 'http://dataserver.hihol.com/Hospital/ModificationPact.ashx',
+      GetPact: 'http://dataserver.hihol.com/Hospital/GetPact.ashx',
       Client: {
         ChangeClientPassword: 'http://dataserver.hihol.com/Client/Login/ChangeClientPassword.ashx',
         ClientLogin: 'http://dataserver.hihol.com/Client/Login/ClientLogin.ashx',
@@ -200,7 +202,8 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
         UnreadMessage: 'http://dataserver.hihol.com/Client/Login/Message/UnreadMessage.ashx',
         ReceiveClient34: 'http://dataserver.hihol.com/ReceiveData/ReceiveClient34.ashx',
         GetDCList: 'http://dataserver.hihol.com/Equipment/GetDCList.ashx',
-        DCPost: 'http://dataserver.hihol.com/Equipment/DCPost.ashx'
+        DCPost: 'http://dataserver.hihol.com/Equipment/DCPost.ashx',
+        ReadPact: 'http://dataserver.hihol.com/Hospital/ReadPact.ashx'
       },
     }
     ,loadsec: 10*1000

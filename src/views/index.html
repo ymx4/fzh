@@ -183,6 +183,9 @@
           <dd><a lay-href="department/list.html">科室管理</a></dd>
           <dd><a lay-href="">意见反馈</a></dd>
           <dd><a lay-href="">内部公告</a></dd>
+          {{# if (d.user.UNIT_TYPE == 30) { }}
+          <dd><a lay-href="institution/pact.html">合同管理</a></dd>
+          {{# } }}
         </dl>
       </li>
       {{# } }}

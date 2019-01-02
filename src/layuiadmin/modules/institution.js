@@ -85,6 +85,28 @@ layui.define(['table', 'form', 'common', 'admin'], function(exports){
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
       });
     }
+    ,pact: function() {
+      common.req({
+        url: layui.setter.api.GetPact
+        ,data: {}
+        ,success: $.proxy(function(data){
+          form.val('xy-pact-form', data.data);
+        }, this)
+      });
+
+      form.on('submit(xy-pact-submit)', function(data){
+        common.req({
+          url: layui.setter.api.ModificationPact
+          ,formerror: true
+          ,data: data.field
+          ,success: function(data){
+            layer.msg('操作成功', function() {
+            });
+          }
+        });
+        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+      });
+    }
   }
 
   exports('institution', {init: init})

@@ -405,6 +405,14 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
             js2Android.showDCDetailsActivity('doctor', paramsItem.data('id'), paramsItem.data('name'), layui.setter.api.DCPost + '?token=' + xymobile.user.token);
           }
         });
+        $('#clientContainer').on('click', '.getBlood', function() {
+          var ua = window.navigator.userAgent.toLowerCase();
+          // android
+          if (ua.match(/holandroid/i) == 'holandroid') {
+            var paramsItem = $(this).closest('.caller-item');
+            js2Android.showBloodDetailsActivity('doctor', paramsItem.data('id'), paramsItem.data('name'), layui.setter.api.DCPost + '?token=' + xymobile.user.token);
+          }
+        });
         $('#clientContainer').on('click', '.setManager', function() {
           var paramsItem = $(this).closest('.caller-item');
           if ($(this).data('set') == '1') {
@@ -650,6 +658,8 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
   };
 
   var renderHealth = function(cliendId, edit) {
+    var renderHistory = layui.history.renderHistory;
+    renderHistory.pinggu({"CLIENT_ID" : clientId});
     //公共卫生
     var cols = [
       {field: 'PHYSICAL_EXAMINATION_NO', title: '档案编号', event:'detail'}
@@ -783,8 +793,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
       ,success: function(data){
         laytpl(clientTpl.innerHTML).render({
           clientList: data.data,
-          detailUrl: layui.setter.baseUrl + 'mobile/resident_detail.html',
-          equipmentUrl: layui.setter.baseUrl + 'mobile/equipment.html',
+          detailUrl: layui.setter.baseUrl + 'mobile/resident_detail.html'
         }, function(html){
           next(html, data.message > layui.setter.pageSize * page);
         });
@@ -805,6 +814,7 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
         "HISTORY_SORT_ID": historySort[item].id
       });
     });
+    renderHistory.pinggu({"CLIENT_ID" : clientId});
     element.on('collapse(collapse-equipment)', function(collData){
       if (collData.show && !collData.title.attr('data-init')) {
         collData.title.attr('data-init', 1);

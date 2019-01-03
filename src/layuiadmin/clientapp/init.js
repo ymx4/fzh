@@ -97,6 +97,13 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
             js2Android.showDCDetailsActivity('client', common.user.ID, common.user.REAL_NAME, layui.setter.api.Client.DCPost + '?token=' + common.user.token);
           }
       });
+      $('.sel-blood').on('click', function() {
+          var ua = window.navigator.userAgent.toLowerCase();
+          // android
+          if (ua.match(/holandroid/i) == 'holandroid') {
+            js2Android.showBloodDetailsActivity('client', common.user.ID, common.user.REAL_NAME, layui.setter.api.Client.DCPost + '?token=' + common.user.token);
+          }
+      });
     }
     ,equipment: function() {
       if (!router.search.params) {
@@ -159,6 +166,27 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
             };
             js2Android.videoCall(JSON.stringify(callData));
           }
+        });
+        $('.read-pact').on('click', function() {
+          common.req({
+            url: layui.setter.api.Client.ReadPact
+            ,formerror: true
+            ,data: {
+              CLIENT_ID: common.user.ID
+            }
+            ,success: function(data){
+              if (common.empty(data.data)) {
+                layer.msg('暂无内容', function() {
+                });
+              } else {
+                layer.open({
+                  type: 1,
+                  content: '<div style="margin:5px;">' + data.data + '</div>',
+                  title: '合同内容'
+                });
+              }
+            }
+          });
         });
       });
     }
@@ -262,6 +290,7 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
         "HISTORY_SORT_ID": historySort[item].id
       });
     });
+    renderHistory.pinggu({"CLIENT_ID" : clientId});
     element.on('collapse(collapse-equipment)', function(collData){
       if (collData.show && !collData.title.attr('data-init')) {
         collData.title.attr('data-init', 1);
@@ -312,6 +341,8 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
   }
 
   var renderHealth = function(clientId, edit) {
+    var renderHistory = layui.history.renderHistory;
+    renderHistory.pinggu({"CLIENT_ID" : clientId});
     //公共卫生
     var cols = [
       {field: 'PHYSICAL_EXAMINATION_NO', title: '档案编号', event:'detail'}

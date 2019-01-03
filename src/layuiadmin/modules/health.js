@@ -136,6 +136,7 @@ layui.define(['table', 'form', 'laytpl', 'common', 'element', 'history'], functi
         "HISTORY_SORT_ID": historySort[item].id
       });
     });
+    renderHistory.pinggu({"CLIENT_ID" : clientId});
     element.on('collapse(collapse-equipment)', function(collData){
       if (collData.show && !collData.title.attr('data-init')) {
         collData.title.attr('data-init', 1);

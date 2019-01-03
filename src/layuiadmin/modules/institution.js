@@ -86,25 +86,53 @@ layui.define(['table', 'form', 'common', 'admin'], function(exports){
       });
     }
     ,pact: function() {
-      common.req({
-        url: layui.setter.api.GetPact
-        ,data: {}
-        ,success: $.proxy(function(data){
-          form.val('xy-pact-form', data.data);
-        }, this)
-      });
+      layui.use(['layedit'], function(){
+        var $ = layui.$
+        ,layedit = layui.layedit;
 
-      form.on('submit(xy-pact-submit)', function(data){
-        common.req({
-          url: layui.setter.api.ModificationPact
-          ,formerror: true
-          ,data: data.field
-          ,success: function(data){
-            layer.msg('操作成功', function() {
-            });
-          }
+        var editIndex = layedit.build('PACT', {
+          tool: [
+            'strong' //加粗
+            ,'italic' //斜体
+            ,'underline' //下划线
+            ,'del' //删除线
+            
+            // ,'|' //分割线
+            
+            ,'left' //左对齐
+            ,'center' //居中对齐
+            ,'right' //右对齐
+            ,'link' //超链接
+            ,'unlink' //清除链接
+            ,'face' //表情
+            // ,'image' //插入图片
+            // ,'help' //帮助
+          ]
         });
-        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+
+        common.req({
+          url: layui.setter.api.GetPact
+          ,data: {}
+          ,success: $.proxy(function(data){
+            layedit.setContent(editIndex, data.data);
+          }, this)
+        });
+
+        form.on('submit(xy-pact-submit)', function(data){
+          common.req({
+            url: layui.setter.api.ModificationPact
+            ,formerror: true
+            ,data: {
+              PACT: layedit.getContent(editIndex)
+            }
+            ,success: function(data){
+              layer.msg('操作成功', function() {
+              });
+            }
+          });
+          return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+        
       });
     }
   }

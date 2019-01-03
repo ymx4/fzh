@@ -10,6 +10,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
   ,router = layui.router();
 
   var renderHealth = function(clientId, edit) {
+    var renderHistory = layui.history.renderHistory;
+    renderHistory.pinggu({"CLIENT_ID" : clientId});
     //公共卫生
     var cols = [
       {field: 'PHYSICAL_EXAMINATION_NO', title: '档案编号', event:'detail'}
@@ -244,6 +246,14 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           });
         } else if (obj.event === 'detail') {
           parent.layui.index.openTabsPage('resident/detail.html#/id=' + obj.data.ID, '查看-' + data.REAL_NAME);
+        } else if (obj.event === 'pinggu') {
+          common.req({
+            url: layui.setter.api.GetPingGu
+            ,data: {CLIENT_ID: obj.data.ID}
+            ,success: function(res){
+              top.layui.index.openTabsPage(res.data, '评估-' + data.REAL_NAME);
+            }
+          });
         }
       });
     }
@@ -402,11 +412,9 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         common.initArea();
         common.initConfig();
 
-        lay('#CREATE_TIME').each(function(){
-          laydate.render({
-            elem: this
-            ,format: layui.setter.dateFormat.day
-          });
+        laydate.render({
+          elem: '#CREATE_TIME'
+          ,format: layui.setter.dateFormat.day
         });
       }
 

@@ -463,6 +463,29 @@ layui.define(['common', 'table'], function(exports){
         ,cols: [cols]
       });
     }
+
+    ,pinggu: function(where){
+      //评估
+      var cols = [
+        {type: 'numbers', title: '序号'}
+        ,{field: 'CREATE_TIME', title: '估计日期', event:'detail'}
+        ,{title: '操作', event:'detail', templet: function(d){
+          return '点击查看';
+        }}
+      ];
+      common.xyRender({
+        elem: '#xy-history-pinggu'
+        ,url: layui.setter.api.Client.GetPingGuClientInfo
+        ,where: where
+        ,cols: [cols]
+      });
+      
+      table.on('tool(xy-history-pinggu)', function(obj){
+        if (obj.event === 'detail') {
+          location.href = 'http://115.182.204.16:8801/jingjue/neonu/outappraise?appId=A058&CurrentData=' + obj.data.REPORT_ID;
+        }
+      });
+    }
   };
 
   exports('history', {

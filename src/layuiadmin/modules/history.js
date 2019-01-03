@@ -531,7 +531,7 @@ layui.define(['common', 'table'], function(exports){
       ];
       common.xyRender({
         elem: '#xy-history-pinggu'
-        ,url: layui.setter.api.Client.GetPingGuInfo
+        ,url: layui.setter.api.GetPingGuInfo
         ,where: where
         ,cols: [cols]
       });

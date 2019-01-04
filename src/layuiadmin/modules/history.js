@@ -526,7 +526,7 @@ layui.define(['common', 'table'], function(exports){
         {type: 'numbers', title: '序号'}
         ,{field: 'CREATE_TIME', title: '估计日期', event:'detail'}
         ,{title: '操作', event:'detail', templet: function(d){
-          return '点击查看';
+          return '点击行查看';
         }}
       ];
       common.xyRender({

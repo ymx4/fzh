@@ -532,13 +532,23 @@ layui.define(['common', 'table'], function(exports){
       common.xyRender({
         elem: '#xy-history-pinggu'
         ,url: layui.setter.api.GetPingGuInfo
-        ,where: where
+        ,where: {CLIENT_ID:602}
         ,cols: [cols]
       });
       
       table.on('tool(xy-history-pinggu)', function(obj){
         if (obj.event === 'detail') {
-          location.href = 'http://115.182.204.16:8801/jingjue/neonu/outappraise?appId=A058&CurrentData=' + obj.data.REPORT_ID;
+          if (layui.router().search.adapter == 'm') {
+            layer.open({
+              type: 2,
+              area:['100%', $('#LAY_app_body').height() + 'px'],
+              content: 'http://115.182.204.16:8801/jingjue/neonu/outappraise?appId=A058&CurrentData=' + obj.data.REPORT_ID,
+              title: '评估报告'
+            });
+          } else {
+            var postdata = JSON.parse(obj.data.POST_DATA);
+            top.layui.index.openTabsPage('http://115.182.204.16:8801/jingjue/neonu/outappraise?appId=A058&CurrentData=' + obj.data.REPORT_ID, '评估报告-' + postdata.fullname);
+          }
         }
       });
     }

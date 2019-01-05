@@ -482,7 +482,12 @@ layui.define(['common', 'table'], function(exports){
       
       table.on('tool(xy-history-pinggu)', function(obj){
         if (obj.event === 'detail') {
-          location.href = 'http://115.182.204.16:8801/jingjue/neonu/outappraise?appId=A058&CurrentData=' + obj.data.REPORT_ID;
+          layer.open({
+            type: 2,
+            area:['100%', $('#LAY_app_body').height() + 'px'],
+            content: 'http://115.182.204.16:8801/jingjue/neonu/outappraise?appId=A058&CurrentData=' + obj.data.REPORT_ID,
+            title: '评估报告'
+          });
         }
       });
     }

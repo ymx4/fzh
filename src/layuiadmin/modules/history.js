@@ -532,7 +532,7 @@ layui.define(['common', 'table'], function(exports){
       common.xyRender({
         elem: '#xy-history-pinggu'
         ,url: layui.setter.api.GetPingGuInfo
-        ,where: {CLIENT_ID:602}
+        ,where: where
         ,cols: [cols]
       });
       

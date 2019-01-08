@@ -415,30 +415,37 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
         });
         $('#clientContainer').on('click', '.setManager', function() {
           var paramsItem = $(this).closest('.caller-item');
+          var that = $(this);
           if ($(this).data('set') == '1') {
             var userId = xymobile.user.ID;
+            xymobile.req({
+              url: layui.setter.api.GetPact
+              ,data: {}
+              ,success: $.proxy(function(data){
+                if (!xymobile.empty(data.data)) {
+                  layer.open({
+                    area:['100%', $('#LAY_app_body').height() + 'px'],
+                    content: data.data,
+                    title: '签约协议',
+                    btn: ['同意', '取消'],
+                    yes: function(index, layero){
+                      setManager(that, paramsItem, userId);
+                      layer.close(index);
+                    },
+                    btn2: function(index, layero){
+                    },
+                    cancel: function(){ 
+                    }
+                  });
+                } else {
+                  setManager(that, paramsItem, userId);
+                }
+              }, this)
+            });
           } else {
             var userId = 0;
+            setManager(that, paramsItem, userId);
           }
-          xymobile.req({
-            url: layui.setter.api.SetClientManage
-            ,data: {
-              CLIENT_ID: paramsItem.data('id')
-              ,MANAGE_USER_ID: userId
-            }
-            ,success: $.proxy(function(data){
-              layer.msg('操作成功');
-              if (userId != 0) {
-                $(this).data('set', '0');
-                $(this).text('取消签约');
-                paramsItem.find('.has-manager').text('已签约');
-              } else {
-                $(this).data('set', '1');
-                $(this).text('签约');
-                paramsItem.find('.has-manager').text('未签约');
-              }
-            }, this)
-          });
         });
       }
       ,residentDetail: function() {
@@ -656,6 +663,28 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
       }
     }
   };
+
+  var setManager = function(that, paramsItem, userId) {
+    xymobile.req({
+      url: layui.setter.api.SetClientManage
+      ,data: {
+        CLIENT_ID: paramsItem.data('id')
+        ,MANAGE_USER_ID: userId
+      }
+      ,success: function(data){
+        layer.msg('操作成功');
+        if (userId != 0) {
+          that.data('set', '0');
+          that.text('取消签约');
+          paramsItem.find('.has-manager').text('已签约');
+        } else {
+          that.data('set', '1');
+          that.text('签约');
+          paramsItem.find('.has-manager').text('未签约');
+        }
+      }
+    });
+  }
 
   var renderHealth = function(clientId, edit) {
     var renderHistory = layui.history.renderHistory;

@@ -571,7 +571,37 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
     $('#' + elemid.attr('data-name')).attr('title', elemid.text());
   }
 
+  admin.events.xysetmanager = function(elemid){
+    common.req({
+      url: layui.setter.api.GetPact
+      ,data: {}
+      ,success: $.proxy(function(data){
+        if (!common.empty(data.data)) {
+          layer.open({
+            content: data.data,
+            title: '签约协议',
+            btn: ['同意', '取消'],
+            yes: function(index, layero){
+              setManager(elemid);
+              layer.close(index);
+            },
+            btn2: function(index, layero){
+            },
+            cancel: function(){ 
+            }
+          });
+        } else {
+          setManager(elemid);
+        }
+      }, this)
+    });
+  }
+
   admin.events.xyseldoctor = function(elemid){
+    setManager(elemid);
+  }
+
+  var setManager = function(elemid){
     var seldoctorindex = layer.open({
       type: 1,
       area:['90%', '90%'],

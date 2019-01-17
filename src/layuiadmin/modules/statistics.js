@@ -171,7 +171,7 @@ layui.define(['common', 'echarts', 'form'], function(exports){
           UNIT_ID: unitId
           ,CHILDREN_UNIT: childUnit
           ,PROJUCT_NAME: '血总胆固醇,血高密度胆固醇,血甘油三酯,血低密度胆固醇,白细胞,亚硝酸盐,尿胆原,胆红素,尿潜血,尿蛋白,酸碱度,尿比重,维生素C,尿酮体,葡萄糖,血糖'
-          ,YEAR: year
+          ,YEAR: 0 //year
         }
         ,success: function(data){
           if (data.data.length <= 0) {

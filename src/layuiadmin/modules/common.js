@@ -573,23 +573,103 @@ layui.define(['layer', 'admin', 'view', 'table', 'form', 'tree', 'element'], fun
 
   admin.events.xysetmanager = function(elemid){
     common.req({
-      url: layui.setter.api.GetPact
-      ,data: {}
+      url: layui.setter.api.ReadPact
+      ,data: {CLIENT_ID: elemid.data('cid')}
       ,success: $.proxy(function(data){
         if (!common.empty(data.data)) {
-          layer.open({
-            content: data.data,
-            title: '签约协议',
-            btn: ['同意', '取消'],
-            yes: function(index, layero){
-              setManager(elemid);
-              layer.close(index);
-            },
-            btn2: function(index, layero){
-            },
-            cancel: function(){ 
-            }
+          var managerindex = layer.open({
+            type: 1,
+            area:['90%', '90%'],
+            content: '<div id="xypact"></div>',
+            title: '签约协议'
           });
+
+          view('xypact').render('common/pact', {
+            clientId: elemid.data('cid')
+          }).done(function(){
+            $('.pact-detail').html(data.data);
+            var curCode = '';
+
+            var smsCode = function() {
+
+              options = {
+                seconds: 60
+                ,elemVercode: '#xy-pact-smscode'
+              };
+
+              var seconds = options.seconds
+              ,btn = $('#xy-getsmscode')
+              ,token = null
+              ,timer, countDown = function(loop){
+                seconds--;
+                if(seconds < 0){
+                  btn.removeClass('layui-disabled').html('获取验证码');
+                  seconds = options.seconds;
+                  clearInterval(timer);
+                } else {
+                  btn.addClass('layui-disabled').html(seconds + '秒后重获');
+                }
+
+                if(!loop){
+                  timer = setInterval(function(){
+                    countDown(true);
+                  }, 1000);
+                }
+              };
+              
+              options.elemVercode = $(options.elemVercode);
+
+              btn.on('click', function(){
+
+                if(seconds !== options.seconds || $(this).hasClass('layui-disabled')) return;
+                
+                layui.common.req({
+                  url: layui.setter.api.PactMsg
+                  ,data: {CLIENT_ID: $('#pactCid').val()}
+                  ,success: function(data){
+                    curCode = data.data;
+                    layer.msg(data.message, {
+                      icon: 1
+                      ,shade: 0
+                    });
+                    options.elemVercode.focus();
+                    countDown();
+                  }
+                });
+              });
+            }
+            smsCode();
+
+            form.on('submit(xy-pact-agree)', function(data){
+              if (data.field.CHECK_CODE != curCode) {
+                layer.msg('验证码错误');
+                return;
+              }
+              setManager(elemid);
+              layer.close(managerindex);
+              return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+            $('.xy-pact-cancel').click(function(){
+              layer.close(managerindex);
+            });
+          });
+          // layer.open({
+          //   content: data.data,
+          //   title: '签约协议',
+          //   btn: ['同意', '取消'],
+          //   area: '80%',
+          //   success: function(){
+
+          //   },
+          //   yes: function(index, layero){
+          //     setManager(elemid);
+          //     layer.close(index);
+          //   },
+          //   btn2: function(index, layero){
+          //   },
+          //   cancel: function(){ 
+          //   }
+          // });
         } else {
           setManager(elemid);
         }

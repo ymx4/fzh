@@ -1,0 +1,36 @@
+<script type="text/html" template>
+  <div class="layui-form" lay-filter="xy-pact-confirm-form">
+    <input type="hidden" id="pactCid" value="{{d.params.clientId}}">
+    <div class="layui-card">
+      <div class="layui-card-body">
+        <div class="pact-detail" style="margin-bottom: 10px;"></div>
+      </div>
+    </div>
+    <div class="layui-card">
+      <div class="layui-card-body">
+
+        <div class="layui-form-item" style="min-width: 300px;max-width:375px;margin: 0 auto;">
+          <div class="layui-form-item">
+            <div class="layui-row">
+              <div class="layui-col-xs7">
+                <label for="xy-pact-smscode"></label>
+                <input type="text" name="CHECK_CODE" id="xy-pact-smscode" lay-verify="required" placeholder="短信验证码" class="layui-input">
+              </div>
+              <div class="layui-col-xs5">
+                <div style="margin-left: 10px;">
+                  <button type="button" class="layui-btn layui-btn-primary layui-btn-fluid" id="xy-getsmscode">获取验证码</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item layui-layout-admin" style="text-align: center;">
+          <div>
+            <button class="layui-btn" lay-submit lay-filter="xy-pact-agree">同意</button>
+            <button type="button" class="layui-btn layui-btn-primary xy-pact-cancel">取消</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>

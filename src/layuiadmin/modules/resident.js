@@ -307,6 +307,7 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
           ,success: $.proxy(function(data){
             data.data.BIRTHDAY = data.data.BIRTHDAY ? data.data.BIRTHDAY.substring(0, 10) : '';
             form.val('xy-resident-form', data.data);
+            $('.set-manager').data('cid', router.search.id);
             $('#CREATE_USER_ID_V').text(data.data.DOCTOR_REAL_NAME);
             $('#UNIT_ID_V').text(data.data.UNIT_NAME);
             laydate.render({

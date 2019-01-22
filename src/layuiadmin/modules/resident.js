@@ -401,8 +401,8 @@ layui.define(['table', 'form', 'element', 'upload', 'laydate', 'laytpl', 'common
         });
       } else {
         form.val('xy-resident-form', {
-          MANAGE_USER_ID: common.user.ID
-          ,MANAGE_REAL_NAME: common.user.REAL_NAME
+          MANAGE_USER_ID: 0
+          ,MANAGE_REAL_NAME: '未签约'
           ,MANAGE_UNIT_ID: common.user.UNIT_ID
           ,MANAGE_UNIT_NAME: common.user.UNIT_NAME
           ,UNIT_ID: common.user.UNIT_ID

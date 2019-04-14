@@ -20,7 +20,7 @@
 
   <script id="clientTpl" type="text/html">
     {{#  layui.each(d.clientList, function(index, item){ }}
-    <div class="caller-item" data-id="{{item.ID}}" data-name="{{item.REAL_NAME}}">
+    <div class="caller-item" data-id="{{item.ID}}" data-name="{{item.REAL_NAME}}" data-sex="{{item.SEX_VALUE}}">
       <div class="caller-main">
         <a href="{{d.detailUrl}}#/id={{ item.ID }}/adapter=m">
           <p>{{# if (item.EMPHASIS_ID && item.EMPHASIS_ID != 165) { }}<span class="layui-badge-dot"></span> {{# } }}<strong>{{ item.REAL_NAME }}</strong> <span class="has-manager layui-badge layui-bg-blue">{{# if (item.MANAGE_USER_ID) { }}已签约{{# } else { }}未签约{{# } }}</span></p>
@@ -50,6 +50,9 @@
         </a>
         <a class="layui-btn layui-btn-sm getBlood" href="javascript:;">
           瑞光康泰血压计
+        </a>
+        <a class="layui-btn layui-btn-sm getJingjue" href="javascript:;">
+          净珏心电记录仪
         </a>
       </div>
     </div>

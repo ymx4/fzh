@@ -413,6 +413,17 @@ layui.define(['laytpl', 'element', 'flow', 'form', 'admin', 'history', 'table', 
             js2Android.showBloodDetailsActivity('doctor', paramsItem.data('id'), paramsItem.data('name'), layui.setter.api.DCPost + '?token=' + xymobile.user.token);
           }
         });
+        $('#clientContainer').on('click', '.getJingjue', function() {
+          var ua = window.navigator.userAgent.toLowerCase();
+          // android
+          if (ua.match(/holandroid/i) == 'holandroid') {
+            var paramsItem = $(this).closest('.caller-item');
+            js2Android.showJingjueDetailsActivity('doctor', JSON.stringify({
+              userOpenId: paramsItem.data('id'),
+              sex: paramsItem.data('sex') == '男' ? 1 : 0,
+            }));
+          }
+        });
         $('#clientContainer').on('click', '.setManager', function() {
           var paramsItem = $(this).closest('.caller-item');
           var that = $(this);

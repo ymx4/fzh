@@ -104,6 +104,16 @@ layui.define(['table', 'form', 'common', 'laydate', 'laytpl', 'element', 'flow',
             js2Android.showBloodDetailsActivity('client', common.user.ID, common.user.REAL_NAME, layui.setter.api.Client.DCPost + '?token=' + common.user.token);
           }
       });
+      $('.sel-jingjue').on('click', function() {
+          var ua = window.navigator.userAgent.toLowerCase();
+          // android
+          if (ua.match(/holandroid/i) == 'holandroid') {
+            js2Android.showJingjueDetailsActivity('client', JSON.stringify({
+              userOpenId: common.user.ID,
+              sex: common.user.SEX_VALUE == '男' ? 1 : 0,
+            }));
+          }
+      });
     }
     ,equipment: function() {
       if (!router.search.params) {
